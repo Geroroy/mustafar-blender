@@ -23,6 +23,11 @@
    - `v0.2/isometric_view.png`: 게임 투영 (라벨·신뢰도 색)
    - `v0.2/top_view.png`: 위에서 본 배치 (10 m 축척)
    - `v0.2/perspective_view.png`: R2 카메라 렌더의 라벨 판
+   - 추가 렌더(같은 v0.2 모델, 카메라만 추가 — `chatgpt_reviews/CR-001_v0.2/extra_renders/RENDERS.md`):
+     - `V2_section_facility_side.png`: 시설 쪽 단면 (y −15.5, 1 m 격자) — A-2, A-4
+     - `V3_facility_wall_front.png`: 시설 벽 정면 입면 (1 m 격자) — A-3
+     - `V4_game_scale_crop.png`: 게임 축척 28.28 px/m 부분 확대 — B-1, B-4
+     - `V5_game_iso_no_roof.png`: 지붕을 숨긴 게임 투영 — B-2
    - 영화 원본: `refs/R2_film_lecture.jpg`, `refs/R3_film_lies.jpg`, `refs/R6_film_facility_wide.gif`(프레임 43), `refs/R1_film_wide.jpg`
    - 다른 게임(영화 근거 아님): `refs/R4_game_hangar.jpg`, `refs/R5_game_platform.jpg`
 3. 수치와 근거: `v0.2/dimensions.json` (항목마다 exist/form 신뢰도와 basis)
@@ -73,13 +78,9 @@
 
 ## 5. 추가 렌더 요청
 
-현재 렌더로 판단할 수 없는 항목이 있으면 5절에 원하는 카메라 시점과 이유를 적어 달라.
-제작자가 이미 검토 중인 후보는 아래와 같다(아직 렌더하지 않음).
-- R3 맞춤 원근
-- 시설 쪽 단면
-- 시설 벽 정면 정사영
-- 게임 축척(28.28 px/m) 부분 확대
-- 지붕을 숨긴 게임 투영
+시설 쪽 단면(V2), 시설 벽 정면(V3), 게임 축척 확대(V4), 지붕 숨긴 게임 투영(V5)은 이미 넣었다.
+V2·V3은 카메라 클리핑으로 자른 그림이라 잘린 면이 검게 보인다(RENDERS.md 참고).
+R3 맞춤 원근(V1)은 보류 중이다. 그 밖에 판단에 필요한 시점이 있으면 답 5절에 적어 달라.
 
 ## 6. 답변 형식
 
@@ -122,3 +123,26 @@ ID 규칙은 영화 고증 **A01, A02…**, 게임 구현 **B01, B02…** 이다
 ## 5. 추가 렌더·자료 요청
 - <카메라 시점 또는 영화 장면>: <이유>
 ```
+
+## 7. 직접 첨부한 경우 — 파일 이름 대응
+
+GitHub 연결 대신 ZIP(`CR-001_v0.2_for_ChatGPT.zip`)의 파일을 첨부했다면 이름은 아래와 같다.
+답변의 "근거"에는 **이 번호 이름**을 써도 된다.
+
+| 첨부 이름 | 저장소 경로 | 종류 |
+|---|---|---|
+| `01_compare_R2.png` | `v0.2/compare_R2.png` | 비교판 (영화 R2 / 렌더 / 겹침) |
+| `02_compare_R6.png` | `v0.2/compare_R6.png` | 비교판 (영화 R6 / 렌더 / 겹침) |
+| `03_isometric_view.png` | `v0.2/isometric_view.png` | 렌더 (게임 투영, 라벨) |
+| `04_top_view.png` | `v0.2/top_view.png` | 렌더 (위에서) |
+| `05_V2_section.png` | `chatgpt_reviews/CR-001_v0.2/extra_renders/V2_section_facility_side.png` | 추가 렌더 |
+| `06_V3_facility_front.png` | `…/extra_renders/V3_facility_wall_front.png` | 추가 렌더 |
+| `07_V4_game_scale.png` | `…/extra_renders/V4_game_scale_crop.png` | 추가 렌더 |
+| `08_V5_iso_no_roof.png` | `…/extra_renders/V5_game_iso_no_roof.png` | 추가 렌더 |
+| `09_perspective_view.png` | `v0.2/perspective_view.png` | 렌더 (R2 카메라, 라벨) |
+| `10_R2_film.jpg` | `refs/R2_film_lecture.jpg` | **영화 스틸** |
+| `11_R3_film.jpg` | `refs/R3_film_lies.jpg` | **영화 스틸** |
+| `12_R6_film_frame43.png` | `refs/R6_film_facility_wide.gif` 프레임 43 | **영화 스틸** (GIF에서 뽑은 한 장, 원본 크기) |
+| `13_R1_film.jpg` | `refs/R1_film_wide.jpg` | **영화 스틸** (저해상도) |
+| `14_R4_other_game.jpg` | `refs/R4_game_hangar.jpg` | 다른 게임 — 영화 근거 아님 |
+| `15_R5_other_game.jpg` | `refs/R5_game_platform.jpg` | 다른 게임 — 영화 근거 아님 |

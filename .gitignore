@@ -28,3 +28,6 @@ __pycache__/
 /work/
 v0.2/work/*.png
 v0.2/work/run.log
+
+# ---- ChatGPT 전달용 ZIP (build_package.py로 다시 만듦, 영화 스틸 포함 — 저장소에 중복 보관하지 않음)
+chatgpt_reviews/*/*.zip

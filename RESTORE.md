@@ -23,6 +23,7 @@ git log --oneline | head -3
 ```bash
 uv venv -q -p 3.13 .venv-bpy
 VIRTUAL_ENV=$PWD/.venv-bpy uv pip install bpy==5.2.2          # 공식 Blender 모듈, 약 400 MB, 1분 안팎
+VIRTUAL_ENV=$PWD/.venv-bpy uv pip install pillow==12.3.0      # 렌더 라벨·비교판 합성(create_mustafar.py, 추가 렌더 스크립트)
 uv venv -q -p 3.13 .venv-bridge
 VIRTUAL_ENV=$PWD/.venv-bridge uv pip install -r gpt_review_bridge/requirements.txt
 ```

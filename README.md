@@ -67,6 +67,8 @@ chatgpt_reviews/
     request.md                     ← Claude 작성: 검수 대상 커밋, 볼 이미지 경로, 질문(영화 고증 A / 게임 구현 B), 답변 형식
     images.md                      ← Claude 작성: 이미지 목록, 카메라 방향, 영화↔렌더 대응([확인]/[추정]/[미확인])
     extra_views_proposal.md        ← Claude 작성: 추가 카메라 시점 제안(렌더는 승인 후)
+    extra_renders/                 ← 승인된 추가 렌더(모델 사본에서 카메라만 추가), RENDERS.md·render_log.json·생성 스크립트
+    build_package.py               ← ChatGPT 직접 첨부용 ZIP 생성(ZIP은 영화 스틸 포함 → .gitignore)
     chatgpt_review.md              ← 사용자가 저장: ChatGPT 답 원문 (수정하지 않음)
     plan.md                        ← Claude 작성: 수정 계획 + 사용자 결정 칸
   TEMPLATE_review.md               ← ChatGPT 답변 형식 (request.md에도 붙여 넣음)
