@@ -1,0 +1,10 @@
+# 키·비용 로그·재생성 가능한 실행 산출물은 저장소에 올리지 않는다.
+# 검수 결과·계획·사용자 결정(review.json, report_ko.md, plan*, confirmed_structures.json)은 프로젝트 기록이라 보관한다.
+.env
+*.key
+costs.jsonl
+reviews/*/usage.json
+reviews/*/prepared/
+reviews/*/request_preview.json
+tests/last_selftest/
+__pycache__/

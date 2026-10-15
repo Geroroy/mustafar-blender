@@ -1,0 +1,267 @@
+{
+ "2200": {
+  "f": 2200,
+  "hfov": 67.8,
+  "pitch": 10.4,
+  "cam_h": 4.81,
+  "fit_err": 0.0001,
+  "pred_vertical_tilt_at_x2600": 5.3,
+  "obi_anakin": 4.5,
+  "anakin_edge_light3": 5.4,
+  "edge_lights_1_2": 7.6,
+  "edge_lights_2_3": 8.0,
+  "edge_A_B": 18.7,
+  "obi_padme": 5.1,
+  "cam_to_obi": 12.0,
+  "pts": {
+   "obiwan": [
+    -0.4,
+    12.0
+   ],
+   "anakin": [
+    2.6,
+    15.4
+   ],
+   "padme": [
+    4.6,
+    13.4
+   ],
+   "edge_light_1": [
+    1.6,
+    34.4
+   ],
+   "edge_light_2": [
+    4.1,
+    27.2
+   ],
+   "edge_light_3": [
+    6.1,
+    19.5
+   ],
+   "edge_line_A": [
+    2.0,
+    32.8
+   ],
+   "edge_line_B": [
+    8.0,
+    15.1
+   ],
+   "stair_box_near_corner": [
+    7.5,
+    15.5
+   ]
+  }
+ },
+ "2800": {
+  "f": 2800,
+  "hfov": 55.6,
+  "pitch": 8.4,
+  "cam_h": 4.96,
+  "fit_err": 0.0002,
+  "pred_vertical_tilt_at_x2600": 3.4,
+  "obi_anakin": 5.2,
+  "anakin_edge_light3": 6.2,
+  "edge_lights_1_2": 9.1,
+  "edge_lights_2_3": 9.7,
+  "edge_A_B": 22.5,
+  "obi_padme": 5.3,
+  "cam_to_obi": 15.7,
+  "pts": {
+   "obiwan": [
+    -0.4,
+    15.7
+   ],
+   "anakin": [
+    2.6,
+    20.0
+   ],
+   "padme": [
+    4.6,
+    17.4
+   ],
+   "edge_light_1": [
+    1.6,
+    43.2
+   ],
+   "edge_light_2": [
+    4.0,
+    34.5
+   ],
+   "edge_light_3": [
+    6.1,
+    25.0
+   ],
+   "edge_line_A": [
+    1.9,
+    41.3
+   ],
+   "edge_line_B": [
+    8.0,
+    19.6
+   ],
+   "stair_box_near_corner": [
+    7.5,
+    20.1
+   ]
+  }
+ },
+ "3500": {
+  "f": 3500,
+  "hfov": 45.8,
+  "pitch": 6.9,
+  "cam_h": 5.05,
+  "fit_err": 0.0,
+  "pred_vertical_tilt_at_x2600": 2.2,
+  "obi_anakin": 6.1,
+  "anakin_edge_light3": 7.2,
+  "edge_lights_1_2": 10.9,
+  "edge_lights_2_3": 11.8,
+  "edge_A_B": 27.2,
+  "obi_padme": 5.4,
+  "cam_to_obi": 20.0,
+  "pts": {
+   "obiwan": [
+    -0.4,
+    20.0
+   ],
+   "anakin": [
+    2.6,
+    25.3
+   ],
+   "padme": [
+    4.6,
+    22.2
+   ],
+   "edge_light_1": [
+    1.6,
+    53.7
+   ],
+   "edge_light_2": [
+    4.0,
+    43.1
+   ],
+   "edge_light_3": [
+    6.1,
+    31.5
+   ],
+   "edge_line_A": [
+    1.9,
+    51.4
+   ],
+   "edge_line_B": [
+    8.1,
+    24.8
+   ],
+   "stair_box_near_corner": [
+    7.6,
+    25.5
+   ]
+  }
+ },
+ "4500": {
+  "f": 4500,
+  "hfov": 36.3,
+  "pitch": 5.4,
+  "cam_h": 5.12,
+  "fit_err": 0.0001,
+  "pred_vertical_tilt_at_x2600": 1.4,
+  "obi_anakin": 7.4,
+  "anakin_edge_light3": 8.7,
+  "edge_lights_1_2": 13.6,
+  "edge_lights_2_3": 14.9,
+  "edge_A_B": 34.2,
+  "obi_padme": 5.7,
+  "cam_to_obi": 26.0,
+  "pts": {
+   "obiwan": [
+    -0.4,
+    26.0
+   ],
+   "anakin": [
+    2.6,
+    32.8
+   ],
+   "padme": [
+    4.7,
+    28.8
+   ],
+   "edge_light_1": [
+    1.6,
+    68.8
+   ],
+   "edge_light_2": [
+    4.0,
+    55.5
+   ],
+   "edge_light_3": [
+    6.1,
+    40.8
+   ],
+   "edge_line_A": [
+    1.9,
+    65.9
+   ],
+   "edge_line_B": [
+    8.1,
+    32.2
+   ],
+   "stair_box_near_corner": [
+    7.6,
+    33.0
+   ]
+  }
+ },
+ "6000": {
+  "f": 6000,
+  "hfov": 27.7,
+  "pitch": 4.1,
+  "cam_h": 5.18,
+  "fit_err": 0.0003,
+  "pred_vertical_tilt_at_x2600": 0.8,
+  "obi_anakin": 9.4,
+  "anakin_edge_light3": 11.1,
+  "edge_lights_1_2": 17.6,
+  "edge_lights_2_3": 19.4,
+  "edge_A_B": 44.6,
+  "obi_padme": 6.2,
+  "cam_to_obi": 35.1,
+  "pts": {
+   "obiwan": [
+    -0.4,
+    35.0
+   ],
+   "anakin": [
+    2.6,
+    44.0
+   ],
+   "padme": [
+    4.7,
+    38.7
+   ],
+   "edge_light_1": [
+    1.6,
+    91.3
+   ],
+   "edge_light_2": [
+    4.0,
+    73.9
+   ],
+   "edge_light_3": [
+    6.1,
+    54.5
+   ],
+   "edge_line_A": [
+    1.9,
+    87.4
+   ],
+   "edge_line_B": [
+    8.1,
+    43.3
+   ],
+   "stair_box_near_corner": [
+    7.6,
+    44.3
+   ]
+  }
+ }
+}

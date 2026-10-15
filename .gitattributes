@@ -1,0 +1,13 @@
+# 바이너리는 줄바꿈 변환·텍스트 diff를 하지 않는다. (Git LFS는 쓰지 않음 — RESTORE.md "용량" 참고)
+*.blend binary
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+# 글 파일은 LF로 고정
+*.py    text eol=lf
+*.json  text eol=lf
+*.jsonl text eol=lf
+*.md    text eol=lf
+*.txt   text eol=lf

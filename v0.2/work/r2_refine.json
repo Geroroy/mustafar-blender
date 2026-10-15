@@ -1,0 +1,95 @@
+{
+ "2800": {
+  "stair_corner_at_1.2m": [
+   11.1,
+   -6.09,
+   1.2
+  ],
+  "lights": [
+   [
+    14.4,
+    21.1,
+    0.1
+   ],
+   [
+    14.4,
+    12.3,
+    0.1
+   ],
+   [
+    13.9,
+    2.8,
+    0.1
+   ]
+  ],
+  "wall_back_end_y_gap2": 8.0,
+  "wall_back_end_y_gap4": 11.5,
+  "wall_back_end_y_gap6": 15.25,
+  "wall_back_end_y_gap8": 18.75,
+  "wing_tip_x": 13.5,
+  "wing_tip_v_at_that_x": 532.0,
+  "skiff_center_x_if_span_49.3": -11.2
+ },
+ "3500": {
+  "stair_corner_at_1.2m": [
+   11.05,
+   -12.01,
+   1.2
+  ],
+  "lights": [
+   [
+    14.4,
+    21.3,
+    0.1
+   ],
+   [
+    14.4,
+    10.7,
+    0.1
+   ],
+   [
+    13.9,
+    -0.9,
+    0.1
+   ]
+  ],
+  "wall_back_end_y_gap2": 5.5,
+  "wall_back_end_y_gap4": 10.0,
+  "wall_back_end_y_gap6": 14.5,
+  "wall_back_end_y_gap8": 19.25,
+  "wing_tip_x": 14.8,
+  "wing_tip_v_at_that_x": 531.0,
+  "skiff_center_x_if_span_49.3": -9.9
+ },
+ "4500": {
+  "stair_corner_at_1.2m": [
+   11.01,
+   -20.61,
+   1.2
+  ],
+  "lights": [
+   [
+    14.4,
+    21.7,
+    0.1
+   ],
+   [
+    14.4,
+    8.4,
+    0.1
+   ],
+   [
+    13.9,
+    -6.2,
+    0.1
+   ]
+  ],
+  "wall_back_end_y_gap2": 2.0,
+  "wall_back_end_y_gap4": 7.75,
+  "wall_back_end_y_gap6": 13.75,
+  "wall_back_end_y_gap8": 19.5,
+  "wing_tip_x": 15.9,
+  "wing_tip_v_at_that_x": 529.0,
+  "skiff_center_x_if_span_49.3": -8.8
+ }
+}

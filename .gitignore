@@ -1,0 +1,30 @@
+# ---- 비밀정보: 어떤 형태로든 올리지 않음
+.env
+.env.*
+*.key
+*secret*
+
+# ---- 가상환경·캐시 (RESTORE.md 절차로 다시 만듦)
+.venv*/
+bpyenv/
+bridgeenv/
+__pycache__/
+*.pyc
+
+# ---- Blender 자동 백업
+*.blend1
+*.blend2
+
+# ---- 최상위 v0.1 중복본 (v0.1/ 폴더와 바이트까지 같음 — v0.1/만 보관)
+/create_mustafar.py
+/dimensions.json
+/mustafar_blockout.blend
+/reference_analysis.md
+/top_view.png
+/isometric_view.png
+/perspective_view.png
+
+# ---- 분석 중간 산출물 (재생성 가능한 확대·격자 이미지, 실행 로그, 조립 전 조각)
+/work/
+v0.2/work/*.png
+v0.2/work/run.log

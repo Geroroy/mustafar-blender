@@ -1,0 +1,54 @@
+{
+  "review_id": "001_connection_test",
+  "mode": "connection_test",
+  "_doc": "3단계 연결 테스트: 이미지 2장, 호출 1회. 경로는 이 파일 기준.",
+  "images": [
+    {
+      "id": "film_R2",
+      "role": "film_still",
+      "path": "../../refs/R2_film_lecture.jpg",
+      "crop": [
+        0,
+        305,
+        2954,
+        1543
+      ],
+      "note": "'Don't lecture me' 장면, 위아래 검은 띠 제거"
+    },
+    {
+      "id": "blender_persp",
+      "role": "blender_perspective",
+      "path": "../../v0.2/perspective_view.png",
+      "note": "R2와 같은 카메라로 맞춘 v0.2 렌더"
+    }
+  ],
+  "dimensions_json": "../../v0.2/dimensions.json",
+  "object_ids": [
+    "Landing_Platform",
+    "Floor_Plates",
+    "Platform_Sidewalls",
+    "Corner_FrontLeft",
+    "Corner_FrontRight",
+    "Corner_BackLeft",
+    "Corner_BackRight",
+    "Outline_Alt_84.7deg",
+    "Outline_Alt_98.4deg",
+    "Corridor_Lower_Walkway",
+    "Hangar_Walls",
+    "Hangar_Roof",
+    "Facility_Body_Unknown",
+    "Structural_Pillars",
+    "Hangar_Spotlights",
+    "Stairwell",
+    "Stairwell_Lit_Slots",
+    "Edge_Lights_Facility_Side",
+    "Back_Edge_Posts",
+    "Back_Edge_Post_Lights",
+    "Support_Placeholder",
+    "Facility_Base_Placeholder",
+    "Cliff_Placeholder",
+    "Skiff_Check_29m_x_49m",
+    "Ramp_Foot_Measured"
+  ],
+  "user_notes": "연결 테스트입니다. 가장 중요한 구조 차이 1~3개만 적어 주세요."
+}

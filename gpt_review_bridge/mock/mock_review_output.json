@@ -1,0 +1,33 @@
+{
+  "summary_ko": "[모의 데이터 — 실제 GPT 응답 아님] 승인 흐름 시험용 가짜 검수 결과다. 시설 벽의 처마 보와 바닥 가장자리의 관계, 바닥 판재 형태, 시설 출입구 위치에 대한 지적 세 건을 담았다. 내용은 흐름 시험을 위한 예시이며 모델 수정의 근거로 쓰지 않는다.",
+  "findings": [
+    {
+      "object_id": "Hangar_Roof",
+      "issue": "[모의] 처마 보가 바닥 가장자리 쪽으로 더 내밀어져 있을 가능성",
+      "evidence_image": ["film_R2", "blender_persp"],
+      "observation": "[모의] 영화 R2에서 조명 빛줄기가 벽면보다 앞쪽 바닥을 비추는 것처럼 보인다.",
+      "confidence": "PROBABLE",
+      "proposed_change": "[모의] facility.roof_overhang를 2 m에서 2~4 m 범위로 검토",
+      "requires_more_reference": false
+    },
+    {
+      "object_id": "Floor_Plates",
+      "issue": "[모의] 삼각형 판이 영화보다 많아 보임",
+      "evidence_image": ["film_R2", "film_R3", "blender_persp"],
+      "observation": "[모의] 영화의 판은 사각형·오각형이 주를 이룬다.",
+      "confidence": "CONFIRMED",
+      "proposed_change": "[모의] 분할 시 삼각형 조각 비율을 줄이는 조건 추가",
+      "requires_more_reference": false
+    },
+    {
+      "object_id": "NEW:Facility_Entrance",
+      "issue": "[모의] 시설 내부로 들어가는 출입구가 모델에 없음",
+      "evidence_image": ["film_R2"],
+      "observation": "[모의] 제공된 영화 스틸에는 출입구가 보이지 않는다.",
+      "confidence": "UNKNOWN",
+      "proposed_change": "수정 보류, 추가 자료 필요",
+      "requires_more_reference": true
+    }
+  ],
+  "missing_references": ["[모의] 결투가 시설 안으로 들어가는 장면"]
+}

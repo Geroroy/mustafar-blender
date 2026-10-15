@@ -1,0 +1,100 @@
+{
+  "review_id": "002_landing_full",
+  "mode": "review",
+  "_doc": "4단계 전체 검수 틀. user_annotation 이미지는 사용자가 annotations/에 넣어야 함(없으면 prepare가 멈춤).",
+  "images": [
+    {
+      "id": "film_R2",
+      "role": "film_still",
+      "path": "../../refs/R2_film_lecture.jpg",
+      "crop": [
+        0,
+        305,
+        2954,
+        1543
+      ],
+      "note": "'Don't lecture me'"
+    },
+    {
+      "id": "film_R3",
+      "role": "film_still",
+      "path": "../../refs/R3_film_lies.jpg",
+      "crop": [
+        0,
+        305,
+        2959,
+        1543
+      ],
+      "note": "'I see through the lies of the Jedi'"
+    },
+    {
+      "id": "film_R6",
+      "role": "film_still",
+      "path": "../../refs/R6_film_facility_wide.gif",
+      "frame": 43,
+      "crop": [
+        40,
+        200,
+        400,
+        440
+      ],
+      "note": "시설 전경(원거리), 프레임 43"
+    },
+    {
+      "id": "user_hangar_entrance",
+      "role": "user_annotation",
+      "path": "../annotations/hangar_entrance.png",
+      "note": "사용자가 표시한 격납고·통로 입구 (의도 설명용)"
+    },
+    {
+      "id": "blender_top",
+      "role": "blender_top",
+      "path": "../../v0.2/top_view.png"
+    },
+    {
+      "id": "blender_iso",
+      "role": "blender_iso",
+      "path": "../../v0.2/isometric_view.png"
+    },
+    {
+      "id": "blender_persp",
+      "role": "blender_perspective",
+      "path": "../../v0.2/perspective_view.png"
+    },
+    {
+      "id": "compare_R2",
+      "role": "blender_compare",
+      "path": "../../v0.2/compare_R2.png",
+      "note": "영화 R2 / 같은 카메라 렌더 / 겹침"
+    }
+  ],
+  "dimensions_json": "../../v0.2/dimensions.json",
+  "object_ids": [
+    "Landing_Platform",
+    "Floor_Plates",
+    "Platform_Sidewalls",
+    "Corner_FrontLeft",
+    "Corner_FrontRight",
+    "Corner_BackLeft",
+    "Corner_BackRight",
+    "Outline_Alt_84.7deg",
+    "Outline_Alt_98.4deg",
+    "Corridor_Lower_Walkway",
+    "Hangar_Walls",
+    "Hangar_Roof",
+    "Facility_Body_Unknown",
+    "Structural_Pillars",
+    "Hangar_Spotlights",
+    "Stairwell",
+    "Stairwell_Lit_Slots",
+    "Edge_Lights_Facility_Side",
+    "Back_Edge_Posts",
+    "Back_Edge_Post_Lights",
+    "Support_Placeholder",
+    "Facility_Base_Placeholder",
+    "Cliff_Placeholder",
+    "Skiff_Check_29m_x_49m",
+    "Ramp_Foot_Measured"
+  ],
+  "user_notes": "v0.2 블록아웃 검수. 시설(격납고)과 통로 입구의 위치·연결을 특히 봐 주세요."
+}

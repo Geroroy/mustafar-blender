@@ -1,0 +1,52 @@
+{
+  "_doc": "GPT 검수 브리지 설정. API 키는 여기 넣지 않는다(OPENAI_API_KEY 환경변수로만). model·가격이 비어 있으면 실제 호출을 거부한다. 환경변수 MUSTAFAR_REVIEW_MODEL이 있으면 model보다 우선.",
+
+  "model": null,
+  "_model_note": "3단계 전에 `review.py list-models`(무료)로 계정에서 쓸 수 있는 모델을 보고, 이미지 입력을 지원하는 모델을 골라 적는다.",
+
+  "pricing": {
+    "currency": "USD",
+    "input_per_1m_tokens": null,
+    "cached_input_per_1m_tokens": null,
+    "output_per_1m_tokens": null,
+    "source": null,
+    "checked_at": null,
+    "_note": "고른 모델의 공식 가격(OpenAI 가격 페이지)을 확인한 날짜와 함께 적는다. 비어 있으면 예상 비용을 낼 수 없어 실제 호출을 거부한다."
+  },
+
+  "image_tokens": {
+    "method": "tile",
+    "tile_base_tokens": 85,
+    "tile_tokens": 170,
+    "patch_size": 32,
+    "patch_cap": 1536,
+    "patch_multiplier": 1.0,
+    "_note": "이미지 토큰 '추정'용. tile = 512px 타일 방식(높은 detail), patch = 32px 패치 방식. 모델마다 계산법이 달라 실제 사용량은 호출 후 usage로 기록한다."
+  },
+
+  "images": {
+    "max_side_px": 1536,
+    "min_side_px": 64,
+    "max_bytes_per_image": 4000000,
+    "max_total_bytes": 20000000,
+    "detail": "high",
+    "allowed_suffixes": [".png", ".jpg", ".jpeg", ".webp", ".gif"]
+  },
+
+  "limits": {
+    "connection_test_max_images": 2,
+    "review_max_images": 8,
+    "max_output_tokens": 6000,
+    "timeout_seconds": 180,
+    "max_retries": 0,
+    "_note": "자동 재시도 없음. 검수 하나(reviews/<id>)당 실제 호출 1회 — 응답이 있으면 다시 부르지 않는다."
+  },
+
+  "project": {
+    "dir": "../v0.2",
+    "protected_files": ["mustafar_blockout_v0.2.blend", "create_mustafar.py", "dimensions.json"],
+    "_note": "승인 전에는 이 파일들이 바뀌면 안 된다(approval.py guard가 해시로 확인). 수정은 approval.py new-version으로 만든 새 버전 폴더에서만."
+  },
+
+  "store_responses_on_openai": false
+}

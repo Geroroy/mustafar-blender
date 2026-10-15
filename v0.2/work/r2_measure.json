@@ -1,0 +1,56 @@
+{
+ "2800": {
+  "perp_obiwan": -9.1,
+  "perp_anakin": -5.1,
+  "perp_padme": -3.9,
+  "perp_rampL": -11.1,
+  "perp_rampR": -9.5,
+  "ramp_foot_width": 2.93,
+  "edge_len_visible": 22.5,
+  "along_obiwan": 24.0,
+  "along_anakin": 20.7,
+  "along_padme": 23.7,
+  "light_spacing": [
+   9.1,
+   9.7
+  ],
+  "spot_height_gap0": 6.4,
+  "spot_height_gap4": 6.8
+ },
+ "3500": {
+  "perp_obiwan": -9.3,
+  "perp_anakin": -5.2,
+  "perp_padme": -3.9,
+  "perp_rampL": -11.3,
+  "perp_rampR": -9.6,
+  "ramp_foot_width": 3.55,
+  "edge_len_visible": 27.2,
+  "along_obiwan": 30.1,
+  "along_anakin": 25.6,
+  "along_padme": 29.1,
+  "light_spacing": [
+   10.9,
+   11.8
+  ],
+  "spot_height_gap0": 6.4,
+  "spot_height_gap4": 6.9
+ },
+ "4500": {
+  "perp_obiwan": -9.4,
+  "perp_anakin": -5.3,
+  "perp_padme": -4.0,
+  "perp_rampL": -11.4,
+  "perp_rampR": -9.7,
+  "ramp_foot_width": 4.45,
+  "edge_len_visible": 34.2,
+  "along_obiwan": 38.8,
+  "along_anakin": 32.6,
+  "along_padme": 36.9,
+  "light_spacing": [
+   13.6,
+   14.9
+  ],
+  "spot_height_gap0": 6.5,
+  "spot_height_gap4": 6.9
+ }
+}
