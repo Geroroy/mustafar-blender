@@ -15,6 +15,7 @@ ChatGPT 독립 검수 + 사용자 승인으로 고쳐 나가는 작업 저장소
 | `v0.2/` | 블록아웃 v0.2 (영화 스틸 카메라 맞춤 측정 반영) — 현재 기준 |
 | `v0.2/work/` | R2 카메라 맞춤 측정 스크립트·결과(`r2_*.py`, `r2_*.json`) |
 | `gpt_review_bridge/` | GPT API 검수 연동 모듈 — **보존·휴면** (삭제하지 않음, 실제 호출 안 함) |
+| `chatgpt_reviews/` | ChatGPT 검수 라운드 (요청서·답변·수정 계획, Markdown) |
 
 각 버전 폴더: `create_mustafar.py`(생성 스크립트), `dimensions.json`(치수·신뢰도), `.blend`, 렌더 PNG, `reference_analysis.md`.
 
@@ -24,13 +25,14 @@ ChatGPT 독립 검수 + 사용자 승인으로 고쳐 나가는 작업 저장소
 
 ## ChatGPT 협업 절차 (GitHub 반자동)
 
-> 상태: **제안**. 아래 폴더·파일은 첫 검수 라운드를 시작할 때 만든다. 지금 있는 파일은 건드리지 않는다.
+> 상태: **승인됨(2026-10-15)**. 첫 라운드는 기존 **v0.2**를 그대로 검수한다 → [`chatgpt_reviews/CR-001_v0.2/request.md`](chatgpt_reviews/CR-001_v0.2/request.md).
+> v0.2 렌더는 이미 있는 파일 이름을 그대로 쓰고(보존 버전이라 이름을 바꾸지 않음), 아래 `renders/` 규칙은 v0.3부터 적용한다.
 
 ### 원칙
 
 1. **유료 API 호출 없음.** `gpt_review_bridge/`는 지우지 않고 그대로 둔다. 그 안의 모의 시험
    (`tests/test_flow.py`)은 네트워크를 쓰지 않으므로 돌려도 된다. `review.py check`는 api.openai.com에 접속하므로
-   실행하지 않는다(RESTORE.md 3단계의 `check` 줄은 건너뜀).
+   실행하지 않는다(RESTORE.md 기본 절차에서 제외함).
    `run`, `list-models`도 실행하지 않는다.
 2. **보존 대상은 수정하지 않는다:** `v0.1/`, `v0.2/`, 그리고 별도 저장소인 Isometric-RPG 게임.
 3. **Blender 구조 변경은 사용자 승인 후에만 한다.** Claude Code는 계획만 쓰고, 승인된 항목만 **새 버전 폴더**에 적용한다.
@@ -61,8 +63,10 @@ v0.3/                              ← 승인 항목을 적용한 새 버전 (v0
   CHANGES.md                       ← 이전 버전 대비 바뀐 점 (적용한 plan 항목 ID 목록)
 
 chatgpt_reviews/
-  CR-001_v0.3/                     ← 검수 라운드 1회 = 폴더 1개
-    request.md                     ← Claude 작성: 검수 대상 커밋, 볼 이미지 경로, 질문, 답변 형식
+  CR-001_v0.2/                     ← 검수 라운드 1회 = 폴더 1개 (첫 라운드는 v0.2)
+    request.md                     ← Claude 작성: 검수 대상 커밋, 볼 이미지 경로, 질문(영화 고증 A / 게임 구현 B), 답변 형식
+    images.md                      ← Claude 작성: 이미지 목록, 카메라 방향, 영화↔렌더 대응([확인]/[추정]/[미확인])
+    extra_views_proposal.md        ← Claude 작성: 추가 카메라 시점 제안(렌더는 승인 후)
     chatgpt_review.md              ← 사용자가 저장: ChatGPT 답 원문 (수정하지 않음)
     plan.md                        ← Claude 작성: 수정 계획 + 사용자 결정 칸
   TEMPLATE_review.md               ← ChatGPT 답변 형식 (request.md에도 붙여 넣음)
@@ -93,28 +97,10 @@ chatgpt_reviews/
 6. **적용** (Claude Code): 승인 항목만 다음 버전 폴더(예: `v0.4/`)에 적용하고 다시 1로 돌아간다.
    거절된 항목은 `CHANGES.md`에 "거절"로 남겨, 다음 라운드에 같은 지적이 되풀이되지 않게 한다.
 
-### ChatGPT 답변 형식 (`TEMPLATE_review.md`)
+### ChatGPT 답변 형식
 
-```markdown
-# 검수 결과 — CR-NNN (검수 커밋: <SHA>)
-
-## 요약
-(3줄 이내: 영화와 가장 크게 다른 점)
-
-## 지적 사항
-### F01 — <제목>
-- 위치: <구조물 이름 / 이미지 파일·영역>
-- 근거: <참고 이미지 R?·렌더 번호, 무엇이 어떻게 다른지>
-- 제안: <구체적 수정, 가능하면 치수·각도>
-- 심각도: 높음 | 중간 | 낮음
-- 신뢰도: HIGH | MEDIUM | LOW | UNKNOWN
-- 추가 자료 필요: 없음 | <어떤 각도·장면>
-
-### F02 — ...
-
-## 확인된 점 (고치지 말 것)
-- ...
-```
-
-ID(F01…)와 고정 항목 이름 덕분에 Claude Code가 답을 항목별로 빠짐없이 계획에 옮길 수 있다.
-형식이 어긋나면 Claude Code가 `plan.md` 맨 위에 무엇이 빠졌는지 적고, 추측으로 채우지 않는다.
+[`chatgpt_reviews/TEMPLATE_review.md`](chatgpt_reviews/TEMPLATE_review.md)를 따른다.
+- 영화 고증은 **A01…**, 게임 구현은 **B01…**로 나눠 적는다.
+- 지적마다 대상, 근거, 제안, 신뢰도(또는 고증과의 관계)를 고정 항목 이름으로 적는다.
+- 그래서 Claude Code가 답을 항목별로 빠짐없이 계획에 옮길 수 있다.
+- 형식이 어긋나면 Claude Code가 `plan.md` 맨 위에 무엇이 빠졌는지 적고, 추측으로 채우지 않는다.

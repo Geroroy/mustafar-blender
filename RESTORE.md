@@ -6,8 +6,8 @@ Claude Code에게 "RESTORE.md대로 복원해 줘"라고 하면 된다.
 ## 0. 준비물
 
 - 이 저장소(비공개)에 대한 GitHub 접근 — 세션에 저장소를 추가(add_repo)하거나 세션 생성 때 선택.
-- 네트워크: PyPI(`pypi.org`, `files.pythonhosted.org`)는 기본 허용. GPT 실제 호출에는 `api.openai.com` 허용 필요(3단계부터).
-- 비밀정보: GPT 실제 호출에만 `OPENAI_API_KEY` (환경 설정의 Network secrets 또는 환경 변수). 복원·모의 시험에는 필요 없음.
+- 네트워크: PyPI(`pypi.org`, `files.pythonhosted.org`)만 있으면 된다.
+- 비밀정보: 필요 없음. **OpenAI API 호출은 2026-10-15부터 보류** — 검수는 README의 "ChatGPT 협업 절차"(GitHub 반자동)로 한다.
 
 ## 1. 저장소 받기
 
@@ -38,10 +38,12 @@ VIRTUAL_ENV=$PWD/.venv-bridge uv pip install -r gpt_review_bridge/requirements.t
 
 ```bash
 cd gpt_review_bridge
-../.venv-bridge/bin/python review.py check              # 키 등록 여부·SDK·api.openai.com 연결 (과금 없음)
 SELFTEST_TMP=/tmp ../.venv-bridge/bin/python tests/test_flow.py
 ```
-기대 결과: `결과: 31/31 통과`. 시험은 임시 사본에서 돌고 실제 `v0.2/`와 `reviews/`를 바꾸지 않는다
+기대 결과: `결과: 31/31 통과`. 이 시험은 바깥 네트워크를 쓰지 않는다(오류 경로는 가짜 키 + 로컬 닫힌 포트로만 시험).
+
+> **기본 절차에서 뺀 것:** `review.py check`는 과금은 없지만 api.openai.com에 접속하므로 실행하지 않는다.
+> `list-models`, `estimate` 뒤의 `run`도 마찬가지. GPT Bridge 모듈 자체는 지우지 않고 보존한다(API 사용 재개 때 다시 씀). 시험은 임시 사본에서 돌고 실제 `v0.2/`와 `reviews/`를 바꾸지 않는다
 (마지막 항목 "실제 v0.2 파일은 시험 전후 동일"이 이를 확인).
 
 ## 4. (선택) 블록아웃 재생성 확인 — 반드시 사본에서
