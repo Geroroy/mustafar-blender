@@ -1,0 +1,231 @@
+{
+  "preset": "review",
+  "source_blend": "v0.2/mustafar_blockout_v0.2.blend",
+  "source_sha256_before": "520471364f4dd0a84d4b57addf7ad535cb10ae55e5a00259e5d0920831dfd72e",
+  "bpy_version": "5.2.2 LTS",
+  "cpu_threads_available": 4,
+  "render_settings": {
+    "engine": "CYCLES",
+    "device": "CPU",
+    "samples": 12,
+    "adaptive": true,
+    "adaptive_threshold": 0.02,
+    "bounces": {
+      "max": 4,
+      "diffuse": 2,
+      "glossy": 2,
+      "transmission": 0,
+      "transparent": 2
+    },
+    "caustics": false,
+    "denoise": true,
+    "denoiser": "OPENIMAGEDENOISE",
+    "denoise_prefilter": "FAST",
+    "denoise_quality": "BALANCED",
+    "persistent_data": true,
+    "threads_mode": "FIXED",
+    "threads": 4
+  },
+  "model_changes": "없음 — 카메라 추가, hide_render, 해상도, Cycles 렌더 설정만 변경. 사본은 저장하지 않음",
+  "views": {
+    "V2": {
+      "file": "V2_section_facility_side.png",
+      "seconds": 1.2,
+      "type": "ORTHO",
+      "location_m": [
+        6.0,
+        -15.5,
+        1.5
+      ],
+      "rotation_euler_deg": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "view_direction": [
+        -0.0,
+        1.0,
+        0.0
+      ],
+      "screen_right": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "screen_up": [
+        0.0,
+        -0.0,
+        1.0
+      ],
+      "resolution_px": [
+        768,
+        432
+      ],
+      "clip_start_m": 0.001,
+      "clip_end_m": 2000.0,
+      "hidden_objects": [
+        "Cliff_Placeholder",
+        "Facility_Base_Placeholder",
+        "Lava_Level_Ref",
+        "Outline_Alt_84.7deg",
+        "Outline_Alt_98.4deg",
+        "Skiff_Check_29m_x_49m",
+        "Support_Placeholder"
+      ],
+      "ortho_scale_m": 50.0,
+      "px_per_m": 15.36,
+      "clip_note": "카메라 평면 y = -15.5에서 clip_start 0.001 m — 그보다 앞(−Y)은 잘림. 잘린 면은 채워지지 않아 속이 보일 수 있음. 자른 면 뒤의 구조는 입면으로 보임"
+    },
+    "V3": {
+      "file": "V3_facility_wall_front.png",
+      "seconds": 1.9,
+      "type": "ORTHO",
+      "location_m": [
+        14.85,
+        0.5,
+        2.0
+      ],
+      "rotation_euler_deg": [
+        90.0,
+        0.0,
+        -90.0
+      ],
+      "view_direction": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "screen_right": [
+        -0.0,
+        -1.0,
+        0.0
+      ],
+      "screen_up": [
+        -0.0,
+        0.0,
+        1.0
+      ],
+      "resolution_px": [
+        768,
+        432
+      ],
+      "clip_start_m": 0.001,
+      "clip_end_m": 2000.0,
+      "hidden_objects": [
+        "Cliff_Placeholder",
+        "Facility_Base_Placeholder",
+        "Lava_Level_Ref",
+        "Outline_Alt_84.7deg",
+        "Outline_Alt_98.4deg",
+        "Skiff_Check_29m_x_49m",
+        "Support_Placeholder"
+      ],
+      "ortho_scale_m": 50.0,
+      "px_per_m": 15.36,
+      "clip_note": "카메라 평면 x = 14.85에서 clip_start 0.001 m — 판(x ≤ 14.5), 계단 상자, 가장자리 등, 트렌치 안쪽 벽(x 14.5~14.8)은 잘려 보이지 않음. 트렌치 바닥(Z −3)과 벽 밑동이 보이게 하려는 것. 격자 숫자는 −Y 값(오른쪽이 +)"
+    },
+    "V4": {
+      "file": "V4_game_scale_crop.png",
+      "seconds": 3.8,
+      "center_m": [
+        7.38,
+        -7.16,
+        0.0
+      ],
+      "center_basis": "Stairwell·Ramp_Foot_Measured·Ref_ObiWan·Ref_Anakin·Ref_Padme bbox 꼭짓점 평균(z=0)",
+      "type": "ORTHO",
+      "location_m": [
+        -237.564,
+        -252.109,
+        200.0
+      ],
+      "rotation_euler_deg": [
+        60.0,
+        0.0,
+        -45.0
+      ],
+      "view_direction": [
+        0.612,
+        0.612,
+        -0.5
+      ],
+      "screen_right": [
+        0.707,
+        -0.707,
+        0.0
+      ],
+      "screen_up": [
+        0.354,
+        0.354,
+        0.866
+      ],
+      "resolution_px": [
+        768,
+        432
+      ],
+      "clip_start_m": 0.1,
+      "clip_end_m": 2000.0,
+      "hidden_objects": [],
+      "ortho_scale_m": 27.157,
+      "px_per_m": 28.28
+    },
+    "V5": {
+      "file": "V5_game_iso_no_roof.png",
+      "seconds": 2.5,
+      "camera_basis": "v0.2 Isometric_View 카메라의 위치·회전·ortho_scale 복사",
+      "type": "ORTHO",
+      "location_m": [
+        -239.498,
+        -247.022,
+        204.137
+      ],
+      "rotation_euler_deg": [
+        60.0,
+        0.0,
+        -45.0
+      ],
+      "view_direction": [
+        0.612,
+        0.612,
+        -0.5
+      ],
+      "screen_right": [
+        0.707,
+        -0.707,
+        0.0
+      ],
+      "screen_up": [
+        0.354,
+        0.354,
+        0.866
+      ],
+      "resolution_px": [
+        768,
+        432
+      ],
+      "clip_start_m": 0.1,
+      "clip_end_m": 2000.0,
+      "hidden_objects": [
+        "Facility_Body_Unknown",
+        "Hangar_Roof",
+        "Hangar_Spotlights"
+      ],
+      "ortho_scale_m": 81.695,
+      "px_per_m": 9.4
+    }
+  },
+  "timing_s": {
+    "import_and_load": 0.7,
+    "renders": [
+      1.2,
+      1.9,
+      3.8,
+      2.5
+    ],
+    "renders_total": 9.4,
+    "wall_total": 10.7
+  },
+  "peak_rss_mb": 547.8,
+  "source_sha256_after": "520471364f4dd0a84d4b57addf7ad535cb10ae55e5a00259e5d0920831dfd72e",
+  "source_unchanged": true
+}

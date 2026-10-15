@@ -3,7 +3,8 @@
 - 원본: `v0.2/mustafar_blockout_v0.2.blend` (sha256 `520471364f4d…`, 렌더 전후 동일)
 - 모델 변경 없음: 사본을 임시 폴더에서 열어 **카메라 추가, 객체 숨김(hide_render), 해상도**만 바꿨다. 사본은 저장하지 않고 지웠다.
 - 렌더: bpy 5.2.2 LTS, Cycles CPU 24 샘플 + 노이즈 제거. 조명·재질·배경은 v0.2와 같다.
-- 다시 만들기: `.venv-bpy/bin/python chatgpt_reviews/CR-001_v0.2/extra_renders/make_extra_views.py` (약 1분 30초)
+- 다시 만들기: `.venv-bpy/bin/python chatgpt_reviews/CR-001_v0.2/extra_renders/make_extra_views.py` (약 1분 15초, 결과는 이 폴더와 픽셀까지 같음)
+- 빠른 검수용(768×432, 12 samples, 약 11초): `--preset review` → [`../extra_renders_review/`](../extra_renders_review/RENDERS.md)
 - 기계 판독용 전체 기록: `render_log.json` (카메라 위치·회전·화면 축·정사영 크기·클리핑·숨긴 객체·시간)
 - 좌표: +X = 시설 쪽, +Y = 절벽 쪽(뒤), Z = 위. 색은 v0.2와 같다(회색 C · 황토 P · 자홍 U = 형태 신뢰도, 철사틀 = 임시 자리, 초록 = 크기 검증).
 
