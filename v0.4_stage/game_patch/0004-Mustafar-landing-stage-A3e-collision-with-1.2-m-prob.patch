@@ -1,0 +1,74 @@
+From 0a7cb50ab91975dccbdd1d7b96187bda3b73c7f2 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Fri, 16 Oct 2026 14:45:54 +0000
+Subject: [PATCH 4/4] Mustafar landing stage: A3e collision with 1.2 m probe
+ ray
+
+The passage frames' step strip caught the 1.25 m ray and narrowed the
+door to 1.375 m at each frame; the corrected mask keeps 1.875 m.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ public/stages/mustafar_landing/collision.png | Bin 1620 -> 1597 bytes
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+diff --git a/public/stages/mustafar_landing/collision.png b/public/stages/mustafar_landing/collision.png
+index 0fbf0e5cec0927d6a89c178e70f46b4006a2b3ab..2a5594ce536949b15fb0e628a8cf70e0afb19ecf 100644
+GIT binary patch
+literal 1597
+zcmeAS@N?(olHy`uVBq!ia0y~yVB7)3Jsdy*hF-51R~Q)BSUg=ELn`LHy?eXpwwstk
+zU}o08|I??opS-cmMPNJI4eQ9)M^|<!A5Z62DSUbDI6FuuDmbwJ#Pjv_zoP!i`aH3J
+z|4;sb#KT1`-9ma^J2XgU{Ca<C|MsGUpuQa|t`>NAS5)Y`$4n^*JmktLt_osgt3P=2
+z<?ol5tF$HhpvLEI*uCx)xA~3O>t(HYZOt>-Ub^VcwTG$*SFsga2|O)nn2vC+^qH3q
+zQ!X>cA)KFQu$(!td@kRO$QMht286#gdD4MlP1xa|53P!ej<~LE{rzck>9a2%yfiK?
+zR?ZjhHn#aOZ*$4o%id2D%4^jM$`iKiKOOt`)l;Auc}4TN*Y7>#YFpj^`_B)F|5CLl
+z#rHn#K7UeB{Auu0)^`@)WD5h&_wDfBm#Ftw?+^R_y}Ey|?g@!|@cA&O1vlKuHLLa<
+zkWE)V<ooXP_3Z~AvqtJq4eZ;&ZNZp65fpHh{j={}s$QzBcS_LwmhX2q*}~?V-!^3K
+zy!~L&p}T20mJi<<mz<oH8kYUfeBt{4|9@4Pp1Z|Tzn<gfu2t!oGpG7b&E6+hFZ=uK
+z->)BkTR(QcI=z01vfi;n$1EN$+H*X02lKyv1(X<qN7W(MohRmetk`}<5E6AT3Elm2
+z%SH5_eox+TXzHJjKQ<L8*4vfo#T-9e#Q4xi?)rC*@Q=B%(+ULdU%$+G{X??slHY}_
+z{?pc5Jz|=tYb};n=Rduh+kEfy(|=lL&z1jkean`$Z3V^Aclca)tklg<R=#s4F30`}
+zOHG`9d2i7X-`8LB;t!q8N}X=@P;KkB-SY~Hqwb0Z?$BKOK27sZkJ%e1tvfB--pFa+
+zsWE%|>orS_nY4L!*%9Bg*J`&9olVU)fB0<E&e;XQH}CoGnEB>~+8vi~CBk`fyLWM#
+z_txHRnSJzJ-l0%v+Jt!!ky?kg$k~U*@9P!rh?JEJ=W+es&1v4u4D|7ViFt?i-d_kL
+z?rsDUw+{k|n-_t^^@l*>>PH}Pxihc-;kg>cGHcU!$CdqdO3#)4wtc$S)4bxMEBEg|
+zp0fMoO~?N~3Kreb_3Qund^u2}pzegfAN!QucNzrkt^0%DB`LH0`N9&j)0<cF{bz0U
+zQ?VIm3dHp)HOpr@E{@$5w(^dv8*kZ1rOidtCCsip-OYR|HsMY{{GDroc{>`FYfJ6@
+zb{=%&`|`9m<Y}9f)w%2C2c}AAyfFxuiw($|ad2@=^)r{9j&A%#UlSFdwn^9>`?`G3
+z6zPON0_HaJmfy(~?<qK4JoVJvlA{dfwgRi~Xio3RzdiZPsksGbKbYAyt-F&b-kbOO
+z7UNUCU0DUQ#cMUnPoyT_-WTP*lX;!=t-jQ-Q*X;2p7^$=KR9o>Hv6{h#KlFsW31NI
+zY6nfd{qR=e+ZeAkchbcBv))S;JT==@6|h_Uz4rE#Pm^!$f8A6h9b><Q`F5(t_E&9!
+zvNxZ*>=Z5Md2xZw^wi#x(-nPhb(Y-W{?7CK!L)!=y1Oz>+`oSc$~zd_Y`KSXc9H*G
+zvuTfaKiB+zq}JJT<J*Nr_IE5M8UGH|`hIpUv*p%{D~kB@WRLHZO`7`q@ZQ4~JGZVc
+h+AqNhEX(!(ur_yDgjwyK5DzNZJzf1=);T3K0RTS%__hE5
+
+delta 1312
+zcmZ{kdr(q&6vt)U+>FG`%nV&CThq!%uR$^~^Hs6s>Skzyn6^DMZ+KPE%Fxoq))Wnr
+zT1<OvF<DZ^Dwi-HWY%InDpQM_1$2ETn5(Nr$YQnqv$JP@^O-Z}@%_zj&Tr1$*&VYB
+zm+ruB3GmyIRx<ojL01IL-{^Os^P|CIg(atQ+sQ?M#VtnI_~|r!s7f^B_@ed-wx!8`
+zER$K(MrBS^eF*U^GSujpnQ_@gBMwCutcuFe%)z=9b%&7p-|dq^uPck^zZ;1zfLxT9
+zvh(J;Z=H5J-RqwZ=#Z!3Wiei=PhmM8xYfpb3a6GmM&r7>#MJa;nd#RK?ebt<3ch`8
+zd=kww-7x2~$h4XqsgD7M0wfjph_XO)+waL-T4+!B8cZ*^NRF6ze2K^c(@FTV%~>uy
+z)0(BzC7){H7{>6U<<ry-tk-ZtP@YV|$@_NSZRlH>(K&Dhyd~|ihP*vryh4P>#=*uw
+zbDX3trz=`{sr0;>;7e$#3!;t&9(u1zHs;bv=~><d8NuWZk(1{1p|iv~w4p&DzT*2E
+zPmVr%3^Li5_2pJFmvP1xQV#||f9j{~h-}A)hp(Li8!7cOyz&x0JqZth#J;V;WUdqN
+z2VY~cUS%d7DizY=+!$E$4oGpzZ5f>Li+iN#QGAQRdCcH*xGwr;QzZYj)@E@OX?&%d
+zXjBNcbg8KijwLfQK2EhxhK?glxs`3)?zj?KXls(4Cez?Flha_jfJxZXnpP7vnEUTs
+zJ`bpv%Km8<Z&bG`Lb-J+?Pw%a=<DchD^%~6WYX-|Lr1c&Pgc7Vp<M0IKz71pCFY49
+zI=-x#<dB4FD|SHR>IBXAbND@f{X8XWX|<e6*!5zkKO}JjSWDoJVsWJvu-Bv75kwJg
+z^5UgIc-7VM!(tER-m2R~K8>?WK?#BI6`EgNU~VTvG!F>E(ihtRo1*A!8-T#4>r+t#
+zem;Mlx5`<R%1KoA-mc=)lApudplb)U&hQWP6l-9~kvrx%HsxhDzo{0GwZ!hjDa*h9
+z&ACNo|98xoy(5wd>KtH}RBDdP(HjLCvH;n(*PC(59_^1tXd;Xljxplxej|oxMhvDI
+zF%TerK-*V4M|ytYgxX2~=eJtu6vQi_7>^&+_IV)yNN@M;DRE)sJ&l`sFAS4lOB_cz
+z%_zhj7t`1#RCA@>xhP-eT@#Wf%)d$Zkz<XxuiXow9n)PI=lm{HKHLbC<egghR>gWG
+zr^I$g@U$2gMplx4Mp9I;L}^wq_Dt`Em|^klJY3irY<#~L^%aT)T&TQ9PEYZZ>^5VA
+z!{@9KGdrJ$&saHJZ0zKMuCmcEAoHC+Jd#!l3Mig3x3+NRa>f%IQ+RCS4NyQ{U7HxP
+zdIdwa?w(?D<{gklS$n4<;ajeEe|bY<^w>psF)u$+7w>>zAYi|DaiptQk>jKg5w=Ut
+z3+=mwIr;KoZ~*$dVskjaN?=tbyH<jH%7*g03H4_b{eynP(KR<=XCC{2L5P+o()5Lx
+zgS?AOxEvdlvZu@%*$J<@;E(NanRw!+##f69K@WIM$%&{<uHycykL_PJ6D2bk7QG|R
+z2jxDgiiiSjsQ|W~us|BCS#mv1y}9)*=^Bh<VBT~DU6%VmsrG&J+;ENM1V;U)vsSK;
+gooC!;H6yk&-}%SSZit>gz1y|~ZV&iIxGCoNKO!%iWB>pF
+
+-- 
+2.43.0
+

@@ -130,6 +130,7 @@
   "cell_m": 0.125,
   "floor_objects": [
    "MD_Pad_Deck",
+   "MD_Pad_DeckFill",
    "MD_Pad_FacilityEdge",
    "Entrance_Forecourt_Floor",
    "Entrance_Passage_Visible",

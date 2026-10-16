@@ -1,7 +1,7 @@
 From 5ae839c12177bee79fd9ac8e4f12917e9a9c7ec9 Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Fri, 16 Oct 2026 12:54:02 +0000
-Subject: [PATCH 3/3] Mustafar landing stage: structure fix 03 data (A3e)
+Subject: [PATCH 3/4] Mustafar landing stage: structure fix 03 data (A3e)
 
 Angular pad outline with large corner cuts and a side extension that
 holds the rebuilt R structure, the entrance reshaped to the film contour

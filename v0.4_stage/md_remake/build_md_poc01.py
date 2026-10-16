@@ -35,7 +35,7 @@ for line in open(os.path.join(MODELS, "duel_mustafar.mtl")):
         cur = line.split()[1]
     elif line.strip().startswith("map_Kd") and cur:
         MTL[cur] = line.split()[-1]
-KEEP = ("floor_1_o", "pipe_1", "floor_2_o", "trim_4", "trim_2", "trim_3", "basic.jpg", "light_2")
+KEEP = ("floor_", "pipe_1", "trim_4", "trim_2", "trim_3", "basic.jpg", "light_2")
 X0m, X1m, Y0m, Y1m = -1310, 990, 6150, 7700                     # 모드 착륙장 판 영역(원본 좌표)
 IX0, IX1, IY0, IY1 = -1250, 935, 6205, 7555                      # 판 안쪽(소품 제거용, 테두리 40 u 안)
 M = Matrix.Translation((OX, OY, 0)) @ Matrix.Rotation(math.radians(90), 4, 'Z') @ Matrix.Scale(S, 4) @ Matrix.Translation((-MDR["mod_pad_back_x"], -MDR["mod_pad_facility_edge_y"], 0))
@@ -59,7 +59,7 @@ for o in new:
             dead.append(f)
     bmesh.ops.delete(bm, geom=dead, context='FACES')
     if bm.faces:
-        tgt = "deck" if "floor_1_o" in tex else "lights" if "light_2" in tex else "struct"
+        tgt = "deck" if ("floor_" in tex and "floor_2_o" not in tex) else "lights" if "light_2" in tex else "struct"
         me = o.data; bm.to_mesh(me); bm.free()
         mi = len(mats[tgt]); mats[tgt].append(me.materials[0])
         dst = {"deck": deck, "struct": struct, "lights": lights}[tgt]
@@ -84,6 +84,7 @@ def finish(bm, name, mlist, clean=False):
         bmesh.ops.delete(bm, geom=dead, context='FACES')
     for co, no in ((Vector((0, PAD[0][1], 0)), Vector((0, 1, 0))),):                     # 앞 끝 자르기(영화 R6 비율)
         bmesh.ops.bisect_plane(bm, geom=bm.verts[:] + bm.edges[:] + bm.faces[:], plane_co=co, plane_no=no, clear_inner=True)
+    bmesh.ops.bisect_plane(bm, geom=bm.verts[:] + bm.edges[:] + bm.faces[:], plane_co=Vector((OX, 0, 0)), plane_no=Vector((1, 0, 0)), clear_outer=True)   # 판 시설 쪽 변(x 14.5) 너머는 열린 틈 — 모드 바닥이 틈 위로 나오지 않게
     a, b = Vector((*PAD[4], 0)), Vector((*PAD[5], 0))                                       # 앞 바깥 모서리 절삭(사용자 요구)
     e = (b - a).normalized(); nrm = Vector((-e.y, e.x, 0))                                  # 반시계 외곽의 안쪽
     bmesh.ops.bisect_plane(bm, geom=bm.verts[:] + bm.edges[:] + bm.faces[:], plane_co=a, plane_no=nrm, clear_inner=True)
@@ -111,6 +112,16 @@ me = D.meshes.new("MD_Pad_CutEdge"); bm.to_mesh(me); bm.free()
 me.materials.append(struct_o.data.materials[0] if struct_o.data.materials else None)
 cut_o = D.objects.new("MD_Pad_CutEdge", me); bpy.context.scene.collection.objects.link(cut_o)
 cut_o["md_source"] = "새로 만듦: 잘린 변의 측면·테두리(모드 테두리 치수 그대로)"
+# 판 전체 받침면(새로 만듦): 모드 소품을 뺀 자리의 구멍이 걷기를 막지 않도록 외곽 전체에 판재 바로 아래(−0.02 m) 채움 면
+bm = bmesh.new()
+top = [bm.verts.new((x, y, -0.02)) for x, y in PAD]; bot = [bm.verts.new((x, y, -TH + 0.02)) for x, y in PAD]
+bm.faces.new(top); bm.faces.new(bot[::-1])
+for i in range(len(PAD)):
+    j = (i + 1) % len(PAD); bm.faces.new((bot[i], bot[j], top[j], top[i]))
+me = D.meshes.new("MD_Pad_DeckFill"); bm.to_mesh(me); bm.free()
+me.materials.append(struct_o.data.materials[0] if struct_o.data.materials else None)
+fill_o = D.objects.new("MD_Pad_DeckFill", me); bpy.context.scene.collection.objects.link(fill_o)
+fill_o["md_source"] = "새로 만듦: 소품 제거 자리 채움 면(게임 보행용)"
 # 시설 쪽 변: 모드 판재가 x 14.05에서 끝나고 테두리를 지웠으므로 판 끝까지 같은 바닥 띠를 이어 진입 바닥·외부 통로와 끊김 없게(새로 만듦)
 bm = bmesh.new()
 xs_ = max(v.co.x for v in deck_o.data.vertices)
@@ -122,7 +133,7 @@ me = D.meshes.new("MD_Pad_FacilityEdge"); bm.to_mesh(me); bm.free()
 me.materials.append(deck_o.data.materials[0] if deck_o.data.materials else None)
 edge_o = D.objects.new("MD_Pad_FacilityEdge", me); bpy.context.scene.collection.objects.link(edge_o)
 edge_o["md_source"] = "새로 만듦: 시설 쪽 변 바닥 띠(테두리 제거 자리)"
-for ob in (deck_o, struct_o, lights_o, cut_o, edge_o):
+for ob in (deck_o, struct_o, lights_o, cut_o, edge_o, fill_o):
     for c in list(ob.users_collection):
         c.objects.unlink(ob)
     bpy.data.collections.get("Platform").objects.link(ob)
