@@ -1,0 +1,1312 @@
+{
+ "assumptions": {
+  "principal_point": [
+   1920.0,
+   800.0
+  ],
+  "roll": 0,
+  "entrance_geometry": "후보값(조명 중심 2.4 m, 폭 1.45 m, 어깨 0.42×2.4 m, 안쪽 층 돌출 0.30 m)",
+  "f_scan_px": [
+   2200,
+   2800,
+   3500,
+   4500,
+   5500
+  ]
+ },
+ "obs_11748": {
+  "door_light": [
+   1080,
+   295
+  ],
+  "shoulder_plusY": [
+   735,
+   820
+  ],
+  "shoulder_minusY": [
+   1325,
+   828
+  ],
+  "jamb_minusY_foot": [
+   1352,
+   1222
+  ],
+  "threshold_line": [
+   [
+    1050,
+    1222
+   ],
+   [
+    1250,
+    1222
+   ]
+  ]
+ },
+ "box_L_11748": {
+  "base_line": [
+   [
+    100,
+    1385
+   ],
+   [
+    800,
+    1380
+   ]
+  ],
+  "end_tier_foot": [
+   970,
+   1278
+  ],
+  "rim_minusY_end": [
+   790,
+   1062
+  ],
+  "covers_jamb_plusY_foot": true
+ },
+ "box_R_11748": {
+  "rim_line": [
+   [
+    2150,
+    1050
+   ],
+   [
+    2700,
+    1052
+   ]
+  ],
+  "minusY_end_top": [
+   2785,
+   1060
+  ],
+  "minusY_end_base": [
+   2795,
+   1258
+  ],
+  "base_line": [
+   [
+    2000,
+    1272
+   ],
+   [
+    2700,
+    1262
+   ]
+  ],
+  "note": "오른쪽 사다리꼴 구획 구조물 R. 모델에 없음(위치 근거 없음)"
+ },
+ "front_edge_11748": {
+  "floor_edge_beyond_R": [
+   [
+    2850,
+    1262
+   ],
+   [
+    3300,
+    1300
+   ]
+  ],
+  "curb": [
+   [
+    3340,
+    1240
+   ],
+   [
+    3670,
+    1375
+   ]
+  ],
+  "note": "R 너머 바닥 끝(용암 경계)과 연석 — 앞 변(−Y)으로 보임(PROBABLE)"
+ },
+ "obs_11726": {
+  "door_light": [
+   2590,
+   322
+  ],
+  "door_outer_base_minusY": [
+   3000,
+   1168
+  ],
+  "box_A_plusY_end": [
+   1580,
+   1010
+  ],
+  "box_A_rim": [
+   [
+    1700,
+    1010
+   ],
+   [
+    2500,
+    1010
+   ]
+  ],
+  "box_A_raised_start": [
+   2555,
+   975
+  ],
+  "box_A_minusY_end_foot": [
+   2990,
+   1240
+  ],
+  "box_A_base": [
+   [
+    2300,
+    1290
+   ]
+  ],
+  "floor_beyond_A": [
+   [
+    3000,
+    1185
+   ],
+   [
+    3840,
+    1300
+   ]
+  ],
+  "box_B": [
+   [
+    3380,
+    1080
+   ],
+   [
+    3840,
+    1200
+   ]
+  ],
+  "lava_above_floor_x": [
+   3330,
+   3560
+  ],
+  "threshold": "상자 A에 가림"
+ },
+ "test1_11748": [
+  {
+   "f": 2200,
+   "rms_px_entrance_fit": 8.6,
+   "cam_local": {
+    "xyz": [
+     -6.22,
+     -0.92,
+     0.58
+    ],
+    "yaw_deg": -12.8,
+    "pitch_deg": 5.0
+   },
+   "candidates": {
+    "H1": {
+     "box_end_foot_px": [
+      221,
+      719
+     ],
+     "err_end_foot_px": 934.3,
+     "box_rim_minusY_end_px": [
+      662,
+      1284
+     ],
+     "err_rim_end_px": 255.9,
+     "err_base_line_px": [
+      649.8,
+      629.1
+     ],
+     "jamb_plusY_foot_px": [
+      718,
+      1234
+     ],
+     "box_end_right_of_jamb_plusY": false
+    },
+    "A1": {
+     "box_end_foot_px": [
+      221,
+      719
+     ],
+     "err_end_foot_px": 934.3,
+     "box_rim_minusY_end_px": [
+      662,
+      1284
+     ],
+     "err_rim_end_px": 255.9,
+     "err_base_line_px": [
+      649.8,
+      629.1
+     ],
+     "jamb_plusY_foot_px": [
+      718,
+      1234
+     ],
+     "box_end_right_of_jamb_plusY": false
+    },
+    "A2": {
+     "box_end_foot_px": [
+      3863,
+      447
+     ],
+     "err_end_foot_px": 3010.2,
+     "box_rim_minusY_end_px": [
+      2423,
+      1237
+     ],
+     "err_rim_end_px": 1642.0,
+     "err_base_line_px": [
+      649.8,
+      629.1
+     ],
+     "jamb_plusY_foot_px": [
+      718,
+      1234
+     ],
+     "box_end_right_of_jamb_plusY": true
+    },
+    "A3": {
+     "box_end_foot_px": [
+      730,
+      1233
+     ],
+     "err_end_foot_px": 244.4,
+     "box_rim_minusY_end_px": [
+      -1660,
+      248
+     ],
+     "err_rim_end_px": 2581.6,
+     "err_base_line_px": [
+      363.2,
+      322.6
+     ],
+     "jamb_plusY_foot_px": [
+      718,
+      1234
+     ],
+     "box_end_right_of_jamb_plusY": true
+    }
+   }
+  },
+  {
+   "f": 2800,
+   "rms_px_entrance_fit": 9.2,
+   "cam_local": {
+    "xyz": [
+     -7.68,
+     -0.21,
+     0.33
+    ],
+    "yaw_deg": -15.7,
+    "pitch_deg": 6.0
+   },
+   "candidates": {
+    "H1": {
+     "box_end_foot_px": [
+      50774,
+      6125
+     ],
+     "err_end_foot_px": 50039.0,
+     "box_rim_minusY_end_px": [
+      -1151,
+      1917
+     ],
+     "err_rim_end_px": 2121.1,
+     "err_base_line_px": [
+      545.4,
+      525.5
+     ],
+     "jamb_plusY_foot_px": [
+      725,
+      1231
+     ],
+     "box_end_right_of_jamb_plusY": true
+    },
+    "A1": {
+     "box_end_foot_px": [
+      50774,
+      6125
+     ],
+     "err_end_foot_px": 50039.0,
+     "box_rim_minusY_end_px": [
+      -1151,
+      1917
+     ],
+     "err_rim_end_px": 2121.1,
+     "err_base_line_px": [
+      545.4,
+      525.5
+     ],
+     "jamb_plusY_foot_px": [
+      725,
+      1231
+     ],
+     "box_end_right_of_jamb_plusY": true
+    },
+    "A2": {
+     "box_end_foot_px": [
+      7540,
+      -48
+     ],
+     "err_end_foot_px": 6702.7,
+     "box_rim_minusY_end_px": [
+      2405,
+      1693
+     ],
+     "err_rim_end_px": 1734.3,
+     "err_base_line_px": [
+      545.4,
+      525.5
+     ],
+     "jamb_plusY_foot_px": [
+      725,
+      1231
+     ],
+     "box_end_right_of_jamb_plusY": true
+    },
+    "A3": {
+     "box_end_foot_px": [
+      736,
+      1230
+     ],
+     "err_end_foot_px": 238.3,
+     "box_rim_minusY_end_px": [
+      -436,
+      356
+     ],
+     "err_rim_end_px": 1414.8,
+     "err_base_line_px": [
+      18.4,
+      5.0
+     ],
+     "jamb_plusY_foot_px": [
+      725,
+      1231
+     ],
+     "box_end_right_of_jamb_plusY": true
+    }
+   }
+  },
+  {
+   "f": 3500,
+   "rms_px_entrance_fit": 10.2,
+   "cam_local": {
+    "xyz": [
+     -9.28,
+     -0.49,
+     -0.18
+    ],
+    "yaw_deg": -11.0,
+    "pitch_deg": 8.1
+   },
+   "candidates": {
+    "H1": {
+     "box_end_foot_px": [
+      8286,
+      864
+     ],
+     "err_end_foot_px": 7328.1,
+     "box_rim_minusY_end_px": [
+      -3332,
+      4359
+     ],
+     "err_rim_end_px": 5278.3,
+     "err_base_line_px": [
+      185.3,
+      180.9
+     ],
+     "jamb_plusY_foot_px": [
+      729,
+      1225
+     ],
+     "box_end_right_of_jamb_plusY": true
+    },
+    "A1": {
+     "box_end_foot_px": [
+      8286,
+      864
+     ],
+     "err_end_foot_px": 7328.1,
+     "box_rim_minusY_end_px": [
+      -3332,
+      4359
+     ],
+     "err_rim_end_px": 5278.3,
+     "err_base_line_px": [
+      185.3,
+      180.9
+     ],
+     "jamb_plusY_foot_px": [
+      729,
+      1225
+     ],
+     "box_end_right_of_jamb_plusY": true
+    },
+    "A2": {
+     "box_end_foot_px": [
+      3381,
+      1627
+     ],
+     "err_end_foot_px": 2435.9,
+     "box_rim_minusY_end_px": [
+      4326,
+      3363
+     ],
+     "err_rim_end_px": 4218.4,
+     "err_base_line_px": [
+      185.3,
+      180.9
+     ],
+     "jamb_plusY_foot_px": [
+      729,
+      1225
+     ],
+     "box_end_right_of_jamb_plusY": true
+    },
+    "A3": {
+     "box_end_foot_px": [
+      739,
+      1225
+     ],
+     "err_end_foot_px": 236.6,
+     "box_rim_minusY_end_px": [
+      -196,
+      345
+     ],
+     "err_rim_end_px": 1219.0,
+     "err_base_line_px": [
+      222.1,
+      212.3
+     ],
+     "jamb_plusY_foot_px": [
+      729,
+      1225
+     ],
+     "box_end_right_of_jamb_plusY": true
+    }
+   }
+  },
+  {
+   "f": 4500,
+   "rms_px_entrance_fit": 10.5,
+   "cam_local": {
+    "xyz": [
+     -11.15,
+     -1.37,
+     -1.7
+    ],
+    "yaw_deg": -4.1,
+    "pitch_deg": 14.4
+   },
+   "candidates": {
+    "H1": {
+     "box_end_foot_px": [
+      44470,
+      -34468
+     ],
+     "err_end_foot_px": 56303.3,
+     "box_rim_minusY_end_px": [
+      13351,
+      -27798
+     ],
+     "err_rim_end_px": 31475.3,
+     "err_base_line_px": [
+      25211.4,
+      24955.8
+     ],
+     "jamb_plusY_foot_px": [
+      719,
+      1223
+     ],
+     "box_end_right_of_jamb_plusY": true
+    },
+    "A1": {
+     "box_end_foot_px": [
+      44470,
+      -34468
+     ],
+     "err_end_foot_px": 56303.3,
+     "box_rim_minusY_end_px": [
+      13351,
+      -27798
+     ],
+     "err_rim_end_px": 31475.3,
+     "err_base_line_px": [
+      25211.4,
+      24955.8
+     ],
+     "jamb_plusY_foot_px": [
+      719,
+      1223
+     ],
+     "box_end_right_of_jamb_plusY": true
+    },
+    "A2": {
+     "box_end_foot_px": [
+      136021,
+      116985
+     ],
+     "err_end_foot_px": 177839.0,
+     "box_rim_minusY_end_px": [
+      -77139,
+      -78468
+     ],
+     "err_rim_end_px": 111346.1,
+     "err_base_line_px": [
+      25211.4,
+      24955.8
+     ],
+     "jamb_plusY_foot_px": [
+      719,
+      1223
+     ],
+     "box_end_right_of_jamb_plusY": true
+    },
+    "A3": {
+     "box_end_foot_px": [
+      729,
+      1223
+     ],
+     "err_end_foot_px": 246.8,
+     "box_rim_minusY_end_px": [
+      -146,
+      186
+     ],
+     "err_rim_end_px": 1282.4,
+     "err_base_line_px": [
+      559.6,
+      542.7
+     ],
+     "jamb_plusY_foot_px": [
+      719,
+      1223
+     ],
+     "box_end_right_of_jamb_plusY": true
+    }
+   }
+  },
+  {
+   "f": 5500,
+   "rms_px_entrance_fit": 10.1,
+   "cam_local": {
+    "xyz": [
+     -13.02,
+     -1.7,
+     -3.07
+    ],
+    "yaw_deg": -1.9,
+    "pitch_deg": 18.0
+   },
+   "candidates": {
+    "H1": {
+     "box_end_foot_px": [
+      5628,
+      -4680
+     ],
+     "err_end_foot_px": 7562.8,
+     "box_rim_minusY_end_px": [
+      3393,
+      -6275
+     ],
+     "err_rim_end_px": 7785.4,
+     "err_base_line_px": [
+      7666.3,
+      7626.8
+     ],
+     "jamb_plusY_foot_px": [
+      714,
+      1223
+     ],
+     "box_end_right_of_jamb_plusY": true
+    },
+    "A1": {
+     "box_end_foot_px": [
+      5628,
+      -4680
+     ],
+     "err_end_foot_px": 7562.8,
+     "box_rim_minusY_end_px": [
+      3393,
+      -6275
+     ],
+     "err_rim_end_px": 7785.4,
+     "err_base_line_px": [
+      7666.3,
+      7626.8
+     ],
+     "jamb_plusY_foot_px": [
+      714,
+      1223
+     ],
+     "box_end_right_of_jamb_plusY": true
+    },
+    "A2": {
+     "box_end_foot_px": [
+      -579,
+      -550
+     ],
+     "err_end_foot_px": 2395.9,
+     "box_rim_minusY_end_px": [
+      -5019,
+      -6699
+     ],
+     "err_rim_end_px": 9693.9,
+     "err_base_line_px": [
+      7666.3,
+      7626.8
+     ],
+     "jamb_plusY_foot_px": [
+      714,
+      1223
+     ],
+     "box_end_right_of_jamb_plusY": false
+    },
+    "A3": {
+     "box_end_foot_px": [
+      725,
+      1223
+     ],
+     "err_end_foot_px": 251.2,
+     "box_rim_minusY_end_px": [
+      -67,
+      117
+     ],
+     "err_rim_end_px": 1275.6,
+     "err_base_line_px": [
+      711.8,
+      699.4
+     ],
+     "jamb_plusY_foot_px": [
+      714,
+      1223
+     ],
+     "box_end_right_of_jamb_plusY": true
+    }
+   }
+  }
+ ],
+ "test2_11726": [
+  {
+   "m5_fit": {
+    "spots_AB": [
+     6.7,
+     0.0
+    ],
+    "f": 5500,
+    "rms_px_weighted": 15.1
+   },
+   "candidates": {
+    "H1": {
+     "door_light_px": [
+      2955,
+      784
+     ],
+     "err_door_light_px": 589.3,
+     "err_door_light_x_px": 365.2,
+     "door_outer_base_px": [
+      3169,
+      1172
+     ],
+     "err_door_outer_base_px": 169.4
+    },
+    "A1": {
+     "door_light_px": [
+      2955,
+      784
+     ],
+     "err_door_light_px": 589.3,
+     "err_door_light_x_px": 365.2,
+     "door_outer_base_px": [
+      3169,
+      1172
+     ],
+     "err_door_outer_base_px": 169.4
+    },
+    "A2": {
+     "door_light_px": [
+      3621,
+      778
+     ],
+     "err_door_light_px": 1127.5,
+     "err_door_light_x_px": 1031.2,
+     "door_outer_base_px": [
+      3862,
+      1190
+     ],
+     "err_door_outer_base_px": 862.5
+    },
+    "A3": {
+     "door_light_px": [
+      3234,
+      750
+     ],
+     "err_door_light_px": 773.7,
+     "err_door_light_x_px": 644.5,
+     "door_outer_base_px": [
+      3530,
+      1271
+     ],
+     "err_door_outer_base_px": 539.5
+    }
+   }
+  },
+  {
+   "m5_fit": {
+    "spots_AB": [
+     0.0,
+     -6.7
+    ],
+    "f": 2800,
+    "rms_px_weighted": 15.6
+   },
+   "candidates": {
+    "H1": {
+     "door_light_px": [
+      2089,
+      771
+     ],
+     "err_door_light_px": 673.4,
+     "err_door_light_x_px": -501.5,
+     "door_outer_base_px": [
+      2254,
+      1068
+     ],
+     "err_door_outer_base_px": 752.2
+    },
+    "A1": {
+     "door_light_px": [
+      2089,
+      771
+     ],
+     "err_door_light_px": 673.4,
+     "err_door_light_x_px": -501.5,
+     "door_outer_base_px": [
+      2254,
+      1068
+     ],
+     "err_door_outer_base_px": 752.2
+    },
+    "A2": {
+     "door_light_px": [
+      2605,
+      770
+     ],
+     "err_door_light_px": 448.3,
+     "err_door_light_x_px": 15.3,
+     "door_outer_base_px": [
+      2778,
+      1074
+     ],
+     "err_door_outer_base_px": 241.0
+    },
+    "A3": {
+     "door_light_px": [
+      2761,
+      739
+     ],
+     "err_door_light_px": 450.6,
+     "err_door_light_x_px": 170.8,
+     "door_outer_base_px": [
+      3026,
+      1203
+     ],
+     "err_door_outer_base_px": 43.7
+    }
+   }
+  },
+  {
+   "m5_fit": {
+    "spots_AB": [
+     0.0,
+     -6.7
+    ],
+    "f": 2200,
+    "rms_px_weighted": 16.6
+   },
+   "candidates": {
+    "H1": {
+     "door_light_px": [
+      2006,
+      753
+     ],
+     "err_door_light_px": 725.5,
+     "err_door_light_x_px": -583.8,
+     "door_outer_base_px": [
+      2157,
+      1023
+     ],
+     "err_door_outer_base_px": 855.6
+    },
+    "A1": {
+     "door_light_px": [
+      2006,
+      753
+     ],
+     "err_door_light_px": 725.5,
+     "err_door_light_x_px": -583.8,
+     "door_outer_base_px": [
+      2157,
+      1023
+     ],
+     "err_door_outer_base_px": 855.6
+    },
+    "A2": {
+     "door_light_px": [
+      2475,
+      752
+     ],
+     "err_door_light_px": 445.0,
+     "err_door_light_x_px": -114.7,
+     "door_outer_base_px": [
+      2629,
+      1027
+     ],
+     "err_door_outer_base_px": 397.4
+    },
+    "A3": {
+     "door_light_px": [
+      2729,
+      720
+     ],
+     "err_door_light_px": 421.7,
+     "err_door_light_x_px": 139.3,
+     "door_outer_base_px": [
+      2984,
+      1177
+     ],
+     "err_door_outer_base_px": 18.1
+    }
+   }
+  },
+  {
+   "m5_fit": {
+    "spots_AB": [
+     0.0,
+     -6.7
+    ],
+    "f": 3500,
+    "rms_px_weighted": 20.2
+   },
+   "candidates": {
+    "H1": {
+     "door_light_px": [
+      2133,
+      782
+     ],
+     "err_door_light_px": 648.5,
+     "err_door_light_x_px": -456.9,
+     "door_outer_base_px": [
+      2304,
+      1088
+     ],
+     "err_door_outer_base_px": 700.2
+    },
+    "A1": {
+     "door_light_px": [
+      2133,
+      782
+     ],
+     "err_door_light_px": 648.5,
+     "err_door_light_x_px": -456.9,
+     "door_outer_base_px": [
+      2304,
+      1088
+     ],
+     "err_door_outer_base_px": 700.2
+    },
+    "A2": {
+     "door_light_px": [
+      2665,
+      781
+     ],
+     "err_door_light_px": 465.2,
+     "err_door_light_x_px": 75.1,
+     "door_outer_base_px": [
+      2843,
+      1095
+     ],
+     "err_door_outer_base_px": 173.1
+    },
+    "A3": {
+     "door_light_px": [
+      2738,
+      762
+     ],
+     "err_door_light_px": 463.8,
+     "err_door_light_x_px": 147.8,
+     "door_outer_base_px": [
+      2987,
+      1200
+     ],
+     "err_door_outer_base_px": 34.2
+    }
+   }
+  }
+ ],
+ "test3_relative_placement": [
+  {
+   "f": 2000,
+   "rms_px_entrance_fit": 8.6,
+   "cam_local": {
+    "xyz": [
+     -5.69,
+     -1.23,
+     0.66
+    ],
+    "yaw_deg": -10.7,
+    "pitch_deg": 4.6
+   },
+   "valid_camera_height": true,
+   "floor_points_local": {
+    "box_L_base_line": [
+     [
+      -2.01,
+      0.98
+     ],
+     [
+      -2.18,
+      -0.08
+     ]
+    ],
+    "box_L_end_tier_foot": [
+     -1.13,
+     -0.06
+    ],
+    "threshold_line": [
+     [
+      -0.21,
+      -0.01
+     ],
+     [
+      -0.3,
+      -0.51
+     ]
+    ],
+    "box_R_base_line": [
+     [
+      -1.45,
+      -2.2
+     ],
+     [
+      -1.6,
+      -3.75
+     ]
+    ],
+    "box_R_minusY_end_base": [
+     -1.59,
+     -4.0
+    ],
+    "front_floor_edge": [
+     [
+      -1.66,
+      -4.08
+     ],
+     [
+      -2.27,
+      -4.63
+     ]
+    ]
+   },
+   "implied_entrance_wall_x_if_box_L_is_R2_box": 12.7,
+   "implied_entrance_center_y_if_box_L_is_R2_box": -19.34
+  },
+  {
+   "f": 2200,
+   "rms_px_entrance_fit": 8.6,
+   "cam_local": {
+    "xyz": [
+     -6.22,
+     -0.92,
+     0.58
+    ],
+    "yaw_deg": -12.8,
+    "pitch_deg": 5.0
+   },
+   "valid_camera_height": true,
+   "floor_points_local": {
+    "box_L_base_line": [
+     [
+      -2.37,
+      0.98
+     ],
+     [
+      -2.55,
+      -0.02
+     ]
+    ],
+    "box_L_end_tier_foot": [
+     -1.33,
+     -0.04
+    ],
+    "threshold_line": [
+     [
+      -0.18,
+      -0.01
+     ],
+     [
+      -0.3,
+      -0.51
+     ]
+    ],
+    "box_R_base_line": [
+     [
+      -1.7,
+      -2.12
+     ],
+     [
+      -1.87,
+      -3.64
+     ]
+    ],
+    "box_R_minusY_end_base": [
+     -1.85,
+     -3.89
+    ],
+    "front_floor_edge": [
+     [
+      -1.94,
+      -3.96
+     ],
+     [
+      -2.66,
+      -4.42
+     ]
+    ]
+   },
+   "implied_entrance_wall_x_if_box_L_is_R2_box": 13.06,
+   "implied_entrance_center_y_if_box_L_is_R2_box": -19.36
+  },
+  {
+   "f": 2400,
+   "rms_px_entrance_fit": 8.7,
+   "cam_local": {
+    "xyz": [
+     -6.73,
+     -0.54,
+     0.5
+    ],
+    "yaw_deg": -15.1,
+    "pitch_deg": 5.4
+   },
+   "valid_camera_height": true,
+   "floor_points_local": {
+    "box_L_base_line": [
+     [
+      -2.76,
+      1.02
+     ],
+     [
+      -2.97,
+      0.09
+     ]
+    ],
+    "box_L_end_tier_foot": [
+     -1.56,
+     0.02
+    ],
+    "threshold_line": [
+     [
+      -0.16,
+      -0.02
+     ],
+     [
+      -0.29,
+      -0.51
+     ]
+    ],
+    "box_R_base_line": [
+     [
+      -1.98,
+      -2.0
+     ],
+     [
+      -2.17,
+      -3.49
+     ]
+    ],
+    "box_R_minusY_end_base": [
+     -2.15,
+     -3.74
+    ],
+    "front_floor_edge": [
+     [
+      -2.26,
+      -3.8
+     ],
+     [
+      -3.08,
+      -4.15
+     ]
+    ]
+   },
+   "implied_entrance_wall_x_if_box_L_is_R2_box": 13.47,
+   "implied_entrance_center_y_if_box_L_is_R2_box": -19.42
+  },
+  {
+   "f": 2600,
+   "rms_px_entrance_fit": 8.9,
+   "cam_local": {
+    "xyz": [
+     -7.22,
+     -0.26,
+     0.43
+    ],
+    "yaw_deg": -16.4,
+    "pitch_deg": 5.6
+   },
+   "valid_camera_height": true,
+   "floor_points_local": {
+    "box_L_base_line": [
+     [
+      -3.25,
+      1.04
+     ],
+     [
+      -3.45,
+      0.17
+     ]
+    ],
+    "box_L_end_tier_foot": [
+     -1.84,
+     0.06
+    ],
+    "threshold_line": [
+     [
+      -0.11,
+      -0.02
+     ],
+     [
+      -0.26,
+      -0.51
+     ]
+    ],
+    "box_R_base_line": [
+     [
+      -2.27,
+      -1.88
+     ],
+     [
+      -2.44,
+      -3.35
+     ]
+    ],
+    "box_R_minusY_end_base": [
+     -2.4,
+     -3.6
+    ],
+    "front_floor_edge": [
+     [
+      -2.53,
+      -3.65
+     ],
+     [
+      -3.47,
+      -3.88
+     ]
+    ]
+   },
+   "implied_entrance_wall_x_if_box_L_is_R2_box": 13.95,
+   "implied_entrance_center_y_if_box_L_is_R2_box": -19.46
+  },
+  {
+   "f": 2800,
+   "rms_px_entrance_fit": 9.2,
+   "cam_local": {
+    "xyz": [
+     -7.68,
+     -0.21,
+     0.33
+    ],
+    "yaw_deg": -15.7,
+    "pitch_deg": 6.0
+   },
+   "valid_camera_height": true,
+   "floor_points_local": {
+    "box_L_base_line": [
+     [
+      -3.98,
+      0.92
+     ],
+     [
+      -4.14,
+      0.15
+     ]
+    ],
+    "box_L_end_tier_foot": [
+     -2.3,
+     0.06
+    ],
+    "threshold_line": [
+     [
+      -0.04,
+      -0.02
+     ],
+     [
+      -0.18,
+      -0.52
+     ]
+    ],
+    "box_R_base_line": [
+     [
+      -2.64,
+      -1.78
+     ],
+     [
+      -2.72,
+      -3.2
+     ]
+    ],
+    "box_R_minusY_end_base": [
+     -2.65,
+     -3.46
+    ],
+    "front_floor_edge": [
+     [
+      -2.8,
+      -3.49
+     ],
+     [
+      -3.88,
+      -3.59
+     ]
+    ]
+   },
+   "implied_entrance_wall_x_if_box_L_is_R2_box": 14.66,
+   "implied_entrance_center_y_if_box_L_is_R2_box": -19.46
+  },
+  {
+   "f": 3000,
+   "rms_px_entrance_fit": 9.5,
+   "cam_local": {
+    "xyz": [
+     -8.15,
+     -0.24,
+     0.22
+    ],
+    "yaw_deg": -14.5,
+    "pitch_deg": 6.4
+   },
+   "valid_camera_height": false
+  },
+  {
+   "f": 3200,
+   "rms_px_entrance_fit": 9.8,
+   "cam_local": {
+    "xyz": [
+     -8.61,
+     -0.32,
+     0.08
+    ],
+    "yaw_deg": -13.1,
+    "pitch_deg": 7.0
+   },
+   "valid_camera_height": false
+  },
+  {
+   "f": 3400,
+   "rms_px_entrance_fit": 10.1,
+   "cam_local": {
+    "xyz": [
+     -9.06,
+     -0.43,
+     -0.09
+    ],
+    "yaw_deg": -11.7,
+    "pitch_deg": 7.7
+   },
+   "valid_camera_height": false
+  }
+ ]
+}

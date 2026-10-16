@@ -22,6 +22,11 @@ REFS = os.path.join(os.path.dirname(HERE), "refs")
 WORK = os.path.join(HERE, "work")
 os.makedirs(WORK, exist_ok=True)
 DIM = json.load(open(os.path.join(HERE, "dimensions.json"), encoding="utf-8"))
+# 출입구 접근 배치 후보(CR-006). 기본 .blend는 active 후보, MUSTAFAR_LAYOUT=<이름>이면 그 후보를 work/layouts/에 저장(이미지 렌더 생략)
+LAYS = DIM["v03"]["entrance_layout"]
+LAYOUT_NAME = os.environ.get("MUSTAFAR_LAYOUT") or LAYS["active"]
+LAY = LAYS["candidates"][LAYOUT_NAME]
+VARIANT = bool(os.environ.get("MUSTAFAR_LAYOUT"))
 
 
 def v(*path):
@@ -227,6 +232,8 @@ X1 = v("platform", "facility_edge_x")          # 시설 쪽 가장자리 (좌표
 W = v("platform", "width_x")
 X0 = X1 - W
 Y0, Y1 = v("platform", "front_end_y"), v("platform", "back_end_y")
+if LAY["platform_front_y"] is not None:      # 후보 A2: 판 앞 변을 기존 범위(−30~−19) 안에서 옮김
+    Y0 = LAY["platform_front_y"]
 L = Y1 - Y0
 ANG = math.radians(v("platform", "corner_angle_deg"))
 EDGE_D, TOP_T = v("platform", "edge_face_depth"), v("platform", "deck_top_thickness")
@@ -249,6 +256,10 @@ BEAM, ROOF = v("facility", "beam_height"), v("facility", "roof_top_z")
 OVER, FDEP = v("facility", "roof_overhang"), v("facility", "depth_x")
 XW = X1 + GAP           # 시설 벽면
 FY0, FY1 = v("facility", "front_end_y"), v("facility", "back_end_y")
+FY0_ORIG = FY0                     # 핀 배열 기준(후보가 시설 앞 끝을 연장해도 기존 핀 위치는 그대로, 연장 구간에는 핀을 두지 않음)
+_ya_need = LAY["center_y"] - DIM["v03"]["entrance"]["width"]["value"] / 2 - 1.2
+if _ya_need < FY0:                  # 후보 A2·A3: 시설 앞 끝은 출입구 테두리를 담을 만큼만 연장(11748 오른쪽은 용암 배경 — 더 늘리지 않음)
+    FY0 = _ya_need
 
 # 낮은 상자(이전 이름 '계단 상자', 판 위, 가장자리 안쪽). 판 관통 구멍은 숨긴 가설에서만(DESCENT=True일 때)
 SCX, SCY = v("stairwell", "corner_back_left")
@@ -348,32 +359,41 @@ ob = make_obj("Floor_Plates", bm, ("C", "U"),
               mat=material("PLATE_A"))
 ob.data.materials.append(material("PLATE_B"))
 N_PLATES = len(plates)
+os.makedirs(os.path.join(WORK, "layouts"), exist_ok=True)
 json.dump({"hex": [HW, HS, HP], "clip": [ix0, iy0, ix1, iy1], "hole": list(HOLE) if DESCENT else None, "plates_before_seam": [[list(map(float, q)) for q in p] for p in plates]},
-          open(os.path.join(WORK, "floor_plates.json"), "w"))
+          open(os.path.join(WORK, "layouts", f"floor_plates_{LAYOUT_NAME}.json") if VARIANT else os.path.join(WORK, "floor_plates.json"), "w"))
 
 # ---------------------------------------------------------------- 3. 시설 구조 (하나로 이어진 건축: 트렌치 통로 → 벽·핀 → 처마 보·지붕)
+_E0 = DIM["v03"]["entrance"]
+FC_Y1 = (LAY["center_y"] + _E0["width"]["value"] / 2 + 1.2 + LAYS["forecourt_margin"]["value"]) if LAY["forecourt"] else None   # 앞마당 +Y 끝(트렌치 시작)
+TR_Y0 = FC_Y1 if LAY["forecourt"] else FY0
 bm = bmesh.new()
-add_box(bm, (X1, FY0, TZ - 0.5), (XW, FY1, TZ))                         # 아래 통로 바닥
-add_box(bm, (X1 - 0.01, FY0, TZ - 0.5), (X1 + 0.3, FY1, -TOP_T))         # 판 가장자리 아래 옹벽 (트렌치 쪽 면)
+add_box(bm, (X1, TR_Y0, TZ - 0.5), (XW, FY1, TZ))                       # 아래 통로 바닥(앞마당 후보에서는 앞마당 뒤부터)
+add_box(bm, (X1 - 0.01, TR_Y0, TZ - 0.5), (X1 + 0.3, FY1, -TOP_T))       # 판 가장자리 아래 옹벽 (트렌치 쪽 면)
 make_obj("Corridor_Lower_Walkway", bm, conf("facility", "trench_gap"),
          "R2: 바닥 가장자리와 시설 벽 사이 낮은 띠 → 벽 밑동을 따라가는 아래 통로로 해석(v0.2 자리 표시). 근거였던 '그쪽으로 내려가는 계단'은 2026-10-16 낮은 상자 해석 정정으로 철회 — 상자와 연결하지 않음. 바닥면·폭·깊이는 안 보임(UNKNOWN)",
          "Facility_Structure", parent=facility_root)
 
 E = DIM["v03"]["entrance"]
 EYC, ELC, EW, ESF = (E[k]["value"] for k in ("center_y", "light_center_height", "width", "shoulder_frac"))
+EYC = LAY["center_y"]                # 배치 후보의 출입구 중심(H1·A1 −16.0, A2·A3 −20.1)
+XE = LAY.get("front_x") or XW        # 출입구 면(문틀 뒤 벽면) x. A3만 판 가장자리 쪽(14.8), 나머지는 시설 벽면
 EH = ELC + E["light_below_apex"]["value"]   # 문 안쪽 꼭짓점 (조명 중심 = 영화 측정 "바닥→꼭대기 조명")
 EZS = ELC * ESF                      # 어깨점 높이 (측정 정의와 같은 기준: 문 높이 = 바닥→조명)
 EY0, EY1 = EYC - EW / 2, EYC + EW / 2
 EPAD = 1.2                           # 출입구 테두리 폭
-bm = bmesh.new()
-add_box(bm, (XW, FY0, TZ), (XW + 1.0, EY0 - EPAD, BEAM))                 # 벽면 (출입구 앞쪽 구간)
-add_box(bm, (XW, EY1 + EPAD, TZ), (XW + 1.0, FY1, BEAM))                 # 벽면 (출입구 뒤쪽 구간)
+bm = bmesh.new(); bm_bay = bmesh.new()
 ya, yb = EY0 - EPAD, EY1 + EPAD
+if XE == XW:
+    add_box(bm, (XW, FY0, TZ), (XW + 1.0, EY0 - EPAD, BEAM))             # 벽면 (출입구 앞쪽 구간)
+    add_box(bm, (XW, EY1 + EPAD, TZ), (XW + 1.0, FY1, BEAM))             # 벽면 (출입구 뒤쪽 구간)
+else:
+    add_box(bm, (XW, FY0, TZ), (XW + 1.0, FY1, BEAM))                    # 후보 A3: 시설 벽면은 막힌 면(출입구는 앞으로 나온 면에)
 for poly in ([(ya, TZ), (EY0, TZ), (EY0, EZS), (ya, EZS)], [(EY1, TZ), (yb, TZ), (yb, EZS), (EY1, EZS)],
              [(EY0, TZ), (EY1, TZ), (EY1, 0.0), (EY0, 0.0)],                                     # 문턱 아래
              [(ya, EZS), (EY0, EZS), (EYC, EH), (ya, EH)], [(EY1, EZS), (yb, EZS), (yb, EH), (EYC, EH)],
              [(ya, EH), (yb, EH), (yb, BEAM), (ya, BEAM)]):
-    add_prism_x(bm, poly, XW, XW + 1.0)
+    add_prism_x(bm if XE == XW else bm_bay, poly, XE, XE + 1.0)
 make_obj("Hangar_Walls", bm, ("C", "P"),
          "R2: 착륙장 시설 쪽 벽, R6: 판의 시설 쪽 변을 따라가는 높은 띠. 높이는 보까지 측정(6.3~7.1 m)",
          "Facility_Structure", parent=facility_root)
@@ -388,6 +408,14 @@ bm = bmesh.new()
 add_box(bm, (XW + 1.0, FY0, TZ), (XW + FDEP, FY1, BEAM))                 # 건물 몸체(안쪽 미상)
 make_obj("Facility_Body_Unknown", bm, ("P", "U"), "벽 뒤 건물 몸체: 안쪽 형태 자료 없음", "Facility_Structure",
          mat=material("WIRE_U"), wire=0.15, parent=facility_root)
+if XE != XW:
+    make_obj("Entrance_Bay_Front", bm_bay, ("P", "U"),
+             f"배치 후보 {LAYOUT_NAME}: 판 가장자리 쪽으로 나온 출입구 면(x {XE}). M8(11748 역투영) 후보 위치. 문 위 높이(보 높이까지)·폭은 형태용 가정",
+             "Facility_Structure", mat=material((0.42, 0.36, 0.30)), parent=facility_root)
+    bm = bmesh.new(); add_box(bm, (XE + 1.0, ya, TZ), (XW, yb, BEAM))
+    make_obj("Entrance_Bay_Unknown", bm, ("P", "U"),
+             f"배치 후보 {LAYOUT_NAME}: 출입구 면(x {XE})이 판 가장자리 쪽으로 나와 있을 때 그 뒤에서 시설 본체(x {XW})까지 이어지는 부분. 형태·크기 자료 없음(UNKNOWN) — 자리 표시만",
+             "Facility_Structure", mat=material("WIRE_U"), wire=0.1, parent=facility_root)
 
 LEAN = math.radians(v("fins", "lean_deg"))
 FSP, FW, FD = v("fins", "spacing"), v("fins", "width"), v("fins", "depth")
@@ -396,7 +424,7 @@ FLEN_ = FH / math.cos(LEAN)
 rot = Matrix.Rotation(-LEAN, 3, 'X')    # 위가 +Y(뒤)로
 bm = bmesh.new()
 n_fin = 0
-y = FY0 + FSP * 0.6
+y = FY0_ORIG + FSP * 0.6
 SWEEP = FH / 2 * math.tan(LEAN) + FW / 2
 fins_skipped = []
 while y < FY1 - FSP * 0.3:
@@ -427,10 +455,10 @@ def a_band(bm, o0, o1, xf):
     """출입구 윤곽을 가로로 o0~o1 m 밖으로 민 A자 띠(세로 문설주 + 경사 테두리), 벽 앞 xf m 돌출."""
     for sgn, yin in ((-1, EY0), (1, EY1)):
         y0_, y1_ = sorted((yin + sgn * o0, yin + sgn * o1))
-        add_box(bm, (XW - xf, y0_, 0.0), (XW, y1_, EZS))
+        add_box(bm, (XE - xf, y0_, 0.0), (XE, y1_, EZS))
         poly = [(yin + sgn * o1, EZS), (yin + sgn * o0, EZS), (EYC, EH + o0 * SL_), (EYC, EH + o1 * SL_)]
         cy_, cz_ = sum(q[0] for q in poly) / 4, sum(q[1] for q in poly) / 4
-        add_prism_x(bm, sorted(poly, key=lambda q: math.atan2(q[1] - cz_, q[0] - cy_)), XW - xf, XW)
+        add_prism_x(bm, sorted(poly, key=lambda q: math.atan2(q[1] - cz_, q[0] - cy_)), XE - xf, XE)
 
 
 bm = bmesh.new()
@@ -440,35 +468,44 @@ for o0r, o1r, xf in LAYERS:                  # 겹친 프레임: 안쪽 층이 �
 make_obj("Facility_A_Entrance", bm, ("C", "U"),
          "11726·11748: A자 출입구와 넓은 경사 바깥 테두리·겹친 프레임(존재 VERIFIED). 조명 중심 높이 2.4 m·어깨 폭 1.45 m는 후보(M3), 테두리 폭은 출입구 폭 비율(근사), 돌출 깊이·평면 위치는 UNKNOWN",
          "Facility_Structure", parent=facility_root)
-bm = bmesh.new(); add_box(bm, (XW - 0.45, EYC - 0.3, ELC - 0.1), (XW - 0.05, EYC + 0.3, ELC + 0.1))
+bm = bmesh.new(); add_box(bm, (XE - 0.45, EYC - 0.3, ELC - 0.1), (XE - 0.05, EYC + 0.3, ELC + 0.1))
 make_obj("Facility_A_Entrance_Light", bm, ("C", "P"), "11726·11748: 출입구 꼭대기 조명. 중심 높이 = 측정 정의(바닥→꼭대기 조명) 후보 2.4 m", "Facility_Structure",
          mat=material((0.85, 0.9, 1.0), 8.0), parent=facility_root)
 PD = E["passage_depth"]["value"]
 bm = bmesh.new()
-add_box(bm, (XW + 1.0, EY0, -0.1), (XW + 1.0 + PD, EY1, 0.0))                       # 통로 바닥
+add_box(bm, (XE + 1.0, EY0, -0.1), (XE + 1.0 + PD, EY1, 0.0))                       # 통로 바닥
 for y0_, y1_ in ((EY0 - 0.25, EY0), (EY1, EY1 + 0.25)):                             # 통로 옆벽(어깨점까지)
-    add_box(bm, (XW + 1.0, y0_, 0.0), (XW + 1.0 + PD, y1_, EZS))
+    add_box(bm, (XE + 1.0, y0_, 0.0), (XE + 1.0 + PD, y1_, EZS))
 for (ys, ye) in ((EY0, EYC), (EY1, EYC)):                                           # 통로 경사 천장
     sgn = -1 if ys < EYC else 1
     poly = [(ys, EZS), (ye, EH), (ye, EH + 0.25), (ys + sgn * 0.25, EZS)]
     poly = sorted(poly, key=lambda q: math.atan2(q[1] - (EZS + EH) / 2, q[0] - (ys + ye) / 2))
-    add_prism_x(bm, poly, XW + 1.0, XW + 1.0 + PD)
+    add_prism_x(bm, poly, XE + 1.0, XE + 1.0 + PD)
 k_ = 0.0
 while k_ < PD - 0.3:                                                                 # 옆벽 리브(반복 줄무늬로 보임)
     for yy in (EY0 + 0.02, EY1 - 0.08):
-        add_box(bm, (XW + 1.2 + k_, yy, 0.1), (XW + 1.3 + k_, yy + 0.06, EZS - 0.05))
+        add_box(bm, (XE + 1.2 + k_, yy, 0.1), (XE + 1.3 + k_, yy + 0.06, EZS - 0.05))
     k_ += 0.6
 make_obj("Entrance_Passage_Visible", bm, ("C", "U"),
          "11748: 출입구 안으로 이어지는 통로(존재 VERIFIED). 4 m는 미확정 영역 앞 모델링 중단 위치(측정 아님), 벽 줄무늬는 리브로 보임(PROBABLE). 리브 복도(11878)와의 연결은 UNKNOWN — 만들지 않음",
          "Facility_Structure", parent=facility_root)
-bm = bmesh.new(); add_box(bm, (XW + 1.0 + PD, EY0, 0.0), (XW + 1.0 + PD + 0.05, EY1, EH))
+bm = bmesh.new(); add_box(bm, (XE + 1.0 + PD, EY0, 0.0), (XE + 1.0 + PD + 0.05, EY1, EH))
 make_obj("Entrance_Passage_Unknown_End", bm, ("P", "U"), "미확정 영역 앞 모델링 중단 위치(영화에서 보이는 끝이 아님). 그 너머는 미확인 — 연결하지 않음", "Facility_Structure",
          mat=material("WIRE_U"), wire=0.05, parent=facility_root)
-if E["apron"]["value"]:
+if LAY["apron"]:
     bm = bmesh.new(); add_box(bm, (X1, EY0 - 1.0, -TOP_T), (XW, EY1 + 1.0, DECK_Z))
     make_obj("Entrance_Apron", bm, ("P", "U"),
-             "배치 가설 H1(출입구 임시 위치·좁은 앞 바닥·핀 2개 삭제를 함께 관리): 11726·11748에서 출입구 앞 바닥이 문턱까지 이어짐(PROBABLE). 좁은 다리 형태 자체는 가설. 트렌치 폭·깊이는 v0.2 그대로",
+             "배치 가설 H1(출입구 임시 위치·좁은 앞 바닥·핀 2개 삭제를 함께 관리, 보존 후보 — 기본 배치로 확정하지 않음): 11726·11748에서 출입구 앞 바닥이 문턱까지 이어짐(PROBABLE). 좁은 다리 형태 자체는 가설이며 상자 뒤에서만 닿음(CR-006 검사). 트렌치 폭·깊이는 v0.2 그대로",
              "Facility_Structure", mat=material((0.16, 0.16, 0.17)), parent=facility_root)
+if LAY["forecourt"]:
+    bm = bmesh.new(); add_box(bm, (X1, Y0, -TOP_T), (XE, FC_Y1, DECK_Z))
+    make_obj("Entrance_Forecourt_Floor", bm, ("P", "U"),
+             f"배치 후보 {LAYOUT_NAME}: 11748에서 상자 옆 바닥이 문턱까지 끊김 없이 이어짐(VERIFIED) → 출입구 앞 구간에서는 트렌치가 끝나고 판 높이 바닥이 벽까지 이어진다고 둔 후보. "
+             f"앞마당 +Y 끝(y {FC_Y1:.2f})·트렌치 끝 위치는 UNKNOWN(형태용). 판재 무늬·아래 구조는 만들지 않음",
+             "Facility_Structure", mat=material((0.30, 0.29, 0.28)), parent=facility_root)
+    bm = bmesh.new(); add_box(bm, (X1, FC_Y1, TZ), (XW, FC_Y1 + 0.05, DECK_Z))
+    make_obj("Trench_End_Unknown", bm, ("P", "U"), f"배치 후보 {LAYOUT_NAME}: 트렌치가 시작하는 자리(영화에서 보이지 않음, UNKNOWN)", "Facility_Structure",
+             mat=material("WIRE_U"), wire=0.05, parent=facility_root)
 
 # 낮은 상자(이전 이름 '계단 상자'): 판 위, 시설 쪽 가장자리 안쪽. 2026-10-16 해석 정정 — 안의 반복 부재를 하강 계단으로 본 판정 철회.
 # 기본안은 보이는 형태만(벽·테두리·안쪽 반복 부재·밝은 틈). 판 관통 구멍·하강 발판·하부 연결 없음. 기능 UNKNOWN.
@@ -717,10 +754,12 @@ ANCH = {
     "Support_Placeholder": (X0 + 10, Y0 + 12, -14), "Cliff_Placeholder": (X0 - 10, Y1 + CG, 20),
     "Skiff_Check_29m_x_49m": (scx - SWS / 2 + 4, scy, 5), "Facility_Body_Unknown": (XW + FDEP, 0, 3),
     "Outline_Alt_98.4deg": (*outline(W, W * 1.51, math.radians(98.4))[3], 0.05),
-    "Facility_A_Entrance": (XW - 0.3, EYC, EH), "Entrance_Passage_Visible": (XW + 2.0, EYC, EZS * 0.5),
+    "Facility_A_Entrance": (XE - 0.3, EYC, EH), "Entrance_Passage_Visible": (XE + 2.0, EYC, EZS * 0.5),
     "Back_Edge_Rail": ((OUT[2][0] + OUT[3][0]) / 2, OUT[3][1] + 0.6, RH_), "Edge_Curbs_Near_Stairwell": (cx0 + 1, Y0 + 0.4, ch),
     "Entrance_Apron": (X1 + 3, EY1 + 0.8, 0), "Low_Box_Outer_Skin": (hx0 - 0.3, hy1 + 0.3, 0.5),
 }
+if LAY["forecourt"]:
+    ANCH["Entrance_Forecourt_Floor"] = (X1 + 3, (Y0 + FC_Y1) / 2, 0)
 
 
 def annotate(raw, out, cam, title, skip=()):
@@ -762,6 +801,13 @@ def render(cam, path, res):
     t = time.time(); bpy.ops.render.render(write_still=True)
     return time.time() - t
 
+
+if VARIANT:                                   # 배치 후보 사본: 이미지 렌더 없이 저장만(가설 컬렉션은 컬렉션 단위로 계속 숨김)
+    scene.camera = cam_iso; set_res(RX, RY)
+    out_ = os.path.join(WORK, "layouts", f"layout_{LAYOUT_NAME}.blend")
+    bpy.ops.wm.save_as_mainfile(filepath=out_)
+    print("SAVED", out_, f"layout={LAYOUT_NAME} entrance_y={EYC} forecourt_y1={FC_Y1} platform_front_y={Y0} fins_skipped={fins_skipped}")
+    raise SystemExit(0)
 
 # 위에서 볼 땐 지붕을 숨겨 아래 구조가 보이게
 LOG = {}
@@ -852,7 +898,7 @@ scene.camera = cam_iso; set_res(RX, RY)
 blend = os.path.join(HERE, "mustafar_blockout_v0.3.blend")
 bpy.ops.wm.save_as_mainfile(filepath=blend)
 print("SAVED", blend)
-print(f"V03 entrance y={EYC} h={EH} w={EW} fins_skipped={fins_skipped} curbs={n_curb}")
+print(f"V03 layout={LAYOUT_NAME} entrance y={EYC} h={EH} w={EW} fins_skipped={fins_skipped} curbs={n_curb}")
 print(f"SUMMARY plates={N_PLATES} fins={n_fin} spots={n_spot} facility_edge_lights={n_l} back_posts={n_post}")
 for o in sorted(bpy.data.objects, key=lambda o: o.name):
     if o.type == 'MESH':

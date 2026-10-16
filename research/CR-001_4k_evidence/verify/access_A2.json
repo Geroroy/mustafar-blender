@@ -1,0 +1,23 @@
+{
+ "layout": "A2",
+ "blend": "layout_A2.blend",
+ "grid_m": 0.1,
+ "entrance_center_y": -20.1,
+ "entrance_wall_x": 22.5,
+ "platform_front_y": -25.0,
+ "note": "모델 검사값(영화 치수 아님). 폭은 막힌 칸 사이 거리로 잰 값이라 격자 때문에 ±0.1 m",
+ "goal_cells": 98,
+ "door_cells": 16,
+ "reachable_without_crossing_box": true,
+ "min_clear_width_m": 3.33,
+ "bottleneck_xy": [
+  15.05,
+  -20.95
+ ],
+ "path_len_m": 36.9,
+ "path_passes_box_minus_y_end": true,
+ "path_passes_box_plus_y_end": false,
+ "floor_beside_box_minusY_end_min_m": 4.9,
+ "door_opening_width_model_m": 1.45,
+ "door_threshold_walkable": true
+}
