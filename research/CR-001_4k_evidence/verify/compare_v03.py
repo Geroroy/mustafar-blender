@@ -1,6 +1,6 @@
 """CR-002 비교 렌더. .blend는 임시 사본으로 열고 저장하지 않는다(원본 SHA256 전후 비교).
 실행 (저장소 루트):
-  .venv-bpy/bin/python -I research/CR-001_4k_evidence/verify/compare_v03.py <4K 원본 폴더> <수정 전 v0.3 .blend> [수정 후 .blend=v0.3/mustafar_blockout_v0.3.blend]
+  .venv-bpy/bin/python -I research/CR-001_4k_evidence/verify/compare_v03.py <4K 원본 폴더> <수정 전 v0.3 .blend> [수정 후 .blend] [전후 출력 폴더] [영화 출력 폴더]
 출력:
   ① 같은 카메라 전후 비교(영화 없음, 순수 렌더) → chatgpt_reviews/CR-002_v0.3/before_after/
   ② 영화 비교(11615 겹침, 11748·11246·11712·11625 나란히) → research/CR-001_4k_evidence/_private/cr002r2_film/  (Git 제외)
@@ -11,8 +11,9 @@ HERE = os.path.dirname(os.path.abspath(__file__)); EV = os.path.dirname(HERE); R
 if "--inner" not in sys.argv:
     import subprocess
     PY = os.path.join(ROOT, ".venv-bpy", "bin", "python"); FR = sys.argv[1]
-    src = {"before": sys.argv[2], "after": sys.argv[3] if len(sys.argv) > 3 else os.path.join(ROOT, "v0.3", "mustafar_blockout_v0.3.blend")}
-    OUT_BA = os.path.join(ROOT, "chatgpt_reviews", "CR-002_v0.3", "before_after"); OUT_F = os.path.join(EV, "_private", "cr002r2_film")
+    src = {"before": sys.argv[2], "after": sys.argv[3] if len(sys.argv) > 3 and sys.argv[3] != "-" else os.path.join(ROOT, "v0.3", "mustafar_blockout_v0.3.blend")}
+    OUT_BA = sys.argv[4] if len(sys.argv) > 4 else os.path.join(ROOT, "chatgpt_reviews", "CR-002_v0.3", "before_after")
+    OUT_F = sys.argv[5] if len(sys.argv) > 5 else os.path.join(EV, "_private", "cr002r2_film")
     for d in (OUT_BA, OUT_F): os.makedirs(d, exist_ok=True)
     h0 = {k: hashlib.sha256(open(p, "rb").read()).hexdigest() for k, p in src.items()}
     tmp = tempfile.mkdtemp(prefix="cr002r2_")
@@ -66,6 +67,17 @@ def film(n, size=(RW, RH)):
 
 
 VIEWS = [("r2cam", "Perspective_View_R2_match", (RW, RH)), ("iso", "Isometric_View", (1280, 720)), ("top", "Top_View", (1280, 720))]
+M5 = None
+_m5 = os.path.join(EV, "measure", "m5_result.json")
+if os.path.exists(_m5):
+    _b = [r for r in json.load(open(_m5))["fits"] if r["geometry"] == "model"][0]
+    M5 = (_b["cam"]["xyz"], math.radians(_b["cam"]["yaw_deg"]), math.radians(_b["cam"]["pitch_deg"]), _b["f"], _b["spots_AB"], _b["rms_px"])
+
+
+def m5_cam():
+    (x, y, z), yaw, pitch, f, _, _ = M5
+    fwd = (math.cos(pitch) * math.cos(yaw), math.cos(pitch) * math.sin(yaw), math.sin(pitch))
+    return look_cam("M5_11726", (x, y, z), (x + fwd[0], y + fwd[1], z + fwd[2]), f * 36.0 / 3840)
 renders = {}
 for k in ("before", "after"):
     bpy.ops.wm.open_mainfile(filepath=os.path.join(TMP, k + ".blend"))
@@ -83,11 +95,15 @@ for k in ("before", "after"):
         cam = look_cam(f"APPROX_{n}", loc, tgt, lens); sc.camera = cam
         p = os.path.join(OUT_BA, f"_{k}_approx{n}.png"); sc.render.filepath = p; bpy.ops.render.render(write_still=True)
         renders[(k, f"approx{n}")] = p
+    if M5:
+        sc.camera = m5_cam(); p = os.path.join(OUT_BA, f"_{k}_m5.png"); sc.render.filepath = p; bpy.ops.render.render(write_still=True)
+        renders[(k, "m5")] = p
 
 # ① 전후 비교 (영화 없음)
-names = [v[0] for v in VIEWS] + [f"approx{a[0]}" for a in APPROX]
+names = [v[0] for v in VIEWS] + [f"approx{a[0]}" for a in APPROX] + (["m5"] if M5 else [])
 desc = {"r2cam": "R2 고정 카메라(v0.2 기준안)", "iso": "게임 투영 30°/45°", "top": "위(지붕·절벽 숨김)"}
 desc.update({f"approx{a[0]}": f"근사 카메라 — {a[0]} 방향({a[1]})" for a in APPROX})
+if M5: desc["m5"] = f"M5 맞춤 카메라(11726, 형상 고정, RMS {M5[5]} px, 출입구 점 제외)"
 for vn in names:
     a, b = Image.open(renders[("before", vn)]).convert("RGB"), Image.open(renders[("after", vn)]).convert("RGB")
     sheet = Image.new("RGB", (a.width, a.height * 2))
@@ -113,4 +129,11 @@ for n, what, loc, tgt, lens in APPROX:
     sheet.paste(label(film(n), f"4K {n} — {what}"), (0, 0))
     sheet.paste(label(ren, f"수정 후 v0.3 근사 카메라 {loc}→{tgt}, {lens} mm — 정성 비교, 절대 크기 판정 안 함"), (0, RH))
     sheet.save(os.path.join(OUT_F, f"F_{n}_film_vs_after.png"))
-print("OUT film", 1 + len(APPROX))
+if M5:
+    sc.camera = m5_cam(); p = os.path.join(OUT_F, "_m5.png"); sc.render.filepath = p; bpy.ops.render.render(write_still=True)
+    ren = Image.open(p).convert("RGB"); os.remove(p)
+    sheet = Image.new("RGB", (RW, RH * 2))
+    sheet.paste(label(film(11726), "4K 11726 (주 검증 프레임)"), (0, 0))
+    sheet.paste(label(Image.blend(film(11726), ren, 0.5), f"수정 후 v0.3 × M5 맞춤 카메라(형상 고정, 출입구 점 제외) — 50% 겹침"), (0, RH))
+    sheet.save(os.path.join(OUT_F, "F_11726_m5_overlay.png"))
+print("OUT film", 1 + len(APPROX) + (1 if M5 else 0))
