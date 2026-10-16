@@ -367,7 +367,7 @@
     "MD_Pad_Deck",
     "MD_Entrance_Floor"
    ],
-   "seam_width": 0.05,
+   "seam_width": 0.07,
    "base": [
     0.205,
     0.172,
@@ -472,7 +472,7 @@
    "pocket": {
     "inset": 0.78,
     "slats": 4,
-    "glow_strength": 1.1
+    "glow_strength": 0.5
    },
    "ribs": {
     "count_x": 6,

@@ -106,7 +106,13 @@ const W = (gx, gy) => [95.5 - gy, 96 - gx];        // 게임 → Blender (X, Y)
   await go('enter door from +Y side of bridge', 21.6, -8.2, null, (x) => x > 19.8, [16.0, -6.0]);
   await go('exit door back to bridge (2)', 16.5, -8.2, null, (x) => x < 19.5);
   await go('surround wall beside door at floor (stay outside)', 18.9, -10.3, null, (x, y) => !(x > 18.35 && y < -9.3), [16.0, -10.4]);
-  await go('panel wall beside door from outside (stay outside)', 21.0, -10.6, '09_panel_wall.png', (x) => x < 19.5, [16.5, -10.0]);
+  // 문 옆 벽 뒤(통로 안쪽 옆)를 클릭: 문(폭 2.0 m)으로 돌아 들어가는 길이 있으면 들어가도 됨. 벽(하우징·판)을 뚫고 지나가면 안 됨 → 걸어간 자국으로 확인
+  await home(16.5, -10.0);
+  await page.evaluate(() => { window.__track = []; window.__tk = setInterval(() => window.__track.push([window.__game.player.x, window.__game.player.y]), 40); });
+  await go('click behind wall beside door (route via door allowed)', 21.0, -10.6, '09_panel_wall.png', null);
+  const trk = await page.evaluate(() => { clearInterval(window.__tk); return window.__track; });
+  const bad = trk.map(([gx, gy]) => W(gx, gy)).filter(([x, y]) => x > 18.4 && x < 19.8 && Math.abs(y + 8.215) > 1.05);
+  note('no tunnelling through housing/panel (track samples inside the wall band)', { samples: trk.length, inside_wall: bad.length, pass: trk.length > 20 && bad.length === 0 });
   // 5) 옆 통로(+Y, 시설 뒤): 시작 → 끝 → 끝 너머 → 틈 쪽
   await go('walkway start', 16.0, 11.5, null, (x, y) => y > 9.0, [8, 11]);
   await go('walkway behind facility (occlusion)', 26.0, 11.5, '10_walkway_occlusion.png', (x, y) => x > 24 && y > 9.0);
