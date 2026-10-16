@@ -1,0 +1,320 @@
+{
+ "doc": "M13 — 출입구–상자 상대 위치 재검토(CR-009). 출입구 위치만 움직여 다른 형상 오류를 보정하지 않도록, 두 프레임에서 서로 독립인 방법으로 위치 단서를 얻는다.",
+ "obs_11726": {
+  "eave_light_A": [
+   235,
+   218
+  ],
+  "eave_light_B": [
+   905,
+   215
+  ],
+  "deck_edge_line": [
+   [
+    300,
+    1168
+   ],
+   [
+    900,
+    1170
+   ]
+  ],
+  "box_rim_line": [
+   [
+    1600,
+    1018
+   ],
+   [
+    2000,
+    1018
+   ],
+   [
+    2500,
+    1018
+   ]
+  ],
+  "box_base_line": [
+   [
+    1900,
+    1282
+   ],
+   [
+    2400,
+    1285
+   ]
+  ],
+  "P1": [
+   2555,
+   1015
+  ],
+  "P2": [
+   2595,
+   978
+  ],
+  "door_outer_base_minusY": [
+   3000,
+   1168
+  ],
+  "door_light": [
+   2590,
+   322
+  ]
+ },
+ "obs_11748": {
+  "door_light": [
+   1080,
+   295
+  ],
+  "shoulder_plusY": [
+   735,
+   820
+  ],
+  "shoulder_minusY": [
+   1325,
+   828
+  ],
+  "jamb_minusY_foot": [
+   1352,
+   1222
+  ],
+  "threshold_line": [
+   [
+    1050,
+    1222
+   ],
+   [
+    1250,
+    1222
+   ]
+  ],
+  "P5": [
+   975,
+   1283
+  ],
+  "box_base_line": [
+   [
+    100,
+    1385
+   ],
+   [
+    800,
+    1380
+   ]
+  ]
+ },
+ "end_form": {
+  "Lt": 1.2,
+  "Lr": 1.2,
+  "dh": 0.15
+ },
+ "box_end_y_assumption": -19.4,
+ "11726": [
+  {
+   "family_spots_AB": [
+    0.0,
+    -6.7
+   ],
+   "rms_weighted": 26.6,
+   "cam": {
+    "xyz": [
+     2.75,
+     -13.69,
+     2.14
+    ],
+    "yaw_deg": -3.7,
+    "pitch_deg": -0.5,
+    "f": 2039
+   },
+   "f_at_bound": false,
+   "door_outer_base_floor": [
+    13.63,
+    -20.39
+   ],
+   "implied_door_face_x": 13.78,
+   "implied_door_center_y": -19.06,
+   "diagnostic_door_light_height_m": 4.63
+  },
+  {
+   "family_spots_AB": [
+    6.7,
+    0.0
+   ],
+   "rms_weighted": 9.0,
+   "cam": {
+    "xyz": [
+     -13.34,
+     -25.39,
+     1.91
+    ],
+    "yaw_deg": 26.0,
+    "pitch_deg": 0.7,
+    "f": 5538
+   },
+   "f_at_bound": false,
+   "door_outer_base_floor": [
+    21.28,
+    -16.15
+   ],
+   "implied_door_face_x": 21.43,
+   "implied_door_center_y": -14.81,
+   "diagnostic_door_light_height_m": 5.48
+  }
+ ],
+ "11748": [
+  {
+   "f": 2000,
+   "rms_entrance_fit": 8.6,
+   "cam_local": {
+    "xyz": [
+     -5.69,
+     -1.23,
+     0.66
+    ],
+    "yaw_deg": -10.7,
+    "pitch_deg": 4.6,
+    "f": 2000
+   },
+   "valid_camera_height": true,
+   "P5_local": [
+    -1.2,
+    -0.09
+   ],
+   "box_base_x_local": -2.1,
+   "implied_door_center_y_if_box_end_fixed": -19.31,
+   "implied_door_face_x_if_box_base_fixed": 12.7
+  },
+  {
+   "f": 2200,
+   "rms_entrance_fit": 8.6,
+   "cam_local": {
+    "xyz": [
+     -6.22,
+     -0.92,
+     0.58
+    ],
+    "yaw_deg": -12.8,
+    "pitch_deg": 5.0,
+    "f": 2200
+   },
+   "valid_camera_height": true,
+   "P5_local": [
+    -1.41,
+    -0.06
+   ],
+   "box_base_x_local": -2.46,
+   "implied_door_center_y_if_box_end_fixed": -19.34,
+   "implied_door_face_x_if_box_base_fixed": 13.06
+  },
+  {
+   "f": 2400,
+   "rms_entrance_fit": 8.7,
+   "cam_local": {
+    "xyz": [
+     -6.73,
+     -0.54,
+     0.5
+    ],
+    "yaw_deg": -15.1,
+    "pitch_deg": 5.4,
+    "f": 2400
+   },
+   "valid_camera_height": true,
+   "P5_local": [
+    -1.66,
+    -0.0
+   ],
+   "box_base_x_local": -2.87,
+   "implied_door_center_y_if_box_end_fixed": -19.4,
+   "implied_door_face_x_if_box_base_fixed": 13.47
+  },
+  {
+   "f": 2600,
+   "rms_entrance_fit": 8.9,
+   "cam_local": {
+    "xyz": [
+     -7.22,
+     -0.26,
+     0.43
+    ],
+    "yaw_deg": -16.4,
+    "pitch_deg": 5.6,
+    "f": 2600
+   },
+   "valid_camera_height": true,
+   "P5_local": [
+    -1.96,
+    0.05
+   ],
+   "box_base_x_local": -3.35,
+   "implied_door_center_y_if_box_end_fixed": -19.45,
+   "implied_door_face_x_if_box_base_fixed": 13.95
+  },
+  {
+   "f": 2800,
+   "rms_entrance_fit": 9.2,
+   "cam_local": {
+    "xyz": [
+     -7.68,
+     -0.21,
+     0.33
+    ],
+    "yaw_deg": -15.7,
+    "pitch_deg": 6.0,
+    "f": 2800
+   },
+   "valid_camera_height": true,
+   "P5_local": [
+    -2.44,
+    0.04
+   ],
+   "box_base_x_local": -4.06,
+   "implied_door_center_y_if_box_end_fixed": -19.44,
+   "implied_door_face_x_if_box_base_fixed": 14.66
+  },
+  {
+   "f": 3000,
+   "rms_entrance_fit": 9.5,
+   "cam_local": {
+    "xyz": [
+     -8.15,
+     -0.24,
+     0.22
+    ],
+    "yaw_deg": -14.5,
+    "pitch_deg": 6.4,
+    "f": 3000
+   },
+   "valid_camera_height": false
+  },
+  {
+   "f": 3200,
+   "rms_entrance_fit": 9.8,
+   "cam_local": {
+    "xyz": [
+     -8.64,
+     -0.19,
+     0.2
+    ],
+    "yaw_deg": -13.9,
+    "pitch_deg": 6.2,
+    "f": 3200
+   },
+   "valid_camera_height": false
+  },
+  {
+   "f": 3400,
+   "rms_entrance_fit": 10.2,
+   "cam_local": {
+    "xyz": [
+     -9.13,
+     -0.1,
+     0.2
+    ],
+    "yaw_deg": -13.7,
+    "pitch_deg": 5.8,
+    "f": 3400
+   },
+   "valid_camera_height": false
+  }
+ ]
+}

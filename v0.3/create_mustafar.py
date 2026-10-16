@@ -525,7 +525,7 @@ EFD = LB.get("end_form")
 EF = bool(EFD) and LAYOUT_NAME in EFD["layouts"]     # CR-008: −Y 끝 형태(솟은 끝 블록 + 끝 단) — 지정한 배치 후보에서만
 if EF:
     NEND_ = DIM["v03"]["stairwell_skin"]["end_tiers"]["value"]
-    EY5 = hy0 - 0.3 * NEND_                          # 맨 −Y 바닥 접점: 기존 끝 단 끝(y −19.4) 그대로 — A3 관계를 정한 값
+    EY5 = LAY.get("box_end_y") or (hy0 - 0.3 * NEND_)   # 맨 −Y 바닥 접점: 기존 모델 가정 y −19.4(영화 확정값 아님). 후보가 box_end_y를 주면 그 값(CR-009 제한 완화)
     EY3 = EY5 + EFD["tier_len"]["value"]; EY2 = EY3 + EFD["raised_len"]["value"]; EY1 = EY2 + EFD["chamfer"]["value"]
     EDH, EZT = EFD["raised_dh"]["value"], EFD["tier_top_frac"]["value"] * PH
 YB0 = EY1 if EF else hy0                             # 주 몸체(열린 윗면) −Y 끝

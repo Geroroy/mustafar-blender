@@ -1,0 +1,296 @@
+{
+ "candidates": {
+  "A3": {
+   "center_y": -20.1,
+   "front_x": 14.8,
+   "box_end_y": -19.4,
+   "11726": [
+    {
+     "family_spots_AB": [
+      0.0,
+      -6.7
+     ],
+     "rms_weighted": 26.6,
+     "cam": {
+      "xyz": [
+       2.75,
+       -13.69,
+       2.14
+      ],
+      "yaw_deg": -3.7,
+      "pitch_deg": -0.5,
+      "f": 2039
+     },
+     "f_at_bound": false
+    },
+    {
+     "family_spots_AB": [
+      6.7,
+      0.0
+     ],
+     "rms_weighted": 9.0,
+     "cam": {
+      "xyz": [
+       -13.34,
+       -25.39,
+       1.91
+      ],
+      "yaw_deg": 26.0,
+      "pitch_deg": 0.7,
+      "f": 5538
+     },
+     "f_at_bound": false
+    }
+   ],
+   "11246": [
+    {
+     "near_lamp_y": 21.3,
+     "rms_weighted": 50.8,
+     "cam": {
+      "xyz": [
+       0.47,
+       -23.98,
+       2.11
+      ],
+      "yaw_deg": 57.1,
+      "pitch_deg": -0.4,
+      "f": 3055
+     },
+     "f_at_bound": false
+    },
+    {
+     "near_lamp_y": 10.7,
+     "rms_weighted": 49.4,
+     "cam": {
+      "xyz": [
+       -2.26,
+       -25.87,
+       2.61
+      ],
+      "yaw_deg": 53.0,
+      "pitch_deg": -2.0,
+      "f": 3817
+     },
+     "f_at_bound": false
+    }
+   ]
+  },
+  "A3a": {
+   "center_y": -19.3,
+   "front_x": 14.8,
+   "box_end_y": -19.4,
+   "11726": [
+    {
+     "family_spots_AB": [
+      0.0,
+      -6.7
+     ],
+     "rms_weighted": 26.6,
+     "cam": {
+      "xyz": [
+       2.75,
+       -13.69,
+       2.14
+      ],
+      "yaw_deg": -3.7,
+      "pitch_deg": -0.5,
+      "f": 2039
+     },
+     "f_at_bound": false
+    },
+    {
+     "family_spots_AB": [
+      6.7,
+      0.0
+     ],
+     "rms_weighted": 9.0,
+     "cam": {
+      "xyz": [
+       -13.34,
+       -25.39,
+       1.91
+      ],
+      "yaw_deg": 26.0,
+      "pitch_deg": 0.7,
+      "f": 5538
+     },
+     "f_at_bound": false
+    }
+   ],
+   "11246": [
+    {
+     "near_lamp_y": 21.3,
+     "rms_weighted": 50.8,
+     "cam": {
+      "xyz": [
+       0.47,
+       -23.98,
+       2.11
+      ],
+      "yaw_deg": 57.1,
+      "pitch_deg": -0.4,
+      "f": 3055
+     },
+     "f_at_bound": false
+    },
+    {
+     "near_lamp_y": 10.7,
+     "rms_weighted": 49.4,
+     "cam": {
+      "xyz": [
+       -2.26,
+       -25.87,
+       2.61
+      ],
+      "yaw_deg": 53.0,
+      "pitch_deg": -2.0,
+      "f": 3817
+     },
+     "f_at_bound": false
+    }
+   ]
+  },
+  "A3b": {
+   "center_y": -19.06,
+   "front_x": 14.8,
+   "box_end_y": -19.06,
+   "11726": [
+    {
+     "family_spots_AB": [
+      0.0,
+      -6.7
+     ],
+     "rms_weighted": 29.9,
+     "cam": {
+      "xyz": [
+       2.97,
+       -13.2,
+       2.11
+      ],
+      "yaw_deg": -4.9,
+      "pitch_deg": -0.3,
+      "f": 2005
+     },
+     "f_at_bound": false
+    },
+    {
+     "family_spots_AB": [
+      6.7,
+      0.0
+     ],
+     "rms_weighted": 9.0,
+     "cam": {
+      "xyz": [
+       -12.14,
+       -24.02,
+       1.92
+      ],
+      "yaw_deg": 24.9,
+      "pitch_deg": 0.7,
+      "f": 5278
+     },
+     "f_at_bound": false
+    }
+   ],
+   "11246": [
+    {
+     "near_lamp_y": 21.3,
+     "rms_weighted": 49.0,
+     "cam": {
+      "xyz": [
+       1.08,
+       -22.54,
+       2.04
+      ],
+      "yaw_deg": 55.9,
+      "pitch_deg": -0.3,
+      "f": 2816
+     },
+     "f_at_bound": false
+    },
+    {
+     "near_lamp_y": 10.7,
+     "rms_weighted": 47.3,
+     "cam": {
+      "xyz": [
+       -1.19,
+       -23.94,
+       2.47
+      ],
+      "yaw_deg": 52.0,
+      "pitch_deg": -1.8,
+      "f": 3454
+     },
+     "f_at_bound": false
+    }
+   ]
+  }
+ },
+ "11748_local": [
+  {
+   "f": 2000,
+   "cam_local": {
+    "xyz": [
+     -5.69,
+     -1.23,
+     0.66
+    ],
+    "yaw_deg": -10.7,
+    "pitch_deg": 4.6,
+    "f": 2000
+   }
+  },
+  {
+   "f": 2200,
+   "cam_local": {
+    "xyz": [
+     -6.22,
+     -0.92,
+     0.58
+    ],
+    "yaw_deg": -12.8,
+    "pitch_deg": 5.0,
+    "f": 2200
+   }
+  },
+  {
+   "f": 2400,
+   "cam_local": {
+    "xyz": [
+     -6.73,
+     -0.54,
+     0.5
+    ],
+    "yaw_deg": -15.1,
+    "pitch_deg": 5.4,
+    "f": 2400
+   }
+  },
+  {
+   "f": 2600,
+   "cam_local": {
+    "xyz": [
+     -7.22,
+     -0.26,
+     0.43
+    ],
+    "yaw_deg": -16.4,
+    "pitch_deg": 5.6,
+    "f": 2600
+   }
+  },
+  {
+   "f": 2800,
+   "cam_local": {
+    "xyz": [
+     -7.68,
+     -0.21,
+     0.33
+    ],
+    "yaw_deg": -15.7,
+    "pitch_deg": 6.0,
+    "f": 2800
+   }
+  }
+ ]
+}

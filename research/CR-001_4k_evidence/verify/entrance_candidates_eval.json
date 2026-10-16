@@ -1,0 +1,4412 @@
+{
+ "note": "광선 교차(후보 메시) 기반. 범주 표본은 영화 판독(맞춤에 쓰지 않은 관측 포함). 11748 카메라는 출입구 점만으로 맞춘 국소 카메라(f 2000~2800, 출입구 크기 2.4 m 가정)를 각 후보 출입구에 붙임",
+ "samples": {
+  "11748": [
+   {
+    "px": [
+     1100,
+     1265
+    ],
+    "expect": "floor",
+    "desc": "문턱 앞 바닥(상자 끝 옆)"
+   },
+   {
+    "px": [
+     1250,
+     1260
+    ],
+    "expect": "floor",
+    "desc": "문턱 앞 바닥"
+   },
+   {
+    "px": [
+     1350,
+     1300
+    ],
+    "expect": "floor",
+    "desc": "−Y 문설주 앞 바닥"
+   },
+   {
+    "px": [
+     1150,
+     1350
+    ],
+    "expect": "floor",
+    "desc": "문턱 앞 바닥(가까운 쪽)"
+   },
+   {
+    "px": [
+     1450,
+     1290
+    ],
+    "expect": "floor",
+    "desc": "−Y 문설주 오른쪽 바닥"
+   },
+   {
+    "px": [
+     300,
+     1250
+    ],
+    "expect": "box",
+    "desc": "상자 L 근면"
+   },
+   {
+    "px": [
+     600,
+     1250
+    ],
+    "expect": "box",
+    "desc": "상자 L 근면"
+   },
+   {
+    "px": [
+     800,
+     1200
+    ],
+    "expect": "box",
+    "desc": "상자 L 끝 쪽"
+   },
+   {
+    "px": [
+     930,
+     1220
+    ],
+    "expect": "box",
+    "desc": "상자 L 끝 단"
+   },
+   {
+    "px": [
+     1400,
+     1000
+    ],
+    "expect": "door",
+    "desc": "−Y 문설주 면"
+   },
+   {
+    "px": [
+     2300,
+     1150
+    ],
+    "expect": "R",
+    "desc": "R 긴 면"
+   },
+   {
+    "px": [
+     2600,
+     1150
+    ],
+    "expect": "R",
+    "desc": "R 긴 면"
+   },
+   {
+    "px": [
+     3000,
+     1220
+    ],
+    "expect": "none",
+    "desc": "R 너머 용암(바닥 끝 위)"
+   },
+   {
+    "px": [
+     3000,
+     1360
+    ],
+    "expect": "floor",
+    "desc": "R 너머 바닥"
+   },
+   {
+    "px": [
+     3500,
+     1300
+    ],
+    "expect": "curb",
+    "desc": "가장자리 연석"
+   }
+  ],
+  "11726": [
+   {
+    "px": [
+     1800,
+     1150
+    ],
+    "expect": "box",
+    "desc": "상자 A 근면"
+   },
+   {
+    "px": [
+     2300,
+     1150
+    ],
+    "expect": "box",
+    "desc": "상자 A 근면"
+   },
+   {
+    "px": [
+     2700,
+     1100
+    ],
+    "expect": "box",
+    "desc": "상자 A 끝 블록"
+   },
+   {
+    "px": [
+     2900,
+     1150
+    ],
+    "expect": "box",
+    "desc": "상자 A 끝 단"
+   },
+   {
+    "px": [
+     3100,
+     1230
+    ],
+    "expect": "floor",
+    "desc": "상자 끝 너머 바닥"
+   },
+   {
+    "px": [
+     3400,
+     1240
+    ],
+    "expect": "floor",
+    "desc": "상자 끝 너머 바닥"
+   },
+   {
+    "px": [
+     3700,
+     1270
+    ],
+    "expect": "floor",
+    "desc": "상자 끝 너머 바닥"
+   },
+   {
+    "px": [
+     3445,
+     1150
+    ],
+    "expect": "none",
+    "desc": "바닥 끝 위로 용암"
+   },
+   {
+    "px": [
+     3600,
+     1130
+    ],
+    "expect": "R",
+    "desc": "오른쪽 끝 구조물 B"
+   },
+   {
+    "px": [
+     2700,
+     700
+    ],
+    "expect": "door",
+    "desc": "출입구 테두리(상자 위)"
+   },
+   {
+    "px": [
+     500,
+     1250
+    ],
+    "expect": "floor",
+    "desc": "왼쪽 바닥"
+   },
+   {
+    "px": [
+     500,
+     900
+    ],
+    "expect": "facility",
+    "desc": "처마 구간 벽·지지부"
+   }
+  ]
+ },
+ "candidates": {
+  "H1": {
+   "door": {
+    "front_x": 22.5,
+    "center_y": -16.0,
+    "box_end_y": null
+   },
+   "11748": [
+    {
+     "f": 2000,
+     "relations": {
+      "jamb_plusY_foot_hidden(film: yes)": false,
+      "threshold_mid_visible(film: yes)": true,
+      "jamb_minusY_foot_visible(film: yes)": true
+     },
+     "relations_ok": 2,
+     "samples_ok": 7,
+     "samples_n": 15,
+     "samples": [
+      {
+       "px": [
+        1100,
+        1265
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Entrance_Apron",
+       "ok": true
+      },
+      {
+       "px": [
+        1250,
+        1260
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Entrance_Apron",
+       "ok": true
+      },
+      {
+       "px": [
+        1350,
+        1300
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Entrance_Apron",
+       "ok": true
+      },
+      {
+       "px": [
+        1150,
+        1350
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Entrance_Apron",
+       "ok": true
+      },
+      {
+       "px": [
+        1450,
+        1290
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Entrance_Apron",
+       "ok": true
+      },
+      {
+       "px": [
+        300,
+        1250
+       ],
+       "expect": "box",
+       "got": "facility",
+       "object": "Hangar_Walls",
+       "ok": false
+      },
+      {
+       "px": [
+        600,
+        1250
+       ],
+       "expect": "box",
+       "got": "floor",
+       "object": "Entrance_Apron",
+       "ok": false
+      },
+      {
+       "px": [
+        800,
+        1200
+       ],
+       "expect": "box",
+       "got": "facility",
+       "object": "Hangar_Walls",
+       "ok": false
+      },
+      {
+       "px": [
+        930,
+        1220
+       ],
+       "expect": "box",
+       "got": "facility",
+       "object": "Hangar_Walls",
+       "ok": false
+      },
+      {
+       "px": [
+        1400,
+        1000
+       ],
+       "expect": "door",
+       "got": "door",
+       "object": "Facility_A_Entrance",
+       "ok": true
+      },
+      {
+       "px": [
+        2300,
+        1150
+       ],
+       "expect": "R",
+       "got": "facility",
+       "object": "Hangar_Walls",
+       "ok": false
+      },
+      {
+       "px": [
+        2600,
+        1150
+       ],
+       "expect": "R",
+       "got": "facility",
+       "object": "Hangar_Walls",
+       "ok": false
+      },
+      {
+       "px": [
+        3000,
+        1220
+       ],
+       "expect": "none",
+       "got": "none",
+       "object": null,
+       "ok": true
+      },
+      {
+       "px": [
+        3000,
+        1360
+       ],
+       "expect": "floor",
+       "got": "none",
+       "object": null,
+       "ok": false
+      },
+      {
+       "px": [
+        3500,
+        1300
+       ],
+       "expect": "curb",
+       "got": "none",
+       "object": null,
+       "ok": false
+      }
+     ]
+    },
+    {
+     "f": 2200,
+     "relations": {
+      "jamb_plusY_foot_hidden(film: yes)": false,
+      "threshold_mid_visible(film: yes)": true,
+      "jamb_minusY_foot_visible(film: yes)": true
+     },
+     "relations_ok": 2,
+     "samples_ok": 7,
+     "samples_n": 15,
+     "samples": [
+      {
+       "px": [
+        1100,
+        1265
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Entrance_Apron",
+       "ok": true
+      },
+      {
+       "px": [
+        1250,
+        1260
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Entrance_Apron",
+       "ok": true
+      },
+      {
+       "px": [
+        1350,
+        1300
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Entrance_Apron",
+       "ok": true
+      },
+      {
+       "px": [
+        1150,
+        1350
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Entrance_Apron",
+       "ok": true
+      },
+      {
+       "px": [
+        1450,
+        1290
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Entrance_Apron",
+       "ok": true
+      },
+      {
+       "px": [
+        300,
+        1250
+       ],
+       "expect": "box",
+       "got": "facility",
+       "object": "Hangar_Walls",
+       "ok": false
+      },
+      {
+       "px": [
+        600,
+        1250
+       ],
+       "expect": "box",
+       "got": "floor",
+       "object": "Entrance_Apron",
+       "ok": false
+      },
+      {
+       "px": [
+        800,
+        1200
+       ],
+       "expect": "box",
+       "got": "facility",
+       "object": "Hangar_Walls",
+       "ok": false
+      },
+      {
+       "px": [
+        930,
+        1220
+       ],
+       "expect": "box",
+       "got": "facility",
+       "object": "Hangar_Walls",
+       "ok": false
+      },
+      {
+       "px": [
+        1400,
+        1000
+       ],
+       "expect": "door",
+       "got": "door",
+       "object": "Facility_A_Entrance",
+       "ok": true
+      },
+      {
+       "px": [
+        2300,
+        1150
+       ],
+       "expect": "R",
+       "got": "facility",
+       "object": "Hangar_Walls",
+       "ok": false
+      },
+      {
+       "px": [
+        2600,
+        1150
+       ],
+       "expect": "R",
+       "got": "facility",
+       "object": "Hangar_Walls",
+       "ok": false
+      },
+      {
+       "px": [
+        3000,
+        1220
+       ],
+       "expect": "none",
+       "got": "none",
+       "object": null,
+       "ok": true
+      },
+      {
+       "px": [
+        3000,
+        1360
+       ],
+       "expect": "floor",
+       "got": "none",
+       "object": null,
+       "ok": false
+      },
+      {
+       "px": [
+        3500,
+        1300
+       ],
+       "expect": "curb",
+       "got": "none",
+       "object": null,
+       "ok": false
+      }
+     ]
+    },
+    {
+     "f": 2400,
+     "relations": {
+      "jamb_plusY_foot_hidden(film: yes)": false,
+      "threshold_mid_visible(film: yes)": true,
+      "jamb_minusY_foot_visible(film: yes)": true
+     },
+     "relations_ok": 2,
+     "samples_ok": 7,
+     "samples_n": 15,
+     "samples": [
+      {
+       "px": [
+        1100,
+        1265
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Entrance_Apron",
+       "ok": true
+      },
+      {
+       "px": [
+        1250,
+        1260
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Entrance_Apron",
+       "ok": true
+      },
+      {
+       "px": [
+        1350,
+        1300
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Entrance_Apron",
+       "ok": true
+      },
+      {
+       "px": [
+        1150,
+        1350
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Entrance_Apron",
+       "ok": true
+      },
+      {
+       "px": [
+        1450,
+        1290
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Entrance_Apron",
+       "ok": true
+      },
+      {
+       "px": [
+        300,
+        1250
+       ],
+       "expect": "box",
+       "got": "facility",
+       "object": "Hangar_Walls",
+       "ok": false
+      },
+      {
+       "px": [
+        600,
+        1250
+       ],
+       "expect": "box",
+       "got": "facility",
+       "object": "Hangar_Walls",
+       "ok": false
+      },
+      {
+       "px": [
+        800,
+        1200
+       ],
+       "expect": "box",
+       "got": "facility",
+       "object": "Hangar_Walls",
+       "ok": false
+      },
+      {
+       "px": [
+        930,
+        1220
+       ],
+       "expect": "box",
+       "got": "facility",
+       "object": "Hangar_Walls",
+       "ok": false
+      },
+      {
+       "px": [
+        1400,
+        1000
+       ],
+       "expect": "door",
+       "got": "door",
+       "object": "Facility_A_Entrance",
+       "ok": true
+      },
+      {
+       "px": [
+        2300,
+        1150
+       ],
+       "expect": "R",
+       "got": "facility",
+       "object": "Hangar_Walls",
+       "ok": false
+      },
+      {
+       "px": [
+        2600,
+        1150
+       ],
+       "expect": "R",
+       "got": "facility",
+       "object": "Hangar_Walls",
+       "ok": false
+      },
+      {
+       "px": [
+        3000,
+        1220
+       ],
+       "expect": "none",
+       "got": "none",
+       "object": null,
+       "ok": true
+      },
+      {
+       "px": [
+        3000,
+        1360
+       ],
+       "expect": "floor",
+       "got": "none",
+       "object": null,
+       "ok": false
+      },
+      {
+       "px": [
+        3500,
+        1300
+       ],
+       "expect": "curb",
+       "got": "none",
+       "object": null,
+       "ok": false
+      }
+     ]
+    },
+    {
+     "f": 2600,
+     "relations": {
+      "jamb_plusY_foot_hidden(film: yes)": false,
+      "threshold_mid_visible(film: yes)": true,
+      "jamb_minusY_foot_visible(film: yes)": true
+     },
+     "relations_ok": 2,
+     "samples_ok": 7,
+     "samples_n": 15,
+     "samples": [
+      {
+       "px": [
+        1100,
+        1265
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Entrance_Apron",
+       "ok": true
+      },
+      {
+       "px": [
+        1250,
+        1260
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Entrance_Apron",
+       "ok": true
+      },
+      {
+       "px": [
+        1350,
+        1300
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Entrance_Apron",
+       "ok": true
+      },
+      {
+       "px": [
+        1150,
+        1350
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Entrance_Apron",
+       "ok": true
+      },
+      {
+       "px": [
+        1450,
+        1290
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Entrance_Apron",
+       "ok": true
+      },
+      {
+       "px": [
+        300,
+        1250
+       ],
+       "expect": "box",
+       "got": "facility",
+       "object": "Hangar_Walls",
+       "ok": false
+      },
+      {
+       "px": [
+        600,
+        1250
+       ],
+       "expect": "box",
+       "got": "facility",
+       "object": "Hangar_Walls",
+       "ok": false
+      },
+      {
+       "px": [
+        800,
+        1200
+       ],
+       "expect": "box",
+       "got": "door",
+       "object": "Entrance_Passage_Visible",
+       "ok": false
+      },
+      {
+       "px": [
+        930,
+        1220
+       ],
+       "expect": "box",
+       "got": "facility",
+       "object": "Hangar_Walls",
+       "ok": false
+      },
+      {
+       "px": [
+        1400,
+        1000
+       ],
+       "expect": "door",
+       "got": "door",
+       "object": "Facility_A_Entrance",
+       "ok": true
+      },
+      {
+       "px": [
+        2300,
+        1150
+       ],
+       "expect": "R",
+       "got": "facility",
+       "object": "Hangar_Walls",
+       "ok": false
+      },
+      {
+       "px": [
+        2600,
+        1150
+       ],
+       "expect": "R",
+       "got": "facility",
+       "object": "Hangar_Walls",
+       "ok": false
+      },
+      {
+       "px": [
+        3000,
+        1220
+       ],
+       "expect": "none",
+       "got": "none",
+       "object": null,
+       "ok": true
+      },
+      {
+       "px": [
+        3000,
+        1360
+       ],
+       "expect": "floor",
+       "got": "none",
+       "object": null,
+       "ok": false
+      },
+      {
+       "px": [
+        3500,
+        1300
+       ],
+       "expect": "curb",
+       "got": "none",
+       "object": null,
+       "ok": false
+      }
+     ]
+    },
+    {
+     "f": 2800,
+     "relations": {
+      "jamb_plusY_foot_hidden(film: yes)": false,
+      "threshold_mid_visible(film: yes)": true,
+      "jamb_minusY_foot_visible(film: yes)": true
+     },
+     "relations_ok": 2,
+     "samples_ok": 7,
+     "samples_n": 15,
+     "samples": [
+      {
+       "px": [
+        1100,
+        1265
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Entrance_Apron",
+       "ok": true
+      },
+      {
+       "px": [
+        1250,
+        1260
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Entrance_Apron",
+       "ok": true
+      },
+      {
+       "px": [
+        1350,
+        1300
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Entrance_Apron",
+       "ok": true
+      },
+      {
+       "px": [
+        1150,
+        1350
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Entrance_Apron",
+       "ok": true
+      },
+      {
+       "px": [
+        1450,
+        1290
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Entrance_Apron",
+       "ok": true
+      },
+      {
+       "px": [
+        300,
+        1250
+       ],
+       "expect": "box",
+       "got": "facility",
+       "object": "Hangar_Walls",
+       "ok": false
+      },
+      {
+       "px": [
+        600,
+        1250
+       ],
+       "expect": "box",
+       "got": "facility",
+       "object": "Hangar_Walls",
+       "ok": false
+      },
+      {
+       "px": [
+        800,
+        1200
+       ],
+       "expect": "box",
+       "got": "door",
+       "object": "Entrance_Passage_Visible",
+       "ok": false
+      },
+      {
+       "px": [
+        930,
+        1220
+       ],
+       "expect": "box",
+       "got": "facility",
+       "object": "Hangar_Walls",
+       "ok": false
+      },
+      {
+       "px": [
+        1400,
+        1000
+       ],
+       "expect": "door",
+       "got": "door",
+       "object": "Facility_A_Entrance",
+       "ok": true
+      },
+      {
+       "px": [
+        2300,
+        1150
+       ],
+       "expect": "R",
+       "got": "facility",
+       "object": "Hangar_Walls",
+       "ok": false
+      },
+      {
+       "px": [
+        2600,
+        1150
+       ],
+       "expect": "R",
+       "got": "facility",
+       "object": "Hangar_Walls",
+       "ok": false
+      },
+      {
+       "px": [
+        3000,
+        1220
+       ],
+       "expect": "none",
+       "got": "none",
+       "object": null,
+       "ok": true
+      },
+      {
+       "px": [
+        3000,
+        1360
+       ],
+       "expect": "floor",
+       "got": "none",
+       "object": null,
+       "ok": false
+      },
+      {
+       "px": [
+        3500,
+        1300
+       ],
+       "expect": "curb",
+       "got": "none",
+       "object": null,
+       "ok": false
+      }
+     ]
+    }
+   ],
+   "11726": []
+  },
+  "A3": {
+   "door": {
+    "front_x": 14.8,
+    "center_y": -20.1,
+    "box_end_y": null
+   },
+   "11748": [
+    {
+     "f": 2000,
+     "relations": {
+      "jamb_plusY_foot_hidden(film: yes)": false,
+      "threshold_mid_visible(film: yes)": true,
+      "jamb_minusY_foot_visible(film: yes)": true
+     },
+     "relations_ok": 2,
+     "samples_ok": 12,
+     "samples_n": 15,
+     "samples": [
+      {
+       "px": [
+        1100,
+        1265
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1250,
+        1260
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Landing_Platform",
+       "ok": true
+      },
+      {
+       "px": [
+        1350,
+        1300
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1150,
+        1350
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1450,
+        1290
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        300,
+        1250
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        600,
+        1250
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        800,
+        1200
+       ],
+       "expect": "box",
+       "got": "door",
+       "object": "Entrance_Bay_Front",
+       "ok": false
+      },
+      {
+       "px": [
+        930,
+        1220
+       ],
+       "expect": "box",
+       "got": "door",
+       "object": "Entrance_Bay_Front",
+       "ok": false
+      },
+      {
+       "px": [
+        1400,
+        1000
+       ],
+       "expect": "door",
+       "got": "door",
+       "object": "Facility_A_Entrance",
+       "ok": true
+      },
+      {
+       "px": [
+        2300,
+        1150
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        2600,
+        1150
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        3000,
+        1220
+       ],
+       "expect": "none",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": false
+      },
+      {
+       "px": [
+        3000,
+        1360
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        3500,
+        1300
+       ],
+       "expect": "curb",
+       "got": "curb",
+       "object": "Edge_Curbs_Near_Stairwell",
+       "ok": true
+      }
+     ]
+    },
+    {
+     "f": 2200,
+     "relations": {
+      "jamb_plusY_foot_hidden(film: yes)": false,
+      "threshold_mid_visible(film: yes)": true,
+      "jamb_minusY_foot_visible(film: yes)": true
+     },
+     "relations_ok": 2,
+     "samples_ok": 12,
+     "samples_n": 15,
+     "samples": [
+      {
+       "px": [
+        1100,
+        1265
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1250,
+        1260
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1350,
+        1300
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1150,
+        1350
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1450,
+        1290
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        300,
+        1250
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        600,
+        1250
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        800,
+        1200
+       ],
+       "expect": "box",
+       "got": "door",
+       "object": "Entrance_Bay_Front",
+       "ok": false
+      },
+      {
+       "px": [
+        930,
+        1220
+       ],
+       "expect": "box",
+       "got": "door",
+       "object": "Entrance_Bay_Front",
+       "ok": false
+      },
+      {
+       "px": [
+        1400,
+        1000
+       ],
+       "expect": "door",
+       "got": "door",
+       "object": "Facility_A_Entrance",
+       "ok": true
+      },
+      {
+       "px": [
+        2300,
+        1150
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        2600,
+        1150
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        3000,
+        1220
+       ],
+       "expect": "none",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": false
+      },
+      {
+       "px": [
+        3000,
+        1360
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        3500,
+        1300
+       ],
+       "expect": "curb",
+       "got": "curb",
+       "object": "Edge_Curbs_Near_Stairwell",
+       "ok": true
+      }
+     ]
+    },
+    {
+     "f": 2400,
+     "relations": {
+      "jamb_plusY_foot_hidden(film: yes)": false,
+      "threshold_mid_visible(film: yes)": true,
+      "jamb_minusY_foot_visible(film: yes)": true
+     },
+     "relations_ok": 2,
+     "samples_ok": 12,
+     "samples_n": 15,
+     "samples": [
+      {
+       "px": [
+        1100,
+        1265
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1250,
+        1260
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1350,
+        1300
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1150,
+        1350
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1450,
+        1290
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        300,
+        1250
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        600,
+        1250
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        800,
+        1200
+       ],
+       "expect": "box",
+       "got": "door",
+       "object": "Entrance_Bay_Front",
+       "ok": false
+      },
+      {
+       "px": [
+        930,
+        1220
+       ],
+       "expect": "box",
+       "got": "door",
+       "object": "Entrance_Bay_Front",
+       "ok": false
+      },
+      {
+       "px": [
+        1400,
+        1000
+       ],
+       "expect": "door",
+       "got": "door",
+       "object": "Facility_A_Entrance",
+       "ok": true
+      },
+      {
+       "px": [
+        2300,
+        1150
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        2600,
+        1150
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        3000,
+        1220
+       ],
+       "expect": "none",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": false
+      },
+      {
+       "px": [
+        3000,
+        1360
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        3500,
+        1300
+       ],
+       "expect": "curb",
+       "got": "curb",
+       "object": "Edge_Curbs_Near_Stairwell",
+       "ok": true
+      }
+     ]
+    },
+    {
+     "f": 2600,
+     "relations": {
+      "jamb_plusY_foot_hidden(film: yes)": false,
+      "threshold_mid_visible(film: yes)": true,
+      "jamb_minusY_foot_visible(film: yes)": true
+     },
+     "relations_ok": 2,
+     "samples_ok": 12,
+     "samples_n": 15,
+     "samples": [
+      {
+       "px": [
+        1100,
+        1265
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1250,
+        1260
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1350,
+        1300
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1150,
+        1350
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1450,
+        1290
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        300,
+        1250
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        600,
+        1250
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        800,
+        1200
+       ],
+       "expect": "box",
+       "got": "door",
+       "object": "Entrance_Passage_Visible",
+       "ok": false
+      },
+      {
+       "px": [
+        930,
+        1220
+       ],
+       "expect": "box",
+       "got": "door",
+       "object": "Entrance_Bay_Front",
+       "ok": false
+      },
+      {
+       "px": [
+        1400,
+        1000
+       ],
+       "expect": "door",
+       "got": "door",
+       "object": "Facility_A_Entrance",
+       "ok": true
+      },
+      {
+       "px": [
+        2300,
+        1150
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        2600,
+        1150
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        3000,
+        1220
+       ],
+       "expect": "none",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": false
+      },
+      {
+       "px": [
+        3000,
+        1360
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        3500,
+        1300
+       ],
+       "expect": "curb",
+       "got": "curb",
+       "object": "Edge_Curbs_Near_Stairwell",
+       "ok": true
+      }
+     ]
+    },
+    {
+     "f": 2800,
+     "relations": {
+      "jamb_plusY_foot_hidden(film: yes)": false,
+      "threshold_mid_visible(film: yes)": true,
+      "jamb_minusY_foot_visible(film: yes)": true
+     },
+     "relations_ok": 2,
+     "samples_ok": 12,
+     "samples_n": 15,
+     "samples": [
+      {
+       "px": [
+        1100,
+        1265
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1250,
+        1260
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1350,
+        1300
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1150,
+        1350
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1450,
+        1290
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        300,
+        1250
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        600,
+        1250
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        800,
+        1200
+       ],
+       "expect": "box",
+       "got": "door",
+       "object": "Entrance_Passage_Visible",
+       "ok": false
+      },
+      {
+       "px": [
+        930,
+        1220
+       ],
+       "expect": "box",
+       "got": "door",
+       "object": "Entrance_Bay_Front",
+       "ok": false
+      },
+      {
+       "px": [
+        1400,
+        1000
+       ],
+       "expect": "door",
+       "got": "door",
+       "object": "Facility_A_Entrance",
+       "ok": true
+      },
+      {
+       "px": [
+        2300,
+        1150
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        2600,
+        1150
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        3000,
+        1220
+       ],
+       "expect": "none",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": false
+      },
+      {
+       "px": [
+        3000,
+        1360
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        3500,
+        1300
+       ],
+       "expect": "curb",
+       "got": "curb",
+       "object": "Edge_Curbs_Near_Stairwell",
+       "ok": true
+      }
+     ]
+    }
+   ],
+   "11726": [
+    {
+     "family_spots_AB": [
+      0.0,
+      -6.7
+     ],
+     "cam_rms_weighted": 26.6,
+     "f": 2039,
+     "f_at_bound": false,
+     "relations": {
+      "threshold_mid_hidden(film: yes)": true,
+      "jamb_plusY_foot_hidden(film: yes)": true,
+      "door_outer_base_minusY_visible(film: yes)": true
+     },
+     "relations_ok": 3,
+     "door_outer_base_err_px(eval)": 74.9,
+     "samples_ok": 11,
+     "samples_n": 12,
+     "samples": [
+      {
+       "px": [
+        1800,
+        1150
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_Outer_Skin",
+       "ok": true
+      },
+      {
+       "px": [
+        2300,
+        1150
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_Outer_Skin",
+       "ok": true
+      },
+      {
+       "px": [
+        2700,
+        1100
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_Outer_Skin",
+       "ok": true
+      },
+      {
+       "px": [
+        2900,
+        1150
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        3100,
+        1230
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        3400,
+        1240
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        3700,
+        1270
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        3445,
+        1150
+       ],
+       "expect": "none",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": false
+      },
+      {
+       "px": [
+        3600,
+        1130
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        2700,
+        700
+       ],
+       "expect": "door",
+       "got": "door",
+       "object": "Entrance_Bay_Front",
+       "ok": true
+      },
+      {
+       "px": [
+        500,
+        1250
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        500,
+        900
+       ],
+       "expect": "facility",
+       "got": "facility",
+       "object": "Structural_Pillars",
+       "ok": true
+      }
+     ]
+    },
+    {
+     "family_spots_AB": [
+      6.7,
+      0.0
+     ],
+     "cam_rms_weighted": 9.0,
+     "f": 5538,
+     "f_at_bound": false,
+     "relations": {
+      "threshold_mid_hidden(film: yes)": false,
+      "jamb_plusY_foot_hidden(film: yes)": false,
+      "door_outer_base_minusY_visible(film: yes)": true
+     },
+     "relations_ok": 1,
+     "door_outer_base_err_px(eval)": 721.9,
+     "samples_ok": 6,
+     "samples_n": 12,
+     "samples": [
+      {
+       "px": [
+        1800,
+        1150
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_Outer_Skin",
+       "ok": true
+      },
+      {
+       "px": [
+        2300,
+        1150
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_Outer_Skin",
+       "ok": true
+      },
+      {
+       "px": [
+        2700,
+        1100
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_Outer_Skin",
+       "ok": true
+      },
+      {
+       "px": [
+        2900,
+        1150
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        3100,
+        1230
+       ],
+       "expect": "floor",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": false
+      },
+      {
+       "px": [
+        3400,
+        1240
+       ],
+       "expect": "floor",
+       "got": "door",
+       "object": "Entrance_Bay_Front",
+       "ok": false
+      },
+      {
+       "px": [
+        3700,
+        1270
+       ],
+       "expect": "floor",
+       "got": "door",
+       "object": "Entrance_Bay_Front",
+       "ok": false
+      },
+      {
+       "px": [
+        3445,
+        1150
+       ],
+       "expect": "none",
+       "got": "door",
+       "object": "Entrance_Passage_Visible",
+       "ok": false
+      },
+      {
+       "px": [
+        3600,
+        1130
+       ],
+       "expect": "R",
+       "got": "door",
+       "object": "Facility_A_Entrance",
+       "ok": false
+      },
+      {
+       "px": [
+        2700,
+        700
+       ],
+       "expect": "door",
+       "got": "facility",
+       "object": "Hangar_Walls",
+       "ok": false
+      },
+      {
+       "px": [
+        500,
+        1250
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        500,
+        900
+       ],
+       "expect": "facility",
+       "got": "facility",
+       "object": "Structural_Pillars",
+       "ok": true
+      }
+     ]
+    }
+   ],
+   "new_visible_vs_H1": {
+    "11615_r2": {
+     "cells_changed_to(object: count of 64x27)": {
+      "Floor_Plates": 1
+     }
+    },
+    "11246": {
+     "cells_changed_to(object: count of 64x27)": {
+      "Low_Box_End_Block": 3,
+      "Low_Box_Outer_Skin": 1,
+      "Floor_Plates": 26
+     }
+    }
+   }
+  },
+  "A3a": {
+   "door": {
+    "front_x": 14.8,
+    "center_y": -19.3,
+    "box_end_y": null
+   },
+   "11748": [
+    {
+     "f": 2000,
+     "relations": {
+      "jamb_plusY_foot_hidden(film: yes)": true,
+      "threshold_mid_visible(film: yes)": false,
+      "jamb_minusY_foot_visible(film: yes)": true
+     },
+     "relations_ok": 2,
+     "samples_ok": 14,
+     "samples_n": 15,
+     "samples": [
+      {
+       "px": [
+        1100,
+        1265
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1250,
+        1260
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Landing_Platform",
+       "ok": true
+      },
+      {
+       "px": [
+        1350,
+        1300
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1150,
+        1350
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1450,
+        1290
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        300,
+        1250
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        600,
+        1250
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        800,
+        1200
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        930,
+        1220
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        1400,
+        1000
+       ],
+       "expect": "door",
+       "got": "door",
+       "object": "Facility_A_Entrance",
+       "ok": true
+      },
+      {
+       "px": [
+        2300,
+        1150
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        2600,
+        1150
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        3000,
+        1220
+       ],
+       "expect": "none",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": false
+      },
+      {
+       "px": [
+        3000,
+        1360
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        3500,
+        1300
+       ],
+       "expect": "curb",
+       "got": "curb",
+       "object": "Edge_Curbs_Near_Stairwell",
+       "ok": true
+      }
+     ]
+    },
+    {
+     "f": 2200,
+     "relations": {
+      "jamb_plusY_foot_hidden(film: yes)": true,
+      "threshold_mid_visible(film: yes)": false,
+      "jamb_minusY_foot_visible(film: yes)": true
+     },
+     "relations_ok": 2,
+     "samples_ok": 13,
+     "samples_n": 15,
+     "samples": [
+      {
+       "px": [
+        1100,
+        1265
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1250,
+        1260
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1350,
+        1300
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1150,
+        1350
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1450,
+        1290
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        300,
+        1250
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        600,
+        1250
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        800,
+        1200
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        930,
+        1220
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        1400,
+        1000
+       ],
+       "expect": "door",
+       "got": "door",
+       "object": "Facility_A_Entrance",
+       "ok": true
+      },
+      {
+       "px": [
+        2300,
+        1150
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        2600,
+        1150
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        3000,
+        1220
+       ],
+       "expect": "none",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": false
+      },
+      {
+       "px": [
+        3000,
+        1360
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        3500,
+        1300
+       ],
+       "expect": "curb",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": false
+      }
+     ]
+    },
+    {
+     "f": 2400,
+     "relations": {
+      "jamb_plusY_foot_hidden(film: yes)": true,
+      "threshold_mid_visible(film: yes)": false,
+      "jamb_minusY_foot_visible(film: yes)": true
+     },
+     "relations_ok": 2,
+     "samples_ok": 13,
+     "samples_n": 15,
+     "samples": [
+      {
+       "px": [
+        1100,
+        1265
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1250,
+        1260
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1350,
+        1300
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1150,
+        1350
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1450,
+        1290
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        300,
+        1250
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        600,
+        1250
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        800,
+        1200
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        930,
+        1220
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        1400,
+        1000
+       ],
+       "expect": "door",
+       "got": "door",
+       "object": "Facility_A_Entrance",
+       "ok": true
+      },
+      {
+       "px": [
+        2300,
+        1150
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        2600,
+        1150
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        3000,
+        1220
+       ],
+       "expect": "none",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": false
+      },
+      {
+       "px": [
+        3000,
+        1360
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        3500,
+        1300
+       ],
+       "expect": "curb",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": false
+      }
+     ]
+    },
+    {
+     "f": 2600,
+     "relations": {
+      "jamb_plusY_foot_hidden(film: yes)": true,
+      "threshold_mid_visible(film: yes)": false,
+      "jamb_minusY_foot_visible(film: yes)": true
+     },
+     "relations_ok": 2,
+     "samples_ok": 13,
+     "samples_n": 15,
+     "samples": [
+      {
+       "px": [
+        1100,
+        1265
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1250,
+        1260
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1350,
+        1300
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1150,
+        1350
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1450,
+        1290
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        300,
+        1250
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        600,
+        1250
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        800,
+        1200
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        930,
+        1220
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        1400,
+        1000
+       ],
+       "expect": "door",
+       "got": "door",
+       "object": "Facility_A_Entrance",
+       "ok": true
+      },
+      {
+       "px": [
+        2300,
+        1150
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        2600,
+        1150
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        3000,
+        1220
+       ],
+       "expect": "none",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": false
+      },
+      {
+       "px": [
+        3000,
+        1360
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        3500,
+        1300
+       ],
+       "expect": "curb",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": false
+      }
+     ]
+    },
+    {
+     "f": 2800,
+     "relations": {
+      "jamb_plusY_foot_hidden(film: yes)": true,
+      "threshold_mid_visible(film: yes)": false,
+      "jamb_minusY_foot_visible(film: yes)": true
+     },
+     "relations_ok": 2,
+     "samples_ok": 13,
+     "samples_n": 15,
+     "samples": [
+      {
+       "px": [
+        1100,
+        1265
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1250,
+        1260
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1350,
+        1300
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1150,
+        1350
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1450,
+        1290
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        300,
+        1250
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        600,
+        1250
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        800,
+        1200
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        930,
+        1220
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        1400,
+        1000
+       ],
+       "expect": "door",
+       "got": "door",
+       "object": "Facility_A_Entrance",
+       "ok": true
+      },
+      {
+       "px": [
+        2300,
+        1150
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        2600,
+        1150
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        3000,
+        1220
+       ],
+       "expect": "none",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": false
+      },
+      {
+       "px": [
+        3000,
+        1360
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        3500,
+        1300
+       ],
+       "expect": "curb",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": false
+      }
+     ]
+    }
+   ],
+   "11726": [
+    {
+     "family_spots_AB": [
+      0.0,
+      -6.7
+     ],
+     "cam_rms_weighted": 26.6,
+     "f": 2039,
+     "f_at_bound": false,
+     "relations": {
+      "threshold_mid_hidden(film: yes)": true,
+      "jamb_plusY_foot_hidden(film: yes)": true,
+      "door_outer_base_minusY_visible(film: yes)": false
+     },
+     "relations_ok": 2,
+     "door_outer_base_err_px(eval)": 71.5,
+     "samples_ok": 11,
+     "samples_n": 12,
+     "samples": [
+      {
+       "px": [
+        1800,
+        1150
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_Outer_Skin",
+       "ok": true
+      },
+      {
+       "px": [
+        2300,
+        1150
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_Outer_Skin",
+       "ok": true
+      },
+      {
+       "px": [
+        2700,
+        1100
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_Outer_Skin",
+       "ok": true
+      },
+      {
+       "px": [
+        2900,
+        1150
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        3100,
+        1230
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        3400,
+        1240
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        3700,
+        1270
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        3445,
+        1150
+       ],
+       "expect": "none",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": false
+      },
+      {
+       "px": [
+        3600,
+        1130
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        2700,
+        700
+       ],
+       "expect": "door",
+       "got": "door",
+       "object": "Facility_A_Entrance",
+       "ok": true
+      },
+      {
+       "px": [
+        500,
+        1250
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        500,
+        900
+       ],
+       "expect": "facility",
+       "got": "facility",
+       "object": "Structural_Pillars",
+       "ok": true
+      }
+     ]
+    },
+    {
+     "family_spots_AB": [
+      6.7,
+      0.0
+     ],
+     "cam_rms_weighted": 9.0,
+     "f": 5538,
+     "f_at_bound": false,
+     "relations": {
+      "threshold_mid_hidden(film: yes)": true,
+      "jamb_plusY_foot_hidden(film: yes)": true,
+      "door_outer_base_minusY_visible(film: yes)": true
+     },
+     "relations_ok": 3,
+     "door_outer_base_err_px(eval)": 553.3,
+     "samples_ok": 6,
+     "samples_n": 12,
+     "samples": [
+      {
+       "px": [
+        1800,
+        1150
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_Outer_Skin",
+       "ok": true
+      },
+      {
+       "px": [
+        2300,
+        1150
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_Outer_Skin",
+       "ok": true
+      },
+      {
+       "px": [
+        2700,
+        1100
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_Outer_Skin",
+       "ok": true
+      },
+      {
+       "px": [
+        2900,
+        1150
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        3100,
+        1230
+       ],
+       "expect": "floor",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": false
+      },
+      {
+       "px": [
+        3400,
+        1240
+       ],
+       "expect": "floor",
+       "got": "door",
+       "object": "Entrance_Bay_Front",
+       "ok": false
+      },
+      {
+       "px": [
+        3700,
+        1270
+       ],
+       "expect": "floor",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": false
+      },
+      {
+       "px": [
+        3445,
+        1150
+       ],
+       "expect": "none",
+       "got": "door",
+       "object": "Facility_A_Entrance",
+       "ok": false
+      },
+      {
+       "px": [
+        3600,
+        1130
+       ],
+       "expect": "R",
+       "got": "door",
+       "object": "Entrance_Bay_Front",
+       "ok": false
+      },
+      {
+       "px": [
+        2700,
+        700
+       ],
+       "expect": "door",
+       "got": "facility",
+       "object": "Hangar_Walls",
+       "ok": false
+      },
+      {
+       "px": [
+        500,
+        1250
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        500,
+        900
+       ],
+       "expect": "facility",
+       "got": "facility",
+       "object": "Structural_Pillars",
+       "ok": true
+      }
+     ]
+    }
+   ],
+   "new_visible_vs_H1": {
+    "11615_r2": {
+     "cells_changed_to(object: count of 64x27)": {
+      "Floor_Plates": 1
+     }
+    },
+    "11246": {
+     "cells_changed_to(object: count of 64x27)": {
+      "Low_Box_End_Block": 3,
+      "Low_Box_Outer_Skin": 1,
+      "Floor_Plates": 26
+     }
+    }
+   }
+  },
+  "A3b": {
+   "door": {
+    "front_x": 14.8,
+    "center_y": -19.06,
+    "box_end_y": -19.06
+   },
+   "11748": [
+    {
+     "f": 2000,
+     "relations": {
+      "jamb_plusY_foot_hidden(film: yes)": true,
+      "threshold_mid_visible(film: yes)": true,
+      "jamb_minusY_foot_visible(film: yes)": true
+     },
+     "relations_ok": 3,
+     "samples_ok": 14,
+     "samples_n": 15,
+     "samples": [
+      {
+       "px": [
+        1100,
+        1265
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1250,
+        1260
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Landing_Platform",
+       "ok": true
+      },
+      {
+       "px": [
+        1350,
+        1300
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1150,
+        1350
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1450,
+        1290
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        300,
+        1250
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        600,
+        1250
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        800,
+        1200
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        930,
+        1220
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        1400,
+        1000
+       ],
+       "expect": "door",
+       "got": "door",
+       "object": "Facility_A_Entrance",
+       "ok": true
+      },
+      {
+       "px": [
+        2300,
+        1150
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        2600,
+        1150
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        3000,
+        1220
+       ],
+       "expect": "none",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": false
+      },
+      {
+       "px": [
+        3000,
+        1360
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        3500,
+        1300
+       ],
+       "expect": "curb",
+       "got": "curb",
+       "object": "Edge_Curbs_Near_Stairwell",
+       "ok": true
+      }
+     ]
+    },
+    {
+     "f": 2200,
+     "relations": {
+      "jamb_plusY_foot_hidden(film: yes)": true,
+      "threshold_mid_visible(film: yes)": true,
+      "jamb_minusY_foot_visible(film: yes)": true
+     },
+     "relations_ok": 3,
+     "samples_ok": 13,
+     "samples_n": 15,
+     "samples": [
+      {
+       "px": [
+        1100,
+        1265
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1250,
+        1260
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1350,
+        1300
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1150,
+        1350
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1450,
+        1290
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        300,
+        1250
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        600,
+        1250
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        800,
+        1200
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        930,
+        1220
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        1400,
+        1000
+       ],
+       "expect": "door",
+       "got": "door",
+       "object": "Facility_A_Entrance",
+       "ok": true
+      },
+      {
+       "px": [
+        2300,
+        1150
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        2600,
+        1150
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        3000,
+        1220
+       ],
+       "expect": "none",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": false
+      },
+      {
+       "px": [
+        3000,
+        1360
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        3500,
+        1300
+       ],
+       "expect": "curb",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": false
+      }
+     ]
+    },
+    {
+     "f": 2400,
+     "relations": {
+      "jamb_plusY_foot_hidden(film: yes)": true,
+      "threshold_mid_visible(film: yes)": true,
+      "jamb_minusY_foot_visible(film: yes)": true
+     },
+     "relations_ok": 3,
+     "samples_ok": 13,
+     "samples_n": 15,
+     "samples": [
+      {
+       "px": [
+        1100,
+        1265
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1250,
+        1260
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1350,
+        1300
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1150,
+        1350
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1450,
+        1290
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        300,
+        1250
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        600,
+        1250
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        800,
+        1200
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        930,
+        1220
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        1400,
+        1000
+       ],
+       "expect": "door",
+       "got": "door",
+       "object": "Facility_A_Entrance",
+       "ok": true
+      },
+      {
+       "px": [
+        2300,
+        1150
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        2600,
+        1150
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        3000,
+        1220
+       ],
+       "expect": "none",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": false
+      },
+      {
+       "px": [
+        3000,
+        1360
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        3500,
+        1300
+       ],
+       "expect": "curb",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": false
+      }
+     ]
+    },
+    {
+     "f": 2600,
+     "relations": {
+      "jamb_plusY_foot_hidden(film: yes)": true,
+      "threshold_mid_visible(film: yes)": true,
+      "jamb_minusY_foot_visible(film: yes)": true
+     },
+     "relations_ok": 3,
+     "samples_ok": 13,
+     "samples_n": 15,
+     "samples": [
+      {
+       "px": [
+        1100,
+        1265
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1250,
+        1260
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1350,
+        1300
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1150,
+        1350
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1450,
+        1290
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        300,
+        1250
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        600,
+        1250
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        800,
+        1200
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        930,
+        1220
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        1400,
+        1000
+       ],
+       "expect": "door",
+       "got": "door",
+       "object": "Facility_A_Entrance",
+       "ok": true
+      },
+      {
+       "px": [
+        2300,
+        1150
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        2600,
+        1150
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        3000,
+        1220
+       ],
+       "expect": "none",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": false
+      },
+      {
+       "px": [
+        3000,
+        1360
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        3500,
+        1300
+       ],
+       "expect": "curb",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": false
+      }
+     ]
+    },
+    {
+     "f": 2800,
+     "relations": {
+      "jamb_plusY_foot_hidden(film: yes)": true,
+      "threshold_mid_visible(film: yes)": true,
+      "jamb_minusY_foot_visible(film: yes)": true
+     },
+     "relations_ok": 3,
+     "samples_ok": 13,
+     "samples_n": 15,
+     "samples": [
+      {
+       "px": [
+        1100,
+        1265
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1250,
+        1260
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1350,
+        1300
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1150,
+        1350
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        1450,
+        1290
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        300,
+        1250
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        600,
+        1250
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        800,
+        1200
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        930,
+        1220
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        1400,
+        1000
+       ],
+       "expect": "door",
+       "got": "door",
+       "object": "Facility_A_Entrance",
+       "ok": true
+      },
+      {
+       "px": [
+        2300,
+        1150
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        2600,
+        1150
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        3000,
+        1220
+       ],
+       "expect": "none",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": false
+      },
+      {
+       "px": [
+        3000,
+        1360
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        3500,
+        1300
+       ],
+       "expect": "curb",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": false
+      }
+     ]
+    }
+   ],
+   "11726": [
+    {
+     "family_spots_AB": [
+      0.0,
+      -6.7
+     ],
+     "cam_rms_weighted": 29.9,
+     "f": 2005,
+     "f_at_bound": false,
+     "relations": {
+      "threshold_mid_hidden(film: yes)": true,
+      "jamb_plusY_foot_hidden(film: yes)": true,
+      "door_outer_base_minusY_visible(film: yes)": false
+     },
+     "relations_ok": 2,
+     "door_outer_base_err_px(eval)": 80.1,
+     "samples_ok": 11,
+     "samples_n": 12,
+     "samples": [
+      {
+       "px": [
+        1800,
+        1150
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_Outer_Skin",
+       "ok": true
+      },
+      {
+       "px": [
+        2300,
+        1150
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_Outer_Skin",
+       "ok": true
+      },
+      {
+       "px": [
+        2700,
+        1100
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_Outer_Skin",
+       "ok": true
+      },
+      {
+       "px": [
+        2900,
+        1150
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        3100,
+        1230
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        3400,
+        1240
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        3700,
+        1270
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        3445,
+        1150
+       ],
+       "expect": "none",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": false
+      },
+      {
+       "px": [
+        3600,
+        1130
+       ],
+       "expect": "R",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": true
+      },
+      {
+       "px": [
+        2700,
+        700
+       ],
+       "expect": "door",
+       "got": "door",
+       "object": "Facility_A_Entrance",
+       "ok": true
+      },
+      {
+       "px": [
+        500,
+        1250
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        500,
+        900
+       ],
+       "expect": "facility",
+       "got": "facility",
+       "object": "Structural_Pillars",
+       "ok": true
+      }
+     ]
+    },
+    {
+     "family_spots_AB": [
+      6.7,
+      0.0
+     ],
+     "cam_rms_weighted": 9.0,
+     "f": 5278,
+     "f_at_bound": false,
+     "relations": {
+      "threshold_mid_hidden(film: yes)": false,
+      "jamb_plusY_foot_hidden(film: yes)": true,
+      "door_outer_base_minusY_visible(film: yes)": true
+     },
+     "relations_ok": 2,
+     "door_outer_base_err_px(eval)": 561.1,
+     "samples_ok": 6,
+     "samples_n": 12,
+     "samples": [
+      {
+       "px": [
+        1800,
+        1150
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_Outer_Skin",
+       "ok": true
+      },
+      {
+       "px": [
+        2300,
+        1150
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_Outer_Skin",
+       "ok": true
+      },
+      {
+       "px": [
+        2700,
+        1100
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_Outer_Skin",
+       "ok": true
+      },
+      {
+       "px": [
+        2900,
+        1150
+       ],
+       "expect": "box",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": true
+      },
+      {
+       "px": [
+        3100,
+        1230
+       ],
+       "expect": "floor",
+       "got": "box",
+       "object": "Low_Box_End_Block",
+       "ok": false
+      },
+      {
+       "px": [
+        3400,
+        1240
+       ],
+       "expect": "floor",
+       "got": "door",
+       "object": "Entrance_Bay_Front",
+       "ok": false
+      },
+      {
+       "px": [
+        3700,
+        1270
+       ],
+       "expect": "floor",
+       "got": "R",
+       "object": "R_Structure_Hypothesis",
+       "ok": false
+      },
+      {
+       "px": [
+        3445,
+        1150
+       ],
+       "expect": "none",
+       "got": "door",
+       "object": "Facility_A_Entrance",
+       "ok": false
+      },
+      {
+       "px": [
+        3600,
+        1130
+       ],
+       "expect": "R",
+       "got": "door",
+       "object": "Entrance_Bay_Front",
+       "ok": false
+      },
+      {
+       "px": [
+        2700,
+        700
+       ],
+       "expect": "door",
+       "got": "facility",
+       "object": "Hangar_Walls",
+       "ok": false
+      },
+      {
+       "px": [
+        500,
+        1250
+       ],
+       "expect": "floor",
+       "got": "floor",
+       "object": "Floor_Plates",
+       "ok": true
+      },
+      {
+       "px": [
+        500,
+        900
+       ],
+       "expect": "facility",
+       "got": "facility",
+       "object": "Structural_Pillars",
+       "ok": true
+      }
+     ]
+    }
+   ],
+   "new_visible_vs_H1": {
+    "11615_r2": {
+     "cells_changed_to(object: count of 64x27)": {
+      "Floor_Plates": 1
+     }
+    },
+    "11246": {
+     "cells_changed_to(object: count of 64x27)": {
+      "Low_Box_End_Block": 3,
+      "Low_Box_Outer_Skin": 4,
+      "Floor_Plates": 24
+     }
+    }
+   }
+  }
+ }
+}
