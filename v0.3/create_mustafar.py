@@ -1,5 +1,5 @@
-"""무스타파 착륙장 블록아웃 v0.3(작업 사본) — Blender(bpy) 자동 생성. v0.2 스크립트를 복사해 4K 조사로 확인된 구조만 추가했다.
-추가: A자 출입구와 보이는 안쪽 통로, 출입구 앞 바닥, 뒤쪽 난간, 상자 근처 연석, 엇갈린 길쭉한 육각 바닥 판재. 새 치수는 dimensions.json v03의 후보값.
+"""무스타파 착륙장 블록아웃 v0.3(작업 사본) — 2026-10-16 낮은 상자 해석 정정(하강 계단 판정 철회, 가설은 숨긴 컬렉션) — Blender(bpy) 자동 생성. v0.2 스크립트를 복사해 4K 조사로 확인된 구조만 추가했다.
+추가: A자 출입구와 보이는 안쪽 통로, 출입구 앞 바닥, 뒤쪽 난간, 상자 근처 연석, 낮은 상자의 바깥 경사 패널·단 테두리·안쪽 반복 부재(기능 UNKNOWN), 엇갈린 길쭉한 육각 바닥 판재. 새 치수는 dimensions.json v03의 후보값.
 
 실행:  <bpy 가상환경>/bin/python create_mustafar.py
 입력:  dimensions.json (같은 폴더), ../refs/ (영화 스틸 — 비교 이미지용)
@@ -250,10 +250,11 @@ OVER, FDEP = v("facility", "roof_overhang"), v("facility", "depth_x")
 XW = X1 + GAP           # 시설 벽면
 FY0, FY1 = v("facility", "front_end_y"), v("facility", "back_end_y")
 
-# 계단 상자(판 위, 가장자리 안쪽) — 판재와 윗판에 구멍
+# 낮은 상자(이전 이름 '계단 상자', 판 위, 가장자리 안쪽). 판 관통 구멍은 숨긴 가설에서만(DESCENT=True일 때)
 SCX, SCY = v("stairwell", "corner_back_left")
 SSX, SSY = v("stairwell", "size_x"), v("stairwell", "size_y")
-HOLE = (SCX, SCY - SSY, SCX + SSX, SCY)      # x0, y0, x1, y1
+HOLE = (SCX, SCY - SSY, SCX + SSX, SCY)      # x0, y0, x1, y1 — 낮은 상자의 바닥 범위
+DESCENT = DIM["v03"]["low_box"]["descent_hypothesis_in_default"]["value"]   # False: 판 관통 구멍 없음(기본안)
 
 facility_root = bpy.data.objects.new("Facility_Structure", None)
 coll("Facility_Structure").objects.link(facility_root)
@@ -261,9 +262,9 @@ coll("Facility_Structure").objects.link(facility_root)
 # ---------------------------------------------------------------- 1. Landing_Platform (윗판) + Platform_Sidewalls
 bm = bmesh.new()
 hx0, hy0, hx1, hy1 = HOLE
-for lo, hi in [((X0, Y0), (hx0, Y1)), ((hx1, Y0), (X1, Y1)), ((hx0, Y0), (hx1, hy0)), ((hx0, hy1), (hx1, Y1))]:
+for lo, hi in ([((X0, Y0), (hx0, Y1)), ((hx1, Y0), (X1, Y1)), ((hx0, Y0), (hx1, hy0)), ((hx0, hy1), (hx1, Y1))] if DESCENT else [((X0, Y0), (X1, Y1))]):
     if hi[0] - lo[0] > 0.01 and hi[1] - lo[1] > 0.01:
-        add_box(bm, (lo[0], lo[1], -TOP_T), (hi[0], hi[1], DECK_Z))   # 계단 구멍을 뺀 윗판 (각도 90° 기준)
+        add_box(bm, (lo[0], lo[1], -TOP_T), (hi[0], hi[1], DECK_Z))   # 윗판 (기본안: 구멍 없음, 각도 90° 기준)
 make_obj("Landing_Platform", bm, conf("platform", "width_x"),
          "R1·R2·R3·R6: 판 존재 확인. 외곽은 R6 정사영 분석의 평행사변형(모서리 85~98°), 치수 범위는 dimensions.json. 판재 이음매 아래 면이라 어두운 회색(외곽 불확실성은 Outline_Alt·모서리 표지로 표시)", "Platform",
          mat=material((0.16, 0.16, 0.17)))
@@ -313,7 +314,7 @@ while x < ix1 + HW:
 
 
 def cut_hole(p):
-    """판재에서 계단 구멍을 뺀다: 구멍 바깥 네 영역(왼·오른·앞·뒤)으로 각각 잘라 모은다(경계 위 꼭짓점 보존)."""
+    """(가설 DESCENT 전용) 판재에서 상자 바닥 구멍을 뺀다: 구멍 바깥 네 영역(왼·오른·앞·뒤)으로 각각 잘라 모은다(경계 위 꼭짓점 보존)."""
     BIG = 1e4
     out = []
     for r in ((-BIG, -BIG, hx0, BIG), (hx1, -BIG, BIG, BIG), (hx0, -BIG, hx1, hy0), (hx0, hy1, hx1, BIG)):
@@ -323,7 +324,8 @@ def cut_hole(p):
     return out
 
 
-plates = [q for p in plates for q in cut_hole(p)]
+if DESCENT:
+    plates = [q for p in plates for q in cut_hole(p)]
 SEAM = v("floor_plates", "seam_width")
 HMIN, HMAX = v("floor_plates", "height_min"), v("floor_plates", "height_max")
 bm = bmesh.new()
@@ -346,7 +348,7 @@ ob = make_obj("Floor_Plates", bm, ("C", "U"),
               mat=material("PLATE_A"))
 ob.data.materials.append(material("PLATE_B"))
 N_PLATES = len(plates)
-json.dump({"hex": [HW, HS, HP], "clip": [ix0, iy0, ix1, iy1], "hole": list(HOLE), "plates_before_seam": [[list(map(float, q)) for q in p] for p in plates]},
+json.dump({"hex": [HW, HS, HP], "clip": [ix0, iy0, ix1, iy1], "hole": list(HOLE) if DESCENT else None, "plates_before_seam": [[list(map(float, q)) for q in p] for p in plates]},
           open(os.path.join(WORK, "floor_plates.json"), "w"))
 
 # ---------------------------------------------------------------- 3. 시설 구조 (하나로 이어진 건축: 트렌치 통로 → 벽·핀 → 처마 보·지붕)
@@ -354,7 +356,7 @@ bm = bmesh.new()
 add_box(bm, (X1, FY0, TZ - 0.5), (XW, FY1, TZ))                         # 아래 통로 바닥
 add_box(bm, (X1 - 0.01, FY0, TZ - 0.5), (X1 + 0.3, FY1, -TOP_T))         # 판 가장자리 아래 옹벽 (트렌치 쪽 면)
 make_obj("Corridor_Lower_Walkway", bm, conf("facility", "trench_gap"),
-         "R2: 바닥 가장자리와 시설 벽 사이 낮은 띠 + 그쪽으로 내려가는 계단 → 벽 밑동을 따라가는 아래 통로로 해석. 바닥면·폭은 안 보임",
+         "R2: 바닥 가장자리와 시설 벽 사이 낮은 띠 → 벽 밑동을 따라가는 아래 통로로 해석(v0.2 자리 표시). 근거였던 '그쪽으로 내려가는 계단'은 2026-10-16 낮은 상자 해석 정정으로 철회 — 상자와 연결하지 않음. 바닥면·폭·깊이는 안 보임(UNKNOWN)",
          "Facility_Structure", parent=facility_root)
 
 E = DIM["v03"]["entrance"]
@@ -468,23 +470,45 @@ if E["apron"]["value"]:
              "배치 가설 H1(출입구 임시 위치·좁은 앞 바닥·핀 2개 삭제를 함께 관리): 11726·11748에서 출입구 앞 바닥이 문턱까지 이어짐(PROBABLE). 좁은 다리 형태 자체는 가설. 트렌치 폭·깊이는 v0.2 그대로",
              "Facility_Structure", mat=material((0.16, 0.16, 0.17)), parent=facility_root)
 
-# 계단 상자: 판 위(가장자리 안쪽), 안에서 앞(-Y)으로 내려감. 도착 지점은 미확인
+# 낮은 상자(이전 이름 '계단 상자'): 판 위, 시설 쪽 가장자리 안쪽. 2026-10-16 해석 정정 — 안의 반복 부재를 하강 계단으로 본 판정 철회.
+# 기본안은 보이는 형태만(벽·테두리·안쪽 반복 부재·밝은 틈). 판 관통 구멍·하강 발판·하부 연결 없음. 기능 UNKNOWN.
 PH, SBZ = v("stairwell", "parapet_height"), v("stairwell", "bottom_z")
 T_ = 0.35
+LB = DIM["v03"]["low_box"]
 bm = bmesh.new()
-add_box(bm, (hx0, hy0, DECK_Z), (hx0 + T_, hy1, PH))          # 판 쪽(-X) 난간
-add_box(bm, (hx1 - T_, hy0, DECK_Z), (hx1, hy1, PH))          # 시설 쪽(+X) 난간 — 안쪽 면에 빛나는 틈
-add_box(bm, (hx0, hy1 - T_, DECK_Z), (hx1, hy1, PH))          # 뒤 끝 난간
+add_box(bm, (hx0, hy0, DECK_Z), (hx0 + T_, hy1, PH))          # −X 벽
+add_box(bm, (hx1 - T_, hy0, DECK_Z), (hx1, hy1, PH))          # +X 벽 — 안쪽 면에 밝은 틈
+add_box(bm, (hx0, hy1 - T_, DECK_Z), (hx1, hy1, PH))          # +Y 끝 벽
+add_box(bm, (hx0, hy0, DECK_Z), (hx1, hy0 + T_, PH))          # −Y 끝 벽(11246: 테두리가 사방으로 닫혀 보임)
+make_obj("Low_Box", bm, ("C", "P"),
+         "R2·11615·11246: 낮은 상자(존재 VERIFIED, 위치는 R2 측정). 기능 UNKNOWN — 하강 계단 판정은 철회(가설은 숨긴 컬렉션 Hypothesis_Stairwell_Descent). 높이 1.2 m는 v0.2 기준안 유지(후보 0.5~1.0 m는 미반영)",
+         "Facility_Structure", parent=facility_root)
+NIM, TG = LB["inner_members"]["count"]["value"], LB["inner_members"]["top_gap"]["value"]
+bm = bmesh.new()
+pitch_i = (hy1 - hy0 - 2 * T_) / NIM
+for k in range(NIM):                                            # 안쪽 반복 경사 부재(11246, 톱니 모양) — 판 윗면 위에서만
+    y0_ = hy0 + T_ + k * pitch_i
+    add_prism_x(bm, [(y0_, DECK_Z), (y0_ + pitch_i, DECK_Z), (y0_ + pitch_i, PH - TG), (y0_ + pitch_i * 0.85, PH - TG)], hx0 + T_, hx1 - T_)
+make_obj("Low_Box_Inner_Members", bm, ("C", "U"),
+         "11246: 상자 안쪽에 반복되는 밝은 경사 부재(존재 VERIFIED, 개수 약 5 후보). 계단·환기·조명 등 기능 UNKNOWN. 판 윗면 아래 구조는 만들지 않음",
+         "Facility_Structure", mat=material((0.75, 0.72, 0.66)), parent=facility_root)
+
+# 숨긴 가설 컬렉션: 이전 하강 계단 해석(판 관통 구멍 표시 + 하강 발판). 기본 렌더·라벨에 나오지 않음
+bm = bmesh.new()
 nst = 10
 for i in range(nst):
     z = DECK_Z + (SBZ - DECK_Z) * (i + 1) / nst
     y0 = hy1 - T_ - (SSY - T_) * (i + 1) / nst
     add_box(bm, (hx0 + T_, y0, z - 0.25), (hx1 - T_, y0 + (SSY - T_) / nst, z))
-make_obj("Stairwell", bm, ("C", "P"),
-         "R2 오른쪽 아래: 빛나는 틈이 있는 낮은 상자. 11246: 열린 윗면 안 하강 계단 VERIFIED. 높이 1.2 m는 v0.2 값 유지(후보 0.5~1.0 m는 추정 간 불일치로 미반영), 도착 지점 미확인",
-         "Facility_Structure", parent=facility_root)
+make_obj("Hypothesis_Descent_Steps", bm, ("P", "U"), "가설(기본안 제외): 상자 안 하강 계단 — 2026-10-16 판정 철회. 깊이 −3 m·도착 지점 미확인",
+         "Hypothesis_Stairwell_Descent", mat=material("WIRE_U"), parent=facility_root)
+bm = bmesh.new(); add_ring(bm, [(hx0, hy0), (hx1, hy0), (hx1, hy1), (hx0, hy1)], [(hx0 + 0.1, hy0 + 0.1), (hx1 - 0.1, hy0 + 0.1), (hx1 - 0.1, hy1 - 0.1), (hx0 + 0.1, hy1 - 0.1)], -TOP_T - 0.02, DECK_Z + 0.02)
+make_obj("Hypothesis_Deck_Opening", bm, ("P", "U"), "가설(기본안 제외): 하강 계단을 위한 판 관통 구멍 자리", "Hypothesis_Stairwell_Descent",
+         mat=material("WIRE_U"), wire=0.05, parent=facility_root)
+coll("Hypothesis_Stairwell_Descent").hide_render = True
+coll("Hypothesis_Stairwell_Descent").hide_viewport = True
 SK = DIM["v03"]["stairwell_skin"]
-SKO, RST, NEND = SK["skirt_out"]["value"], SK["rim_steps"]["value"], SK["end_steps"]["value"]
+SKO, RST, NEND = SK["skirt_out"]["value"], SK["rim_steps"]["value"], SK["end_tiers"]["value"]
 bm = bmesh.new()
 # 바깥 경사 패널: 위(난간 높이 − 단 높이)에서 아래(판)로 갈수록 SKO만큼 벌어짐. −X 면과 뒤(+Y) 끝만(+X는 판 가장자리)
 zt = PH - sum(RST)
@@ -495,12 +519,12 @@ for poly_xz in ([(hx0 - SKO, DECK_Z), (hx0, DECK_Z), (hx0, zt), (hx0 - 0.06, zt)
     for i_ in range(4):
         bm.faces.new((a[i_], a[(i_ + 1) % 4], b[(i_ + 1) % 4], b[i_]))
 add_prism_x(bm, [(hy1, DECK_Z), (hy1 + SKO, DECK_Z), (hy1 + 0.06, zt), (hy1, zt)], hx0, hx1)       # 뒤 끝 경사 패널
-# 계단식 윗테두리: 난간 위에 바깥쪽부터 낮아지는 단
+# 단이 진 윗테두리: 벽 위에 바깥쪽부터 낮아지는 단(형태)
 for j, dz_ in enumerate(RST):
     z0_ = zt + sum(RST[:j]); inset = 0.12 * j
     add_box(bm, (hx0 - 0.06 + inset, hy0, z0_), (hx0 + T_, hy1 + 0.06 - inset, z0_ + dz_))
     add_box(bm, (hx0 + T_, hy1 - T_, z0_), (hx1, hy1 + 0.06 - inset, z0_ + dz_))
-# 앞 끝(−Y) 계단식 블록: 난간 높이에서 판까지 NEND단, 상자 밖 0.9 m 안에서
+# 앞 끝(−Y) 계단식으로 낮아지는 바깥 단(형태만, 기능 UNKNOWN): 테두리 높이에서 판까지 NEND단, 상자 밖 0.9 m 안에서
 for j in range(NEND):
     z1_ = PH * (NEND - j) / (NEND + 1); y1_ = hy0 - 0.3 * j
     add_box(bm, (hx0 - 0.06, y1_ - 0.3, DECK_Z), (hx0 + T_, y1_, z1_))
@@ -519,14 +543,14 @@ for j in range(NT):
             y_ = yc_ + s_ * w_ * pitch_ / 2
             pts += [(face_x(z_) + 0.005, y_, z_), (face_x(z_) - GD, y_, z_)]
     bmesh.ops.convex_hull(bm, input=[bm.verts.new(p_) for p_ in pts])
-make_obj("Stairwell_Outer_Skin", bm, ("C", "U"),
-         "11246·11224·11736: 계단 상자 바깥 경사 패널·계단식 윗테두리·앞 끝 계단식 블록·긴 옆면의 반복 사다리꼴 구획(존재 VERIFIED). 벌어짐·단 높이·단 수·구획 수·구획 판 두께(0.05 m, 오목/볼록 미구분의 중립 표현)는 후보. 상자 높이 1.2 m·위치는 기준안 유지",
+make_obj("Low_Box_Outer_Skin", bm, ("C", "U"),
+         "11246·11224·11736: 낮은 상자 바깥 경사 패널·단이 진 윗테두리·앞 끝의 계단식 바깥 단·긴 옆면의 반복 사다리꼴 구획(존재 VERIFIED, 형태만, 기능 UNKNOWN). 벌어짐·단 높이·단 수·구획 수·구획 판 두께(0.05 m, 오목/볼록 미구분의 중립 표현)는 후보. 높이 1.2 m·위치는 기준안 유지",
          "Facility_Structure", parent=facility_root)
 bm = bmesh.new()
 for k in range(5):   # 빛나는 틈 위치(형상만)
     yy = hy1 - 0.9 - k * 1.15
     add_box(bm, (hx1 - T_ - 0.06, yy - 0.3, 0.2), (hx1 - T_, yy + 0.3, 1.0))
-make_obj("Stairwell_Lit_Slots", bm, ("C", "P"), "R2: 상자 안쪽에서 빛나는 세로 틈", "Facility_Structure",
+make_obj("Low_Box_Lit_Slots", bm, ("C", "P"), "R2·11615: 상자 안쪽 면에서 밝게 보이는 세로 틈(존재 VERIFIED). 조명·반사 등 기능 UNKNOWN", "Facility_Structure",
          mat=material((1.0, 0.9, 0.75), 6.0), parent=facility_root)
 
 # ---------------------------------------------------------------- 4. 조명·뒤 변 기둥
@@ -687,15 +711,15 @@ ANCH = {
     "Landing_Platform": (X0 + 6, Y0 + 5, 0), "Floor_Plates": (X0 + 12, Y0 + 14, 0), "Platform_Sidewalls": (X0 + 10, Y0, -2),
     "Hangar_Walls": (XW, FY0 + 3, BEAM * 0.5), "Hangar_Roof": (XW + FDEP / 2, FY1 - 6, ROOF),
     "Structural_Pillars": (XW - FD, 3, 2.0), "Hangar_Spotlights": (XW - OVER, FY0 + 9, BEAM - 0.3),
-    "Corridor_Lower_Walkway": (X1 + GAP / 2, 17, TZ), "Stairwell": (hx0, hy0 + 1, PH),
-    "Edge_Lights_Facility_Side": (X1 - INS, Y1 - 1.5, 0), "Back_Edge_Posts": (*OUT[3], 1.0), "Stairwell_Lit_Slots": (hx1 - T_, hy1 - 2, 1.0),
+    "Corridor_Lower_Walkway": (X1 + GAP / 2, 17, TZ), "Low_Box": (hx0, hy0 + 1, PH),
+    "Edge_Lights_Facility_Side": (X1 - INS, Y1 - 1.5, 0), "Back_Edge_Posts": (*OUT[3], 1.0), "Low_Box_Lit_Slots": (hx1 - T_, hy1 - 2, 1.0), "Low_Box_Inner_Members": (hx0 + 1.2, hy0 + 2.5, PH - TG),
     "Corner_FrontLeft": (*OUT[0], 3.0), "Corner_FrontRight": (*OUT[1], 3.0), "Corner_BackLeft": (*OUT[3], 3.0),
     "Support_Placeholder": (X0 + 10, Y0 + 12, -14), "Cliff_Placeholder": (X0 - 10, Y1 + CG, 20),
     "Skiff_Check_29m_x_49m": (scx - SWS / 2 + 4, scy, 5), "Facility_Body_Unknown": (XW + FDEP, 0, 3),
     "Outline_Alt_98.4deg": (*outline(W, W * 1.51, math.radians(98.4))[3], 0.05),
     "Facility_A_Entrance": (XW - 0.3, EYC, EH), "Entrance_Passage_Visible": (XW + 2.0, EYC, EZS * 0.5),
     "Back_Edge_Rail": ((OUT[2][0] + OUT[3][0]) / 2, OUT[3][1] + 0.6, RH_), "Edge_Curbs_Near_Stairwell": (cx0 + 1, Y0 + 0.4, ch),
-    "Entrance_Apron": (X1 + 3, EY1 + 0.8, 0), "Stairwell_Outer_Skin": (hx0 - 0.3, hy1 + 0.3, 0.5),
+    "Entrance_Apron": (X1 + 3, EY1 + 0.8, 0), "Low_Box_Outer_Skin": (hx0 - 0.3, hy1 + 0.3, 0.5),
 }
 
 

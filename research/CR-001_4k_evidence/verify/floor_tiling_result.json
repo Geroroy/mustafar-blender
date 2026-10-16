@@ -1,13 +1,13 @@
 {
- "plates": 96,
+ "plates": 88,
  "hex_area_m2": 18.9,
  "repeat_cell_area_m2": 18.9,
  "hex_over_cell": 1.0,
- "sum_plate_area_m2": 1284.06,
- "region_area_m2": 1284.06,
+ "sum_plate_area_m2": 1303.56,
+ "region_area_m2": 1303.56,
  "area_ratio": 1.0,
  "grid_step_m": 0.1,
  "grid_points_uncovered": 0,
- "grid_points_single": 128405,
+ "grid_points_single": 130355,
  "grid_points_overlap": 1
 }

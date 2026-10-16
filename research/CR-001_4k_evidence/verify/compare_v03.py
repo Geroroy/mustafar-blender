@@ -1,10 +1,11 @@
-"""CR-002 비교 렌더. .blend는 임시 사본으로 열고 저장하지 않는다(원본 SHA256 전후 비교).
+"""v0.3 같은 카메라 전후 비교와 영화 비교 렌더(CR-002 이후 공용). .blend는 임시 사본으로 열고 저장하지 않는다(원본 SHA256 전후 비교).
 실행 (저장소 루트):
-  .venv-bpy/bin/python -I research/CR-001_4k_evidence/verify/compare_v03.py <4K 원본 폴더> <수정 전 v0.3 .blend> [수정 후 .blend] [전후 출력 폴더] [영화 출력 폴더]
+  .venv-bpy/bin/python -I research/CR-001_4k_evidence/verify/compare_v03.py <4K 원본 폴더> <수정 전 v0.3 .blend> [수정 후 .blend|-] [전후 출력 폴더] [영화 출력 폴더] [수정 전 이름표]
 출력:
-  ① 같은 카메라 전후 비교(영화 없음, 순수 렌더) → chatgpt_reviews/CR-002_v0.3/before_after/
-  ② 영화 비교(11615 겹침, 11748·11246·11712·11625 나란히) → research/CR-001_4k_evidence/_private/cr002r2_film/  (Git 제외)
-카메라: R2 고정 카메라(v0.2 기준안), 게임 투영(Isometric_View), 위(Top_View), 근사 카메라 4개(정성 비교용, 치수 검증 아님)."""
+  ① 같은 카메라 전후 비교(영화 없음, 순수 렌더) → 기본 chatgpt_reviews/CR-002_v0.3/before_after/
+  ② 영화 비교(11615 겹침, 11748·11246·11712·11625 나란히, 11726 M5 겹침) → 기본 research/CR-001_4k_evidence/_private/cr002r2_film/  (Git 제외)
+카메라: R2 고정 카메라(v0.2 기준안), 게임 투영(Isometric_View), 위(Top_View), 근사 카메라 4개(정성 비교용, 치수 검증 아님),
+  M5 맞춤 카메라, 전후 비교 전용 근접 카메라(낮은 상자). 숨긴 가설 컬렉션(Hypothesis_*)은 렌더하지 않는다."""
 import hashlib, json, math, os, shutil, sys, tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__)); EV = os.path.dirname(HERE); ROOT = os.path.abspath(os.path.join(EV, "..", ".."))
@@ -18,7 +19,8 @@ if "--inner" not in sys.argv:
     h0 = {k: hashlib.sha256(open(p, "rb").read()).hexdigest() for k, p in src.items()}
     tmp = tempfile.mkdtemp(prefix="cr002r2_")
     for k, p in src.items(): shutil.copy2(p, os.path.join(tmp, k + ".blend"))
-    r = subprocess.run([PY, os.path.abspath(__file__), "--inner", tmp, FR, OUT_BA, OUT_F], capture_output=True, text=True)
+    LBL = sys.argv[6] if len(sys.argv) > 6 else "CR-002 제출본"
+    r = subprocess.run([PY, os.path.abspath(__file__), "--inner", tmp, FR, OUT_BA, OUT_F, LBL], capture_output=True, text=True)
     print("\n".join(l for l in r.stdout.splitlines() if l.startswith("OUT")))
     if r.returncode: print(r.stderr[-3000:]); sys.exit(1)
     h1 = {k: hashlib.sha256(open(p, "rb").read()).hexdigest() for k, p in src.items()}
@@ -29,15 +31,23 @@ import numpy as np  # noqa: E402
 from mathutils import Vector  # noqa: E402
 from PIL import Image, ImageDraw, ImageFont  # noqa: E402
 
-i = sys.argv.index("--inner"); TMP, FR, OUT_BA, OUT_F = sys.argv[i + 1:i + 5]
+i = sys.argv.index("--inner"); TMP, FR, OUT_BA, OUT_F, LBL = sys.argv[i + 1:i + 6]
 FT = ImageFont.truetype("/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc", 20)
 RW, RH = 1280, 533
 APPROX = [  # (프레임, 내용, 위치, 바라보는 점, 렌즈 mm) — 근사 카메라, 정성 비교
     (11748, "출입구·겹친 테두리·상자·연석", (9.0, -21.5, 1.5), (22.5, -16.0, 1.6), 28),
-    (11246, "상자 안 하강 계단·바깥 경사 패널", (5.0, -6.0, 1.7), (12.8, -15.0, 0.0), 30),
+    (11246, "낮은 상자 안쪽 반복 부재·바깥 경사 패널·단 테두리(기능 UNKNOWN)", (5.0, -6.0, 1.7), (12.8, -15.0, 0.0), 30),
     (11712, "바닥 판재(위에서)", (2.0, -9.0, 16.0), (2.0, -7.0, 0.0), 24),
     (11625, "뒤쪽 기둥·난간(반대 방향)", (8.0, -14.0, 1.7), (2.0, 23.0, 1.0), 30),
 ]
+BA_ONLY = [  # 전후 비교 전용(영화 없음): (이름, 설명, 위치, 바라보는 점, 렌즈 mm)
+    ("lowbox_close", "낮은 상자 근접(위에서 비스듬히)", (7.0, -23.0, 5.5), (12.8, -15.2, 0.3), 35),
+]
+ALWAYS_HIDDEN = ("Outline_Alt_84.7deg", "Outline_Alt_98.4deg", "Lava_Level_Ref")
+
+
+def hidden(o, extra=()):
+    return o.name in ALWAYS_HIDDEN or o.name in extra or o.name.startswith("Hypothesis_")
 
 
 def setup(res):
@@ -46,8 +56,8 @@ def setup(res):
     c.max_bounces, c.diffuse_bounces, c.glossy_bounces, c.transmission_bounces = 4, 2, 2, 0
     sc.render.use_persistent_data = True; sc.render.resolution_percentage = 100
     sc.render.resolution_x, sc.render.resolution_y = res
-    for nm in ("Outline_Alt_84.7deg", "Outline_Alt_98.4deg", "Lava_Level_Ref"):
-        if nm in bpy.data.objects: bpy.data.objects[nm].hide_render = True
+    for o in bpy.data.objects:
+        if hidden(o): o.hide_render = True
     return sc
 
 
@@ -81,40 +91,43 @@ def m5_cam():
 renders = {}
 for k in ("before", "after"):
     bpy.ops.wm.open_mainfile(filepath=os.path.join(TMP, k + ".blend"))
-    for nm in ("Hangar_Roof", "Hangar_Spotlights", "Facility_Body_Unknown", "Cliff_Placeholder"):
-        pass
     for vn, cam_name, res in VIEWS:
         sc = setup(res); cam = bpy.data.objects[cam_name]
         hide = ("Hangar_Roof", "Hangar_Spotlights", "Facility_Body_Unknown", "Cliff_Placeholder") if vn == "top" else ()
-        for o in bpy.data.objects: o.hide_render = o.name in hide or o.name in ("Outline_Alt_84.7deg", "Outline_Alt_98.4deg", "Lava_Level_Ref")
+        for o in bpy.data.objects: o.hide_render = hidden(o, hide)
         sc.camera = cam; p = os.path.join(OUT_BA, f"_{k}_{vn}.png"); sc.render.filepath = p; bpy.ops.render.render(write_still=True)
         renders[(k, vn)] = p
-    for o in bpy.data.objects: o.hide_render = o.name in ("Outline_Alt_84.7deg", "Outline_Alt_98.4deg", "Lava_Level_Ref")
+    for o in bpy.data.objects: o.hide_render = hidden(o)
     sc = setup((RW, RH))
     for n, what, loc, tgt, lens in APPROX:
         cam = look_cam(f"APPROX_{n}", loc, tgt, lens); sc.camera = cam
         p = os.path.join(OUT_BA, f"_{k}_approx{n}.png"); sc.render.filepath = p; bpy.ops.render.render(write_still=True)
         renders[(k, f"approx{n}")] = p
+    for n, what, loc, tgt, lens in BA_ONLY:
+        cam = look_cam(f"BA_{n}", loc, tgt, lens); sc.camera = cam
+        p = os.path.join(OUT_BA, f"_{k}_{n}.png"); sc.render.filepath = p; bpy.ops.render.render(write_still=True)
+        renders[(k, n)] = p
     if M5:
         sc.camera = m5_cam(); p = os.path.join(OUT_BA, f"_{k}_m5.png"); sc.render.filepath = p; bpy.ops.render.render(write_still=True)
         renders[(k, "m5")] = p
 
 # ① 전후 비교 (영화 없음)
-names = [v[0] for v in VIEWS] + [f"approx{a[0]}" for a in APPROX] + (["m5"] if M5 else [])
+names = [v[0] for v in VIEWS] + [f"approx{a[0]}" for a in APPROX] + [b[0] for b in BA_ONLY] + (["m5"] if M5 else [])
 desc = {"r2cam": "R2 고정 카메라(v0.2 기준안)", "iso": "게임 투영 30°/45°", "top": "위(지붕·절벽 숨김)"}
 desc.update({f"approx{a[0]}": f"근사 카메라 — {a[0]} 방향({a[1]})" for a in APPROX})
+desc.update({b[0]: f"전후 비교 전용 — {b[1]}" for b in BA_ONLY})
 if M5: desc["m5"] = f"M5 맞춤 카메라(11726, 형상 고정, RMS {M5[5]} px, 출입구 점 제외)"
 for vn in names:
     a, b = Image.open(renders[("before", vn)]).convert("RGB"), Image.open(renders[("after", vn)]).convert("RGB")
     sheet = Image.new("RGB", (a.width, a.height * 2))
-    sheet.paste(label(a, f"수정 전 v0.3 (CR-002 제출본) — {desc[vn]}"), (0, 0)); sheet.paste(label(b, f"수정 후 v0.3 — {desc[vn]}"), (0, a.height))
+    sheet.paste(label(a, f"수정 전 v0.3 ({LBL}) — {desc[vn]}"), (0, 0)); sheet.paste(label(b, f"수정 후 v0.3 — {desc[vn]}"), (0, a.height))
     sheet.save(os.path.join(OUT_BA, f"BA_{vn}.png"))
 for p in set(renders.values()): os.remove(p)
 print("OUT before_after", len(names))
 
 # ② 영화 비교 (Git 제외)
 bpy.ops.wm.open_mainfile(filepath=os.path.join(TMP, "after.blend")); sc = setup((RW, RH))
-for o in bpy.data.objects: o.hide_render = o.name in ("Outline_Alt_84.7deg", "Outline_Alt_98.4deg", "Lava_Level_Ref")
+for o in bpy.data.objects: o.hide_render = hidden(o)
 sc.camera = bpy.data.objects["Perspective_View_R2_match"]; p = os.path.join(OUT_F, "_r2.png"); sc.render.filepath = p; bpy.ops.render.render(write_still=True)
 r2 = Image.open(p).convert("RGB"); os.remove(p)
 sheet = Image.new("RGB", (RW, RH * 2))
