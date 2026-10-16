@@ -1,0 +1,148 @@
+{
+ "note": "꼭짓점 투영 기준(가림 무시). in_frame_frac = 화면 안 꼭짓점 비율, bbox는 1280×533 기준",
+ "cameras": {
+  "11615_r2": "v0.2 기준안 R2 고정 카메라",
+  "11246_m10": {
+   "cam": {
+    "xyz": [
+     -6.82,
+     -34.4,
+     3.18
+    ],
+    "yaw_deg": 56.1,
+    "pitch_deg": -2.4,
+    "f": 5431
+   },
+   "near_lamp_y": 10.7,
+   "rms_weighted": 59.3
+  }
+ },
+ "projection": {
+  "H1": {
+   "11615_r2": {
+    "Facility_A_Entrance": {
+     "verts": 64,
+     "in_frame_frac": 0.0
+    },
+    "Hangar_Walls": {
+     "verts": 64,
+     "in_frame_frac": 0.06,
+     "bbox_px_1280": [
+      919,
+      20,
+      953,
+      314
+     ]
+    }
+   },
+   "11246_m10": {
+    "Facility_A_Entrance": {
+     "verts": 64,
+     "in_frame_frac": 0.0
+    },
+    "Hangar_Walls": {
+     "verts": 64,
+     "in_frame_frac": 0.06,
+     "bbox_px_1280": [
+      470,
+      71,
+      497,
+      373
+     ]
+    }
+   }
+  },
+  "A3": {
+   "11615_r2": {
+    "Facility_A_Entrance": {
+     "verts": 64,
+     "in_frame_frac": 0.0
+    },
+    "Entrance_Bay_Front": {
+     "verts": 48,
+     "in_frame_frac": 0.0
+    },
+    "Entrance_Bay_Unknown": {
+     "verts": 8,
+     "in_frame_frac": 0.0
+    },
+    "Entrance_Forecourt_Floor": {
+     "verts": 8,
+     "in_frame_frac": 0.0
+    },
+    "Trench_End_Unknown": {
+     "verts": 8,
+     "in_frame_frac": 0.0
+    },
+    "R_Structure_Hypothesis": {
+     "verts": 8,
+     "in_frame_frac": 0.0
+    },
+    "Hangar_Walls": {
+     "verts": 8,
+     "in_frame_frac": 0.5,
+     "bbox_px_1280": [
+      919,
+      20,
+      953,
+      314
+     ]
+    }
+   },
+   "11246_m10": {
+    "Facility_A_Entrance": {
+     "verts": 64,
+     "in_frame_frac": 0.0
+    },
+    "Entrance_Bay_Front": {
+     "verts": 48,
+     "in_frame_frac": 0.08,
+     "bbox_px_1280": [
+      1269,
+      239,
+      1271,
+      344
+     ]
+    },
+    "Entrance_Bay_Unknown": {
+     "verts": 8,
+     "in_frame_frac": 0.0
+    },
+    "Entrance_Forecourt_Floor": {
+     "verts": 8,
+     "in_frame_frac": 0.5,
+     "bbox_px_1280": [
+      1196,
+      412,
+      1210,
+      444
+     ]
+    },
+    "Trench_End_Unknown": {
+     "verts": 8,
+     "in_frame_frac": 0.25,
+     "bbox_px_1280": [
+      1194,
+      413,
+      1197,
+      414
+     ]
+    },
+    "R_Structure_Hypothesis": {
+     "verts": 8,
+     "in_frame_frac": 0.0
+    },
+    "Hangar_Walls": {
+     "verts": 8,
+     "in_frame_frac": 0.5,
+     "bbox_px_1280": [
+      470,
+      71,
+      497,
+      373
+     ]
+    }
+   }
+  }
+ }
+}

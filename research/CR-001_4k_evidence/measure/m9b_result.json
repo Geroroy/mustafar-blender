@@ -1,0 +1,1109 @@
+{
+ "note": "형상(상자 높이 포함)은 미리 정한 이산 값으로 고정하고 카메라만 푼다. 모델은 바꾸지 않는다(상자 높이 1.2 m 기준안 유지).",
+ "rows": [
+  {
+   "box_height": 1.2,
+   "shape": {
+    "light_center_h": 2.4,
+    "width": 1.45
+   },
+   "11748": {
+    "rms_weighted": 36.0,
+    "cam": {
+     "xyz": [
+      -6.94,
+      -19.03,
+      2.24
+     ],
+     "yaw_deg": -9.0,
+     "pitch_deg": -3.1,
+     "f": 8000
+    },
+    "raw_err_px": {
+     "door_light": 31.2,
+     "shoulder_plusY": 51.2,
+     "shoulder_minusY": 4.8,
+     "jamb_minusY_foot": 27.9,
+     "threshold_line": [
+      12.8,
+      16.1
+     ],
+     "boxL_base_line": [
+      28.4,
+      19.4
+     ],
+     "boxL_rim_minusY_end": 234.7,
+     "boxL_end_tier_foot(eval)": 167.6
+    },
+    "relations": {
+     "jamb_plusY_foot_hidden_by_box(film: yes)": true,
+     "jamb_minusY_foot_visible(film: yes)": true,
+     "threshold_mid_visible(film: yes)": true
+    },
+    "R_estimate": {
+     "minusX_face_x": 12.59,
+     "y_minus_end": -24.38,
+     "y_plus_end_foot": -22.02,
+     "plus_end_foot_x": 13.23,
+     "height": 0.53,
+     "front_floor_edge_y": [
+      -24.49,
+      -25.34
+     ]
+    }
+   },
+   "11726": [
+    {
+     "family_spots_AB": [
+      0.0,
+      -6.7
+     ],
+     "rms_weighted": 82.5,
+     "cam": {
+      "xyz": [
+       6.82,
+       -18.21,
+       1.61
+      ],
+      "yaw_deg": 8.5,
+      "pitch_deg": -0.6,
+      "f": 1777
+     },
+     "raw_err_px": {
+      "eave_light_A": 11.4,
+      "eave_light_B": 51.6,
+      "box_rim_line": [
+       56.9,
+       51.0,
+       45.6
+      ],
+      "box_rim_minusY_end": 249.5,
+      "box_base_line": [
+       261.4
+      ],
+      "deck_edge_line": [
+       71.4,
+       54.8
+      ],
+      "door_light": 274.7,
+      "door_outer_base_minusY": 18.9,
+      "box_end_tier_foot(eval)": 373.4
+     },
+     "relations": {
+      "threshold_mid_hidden_by_box(film: yes)": true,
+      "jamb_plusY_foot_hidden_by_box(film: yes)": true,
+      "door_outer_base_minusY_visible(film: yes)": true
+     }
+    },
+    {
+     "family_spots_AB": [
+      6.7,
+      0.0
+     ],
+     "rms_weighted": 103.6,
+     "cam": {
+      "xyz": [
+       -3.47,
+       -31.36,
+       1.05
+      ],
+      "yaw_deg": 40.1,
+      "pitch_deg": 1.7,
+      "f": 5299
+     },
+     "raw_err_px": {
+      "eave_light_A": 71.3,
+      "eave_light_B": 109.6,
+      "box_rim_line": [
+       86.1,
+       88.7,
+       94.1
+      ],
+      "box_rim_minusY_end": 789.4,
+      "box_base_line": [
+       7.4
+      ],
+      "deck_edge_line": [
+       32.9,
+       12.3
+      ],
+      "door_light": 310.1,
+      "door_outer_base_minusY": 69.3,
+      "box_end_tier_foot(eval)": 470.8
+     },
+     "relations": {
+      "threshold_mid_hidden_by_box(film: yes)": false,
+      "jamb_plusY_foot_hidden_by_box(film: yes)": true,
+      "door_outer_base_minusY_visible(film: yes)": true
+     }
+    }
+   ]
+  },
+  {
+   "box_height": 1.2,
+   "shape": {
+    "light_center_h": 2.8,
+    "width": 1.6
+   },
+   "11748": {
+    "rms_weighted": 28.3,
+    "cam": {
+     "xyz": [
+      -9.68,
+      -20.53,
+      2.7
+     ],
+     "yaw_deg": -5.1,
+     "pitch_deg": -3.4,
+     "f": 8000
+    },
+    "raw_err_px": {
+     "door_light": 24.7,
+     "shoulder_plusY": 57.4,
+     "shoulder_minusY": 2.7,
+     "jamb_minusY_foot": 25.7,
+     "threshold_line": [
+      1.2,
+      3.1
+     ],
+     "boxL_base_line": [
+      18.0,
+      14.7
+     ],
+     "boxL_rim_minusY_end": 166.2,
+     "boxL_end_tier_foot(eval)": 152.8
+    },
+    "relations": {
+     "jamb_plusY_foot_hidden_by_box(film: yes)": true,
+     "jamb_minusY_foot_visible(film: yes)": true,
+     "threshold_mid_visible(film: yes)": true
+    },
+    "R_estimate": {
+     "minusX_face_x": 13.0,
+     "y_minus_end": -25.13,
+     "y_plus_end_foot": -22.39,
+     "plus_end_foot_x": 13.58,
+     "height": 0.61,
+     "front_floor_edge_y": [
+      -25.26,
+      -26.32
+     ]
+    }
+   },
+   "11726": [
+    {
+     "family_spots_AB": [
+      0.0,
+      -6.7
+     ],
+     "rms_weighted": 64.5,
+     "cam": {
+      "xyz": [
+       6.5,
+       -18.18,
+       1.65
+      ],
+      "yaw_deg": 8.2,
+      "pitch_deg": -0.4,
+      "f": 1805
+     },
+     "raw_err_px": {
+      "eave_light_A": 1.8,
+      "eave_light_B": 42.0,
+      "box_rim_line": [
+       46.2,
+       40.5,
+       35.4
+      ],
+      "box_rim_minusY_end": 249.5,
+      "box_base_line": [
+       235.2
+      ],
+      "deck_edge_line": [
+       62.6,
+       47.0
+      ],
+      "door_light": 200.0,
+      "door_outer_base_minusY": 12.1,
+      "box_end_tier_foot(eval)": 377.9
+     },
+     "relations": {
+      "threshold_mid_hidden_by_box(film: yes)": true,
+      "jamb_plusY_foot_hidden_by_box(film: yes)": true,
+      "door_outer_base_minusY_visible(film: yes)": true
+     }
+    },
+    {
+     "family_spots_AB": [
+      6.7,
+      0.0
+     ],
+     "rms_weighted": 87.5,
+     "cam": {
+      "xyz": [
+       -5.36,
+       -32.98,
+       1.05
+      ],
+      "yaw_deg": 40.3,
+      "pitch_deg": 1.7,
+      "f": 5704
+     },
+     "raw_err_px": {
+      "eave_light_A": 65.5,
+      "eave_light_B": 100.3,
+      "box_rim_line": [
+       71.5,
+       73.9,
+       78.9
+      ],
+      "box_rim_minusY_end": 762.6,
+      "box_base_line": [
+       13.6
+      ],
+      "deck_edge_line": [
+       21.7,
+       3.1
+      ],
+      "door_light": 238.9,
+      "door_outer_base_minusY": 70.9,
+      "box_end_tier_foot(eval)": 472.9
+     },
+     "relations": {
+      "threshold_mid_hidden_by_box(film: yes)": false,
+      "jamb_plusY_foot_hidden_by_box(film: yes)": true,
+      "door_outer_base_minusY_visible(film: yes)": true
+     }
+    }
+   ]
+  },
+  {
+   "box_height": 1.2,
+   "shape": {
+    "light_center_h": 3.2,
+    "width": 1.8
+   },
+   "11748": {
+    "rms_weighted": 23.0,
+    "cam": {
+     "xyz": [
+      -12.51,
+      -21.89,
+      3.32
+     ],
+     "yaw_deg": -2.4,
+     "pitch_deg": -4.0,
+     "f": 8000
+    },
+    "raw_err_px": {
+     "door_light": 31.1,
+     "shoulder_plusY": 54.4,
+     "shoulder_minusY": 2.4,
+     "jamb_minusY_foot": 26.5,
+     "threshold_line": [
+      4.8,
+      3.8
+     ],
+     "boxL_base_line": [
+      11.5,
+      12.4
+     ],
+     "boxL_rim_minusY_end": 109.1,
+     "boxL_end_tier_foot(eval)": 128.7
+    },
+    "relations": {
+     "jamb_plusY_foot_hidden_by_box(film: yes)": true,
+     "jamb_minusY_foot_visible(film: yes)": true,
+     "threshold_mid_visible(film: yes)": true
+    },
+    "R_estimate": {
+     "minusX_face_x": 13.31,
+     "y_minus_end": -25.84,
+     "y_plus_end_foot": -22.72,
+     "plus_end_foot_x": 13.82,
+     "height": 0.69,
+     "front_floor_edge_y": [
+      -26.01,
+      -27.28
+     ]
+    }
+   },
+   "11726": [
+    {
+     "family_spots_AB": [
+      0.0,
+      -6.7
+     ],
+     "rms_weighted": 49.0,
+     "cam": {
+      "xyz": [
+       6.1,
+       -18.0,
+       1.71
+      ],
+      "yaw_deg": 7.2,
+      "pitch_deg": -0.3,
+      "f": 1813
+     },
+     "raw_err_px": {
+      "eave_light_A": 9.8,
+      "eave_light_B": 31.1,
+      "box_rim_line": [
+       33.9,
+       28.7,
+       24.1
+      ],
+      "box_rim_minusY_end": 220.6,
+      "box_base_line": [
+       200.0
+      ],
+      "deck_edge_line": [
+       56.1,
+       42.8
+      ],
+      "door_light": 138.3,
+      "door_outer_base_minusY": 9.7,
+      "box_end_tier_foot(eval)": 362.3
+     },
+     "relations": {
+      "threshold_mid_hidden_by_box(film: yes)": true,
+      "jamb_plusY_foot_hidden_by_box(film: yes)": true,
+      "door_outer_base_minusY_visible(film: yes)": true
+     }
+    },
+    {
+     "family_spots_AB": [
+      6.7,
+      0.0
+     ],
+     "rms_weighted": 73.8,
+     "cam": {
+      "xyz": [
+       -8.7,
+       -35.62,
+       1.03
+      ],
+      "yaw_deg": 40.3,
+      "pitch_deg": 1.7,
+      "f": 6339
+     },
+     "raw_err_px": {
+      "eave_light_A": 56.9,
+      "eave_light_B": 87.4,
+      "box_rim_line": [
+       57.7,
+       59.9,
+       64.6
+      ],
+      "box_rim_minusY_end": 716.6,
+      "box_base_line": [
+       29.1
+      ],
+      "deck_edge_line": [
+       12.7,
+       2.6
+      ],
+      "door_light": 183.9,
+      "door_outer_base_minusY": 65.7,
+      "box_end_tier_foot(eval)": 472.8
+     },
+     "relations": {
+      "threshold_mid_hidden_by_box(film: yes)": false,
+      "jamb_plusY_foot_hidden_by_box(film: yes)": true,
+      "door_outer_base_minusY_visible(film: yes)": true
+     }
+    }
+   ]
+  },
+  {
+   "box_height": 1.2,
+   "shape": {
+    "light_center_h": 3.6,
+    "width": 1.8
+   },
+   "11748": {
+    "rms_weighted": 29.1,
+    "cam": {
+     "xyz": [
+      -14.75,
+      -23.45,
+      3.69
+     ],
+     "yaw_deg": 0.4,
+     "pitch_deg": -4.0,
+     "f": 8000
+    },
+    "raw_err_px": {
+     "door_light": 42.2,
+     "shoulder_plusY": 81.0,
+     "shoulder_minusY": 19.4,
+     "jamb_minusY_foot": 47.3,
+     "threshold_line": [
+      16.9,
+      17.1
+     ],
+     "boxL_base_line": [
+      5.8,
+      11.5
+     ],
+     "boxL_rim_minusY_end": 74.6,
+     "boxL_end_tier_foot(eval)": 104.0
+    },
+    "relations": {
+     "jamb_plusY_foot_hidden_by_box(film: yes)": true,
+     "jamb_minusY_foot_visible(film: yes)": true,
+     "threshold_mid_visible(film: yes)": true
+    },
+    "R_estimate": {
+     "minusX_face_x": 13.82,
+     "y_minus_end": -26.42,
+     "y_plus_end_foot": -22.96,
+     "plus_end_foot_x": 14.26,
+     "height": 0.76,
+     "front_floor_edge_y": [
+      -26.61,
+      -28.06
+     ]
+    }
+   },
+   "11726": [
+    {
+     "family_spots_AB": [
+      0.0,
+      -6.7
+     ],
+     "rms_weighted": 36.2,
+     "cam": {
+      "xyz": [
+       5.4,
+       -17.9,
+       1.77
+      ],
+      "yaw_deg": 6.9,
+      "pitch_deg": -0.1,
+      "f": 1896
+     },
+     "raw_err_px": {
+      "eave_light_A": 18.4,
+      "eave_light_B": 21.5,
+      "box_rim_line": [
+       24.5,
+       19.6,
+       15.5
+      ],
+      "box_rim_minusY_end": 199.5,
+      "box_base_line": [
+       160.1
+      ],
+      "deck_edge_line": [
+       46.8,
+       34.8
+      ],
+      "door_light": 88.1,
+      "door_outer_base_minusY": 12.6,
+      "box_end_tier_foot(eval)": 353.5
+     },
+     "relations": {
+      "threshold_mid_hidden_by_box(film: yes)": true,
+      "jamb_plusY_foot_hidden_by_box(film: yes)": true,
+      "door_outer_base_minusY_visible(film: yes)": true
+     }
+    },
+    {
+     "family_spots_AB": [
+      6.7,
+      0.0
+     ],
+     "rms_weighted": 62.6,
+     "cam": {
+      "xyz": [
+       -12.07,
+       -37.83,
+       1.08
+      ],
+      "yaw_deg": 39.8,
+      "pitch_deg": 1.6,
+      "f": 6871
+     },
+     "raw_err_px": {
+      "eave_light_A": 49.4,
+      "eave_light_B": 75.6,
+      "box_rim_line": [
+       45.0,
+       46.4,
+       50.1
+      ],
+      "box_rim_minusY_end": 658.3,
+      "box_base_line": [
+       38.2
+      ],
+      "deck_edge_line": [
+       8.8,
+       4.8
+      ],
+      "door_light": 141.8,
+      "door_outer_base_minusY": 63.3,
+      "box_end_tier_foot(eval)": 458.1
+     },
+     "relations": {
+      "threshold_mid_hidden_by_box(film: yes)": false,
+      "jamb_plusY_foot_hidden_by_box(film: yes)": true,
+      "door_outer_base_minusY_visible(film: yes)": true
+     }
+    }
+   ]
+  },
+  {
+   "box_height": 0.8,
+   "shape": {
+    "light_center_h": 2.4,
+    "width": 1.45
+   },
+   "11748": {
+    "rms_weighted": 17.5,
+    "cam": {
+     "xyz": [
+      -6.03,
+      -18.47,
+      1.69
+     ],
+     "yaw_deg": -10.7,
+     "pitch_deg": -1.7,
+     "f": 8000
+    },
+    "raw_err_px": {
+     "door_light": 29.9,
+     "shoulder_plusY": 36.0,
+     "shoulder_minusY": 11.5,
+     "jamb_minusY_foot": 14.9,
+     "threshold_line": [
+      2.6,
+      0.4
+     ],
+     "boxL_base_line": [
+      11.8,
+      3.6
+     ],
+     "boxL_rim_minusY_end": 87.6,
+     "boxL_end_tier_foot(eval)": 141.1
+    },
+    "relations": {
+     "jamb_plusY_foot_hidden_by_box(film: yes)": true,
+     "jamb_minusY_foot_visible(film: yes)": true,
+     "threshold_mid_visible(film: yes)": true
+    },
+    "R_estimate": {
+     "minusX_face_x": 12.67,
+     "y_minus_end": -24.19,
+     "y_plus_end_foot": -21.95,
+     "plus_end_foot_x": 13.43,
+     "height": 0.51,
+     "front_floor_edge_y": [
+      -24.29,
+      -25.0
+     ]
+    }
+   },
+   "11726": [
+    {
+     "family_spots_AB": [
+      0.0,
+      -6.7
+     ],
+     "rms_weighted": 64.6,
+     "cam": {
+      "xyz": [
+       7.49,
+       -18.53,
+       1.0
+      ],
+      "yaw_deg": 9.6,
+      "pitch_deg": 2.6,
+      "f": 1770
+     },
+     "raw_err_px": {
+      "eave_light_A": 26.1,
+      "eave_light_B": 52.3,
+      "box_rim_line": [
+       30.4,
+       26.5,
+       23.7
+      ],
+      "box_rim_minusY_end": 356.0,
+      "box_base_line": [
+       180.4
+      ],
+      "deck_edge_line": [
+       78.4,
+       66.1
+      ],
+      "door_light": 195.2,
+      "door_outer_base_minusY": 27.1,
+      "box_end_tier_foot(eval)": 340.4
+     },
+     "relations": {
+      "threshold_mid_hidden_by_box(film: yes)": true,
+      "jamb_plusY_foot_hidden_by_box(film: yes)": true,
+      "door_outer_base_minusY_visible(film: yes)": true
+     }
+    },
+    {
+     "family_spots_AB": [
+      6.7,
+      0.0
+     ],
+     "rms_weighted": 87.5,
+     "cam": {
+      "xyz": [
+       -1.78,
+       -31.09,
+       0.44
+      ],
+      "yaw_deg": 41.9,
+      "pitch_deg": 2.9,
+      "f": 5348
+     },
+     "raw_err_px": {
+      "eave_light_A": 77.0,
+      "eave_light_B": 114.1,
+      "box_rim_line": [
+       41.6,
+       49.1,
+       60.4
+      ],
+      "box_rim_minusY_end": 895.1,
+      "box_base_line": [
+       66.8
+      ],
+      "deck_edge_line": [
+       19.9,
+       10.9
+      ],
+      "door_light": 225.3,
+      "door_outer_base_minusY": 30.6,
+      "box_end_tier_foot(eval)": 490.4
+     },
+     "relations": {
+      "threshold_mid_hidden_by_box(film: yes)": false,
+      "jamb_plusY_foot_hidden_by_box(film: yes)": true,
+      "door_outer_base_minusY_visible(film: yes)": true
+     }
+    }
+   ]
+  },
+  {
+   "box_height": 0.8,
+   "shape": {
+    "light_center_h": 2.8,
+    "width": 1.6
+   },
+   "11748": {
+    "rms_weighted": 16.5,
+    "cam": {
+     "xyz": [
+      -9.04,
+      -19.79,
+      2.18
+     ],
+     "yaw_deg": -6.9,
+     "pitch_deg": -2.2,
+     "f": 8000
+    },
+    "raw_err_px": {
+     "door_light": 33.6,
+     "shoulder_plusY": 46.1,
+     "shoulder_minusY": 4.2,
+     "jamb_minusY_foot": 22.4,
+     "threshold_line": [
+      8.7,
+      6.5
+     ],
+     "boxL_base_line": [
+      5.3,
+      1.0
+     ],
+     "boxL_rim_minusY_end": 32.1,
+     "boxL_end_tier_foot(eval)": 159.1
+    },
+    "relations": {
+     "jamb_plusY_foot_hidden_by_box(film: yes)": true,
+     "jamb_minusY_foot_visible(film: yes)": true,
+     "threshold_mid_visible(film: yes)": true
+    },
+    "R_estimate": {
+     "minusX_face_x": 12.99,
+     "y_minus_end": -24.97,
+     "y_plus_end_foot": -22.32,
+     "plus_end_foot_x": 13.69,
+     "height": 0.59,
+     "front_floor_edge_y": [
+      -25.1,
+      -26.05
+     ]
+    }
+   },
+   "11726": [
+    {
+     "family_spots_AB": [
+      0.0,
+      -6.7
+     ],
+     "rms_weighted": 49.2,
+     "cam": {
+      "xyz": [
+       7.14,
+       -18.36,
+       1.03
+      ],
+      "yaw_deg": 8.6,
+      "pitch_deg": 2.7,
+      "f": 1774
+     },
+     "raw_err_px": {
+      "eave_light_A": 36.2,
+      "eave_light_B": 46.9,
+      "box_rim_line": [
+       18.5,
+       14.9,
+       12.4
+      ],
+      "box_rim_minusY_end": 305.2,
+      "box_base_line": [
+       143.7
+      ],
+      "deck_edge_line": [
+       71.1,
+       60.5
+      ],
+      "door_light": 127.7,
+      "door_outer_base_minusY": 31.3,
+      "box_end_tier_foot(eval)": 320.0
+     },
+     "relations": {
+      "threshold_mid_hidden_by_box(film: yes)": true,
+      "jamb_plusY_foot_hidden_by_box(film: yes)": true,
+      "door_outer_base_minusY_visible(film: yes)": true
+     }
+    },
+    {
+     "family_spots_AB": [
+      6.7,
+      0.0
+     ],
+     "rms_weighted": 73.5,
+     "cam": {
+      "xyz": [
+       -4.67,
+       -33.39,
+       0.36
+      ],
+      "yaw_deg": 41.8,
+      "pitch_deg": 2.9,
+      "f": 5919
+     },
+     "raw_err_px": {
+      "eave_light_A": 67.4,
+      "eave_light_B": 100.0,
+      "box_rim_line": [
+       27.5,
+       35.0,
+       46.3
+      ],
+      "box_rim_minusY_end": 822.3,
+      "box_base_line": [
+       82.0
+      ],
+      "deck_edge_line": [
+       9.7,
+       4.1
+      ],
+      "door_light": 168.8,
+      "door_outer_base_minusY": 25.7,
+      "box_end_tier_foot(eval)": 483.3
+     },
+     "relations": {
+      "threshold_mid_hidden_by_box(film: yes)": false,
+      "jamb_plusY_foot_hidden_by_box(film: yes)": true,
+      "door_outer_base_minusY_visible(film: yes)": true
+     }
+    }
+   ]
+  },
+  {
+   "box_height": 0.8,
+   "shape": {
+    "light_center_h": 3.2,
+    "width": 1.8
+   },
+   "11748": {
+    "rms_weighted": 16.1,
+    "cam": {
+     "xyz": [
+      -0.43,
+      -19.84,
+      1.29
+     ],
+     "yaw_deg": -12.1,
+     "pitch_deg": 0.6,
+     "f": 4397
+    },
+    "raw_err_px": {
+     "door_light": 29.8,
+     "shoulder_plusY": 44.0,
+     "shoulder_minusY": 3.9,
+     "jamb_minusY_foot": 25.1,
+     "threshold_line": [
+      11.5,
+      7.9
+     ],
+     "boxL_base_line": [
+      8.9,
+      3.3
+     ],
+     "boxL_rim_minusY_end": 34.2,
+     "boxL_end_tier_foot(eval)": 136.7
+    },
+    "relations": {
+     "jamb_plusY_foot_hidden_by_box(film: yes)": true,
+     "jamb_minusY_foot_visible(film: yes)": true,
+     "threshold_mid_visible(film: yes)": true
+    },
+    "R_estimate": {
+     "minusX_face_x": 12.45,
+     "y_minus_end": -25.41,
+     "y_plus_end_foot": -22.55,
+     "plus_end_foot_x": 13.43,
+     "height": 0.65,
+     "front_floor_edge_y": [
+      -25.52,
+      -26.3
+     ]
+    }
+   },
+   "11726": [
+    {
+     "family_spots_AB": [
+      0.0,
+      -6.7
+     ],
+     "rms_weighted": 38.5,
+     "cam": {
+      "xyz": [
+       6.63,
+       -18.09,
+       1.09
+      ],
+      "yaw_deg": 7.2,
+      "pitch_deg": 2.7,
+      "f": 1779
+     },
+     "raw_err_px": {
+      "eave_light_A": 44.0,
+      "eave_light_B": 43.5,
+      "box_rim_line": [
+       6.6,
+       3.3,
+       1.1
+      ],
+      "box_rim_minusY_end": 241.5,
+      "box_base_line": [
+       100.1
+      ],
+      "deck_edge_line": [
+       66.5,
+       58.1
+      ],
+      "door_light": 77.6,
+      "door_outer_base_minusY": 37.0,
+      "box_end_tier_foot(eval)": 294.5
+     },
+     "relations": {
+      "threshold_mid_hidden_by_box(film: yes)": true,
+      "jamb_plusY_foot_hidden_by_box(film: yes)": true,
+      "door_outer_base_minusY_visible(film: yes)": true
+     }
+    },
+    {
+     "family_spots_AB": [
+      6.7,
+      0.0
+     ],
+     "rms_weighted": 62.4,
+     "cam": {
+      "xyz": [
+       -8.95,
+       -36.7,
+       0.25
+      ],
+      "yaw_deg": 41.5,
+      "pitch_deg": 2.8,
+      "f": 6704
+     },
+     "raw_err_px": {
+      "eave_light_A": 56.3,
+      "eave_light_B": 84.4,
+      "box_rim_line": [
+       15.4,
+       22.7,
+       33.8
+      ],
+      "box_rim_minusY_end": 745.5,
+      "box_base_line": [
+       97.8
+      ],
+      "deck_edge_line": [
+       3.4,
+       1.1
+      ],
+      "door_light": 128.6,
+      "door_outer_base_minusY": 17.5,
+      "box_end_tier_foot(eval)": 477.6
+     },
+     "relations": {
+      "threshold_mid_hidden_by_box(film: yes)": false,
+      "jamb_plusY_foot_hidden_by_box(film: yes)": true,
+      "door_outer_base_minusY_visible(film: yes)": true
+     }
+    }
+   ]
+  },
+  {
+   "box_height": 0.8,
+   "shape": {
+    "light_center_h": 3.6,
+    "width": 1.8
+   },
+   "11748": {
+    "rms_weighted": 24.0,
+    "cam": {
+     "xyz": [
+      2.68,
+      -19.73,
+      0.9
+     ],
+     "yaw_deg": -17.2,
+     "pitch_deg": 3.6,
+     "f": 3124
+    },
+    "raw_err_px": {
+     "door_light": 30.4,
+     "shoulder_plusY": 66.0,
+     "shoulder_minusY": 13.7,
+     "jamb_minusY_foot": 48.0,
+     "threshold_line": [
+      21.5,
+      17.0
+     ],
+     "boxL_base_line": [
+      13.4,
+      5.1
+     ],
+     "boxL_rim_minusY_end": 42.7,
+     "boxL_end_tier_foot(eval)": 122.7
+    },
+    "relations": {
+     "jamb_plusY_foot_hidden_by_box(film: yes)": true,
+     "jamb_minusY_foot_visible(film: yes)": true,
+     "threshold_mid_visible(film: yes)": true
+    },
+    "R_estimate": {
+     "minusX_face_x": 12.14,
+     "y_minus_end": -25.77,
+     "y_plus_end_foot": -22.76,
+     "plus_end_foot_x": 13.46,
+     "height": 0.71,
+     "front_floor_edge_y": [
+      -25.86,
+      -26.36
+     ]
+    }
+   },
+   "11726": [
+    {
+     "family_spots_AB": [
+      0.0,
+      -6.7
+     ],
+     "rms_weighted": 30.5,
+     "cam": {
+      "xyz": [
+       5.6,
+       -18.0,
+       1.13
+      ],
+      "yaw_deg": 7.1,
+      "pitch_deg": 2.8,
+      "f": 1910
+     },
+     "raw_err_px": {
+      "eave_light_A": 49.3,
+      "eave_light_B": 37.9,
+      "box_rim_line": [
+       2.5,
+       5.6,
+       7.4
+      ],
+      "box_rim_minusY_end": 218.0,
+      "box_base_line": [
+       50.4
+      ],
+      "deck_edge_line": [
+       58.1,
+       50.6
+      ],
+      "door_light": 42.3,
+      "door_outer_base_minusY": 23.3,
+      "box_end_tier_foot(eval)": 311.7
+     },
+     "relations": {
+      "threshold_mid_hidden_by_box(film: yes)": true,
+      "jamb_plusY_foot_hidden_by_box(film: yes)": true,
+      "door_outer_base_minusY_visible(film: yes)": true
+     }
+    },
+    {
+     "family_spots_AB": [
+      6.7,
+      0.0
+     ],
+     "rms_weighted": 53.9,
+     "cam": {
+      "xyz": [
+       -13.45,
+       -39.69,
+       0.2
+      ],
+      "yaw_deg": 40.7,
+      "pitch_deg": 2.6,
+      "f": 7411
+     },
+     "raw_err_px": {
+      "eave_light_A": 47.5,
+      "eave_light_B": 70.2,
+      "box_rim_line": [
+       4.7,
+       11.1,
+       21.1
+      ],
+      "box_rim_minusY_end": 667.6,
+      "box_base_line": [
+       105.9
+      ],
+      "deck_edge_line": [
+       2.0,
+       1.2
+      ],
+      "door_light": 103.1,
+      "door_outer_base_minusY": 19.5,
+      "box_end_tier_foot(eval)": 459.3
+     },
+     "relations": {
+      "threshold_mid_hidden_by_box(film: yes)": false,
+      "jamb_plusY_foot_hidden_by_box(film: yes)": true,
+      "door_outer_base_minusY_visible(film: yes)": true
+     }
+    }
+   ]
+  }
+ ]
+}

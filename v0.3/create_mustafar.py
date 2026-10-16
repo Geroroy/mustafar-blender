@@ -507,6 +507,15 @@ if LAY["forecourt"]:
     make_obj("Trench_End_Unknown", bm, ("P", "U"), f"배치 후보 {LAYOUT_NAME}: 트렌치가 시작하는 자리(영화에서 보이지 않음, UNKNOWN)", "Facility_Structure",
              mat=material("WIRE_U"), wire=0.05, parent=facility_root)
 
+RH = DIM["v03"].get("r_hypothesis")
+if RH and LAYOUT_NAME in RH["layouts"]:          # 11748 오른쪽 낮은 구조물 R의 단순 외곽 가설(출입구 국소 좌표 → 세계). 미터 위치는 출입구 크기·카메라 가정에 의존
+    lx, ly, rh_ = RH["local_x"]["value"], RH["local_y"]["value"], RH["height"]["value"]
+    bm = bmesh.new(); add_box(bm, (XE + lx[0], EYC + ly[0], DECK_Z), (min(XE + lx[1], X1), EYC + ly[1], rh_))
+    make_obj("R_Structure_Hypothesis", bm, ("P", "U"),
+             f"가설(배치 후보 {LAYOUT_NAME}): 11748 오른쪽·11726 오른쪽 끝의 낮은 구조물 R의 단순 외곽. 화면 외형(긴 면·−Y 끝·+Y 끝 단)을 출입구 점 카메라로 바닥에 역투영한 후보값 — "
+             f"출입구 크기·카메라 가정에 의존. +X 쪽 깊이는 판 가장자리까지로 둔 가정(안 보임). 형태·기능 UNKNOWN",
+             "Hypothesis_R", mat=material((0.85, 0.80, 0.30)), parent=facility_root)
+
 # 낮은 상자(이전 이름 '계단 상자'): 판 위, 시설 쪽 가장자리 안쪽. 2026-10-16 해석 정정 — 안의 반복 부재를 하강 계단으로 본 판정 철회.
 # 기본안은 보이는 형태만(벽·테두리·안쪽 반복 부재·밝은 틈). 판 관통 구멍·하강 발판·하부 연결 없음. 기능 UNKNOWN.
 PH, SBZ = v("stairwell", "parapet_height"), v("stairwell", "bottom_z")
@@ -758,6 +767,8 @@ ANCH = {
     "Back_Edge_Rail": ((OUT[2][0] + OUT[3][0]) / 2, OUT[3][1] + 0.6, RH_), "Edge_Curbs_Near_Stairwell": (cx0 + 1, Y0 + 0.4, ch),
     "Entrance_Apron": (X1 + 3, EY1 + 0.8, 0), "Low_Box_Outer_Skin": (hx0 - 0.3, hy1 + 0.3, 0.5),
 }
+if RH and LAYOUT_NAME in RH["layouts"]:
+    ANCH["R_Structure_Hypothesis"] = (XE + RH["local_x"]["value"][0], EYC + sum(RH["local_y"]["value"]) / 2, RH["height"]["value"])
 if LAY["forecourt"]:
     ANCH["Entrance_Forecourt_Floor"] = (X1 + 3, (Y0 + FC_Y1) / 2, 0)
 

@@ -95,8 +95,8 @@ ACC = {n: json.load(open(os.path.join(HERE, f"access_{n}.json"))) for n in NAMES
 
 def acc_txt(n):
     a = ACC[n]
-    if not a["reachable_without_crossing_box"]: return "문턱 도달: 불가(상자를 지나야 함)"
-    return f"문턱 도달: 가능, 경로 최소 여유 폭 {a['min_clear_width_m']} m, 상자 −Y 끝 옆 바닥 {a['floor_beside_box_minusY_end_min_m']} m (모델 검사값)"
+    if not a["reachable_without_crossing_box"]: return "문 앞 접근: 불가(상자를 지나야 함)"
+    return f"문 앞 접근 최소 여유 {a['approach']['min_clear_width_m']} m, 문틀 안쪽까지 {a['inside']['min_clear_width_m']} m (바닥 연결 검사값)"
 
 
 DESC = {"plan": "위에서(출입구 주변)", "c11726_0": f"11726 구도 — M5 1순위 해(조명 {M5_USE[0]['spots_AB']}, f {M5_USE[0]['f']})",

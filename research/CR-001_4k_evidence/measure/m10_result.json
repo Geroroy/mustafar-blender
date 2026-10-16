@@ -1,0 +1,149 @@
+{
+ "obs_11246": {
+  "edge_light_near": [
+   1003,
+   870
+  ],
+  "deck_edge_line": [
+   [
+    300,
+    905
+   ],
+   [
+    700,
+    893
+   ]
+  ],
+  "box_plusY_top_near": [
+   2445,
+   895
+  ],
+  "box_plusY_top_far": [
+   2780,
+   835
+  ],
+  "box_raised_start": [
+   3220,
+   1000
+  ],
+  "box_base_line": [
+   [
+    2700,
+    1320
+   ],
+   [
+    3300,
+    1420
+   ]
+  ],
+  "box_far_rim_line": [
+   [
+    2900,
+    845
+   ],
+   [
+    3400,
+    870
+   ]
+  ]
+ },
+ "assumption": "가장자리 등 대응: 화면 앞쪽 등 = 시설 쪽 등 중 하나(후보별로 시험). 먼 쪽 등(310, 482)은 뒤쪽 슬래브 위로 보여 쓰지 않음",
+ "fits": [
+  {
+   "near_lamp_y": 10.7,
+   "rms_weighted": 59.3,
+   "cam": {
+    "xyz": [
+     -6.82,
+     -34.4,
+     3.18
+    ],
+    "yaw_deg": 56.1,
+    "pitch_deg": -2.4,
+    "f": 5431
+   },
+   "raw_err_px": {
+    "edge_light_near": 52.0,
+    "deck_edge_line": [
+     78.8,
+     17.9
+    ],
+    "box_plusY_top_near": 115.0,
+    "box_plusY_top_far": 106.0,
+    "box_raised_start": 89.8,
+    "box_base_line": [
+     74.8,
+     84.1
+    ],
+    "box_far_rim_line": [
+     86.0,
+     99.5
+    ]
+   }
+  },
+  {
+   "near_lamp_y": 21.3,
+   "rms_weighted": 59.7,
+   "cam": {
+    "xyz": [
+     -1.75,
+     -30.15,
+     2.31
+    ],
+    "yaw_deg": 60.8,
+    "pitch_deg": -0.8,
+    "f": 4118
+   },
+   "raw_err_px": {
+    "edge_light_near": 48.5,
+    "deck_edge_line": [
+     79.1,
+     18.0
+    ],
+    "box_plusY_top_near": 118.3,
+    "box_plusY_top_far": 113.8,
+    "box_raised_start": 70.8,
+    "box_base_line": [
+     76.1,
+     78.3
+    ],
+    "box_far_rim_line": [
+     91.1,
+     95.9
+    ]
+   }
+  },
+  {
+   "near_lamp_y": -0.9,
+   "rms_weighted": 76.8,
+   "cam": {
+    "xyz": [
+     -29.63,
+     -30.35,
+     10.57
+    ],
+    "yaw_deg": 28.0,
+    "pitch_deg": -10.5,
+    "f": 8000
+   },
+   "raw_err_px": {
+    "edge_light_near": 71.9,
+    "deck_edge_line": [
+     84.9,
+     29.3
+    ],
+    "box_plusY_top_near": 100.9,
+    "box_plusY_top_far": 138.3,
+    "box_raised_start": 335.4,
+    "box_base_line": [
+     71.6,
+     99.3
+    ],
+    "box_far_rim_line": [
+     63.4,
+     87.2
+    ]
+   }
+  }
+ ]
+}

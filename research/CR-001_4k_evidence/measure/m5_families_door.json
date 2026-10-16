@@ -1,0 +1,587 @@
+{
+ "note": "같은 조명 쌍을 쓰는 해들은 같은 대응 가정을 공유하므로 서로 독립이 아니다. 다른 계열의 큰 오차도 함께 기록한다.",
+ "door_obs_11726": {
+  "door_light": [
+   2590,
+   322
+  ],
+  "door_outer_base_minusY": [
+   3000,
+   1168
+  ]
+ },
+ "families": [
+  {
+   "spots_AB": [
+    -6.7,
+    -13.4
+   ],
+   "solutions": [
+    {
+     "f": 5500,
+     "rms_px_weighted_without_door": 35.2,
+     "cam": {
+      "xyz": [
+       -10.92,
+       16.86,
+       0.65
+      ],
+      "yaw_deg": -53.6,
+      "pitch_deg": 2.9
+     },
+     "door_err_px": {
+      "H1": {
+       "door_light": 1622.9,
+       "door_outer_base_minusY": 1836.4
+      },
+      "A2": {
+       "door_light": 1324.9,
+       "door_outer_base_minusY": 1522.0
+      },
+      "A3": {
+       "door_light": 733.7,
+       "door_outer_base_minusY": 823.3
+      }
+     }
+    },
+    {
+     "f": 4500,
+     "rms_px_weighted_without_door": 40.9,
+     "cam": {
+      "xyz": [
+       -6.48,
+       11.83,
+       0.79
+      ],
+      "yaw_deg": -54.7,
+      "pitch_deg": 3.2
+     },
+     "door_err_px": {
+      "H1": {
+       "door_light": 1607.7,
+       "door_outer_base_minusY": 1824.7
+      },
+      "A2": {
+       "door_light": 1321.1,
+       "door_outer_base_minusY": 1524.0
+      },
+      "A3": {
+       "door_light": 748.5,
+       "door_outer_base_minusY": 853.8
+      }
+     }
+    },
+    {
+     "f": 3500,
+     "rms_px_weighted_without_door": 50.2,
+     "cam": {
+      "xyz": [
+       -2.31,
+       6.69,
+       0.91
+      ],
+      "yaw_deg": -56.1,
+      "pitch_deg": 3.8
+     },
+     "door_err_px": {
+      "H1": {
+       "door_light": 1598.5,
+       "door_outer_base_minusY": 1817.7
+      },
+      "A2": {
+       "door_light": 1326.3,
+       "door_outer_base_minusY": 1533.7
+      },
+      "A3": {
+       "door_light": 785.5,
+       "door_outer_base_minusY": 908.4
+      }
+     }
+    },
+    {
+     "f": 2800,
+     "rms_px_weighted_without_door": 61.3,
+     "cam": {
+      "xyz": [
+       -5.33,
+       -9.69,
+       3.55
+      ],
+      "yaw_deg": -25.4,
+      "pitch_deg": -3.3
+     },
+     "door_err_px": {
+      "H1": {
+       "door_light": 1361.7,
+       "door_outer_base_minusY": 1579.3
+      },
+      "A2": {
+       "door_light": 996.8,
+       "door_outer_base_minusY": 1213.8
+      },
+      "A3": {
+       "door_light": 725.4,
+       "door_outer_base_minusY": 840.6
+      }
+     }
+    },
+    {
+     "f": 2200,
+     "rms_px_weighted_without_door": 66.0,
+     "cam": {
+      "xyz": [
+       -1.1,
+       -13.45,
+       3.35
+      ],
+      "yaw_deg": -21.2,
+      "pitch_deg": -4.0
+     },
+     "door_err_px": {
+      "H1": {
+       "door_light": 1325.0,
+       "door_outer_base_minusY": 1549.8
+      },
+      "A2": {
+       "door_light": 965.9,
+       "door_outer_base_minusY": 1193.0
+      },
+      "A3": {
+       "door_light": 748.5,
+       "door_outer_base_minusY": 870.0
+      }
+     }
+    }
+   ]
+  },
+  {
+   "spots_AB": [
+    0.0,
+    -6.7
+   ],
+   "solutions": [
+    {
+     "f": 2800,
+     "rms_px_weighted_without_door": 15.6,
+     "cam": {
+      "xyz": [
+       -0.47,
+       -17.77,
+       1.93
+      ],
+      "yaw_deg": 7.9,
+      "pitch_deg": 0.6
+     },
+     "door_err_px": {
+      "H1": {
+       "door_light": 673.4,
+       "door_outer_base_minusY": 752.2
+      },
+      "A2": {
+       "door_light": 448.3,
+       "door_outer_base_minusY": 241.0
+      },
+      "A3": {
+       "door_light": 450.6,
+       "door_outer_base_minusY": 43.7
+      }
+     }
+    },
+    {
+     "f": 2200,
+     "rms_px_weighted_without_door": 16.6,
+     "cam": {
+      "xyz": [
+       2.7,
+       -16.77,
+       1.98
+      ],
+      "yaw_deg": 4.5,
+      "pitch_deg": -0.0
+     },
+     "door_err_px": {
+      "H1": {
+       "door_light": 725.5,
+       "door_outer_base_minusY": 855.6
+      },
+      "A2": {
+       "door_light": 445.0,
+       "door_outer_base_minusY": 397.4
+      },
+      "A3": {
+       "door_light": 421.7,
+       "door_outer_base_minusY": 18.1
+      }
+     }
+    },
+    {
+     "f": 3500,
+     "rms_px_weighted_without_door": 20.2,
+     "cam": {
+      "xyz": [
+       -5.21,
+       -18.7,
+       2.02
+      ],
+      "yaw_deg": 9.1,
+      "pitch_deg": 0.5
+     },
+     "door_err_px": {
+      "H1": {
+       "door_light": 648.5,
+       "door_outer_base_minusY": 700.2
+      },
+      "A2": {
+       "door_light": 465.2,
+       "door_outer_base_minusY": 173.1
+      },
+      "A3": {
+       "door_light": 463.8,
+       "door_outer_base_minusY": 34.2
+      }
+     }
+    },
+    {
+     "f": 4500,
+     "rms_px_weighted_without_door": 26.0,
+     "cam": {
+      "xyz": [
+       -13.04,
+       -19.62,
+       2.35
+      ],
+      "yaw_deg": 8.8,
+      "pitch_deg": 0.0
+     },
+     "door_err_px": {
+      "H1": {
+       "door_light": 644.1,
+       "door_outer_base_minusY": 681.5
+      },
+      "A2": {
+       "door_light": 479.9,
+       "door_outer_base_minusY": 158.4
+      },
+      "A3": {
+       "door_light": 481.8,
+       "door_outer_base_minusY": 81.5
+      }
+     }
+    },
+    {
+     "f": 5500,
+     "rms_px_weighted_without_door": 29.6,
+     "cam": {
+      "xyz": [
+       -21.67,
+       -19.86,
+       2.91
+      ],
+      "yaw_deg": 7.4,
+      "pitch_deg": -0.7
+     },
+     "door_err_px": {
+      "H1": {
+       "door_light": 648.2,
+       "door_outer_base_minusY": 688.2
+      },
+      "A2": {
+       "door_light": 481.1,
+       "door_outer_base_minusY": 178.5
+      },
+      "A3": {
+       "door_light": 495.7,
+       "door_outer_base_minusY": 123.3
+      }
+     }
+    }
+   ]
+  },
+  {
+   "spots_AB": [
+    6.7,
+    0.0
+   ],
+   "solutions": [
+    {
+     "f": 5500,
+     "rms_px_weighted_without_door": 15.1,
+     "cam": {
+      "xyz": [
+       -10.86,
+       -27.75,
+       1.76
+      ],
+      "yaw_deg": 30.2,
+      "pitch_deg": 0.9
+     },
+     "door_err_px": {
+      "H1": {
+       "door_light": 589.3,
+       "door_outer_base_minusY": 169.4
+      },
+      "A2": {
+       "door_light": 1127.5,
+       "door_outer_base_minusY": 862.5
+      },
+      "A3": {
+       "door_light": 773.7,
+       "door_outer_base_minusY": 539.5
+      }
+     }
+    },
+    {
+     "f": 4500,
+     "rms_px_weighted_without_door": 23.9,
+     "cam": {
+      "xyz": [
+       -5.19,
+       -24.42,
+       1.76
+      ],
+      "yaw_deg": 29.6,
+      "pitch_deg": 0.9
+     },
+     "door_err_px": {
+      "H1": {
+       "door_light": 555.2,
+       "door_outer_base_minusY": 141.8
+      },
+      "A2": {
+       "door_light": 1115.3,
+       "door_outer_base_minusY": 870.9
+      },
+      "A3": {
+       "door_light": 829.7,
+       "door_outer_base_minusY": 666.0
+      }
+     }
+    },
+    {
+     "f": 3500,
+     "rms_px_weighted_without_door": 39.3,
+     "cam": {
+      "xyz": [
+       -0.51,
+       -21.38,
+       1.82
+      ],
+      "yaw_deg": 27.3,
+      "pitch_deg": 0.6
+     },
+     "door_err_px": {
+      "H1": {
+       "door_light": 471.0,
+       "door_outer_base_minusY": 44.6
+      },
+      "A2": {
+       "door_light": 986.4,
+       "door_outer_base_minusY": 739.0
+      },
+      "A3": {
+       "door_light": 858.6,
+       "door_outer_base_minusY": 758.6
+      }
+     }
+    },
+    {
+     "f": 2200,
+     "rms_px_weighted_without_door": 48.7,
+     "cam": {
+      "xyz": [
+       -5.48,
+       -5.47,
+       10.0
+      ],
+      "yaw_deg": -12.5,
+      "pitch_deg": -21.2
+     },
+     "door_err_px": {
+      "H1": {
+       "door_light": 419.8,
+       "door_outer_base_minusY": 833.8
+      },
+      "A2": {
+       "door_light": 219.8,
+       "door_outer_base_minusY": 647.7
+      },
+      "A3": {
+       "door_light": 446.8,
+       "door_outer_base_minusY": 300.0
+      }
+     }
+    },
+    {
+     "f": 2800,
+     "rms_px_weighted_without_door": 55.3,
+     "cam": {
+      "xyz": [
+       1.52,
+       -19.3,
+       2.01
+      ],
+      "yaw_deg": 22.8,
+      "pitch_deg": -0.3
+     },
+     "door_err_px": {
+      "H1": {
+       "door_light": 410.1,
+       "door_outer_base_minusY": 226.3
+      },
+      "A2": {
+       "door_light": 754.5,
+       "door_outer_base_minusY": 455.4
+      },
+      "A3": {
+       "door_light": 805.0,
+       "door_outer_base_minusY": 680.1
+      }
+     }
+    }
+   ]
+  },
+  {
+   "spots_AB": [
+    13.4,
+    6.7
+   ],
+   "solutions": [
+    {
+     "f": 5500,
+     "rms_px_weighted_without_door": 50.2,
+     "cam": {
+      "xyz": [
+       -4.51,
+       -29.02,
+       1.68
+      ],
+      "yaw_deg": 42.7,
+      "pitch_deg": 0.8
+     },
+     "door_err_px": {
+      "H1": {
+       "door_light": 1069.6,
+       "door_outer_base_minusY": 836.9
+      },
+      "A2": {
+       "door_light": 1852.5,
+       "door_outer_base_minusY": 1718.6
+      },
+      "A3": {
+       "door_light": 1134.0,
+       "door_outer_base_minusY": 1062.2
+      }
+     }
+    },
+    {
+     "f": 4500,
+     "rms_px_weighted_without_door": 63.8,
+     "cam": {
+      "xyz": [
+       -0.64,
+       -25.38,
+       1.72
+      ],
+      "yaw_deg": 41.4,
+      "pitch_deg": 0.6
+     },
+     "door_err_px": {
+      "H1": {
+       "door_light": 972.8,
+       "door_outer_base_minusY": 750.2
+      },
+      "A2": {
+       "door_light": 1803.4,
+       "door_outer_base_minusY": 1699.1
+      },
+      "A3": {
+       "door_light": 1211.6,
+       "door_outer_base_minusY": 1230.5
+      }
+     }
+    },
+    {
+     "f": 2200,
+     "rms_px_weighted_without_door": 72.0,
+     "cam": {
+      "xyz": [
+       -6.28,
+       -0.07,
+       15.54
+      ],
+      "yaw_deg": -12.1,
+      "pitch_deg": -32.6
+     },
+     "door_err_px": {
+      "H1": {
+       "door_light": 105.6,
+       "door_outer_base_minusY": 732.2
+      },
+      "A2": {
+       "door_light": 221.0,
+       "door_outer_base_minusY": 659.7
+      },
+      "A3": {
+       "door_light": 616.9,
+       "door_outer_base_minusY": 423.5
+      }
+     }
+    },
+    {
+     "f": 2800,
+     "rms_px_weighted_without_door": 72.1,
+     "cam": {
+      "xyz": [
+       -11.91,
+       0.81,
+       19.13
+      ],
+      "yaw_deg": -11.5,
+      "pitch_deg": -32.4
+     },
+     "door_err_px": {
+      "H1": {
+       "door_light": 86.3,
+       "door_outer_base_minusY": 710.6
+      },
+      "A2": {
+       "door_light": 277.2,
+       "door_outer_base_minusY": 652.9
+      },
+      "A3": {
+       "door_light": 650.6,
+       "door_outer_base_minusY": 432.7
+      }
+     }
+    },
+    {
+     "f": 3500,
+     "rms_px_weighted_without_door": 72.1,
+     "cam": {
+      "xyz": [
+       -18.57,
+       1.84,
+       23.25
+      ],
+      "yaw_deg": -11.0,
+      "pitch_deg": -32.1
+     },
+     "door_err_px": {
+      "H1": {
+       "door_light": 90.1,
+       "door_outer_base_minusY": 691.2
+      },
+      "A2": {
+       "door_light": 325.6,
+       "door_outer_base_minusY": 648.6
+      },
+      "A3": {
+       "door_light": 676.5,
+       "door_outer_base_minusY": 439.4
+      }
+     }
+    }
+   ]
+  }
+ ]
+}
