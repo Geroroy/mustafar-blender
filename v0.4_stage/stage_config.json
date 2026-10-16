@@ -1,6 +1,6 @@
 {
- "_doc": "착륙장 스테이지 설정(v0.4_stage). 기준 배치 A3c = A3b + 구조 수정 5건(작업 사본, 영화 고증 확정 아님). A3b 설정은 stage_config_A3b.json에 보존. Blender 좌표(m): +X 시설, +Y 뒤(절벽). 게임 좌표: gx = OX − Y, gy = OY − X (1 타일 = 1 m).",
- "layout": "A3c",
+ "_doc": "착륙장 스테이지 설정(v0.4_stage). 기준 배치 A3d = A3c + 구조 수정 2차(베이 3개·경사 칸막이·출입구 시설 날개·낮은 구조물 띠, 작업 사본, 영화 고증 확정 아님). A3c 설정은 stage_config_A3c.json, A3b는 stage_config_A3b.json에 보존. Blender 좌표(m): +X 시설, +Y 뒤(절벽). 게임 좌표: gx = OX − Y, gy = OY − X (1 타일 = 1 m).",
+ "layout": "A3d",
  "game": {
   "OX": 96.0,
   "OY": 95.5
@@ -17,9 +17,9 @@
   -13.4
  ],
  "entrance_light": [
-  16.05,
+  16.0,
   -19.06,
-  2.3
+  2.9
  ],
  "edge_light_xy": [
   [
@@ -51,11 +51,11 @@
   [
    [
     14.5,
-    -21.0,
+    -22.6,
     -3.0
    ],
    [
-    28.6,
+    30.0,
     19.5,
     8.5
    ]
@@ -73,7 +73,8 @@
     "Low_Box_End_Block",
     "Low_Box_Outer_Skin",
     "Low_Box_Inner_Members",
-    "Low_Box_Lit_Slots"
+    "Low_Box_Lit_Slots",
+    "Low_Box_Bands"
    ],
    "slice_axis": "Y",
    "slice_m": 1.0
@@ -92,13 +93,15 @@
    "slice_m": 1.0
   },
   "entrance_front": {
-   "_doc": "문틀·외피의 앞 1.4 m만 조각(플레이어가 문틀 안으로 들어갈 때 −Y 문설주가 앞을 가림). 나머지는 배경",
+   "_doc": "문틀·날개·바깥 테두리의 앞 1.4 m만 조각(플레이어가 문 안으로 들어갈 때 −Y 문설주·테두리가 앞을 가림). 나머지는 배경",
    "objects": [
     "Facility_A_Entrance",
-    "Entrance_Housing"
+    "Entrance_Housing",
+    "Entrance_Outer_Frame",
+    "Entrance_Passage_Frames"
    ],
    "clip_x": [
-    15.9,
+    15.8,
     17.3
    ],
    "split_y": [
@@ -116,7 +119,7 @@
    "Entrance_Bridge_Floor"
   ],
   "floor_z_tol": 0.15,
-  "_doc": "높이 1.2 m에서 아래로 광선을 쏴 처음 맞는 면이 바닥 객체이고 높이가 0 ± 0.15 m이면 걸을 수 있는 칸(1.2 m: R·연석보다 높고 A자 문틀 안쪽 경사가 이 높이에서 폭 약 1.26 m — 바닥 폭 1.45 m 개구부). 낮은 상자는 바닥 투영 전체를 막음. 그 밖(문틀·외피·틈·판 밖 허공)은 막힘",
+  "_doc": "높이 1.2 m에서 아래로 광선을 쏴 처음 맞는 면이 바닥 객체이고 높이가 0 ± 0.15 m이면 걸을 수 있는 칸(1.2 m: R·연석·낮은 상자 테두리보다 낮지 않게 — 상자·R은 바닥 투영 전체를 막음. A3d 문 구멍은 어깨 높이 1.26 m까지 세로 문설주라 이 높이에서 폭 2.0 m, 통로 반복 프레임 0.12 m씩 좁힘). 그 밖(문틀·날개·틈·판 밖 허공)은 막힘",
   "ray_z": 1.2
  },
  "stage": {
@@ -126,14 +129,14 @@
    14.0
   ],
   "exit": {
-   "_doc": "A3c: 문틀 안쪽(진입 바닥 위, 문틀 면 x 16.3 뒤 0.2~0.8 m). 이 안에 들어오면 스테이지 종료",
+   "_doc": "A3d: 문틀 안쪽(진입 바닥 위, 문틀 면 x 16.3 뒤 0.2~0.8 m). 이 안에 들어오면 스테이지 종료",
    "center_world": [
     16.8,
     -19.06
    ],
    "half": [
     0.3,
-    0.4
+    0.55
    ]
   },
   "combat": {
@@ -173,6 +176,27 @@
    }
   }
  },
- "stage_blend": "mustafar_landing_stage_A3c.blend",
- "out_dir": "mustafar_landing"
+ "stage_blend": "mustafar_landing_stage_A3d.blend",
+ "out_dir": "mustafar_landing",
+ "bay_fill": {
+  "_doc": "베이 안이 검정 한 덩어리로 뭉개지지 않게 둔 약한 채움 빛(베이마다 하나, 시각용)",
+  "energy": 260,
+  "points": [
+   [
+    25.0,
+    -6.5,
+    -0.8
+   ],
+   [
+    25.0,
+    1.7,
+    -0.8
+   ],
+   [
+    25.0,
+    9.9,
+    -0.8
+   ]
+  ]
+ }
 }

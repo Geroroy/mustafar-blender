@@ -4,7 +4,8 @@
 import json, os
 from PIL import Image
 
-HERE = os.path.dirname(os.path.abspath(__file__)); S = os.path.join(HERE, "out", "mustafar_landing"); R = os.path.join(HERE, "renders")
+HERE = os.path.dirname(os.path.abspath(__file__)); S = os.path.join(HERE, "out", os.environ.get("STAGE_OUT", "mustafar_landing")); R = os.path.join(HERE, "renders")
+# 선택: REVIEW_RECT="sx0,sy0,sx1,sy1"(게임 화면 1배 px)이면 그 범위로 자름 — 배치마다 배경 크기가 달라도 같은 카메라·같은 확대로 비교. REVIEW_OUT: 출력 경로
 d = json.load(open(os.path.join(S, "stage.json"), encoding="utf-8")); B = d["backdrop"]
 RAW = os.path.join(HERE, "work_export", d["layout"])
 scr = lambda gx, gy: ((gx - gy) * 20.0, (gx + gy) * 10.0)
@@ -17,7 +18,11 @@ for p in sorted(d["props"], key=lambda p: p["x"] + p["y"] + 0.35 * min(p["rect"]
     bg.alpha_composite(im, (int(round((sx - B["x"]) * k - f["ox"])), int(round((sy - B["y"]) * k - f["oy"]))))
 # 판·시설 전체가 들어오게 자른다(가로 84 %, 3:2, 가운데를 판·시설 쪽으로 약간 옮김)
 W, H = bg.size; cw = int(W * 0.84); ch = int(cw * 2 / 3); cx, cy = int(W * 0.51), int(H * 0.47)
-im = bg.crop((cx - cw // 2, cy - ch // 2, cx + cw // 2, cy + ch // 2)).convert("RGB")
+box = (cx - cw // 2, cy - ch // 2, cx + cw // 2, cy + ch // 2)
+if os.environ.get("REVIEW_RECT"):
+    r_ = [float(t) for t in os.environ["REVIEW_RECT"].split(",")]
+    box = tuple(int(round((v - (B["x"] if i % 2 == 0 else B["y"])) * k)) for i, v in enumerate(r_))
+im = bg.crop(box).convert("RGB")
 im.thumbnail((1536, 1536), Image.LANCZOS)
-im.save(os.path.join(R, "review_iso.png"), optimize=True)
+im.save(os.environ.get("REVIEW_OUT") or os.path.join(R, "review_iso.png"), optimize=True)
 print("ok", d["layout"], im.size)

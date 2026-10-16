@@ -1,0 +1,178 @@
+{
+ "_doc": "착륙장 스테이지 설정(v0.4_stage). A3c(구조 수정 1차, 보존) = A3b + 구조 수정 5건(작업 사본, 영화 고증 확정 아님). A3b 설정은 stage_config_A3b.json에 보존. Blender 좌표(m): +X 시설, +Y 뒤(절벽). 게임 좌표: gx = OX − Y, gy = OY − X (1 타일 = 1 m).",
+ "layout": "A3c",
+ "game": {
+  "OX": 96.0,
+  "OY": 95.5
+ },
+ "lava_z": -40.0,
+ "cliff_top_z": 22.0,
+ "eave_spot_x": 21.15,
+ "eave_spot_z": 6.8,
+ "eave_spot_y": [
+  13.4,
+  6.7,
+  0.0,
+  -6.7,
+  -13.4
+ ],
+ "entrance_light": [
+  16.05,
+  -19.06,
+  2.3
+ ],
+ "edge_light_xy": [
+  [
+   13.5,
+   21.3
+  ],
+  [
+   13.5,
+   10.7
+  ],
+  [
+   13.5,
+   -0.9
+  ]
+ ],
+ "frame_boxes": [
+  [
+   [
+    -17.0,
+    -25.0,
+    -4.0
+   ],
+   [
+    14.5,
+    22.5,
+    0.0
+   ]
+  ],
+  [
+   [
+    14.5,
+    -21.0,
+    -3.0
+   ],
+   [
+    28.6,
+    19.5,
+    8.5
+   ]
+  ]
+ ],
+ "frame_margin_px": [
+  400,
+  250
+ ],
+ "occluders": {
+  "_doc": "플레이어 앞을 가릴 수 있는 물체만 스프라이트로 따로 굽는다. 나머지(시설 정면·지붕·지지부, 출입구, 뒤 가장자리 기둥·난간, 바닥 조명)는 플레이어가 그 뒤로 갈 수 없어 배경에 굽는다.",
+  "low_box": {
+   "objects": [
+    "Low_Box",
+    "Low_Box_End_Block",
+    "Low_Box_Outer_Skin",
+    "Low_Box_Inner_Members",
+    "Low_Box_Lit_Slots"
+   ],
+   "slice_axis": "Y",
+   "slice_m": 1.0
+  },
+  "curbs": {
+   "objects": [
+    "Edge_Curbs_Near_Stairwell"
+   ],
+   "split_islands": true
+  },
+  "entrance_side_r": {
+   "objects": [
+    "Entrance_Side_Structure_R"
+   ],
+   "slice_axis": "Y",
+   "slice_m": 1.0
+  },
+  "entrance_front": {
+   "_doc": "문틀·외피의 앞 1.4 m만 조각(플레이어가 문틀 안으로 들어갈 때 −Y 문설주가 앞을 가림). 나머지는 배경",
+   "objects": [
+    "Facility_A_Entrance",
+    "Entrance_Housing"
+   ],
+   "clip_x": [
+    15.9,
+    17.3
+   ],
+   "split_y": [
+    -19.06
+   ]
+  }
+ },
+ "collision": {
+  "cell_m": 0.125,
+  "floor_objects": [
+   "Landing_Platform",
+   "Floor_Plates",
+   "Entrance_Forecourt_Floor",
+   "Entrance_Passage_Visible",
+   "Entrance_Bridge_Floor"
+  ],
+  "floor_z_tol": 0.15,
+  "_doc": "높이 1.2 m에서 아래로 광선을 쏴 처음 맞는 면이 바닥 객체이고 높이가 0 ± 0.15 m이면 걸을 수 있는 칸(1.2 m: R·연석보다 높고 A자 문틀 안쪽 경사가 이 높이에서 폭 약 1.26 m — 바닥 폭 1.45 m 개구부). 낮은 상자는 바닥 투영 전체를 막음. 그 밖(문틀·외피·틈·판 밖 허공)은 막힘",
+  "ray_z": 1.2
+ },
+ "stage": {
+  "name": "무스타파 · 착륙장",
+  "spawn_world": [
+   -6.0,
+   14.0
+  ],
+  "exit": {
+   "_doc": "A3c: 문틀 안쪽(진입 바닥 위, 문틀 면 x 16.3 뒤 0.2~0.8 m). 이 안에 들어오면 스테이지 종료",
+   "center_world": [
+    16.8,
+    -19.06
+   ],
+   "half": [
+    0.3,
+    0.4
+   ]
+  },
+  "combat": {
+   "_doc": "새 광선검 전투 시스템이 쓰는 자리. 위치는 게임 판단값(영화 고증 아님): 영화 결투는 상자·출입구 앞 바닥에서 벌어짐(11726·11748)",
+   "area_world": [
+    [
+     -12.0,
+     -23.5
+    ],
+    [
+     13.0,
+     -23.5
+    ],
+    [
+     13.0,
+     6.0
+    ],
+    [
+     -12.0,
+     6.0
+    ]
+   ],
+   "anakin_start_world": [
+    2.0,
+    -9.0
+   ],
+   "opponent_start_world": [
+    7.0,
+    -15.0
+   ],
+   "trigger_world": {
+    "center": [
+     2.0,
+     -6.0
+    ],
+    "radius": 4.0
+   }
+  }
+ },
+ "stage_blend": "mustafar_landing_stage_A3c.blend",
+ "out_dir": "mustafar_landing_A3c"
+}

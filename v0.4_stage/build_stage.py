@@ -170,6 +170,11 @@ MAT = {
     "lava": lava(),
     "rock": rock(),
     "baydark": metal("STAGE_BayDark", (0.035, 0.03, 0.03), (0.015, 0.012, 0.012), streak=False, metallic=0.2),
+    # 구조 수정 2차(A3d): 베이 안쪽이 검정 한 덩어리로 뭉개지지 않게 단계를 둔 어두운 금속
+    "bayinner": metal("STAGE_BayInner", (0.075, 0.066, 0.06), (0.04, 0.035, 0.032), streak=True, metallic=0.4),
+    "equip": metal("STAGE_BayEquip", (0.16, 0.14, 0.12), (0.08, 0.07, 0.06), streak=False, metallic=0.6),
+    "racks": metal("STAGE_BayRacks", (0.24, 0.21, 0.18), (0.12, 0.10, 0.09), streak=False, metallic=0.5, scale=2.0),
+    "baylight": emit("STAGE_BayLight", (1.0, 0.72, 0.45), 4.0),
 }
 ASSIGN = {
     "Landing_Platform": "deckbase", "Platform_Sidewalls": "sidewall",
@@ -181,6 +186,9 @@ ASSIGN = {
     "Edge_Curbs_Near_Stairwell": "trim", "Back_Edge_Posts": "trim", "Back_Edge_Rail": "trim",
     "Hangar_Spotlights": "warm", "Facility_A_Entrance_Light": "cool", "Edge_Lights_Facility_Side": "blue", "Back_Edge_Post_Lights": "blue",
     "Low_Box_Lit_Slots": "slot",
+    "Hangar_Bay_Partitions": "facade", "Hangar_Wall_Panels": "facade", "Hangar_Bay_Shell": "bayinner", "Hangar_Bay_Equipment": "equip",
+    "Hangar_Bay_Racks": "racks", "Hangar_Bay_Lights": "baylight", "Entrance_Outer_Frame": "facade", "Entrance_Passage_Frames": "facility",
+    "Low_Box_Bands": "box",
 }
 for n, k in ASSIGN.items():
     o = D.objects.get(n)
@@ -194,7 +202,9 @@ fp.data.materials[0] = MAT["plateA"]; fp.data.materials[1] = MAT["plateB"]
 for n, w in (("Hangar_Walls", 0.06), ("Structural_Pillars", 0.05), ("Hangar_Roof", 0.08), ("Entrance_Bay_Front", 0.05), ("Entrance_Bay_Unknown", 0.05),
              ("Facility_A_Entrance", 0.03), ("Low_Box", 0.025), ("Low_Box_End_Block", 0.025), ("Low_Box_Outer_Skin", 0.02), ("Low_Box_Inner_Members", 0.015),
              ("Edge_Curbs_Near_Stairwell", 0.03), ("Back_Edge_Posts", 0.03), ("Platform_Sidewalls", 0.05), ("Floor_Plates", 0.012),
-             ("Entrance_Housing", 0.04), ("Entrance_Side_Structure_R", 0.025), ("Entrance_Bridge_Floor", 0.02)):
+             ("Entrance_Housing", 0.04), ("Entrance_Side_Structure_R", 0.025), ("Entrance_Bridge_Floor", 0.02),
+             ("Hangar_Bay_Partitions", 0.05), ("Hangar_Wall_Panels", 0.04), ("Hangar_Bay_Equipment", 0.04), ("Hangar_Bay_Racks", 0.015),
+             ("Entrance_Outer_Frame", 0.035), ("Entrance_Passage_Frames", 0.015), ("Low_Box_Bands", 0.02)):
     o = D.objects.get(n)
     if o is None:
         continue
@@ -242,6 +252,8 @@ for k, y in enumerate(CFG["eave_spot_y"]):
     light(f"Stage_Eave_Spot_{k}", 'SPOT', (CFG["eave_spot_x"], y, CFG["eave_spot_z"]), 2600, (1.0, 0.88, 0.7), rot=(math.radians(22), 0, math.radians(90)), size=0.4, spot=70)
 ex, ey, ez = CFG["entrance_light"]
 light("Stage_Entrance_Spot", 'SPOT', (ex, ey, ez), 900, (0.85, 0.92, 1.0), rot=(math.radians(30), 0, math.radians(90)), size=0.2, spot=80)
+for k, p_ in enumerate(CFG.get("bay_fill", {}).get("points", [])):      # A3d: 베이 안 약한 채움 빛
+    light(f"Stage_Bay_Fill_{k}", 'POINT', tuple(p_), CFG["bay_fill"]["energy"], (1.0, 0.7, 0.45), size=1.5)
 for k, (x, y) in enumerate(CFG["edge_light_xy"]):
     light(f"Stage_Edge_Blue_{k}", 'POINT', (x, y, 0.35), 60, (0.45, 0.72, 1.0), size=0.1)
 

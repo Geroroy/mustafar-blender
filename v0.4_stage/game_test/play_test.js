@@ -110,7 +110,25 @@ const note = (k, v) => { log.push({ k, v }); console.log(k, JSON.stringify(v)); 
     await clickTo(117.5, 78.0, 5000); const w = await pos(); note('housing wall attempt', w);
     note('not inside housing wall', await page.evaluate(() => !window.__game.world.isBlocked(window.__game.player.x, window.__game.player.y)));
     await clickTo(ex + 0.9, ey + 3.4, 5000);
+    // 키로 곧게 들어갔다 나오기(문에 걸림 확인): W+D = 게임 −gy(월드 +X, 문 안쪽), S+A = +gy
+    await clickTo(ex, ey + 1.6, 4000, 0.15); const k0 = await pos(); note('keys start (bridge)', k0);
+    const holdUntil = async (keys, cond, ms) => {   // 키를 누른 채 조건이 될 때까지(최대 ms) — 멈추면(걸림) 시간 초과
+      const t0 = Date.now(); for (const kk of keys) await page.keyboard.down(kk);
+      let p; for (;;) { p = await pos(); if (cond(p) || Date.now() - t0 > ms) break; await page.waitForTimeout(40); }
+      for (const kk of keys) await page.keyboard.up(kk); return { p, ms: Date.now() - t0 };
+    };
+    const r1 = await holdUntil(['w', 'd'], (p) => p.y <= ey, 3000);
+    await page.waitForTimeout(150);
+    const k1 = await pos(); note('keys in', { ...k1, ms: r1.ms }); note('keys in: inside door frame', await inside());
+    await page.screenshot({ path: path.join(OUT, '06d_keys_inside.png') });
+    const r2 = await holdUntil(['s', 'a'], (p) => p.y >= ey + 1.6, 3000);
+    const k2 = await pos(); note('keys out', { ...k2, ms: r2.ms }); note('keys out: back on bridge (gy > exit y1)', k2.y > S.exit.y1);
+    await clickTo(ex + 0.9, ey + 3.4, 5000);
     await page.evaluate(() => window.__game.stage.lockExit(false));
+    // 이른 종료 없음: 잠금을 푼 뒤 문 앞 진입 바닥에서는 stage:exit가 나오면 안 됨
+    await clickTo(ex, ey + 1.3, 4000, 0.2); note('front of door (unlocked)', await pos());
+    await page.waitForTimeout(600);
+    note('no premature exit at door front', !(await page.evaluate(() => window.__events.some((e) => e[0] === 'stage:exit'))));
   }
   await clickTo(ex, ey, 6000); note('exit attempt', await pos());
   let ev = await page.evaluate(() => window.__events.map((e) => e[0]));

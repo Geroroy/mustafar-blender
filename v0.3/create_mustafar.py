@@ -129,6 +129,14 @@ def add_prism(bm, poly, z0, z1):
         bm.faces.new([bot[i], bot[j], top[j], top[i]])
 
 
+def hull(bm, pts):
+    """점들의 볼록 껍질(안쪽에 남는 점은 지움)."""
+    r = bmesh.ops.convex_hull(bm, input=[bm.verts.new(p_) for p_ in pts])
+    junk = [g for g in r["geom_interior"] + r["geom_unused"] if isinstance(g, bmesh.types.BMVert)]
+    if junk:
+        bmesh.ops.delete(bm, geom=junk, context='VERTS')
+
+
 def add_prism_x(bm, poly_yz, x0, x1):
     """YZ 평면 볼록 다각형을 X 방향(x0~x1)으로 밀어낸 프리즘."""
     a = [bm.verts.new((x0, y, z)) for y, z in poly_yz]
@@ -260,6 +268,8 @@ FY0_ORIG = FY0                     # 핀 배열 기준(후보가 시설 앞 끝�
 _ya_need = LAY["center_y"] - DIM["v03"]["entrance"]["width"]["value"] / 2 - 1.2
 if _ya_need < FY0:                  # 후보 A2·A3: 시설 앞 끝은 출입구 테두리를 담을 만큼만 연장(11748 오른쪽은 용암 배경 — 더 늘리지 않음)
     FY0 = _ya_need
+if LAY.get("facility_front_y") is not None:   # 구조 수정 2차(A3d): 넓어진 출입구 날개를 담는 시설 앞 끝
+    FY0 = min(FY0, LAY["facility_front_y"])
 
 # 낮은 상자(이전 이름 '계단 상자', 판 위, 가장자리 안쪽). 판 관통 구멍은 숨긴 가설에서만(DESCENT=True일 때)
 SCX, SCY = v("stairwell", "corner_back_left")
@@ -378,6 +388,12 @@ if bm is not None: make_obj("Corridor_Lower_Walkway", bm, conf("facility", "tren
          "Facility_Structure", parent=facility_root)
 
 E = DIM["v03"]["entrance"]
+if LAY.get("entrance_dims"):           # 구조 수정 2차(A3d): 문 구멍 작업 후보(사용자 표시 03 + 78862 비율). 기본 치수표(entrance)는 그대로
+    import copy as _copy
+    E = _copy.deepcopy(E)
+    for k_ in ("width", "light_center_height", "frame_layers"):
+        if k_ in LAY["entrance_dims"]:
+            E[k_]["value"] = LAY["entrance_dims"][k_]
 EYC, ELC, EW, ESF = (E[k]["value"] for k in ("center_y", "light_center_height", "width", "shoulder_frac"))
 EYC = LAY["center_y"]                # 배치 후보의 출입구 중심(H1·A1 −16.0, A2·A3 −20.1)
 XE = LAY.get("front_x") or XW        # 출입구 면(문틀 뒤 벽면) x. A3만 판 가장자리 쪽(14.8), 나머지는 시설 벽면
@@ -385,6 +401,21 @@ EH = ELC + E["light_below_apex"]["value"]   # 문 안쪽 꼭짓점 (조명 중�
 EZS = ELC * ESF                      # 어깨점 높이 (측정 정의와 같은 기준: 문 높이 = 바닥→조명)
 EY0, EY1 = EYC - EW / 2, EYC + EW / 2
 EPAD = 1.2                           # 출입구 테두리 폭
+HBY = LAY.get("hangar_bays")             # 구조 수정 2차(A3d): 시설 정면 큰 개방 베이 3개 + 깊은 경사 칸막이(사용자 제작 요구, 영화 개구부 총수 아님)
+if HBY:
+    PY = HBY["partition_y"]; PWB, PWT = HBY["base_half"], HBY["top_half"]
+    PXB, PXT, PBX, PFZ = HBY["front_x_base"], HBY["front_x_top"], HBY["back_x"], HBY["floor_z"]
+    PSH = (BEAM - PFZ) * math.tan(math.radians(HBY["lean_deg"]))     # 벽면 안 기울기(위가 +Y): 칸막이 가운데선의 밑→위 이동량
+
+    def p_t(z):
+        return (z - PFZ) / (BEAM - PFZ)
+
+    def p_edge(yc, side, z):
+        """칸막이 앞 모서리의 y(높이 z). side −1: −Y 모서리, +1: +Y 모서리. 밑이 좁고(±PWB) 위로 넓어짐(±PWT)."""
+        t = p_t(z); return yc + PSH * t + side * (PWB + (PWT - PWB) * t)
+
+    def p_front_x(z):
+        return PXB + (PXT - PXB) * p_t(z)
 bm = bmesh.new(); bm_bay = bmesh.new()
 ya, yb = EY0 - EPAD, EY1 + EPAD
 if XE == XW:
@@ -393,13 +424,18 @@ if XE == XW:
 else:
     OB = LAY.get("open_bay")                                             # 구조 수정(A3c): 영화에서 확인된 구간만 처마 아래로 들어간 개방 베이
     WZ0 = -12.0 if GAP_OPEN else TZ                                      # 틈이 열리면 시설 밑동이 아래로 이어짐(R6 존재, 형태 미확인 — 어두운 면)
-    if OB:
+    if HBY:                                                              # 구조 수정 2차(A3d): 베이 3개 양옆의 막힌 면만 벽(칸막이 바깥 모서리를 따라 비스듬히 끝남)
+        add_box(bm, (XW, FY0, WZ0), (XW + 1.0, FY1, PFZ))                # 베이 바닥 아래 밑동
+        hull(bm, [(x_, y_, z_) for x_ in (XW, XW + 1.0) for y_, z_ in ((FY0, PFZ), (FY0, BEAM), (p_edge(PY[0], -1, PFZ), PFZ), (p_edge(PY[0], -1, BEAM), BEAM))])
+        hull(bm, [(x_, y_, z_) for x_ in (XW, XW + 1.0) for y_, z_ in ((FY1, PFZ), (FY1, BEAM), (p_edge(PY[-1], 1, PFZ), PFZ), (p_edge(PY[-1], 1, BEAM), BEAM))])
+    elif OB:
         add_box(bm, (XW, FY0, WZ0), (XW + 1.0, OB["y_range"][0], BEAM))
         add_box(bm, (XW, OB["y_range"][1], WZ0), (XW + 1.0, FY1, BEAM))
     else:
         add_box(bm, (XW, FY0, TZ), (XW + 1.0, FY1, BEAM))                # 후보 A3: 시설 벽면은 막힌 면(출입구는 앞으로 나온 면에)
 A_SHELL = XE != XW and LAY.get("entrance_housing") == "a_shell"     # 구조 수정(A3c): 직육면체 돌출 외피 대신 A자 단면 외피
-for poly in ([] if A_SHELL else [[(ya, TZ), (EY0, TZ), (EY0, EZS), (ya, EZS)], [(EY1, TZ), (yb, TZ), (yb, EZS), (EY1, EZS)],
+WING = XE != XW and LAY.get("entrance_housing") == "facility_wing"   # 구조 수정 2차(A3d): 경사 벽 시설 날개(위가 처마로 이어짐)
+for poly in ([] if (A_SHELL or WING) else [[(ya, TZ), (EY0, TZ), (EY0, EZS), (ya, EZS)], [(EY1, TZ), (yb, TZ), (yb, EZS), (EY1, EZS)],
              [(EY0, TZ), (EY1, TZ), (EY1, 0.0), (EY0, 0.0)],                                     # 문턱 아래
              [(ya, EZS), (EY0, EZS), (EYC, EH), (ya, EH)], [(EY1, EZS), (yb, EZS), (yb, EH), (EYC, EH)],
              [(ya, EH), (yb, EH), (yb, BEAM), (ya, BEAM)]]):
@@ -407,6 +443,94 @@ for poly in ([] if A_SHELL else [[(ya, TZ), (EY0, TZ), (EY0, EZS), (ya, EZS)], [
 make_obj("Hangar_Walls", bm, ("C", "P"),
          "R2: 착륙장 시설 쪽 벽, R6: 판의 시설 쪽 변을 따라가는 높은 띠. 높이는 보까지 측정(6.3~7.1 m)" + (" | A3c: 개방 베이 구간은 벽을 빼고 안쪽으로 물림, 양끝 구간은 미확인이라 막힌 면 유지" if XE != XW and LAY.get("open_bay") else ""),
          "Facility_Structure", parent=facility_root)
+if HBY:                                         # 구조 수정 2차(A3d): 베이 3개(실제 깊이) + 칸막이 4개 + 안쪽 장비·판·틀
+    TOPY0, TOPY1 = p_edge(PY[0], -1, PFZ), p_edge(PY[-1], 1, BEAM)
+    bm = bmesh.new()
+    for yc in PY:                               # 깊은 경사 칸막이: 앞면 밑 ±PWB(x PXB) → 위 ±PWT(x PXT, 처마 밑), 뒤는 베이 뒷벽까지
+        fb = [(PXB, yc + s_ * PWB, PFZ) for s_ in (-1, 1)]; ft = [(PXT, yc + PSH + s_ * PWT, BEAM) for s_ in (-1, 1)]
+        hull(bm, fb + ft + [(PBX, y_, z_) for _, y_, z_ in fb + ft])
+        # 접힘: 앞면 가운데가 V자로 0.3 m 솟은 능선
+        hull(bm, [(PXB - 0.3, yc, PFZ), (PXT - 0.3, yc + PSH, BEAM)] + [(PXB, yc + s_ * 0.55 * PWB, PFZ) for s_ in (-1, 1)] + [(PXT, yc + PSH + s_ * 0.55 * PWT, BEAM) for s_ in (-1, 1)])
+        # 테두리: 양 앞 모서리를 따라 두꺼운 띠(0.15 m 돌출, 옆면으로 0.5 m 감쌈)
+        for s_ in (-1, 1):
+            pts = []
+            for z_ in (PFZ, BEAM - 0.5):
+                xf_, ye_ = p_front_x(z_), p_edge(yc, s_, z_)
+                pts += [(xf_ - 0.15, ye_ + s_ * 0.05, z_), (xf_ - 0.15, ye_ - s_ * 0.3, z_), (xf_ + 0.5, ye_ + s_ * 0.05, z_), (xf_ + 0.5, ye_ - s_ * 0.3, z_)]
+            hull(bm, pts)
+        # 처마와 붙는 머리(칸막이 위 끝, 조명 줄 뒤)
+        add_box(bm, (PXT, yc + PSH - PWT - 0.1, BEAM - 0.55), (PXT + 1.4, yc + PSH + PWT + 0.1, BEAM))
+        # 부착물: −Y 옆면(게임 카메라 쪽)의 받침 두 개
+        for z_ in (0.6, 2.8):
+            xf_, ye_ = p_front_x(z_), p_edge(yc, -1, z_)
+            add_box(bm, (xf_ + 0.35, ye_ - 0.35, z_), (xf_ + 1.25, ye_ + 0.05, z_ + 0.45))
+    make_obj("Hangar_Bay_Partitions", bm, ("C", "U"),
+             f"구조 수정 2차({LAYOUT_NAME}) 78853·78855: 베이 사이 깊은 경사 칸막이(존재 VERIFIED). 정면에서 밑이 좁고(폭 {2 * PWB:.1f} m) 위로 넓어져(폭 {2 * PWT:.1f} m) 처마에 붙음. "
+             f"벽면 안 기울기(가운데 {HBY['lean_deg']}°, 강한 쪽 모서리 ≈{math.degrees(math.atan((PSH + PWT - PWB) / (BEAM - PFZ))):.0f}°)와 앞뒤 기울기(위가 {PXB - PXT:.1f} m 앞으로)를 따로 둠. "
+             "접힘(가운데 능선)·두꺼운 테두리·처마 머리·받침은 영화에서 읽히는 만큼만, 안 보이는 뒷면은 단순 면. 개수(4)·간격은 사용자 제작 요구(베이 3개)에 맞춘 값",
+             "Facility_Structure", parent=facility_root)
+
+    bm = bmesh.new()                            # 베이 껍질: 바닥·뒷벽·천장 2단·앞 머리보(서로 다른 거리)
+    add_box(bm, (XW, TOPY0, PFZ - 0.4), (PBX, p_edge(PY[-1], 1, PFZ), PFZ))           # 바닥 앞 끝 = 밑동 벽면(틈 쪽으로 띠가 나오지 않음)
+    add_box(bm, (PBX, TOPY0, PFZ), (PBX + 0.6, TOPY1, BEAM))
+    cz0, cz1 = HBY["ceiling_z"]
+    add_box(bm, (PXT + 0.3, TOPY0, HBY["header_z"]), (PXT + 1.1, TOPY1, BEAM))        # 앞 머리보
+    add_box(bm, (PXT + 1.1, TOPY0, cz0), (26.0, TOPY1, BEAM))                          # 앞 천장
+    add_box(bm, (26.0, TOPY0, cz1), (PBX, TOPY1, BEAM))                                # 뒤 천장(낮음)
+    make_obj("Hangar_Bay_Shell", bm, ("C", "U"),
+             f"구조 수정 2차({LAYOUT_NAME}): 개방 베이 안쪽 면(바닥 z {PFZ}, 뒷벽 x {PBX}, 천장 {cz0}/{cz1} m, 앞 머리보 {HBY['header_z']} m). 존재는 11615·11725·78853(어두운 안쪽), 깊이·높이는 형태용 가정(UNKNOWN)",
+             "Facility_Structure", mat=material((0.09, 0.08, 0.072)), parent=facility_root)
+
+    bm_eq, bm_pl, bm_lt = bmesh.new(), bmesh.new(), bmesh.new()
+    for b_ in range(len(PY) - 1):
+        def free_y(z_, pad=0.3):
+            return p_edge(PY[b_], 1, z_) + pad, p_edge(PY[b_ + 1], -1, PFZ) - pad
+        # 가로로 쌓인 판(뒷벽 선반)·뒷벽 아래 작은 조명 띠
+        for k_, dz_ in enumerate((0.7, 1.6, 2.5, 3.4)):
+            y0_, y1_ = free_y(PFZ + dz_ + 0.12)
+            add_box(bm_pl, (PBX - 0.55 - 0.1 * (k_ % 2), y0_, PFZ + dz_), (PBX, y1_, PFZ + dz_ + 0.12))
+            if k_ < 2:
+                add_box(bm_lt, (PBX - 0.06, y0_ + 0.4, PFZ + dz_ - 0.22), (PBX - 0.01, y1_ - 0.4, PFZ + dz_ - 0.14))
+        # 가로 틀(기둥 둘 + 가로대 셋), 입구에서 1.2 m 들어감 — 베이 폭의 절반만(뒤 장비가 보이게), 베이마다 반대쪽
+        y0_, y1_ = free_y(PFZ + 2.6, 0.5)
+        ym_ = (y0_ + y1_) / 2
+        y0_, y1_ = (ym_ + 0.3, y1_) if b_ % 2 == 0 else (y0_, ym_ - 0.3)
+        for yp_ in (y0_, y1_ - 0.18):
+            add_box(bm_pl, (PXB + 1.0, yp_, PFZ), (PXB + 1.18, yp_ + 0.18, PFZ + 2.6))
+        for dz_ in (0.9, 1.75, 2.6):
+            add_box(bm_pl, (PXB + 0.95, y0_, PFZ + dz_ - 0.12), (PXB + 1.23, y1_, PFZ + dz_))
+        # 각진 장비 덩어리(베이마다 다르게, 뒤로 물림 — 게임 참고 장비를 옮기지 않음)
+        ya_, yb_ = free_y(PFZ + 3.4, 0.45)
+        if b_ == 0:
+            hull(bm_eq, [(x_, y_, PFZ) for x_ in (24.6, 27.6) for y_ in (ya_, ya_ + 2.8)] + [(x_, y_, PFZ + 3.4) for x_ in (25.4, 27.6) for y_ in (ya_, ya_ + 2.8)]
+                 + [(24.6, y_, PFZ + 2.7) for y_ in (ya_, ya_ + 2.8)])
+            hull(bm_eq, [(x_, y_, PFZ) for x_ in (24.0, 25.6) for y_ in (ya_ + 3.4, yb_)] + [(x_, y_, PFZ + 1.5) for x_ in (24.5, 25.6) for y_ in (ya_ + 3.4, yb_)])
+        elif b_ == 1:
+            hull(bm_eq, [(x_, y_, PFZ) for x_ in (25.2, 28.4) for y_ in (ya_ + 0.6, ya_ + 3.2)] + [(x_, y_, PFZ + 4.0) for x_ in (26.4, 28.4) for y_ in (ya_ + 0.9, ya_ + 2.9)])
+            add_box(bm_eq, (24.2, ya_ + 3.8, PFZ), (25.8, yb_, PFZ + 1.1)); add_box(bm_eq, (24.5, ya_ + 4.1, PFZ + 1.1), (25.6, yb_ - 0.5, PFZ + 2.0))
+        else:
+            hull(bm_eq, [(x_, y_, PFZ) for x_ in (24.0, 27.8) for y_ in (ya_ + 2.0, yb_)] + [(27.8, y_, PFZ + 2.8) for y_ in (ya_ + 2.0, yb_)] + [(26.2, y_, PFZ + 2.8) for y_ in (ya_ + 2.0, yb_)])
+            add_box(bm_eq, (25.6, ya_, PFZ), (28.0, ya_ + 1.6, PFZ + 3.0))
+    make_obj("Hangar_Bay_Equipment", bm_eq, ("P", "U"),
+             f"구조 수정 2차({LAYOUT_NAME}) 78853·78855: 개구부 안쪽의 큰 각진 장비 덩어리(어두운 형태로 보임). 기능·숨은 부분·정확한 형태는 UNKNOWN — 베이마다 다른 단순 각진 덩어리로만 둠",
+             "Facility_Structure", mat=material((0.2, 0.17, 0.145)), parent=facility_root)
+    make_obj("Hangar_Bay_Racks", bm_pl, ("P", "U"),
+             f"구조 수정 2차({LAYOUT_NAME}) 78853: 개구부 안쪽에 가로로 쌓인 판·틀(뒷벽 선반 4단, 입구 뒤 가로 틀). 개수·간격은 형태용",
+             "Facility_Structure", mat=material((0.3, 0.26, 0.22)), parent=facility_root)
+    make_obj("Hangar_Bay_Lights", bm_lt, ("P", "U"),
+             f"구조 수정 2차({LAYOUT_NAME}): 베이 안이 한 덩어리 검정으로 뭉개지지 않도록 둔 약한 조명 띠(시각용, 영화 근거 아님)",
+             "Facility_Structure", mat=material((1.0, 0.75, 0.5), 3.0), parent=facility_root)
+    bm = bmesh.new()                            # 막힌 면(출입구 날개 ↔ 첫 칸막이, 마지막 칸막이 뒤)의 경사 판(78862 출입구 왼쪽 어두운 경사 벽판)
+    LSH = (PSH - (PWT - PWB)) * p_t(BEAM - 1.0)  # 첫 칸막이 −Y 모서리와 같은 기울기
+    for y0b_, y1b_ in ((-16.0, p_edge(PY[0], -1, PFZ) - 0.4),):
+        n_ = max(1, int((y1b_ - y0b_) // 1.9))
+        w_ = (y1b_ - y0b_) / n_
+        for k_ in range(n_):
+            yb0_ = y0b_ + k_ * w_ + 0.12; yb1_ = yb0_ + w_ - 0.24
+            hull(bm, [(x_, y_, PFZ) for x_ in (XW - 0.25, XW) for y_ in (yb0_, yb1_)] + [(x_, y_ + LSH, BEAM - 1.0) for x_ in (XW - 0.35, XW) for y_ in (yb0_, yb1_)])
+    make_obj("Hangar_Wall_Panels", bm, ("P", "U"),
+             f"구조 수정 2차({LAYOUT_NAME}) 78862: 막힌 벽 구간의 기울어진 경사 벽판(칸막이와 같은 방향). 판 수·폭은 형태용",
+             "Facility_Structure", parent=facility_root)
 if XE != XW and LAY.get("open_bay"):
     OB = LAY["open_bay"]; by0, by1 = OB["y_range"]; BD = OB["depth"]
     bm = bmesh.new()
@@ -445,6 +569,50 @@ if A_SHELL:
     make_obj("Entrance_Housing", bm, ("C", "U"),
              f"배치 후보 {LAYOUT_NAME}: 겹층 A자 문틀 뒤의 경사진 A자 단면 외피(문틀 면 x {XE} → 시설 벽 x {XW}). 11748·11726의 경사면·어깨 턱을 따른 단면이며 길이·두께·처마와의 접합 세부는 형태용 가정. "
              "내부는 보이는 통로까지만(이후 연결 UNKNOWN)", "Facility_Structure", parent=facility_root)
+elif WING:                                      # 구조 수정 2차(A3d): 출입구를 시설의 일부로 — 경사 벽 날개, 윗면이 처마(x XW−OVER, z BEAM)까지 경사로 오름
+    bm_bay.free()
+    WG = LAY["wing"]; HB_, HS_, ZS_, HT_, ZT_ = WG["base_half"], WG["shoulder_half"], WG["shoulder_z"], WG["top_half"], WG["top_z"]
+    ZB = -12.0 if GAP_OPEN else TZ; w_ = EW / 2; XEV = XW - OVER; HTE = HB_ - 1.0   # 처마 밑에서 윗면 반폭
+
+    def u_out(z):                               # 날개 바깥 경사 벽의 반폭(높이 z, 앞면)
+        if z <= 0:
+            return HB_
+        if z <= ZS_:
+            return HB_ + (HS_ - HB_) * z / ZS_
+        return HS_ + (HT_ - HS_) * (z - ZS_) / (ZT_ - ZS_)
+
+    def pieces(zt, ht):                         # 문 구멍을 둘러싼 볼록 조각들(앞/뒤 단면의 윗면 높이·반폭만 다름)
+        ue = u_out(EZS)
+        out = []
+        for s_ in (-1, 1):
+            out.append([(s_ * HB_, ZB), (s_ * w_, ZB), (s_ * w_, EZS), (s_ * ue, EZS), (s_ * HB_, 0.0)])
+            out.append([(s_ * ue, EZS), (s_ * w_, EZS), (0.0, EH), (0.0, zt), (s_ * ht, zt), (s_ * HS_, ZS_)])
+        out.append([(-w_, ZB), (w_, ZB), (w_, -0.62), (-w_, -0.62)])
+        return out
+    bm = bmesh.new()
+    for pf, pb in zip(pieces(ZT_, HT_), pieces(BEAM, HTE)):
+        hull(bm, [(XE - 0.02, EYC + u_, z_) for u_, z_ in pf] + [(XEV, EYC + u_, z_) for u_, z_ in pb])
+        hull(bm, [(x_, EYC + u_, z_) for x_ in (XEV, XW + 0.5) for u_, z_ in pb])
+    make_obj("Entrance_Housing", bm, ("C", "U"),
+             f"구조 수정 2차({LAYOUT_NAME}) 78862·11748: 출입구 시설 날개 — 바닥 쪽으로 넓어지는 경사 벽(밑 반폭 {HB_} m → 어깨 {HS_} m@{ZS_} m → 윗면 {HT_} m@{ZT_} m), "
+             f"윗면이 처마(x {XEV}, z {BEAM})까지 경사로 올라 붙음. A3c의 임시 A자 외피를 대신함. 치수·처마 접합 방식은 형태용 가정. 내부는 보이는 통로까지만(이후 연결 UNKNOWN)",
+             "Facility_Structure", parent=facility_root)
+    bm = bmesh.new()                            # 바깥 건축 테두리: 경사 테두리 띠·처마로 잇는 머리보·어깨 턱
+    RW, RP = WG["rim"]["width"], WG["rim"]["proj"]
+    for s_ in (-1, 1):
+        for (ua, za), (ub, zb) in (((HB_, -0.6), (HB_, 0.0)), ((HB_, 0.0), (HS_, ZS_)), ((HS_, ZS_), (HT_, ZT_))):
+            q = [(s_ * ua, za), (s_ * (ua - RW), za), (s_ * ub, zb), (s_ * (ub - RW), zb)]
+            hull(bm, [(x_, EYC + u_, z_) for x_ in (XE - RP, XE + 0.05) for u_, z_ in q])
+        LO = max(o1 for _, o1, _ in E["frame_layers"]["value"]) * EW
+        ya_, yb_ = sorted((EYC + s_ * (w_ + LO + 0.05), EYC + s_ * (u_out(EZS) - RW)))
+        add_box(bm, (XE - 0.12, ya_, EZS - 0.14), (XE + 0.02, yb_, EZS))
+    HD = WG["header"]
+    add_box(bm, (XE - HD["proj"], EYC - HD["half"], HD["z"][0]), (XE + 1.4, EYC + HD["half"], HD["z"][1]))
+    make_obj("Entrance_Outer_Frame", bm, ("C", "U"),
+             f"구조 수정 2차({LAYOUT_NAME}) 78862: 문 구멍(겹층 A자 프레임)과 구분되는 바깥 건축 테두리 — 넓은 경사 테두리 띠(폭 {RW} m), 위 머리보(z {HD['z'][0]}~{HD['z'][1]} m, 처마로 이어지는 날개 윗면과 만남), 어깨 높이 수평 턱. "
+             "존재·배치 관계는 78862·11748, 치수는 형태용",
+             "Facility_Structure", parent=facility_root)
+
 elif XE != XW:
     make_obj("Entrance_Bay_Front", bm_bay, ("P", "U"),
              f"배치 후보 {LAYOUT_NAME}: 판 가장자리 쪽으로 나온 출입구 면(x {XE}). M8(11748 역투영) 후보 위치. 문 위 높이(보 높이까지)·폭은 형태용 가정",
@@ -466,6 +634,8 @@ SWEEP = FH / 2 * math.tan(LEAN) + FW / 2
 fins_skipped = []
 while y < FY1 - FSP * 0.3:
     zc = (TZ + BEAM) / 2
+    if HBY:                                                     # 구조 수정 2차(A3d): 얇은 핀 대신 깊은 경사 칸막이(Hangar_Bay_Partitions)
+        break
     if y + SWEEP > EY0 - EPAD and y - SWEEP < EY1 + EPAD:       # 배치 가설 H1: 출입구를 가리는 핀은 두지 않음(배열 근거 UNKNOWN)
         fins_skipped.append(round(y, 1)); y += FSP; continue
     add_box(bm, (XW - FD, y - FW / 2, zc - FLEN_ / 2), (XW, y + FW / 2, zc + FLEN_ / 2), matrix=rot)
@@ -526,6 +696,19 @@ while k_ < PD - 0.3:                                                            
 make_obj("Entrance_Passage_Visible", bm, ("C", "U"),
          "11748: 출입구 안으로 이어지는 통로(존재 VERIFIED). 4 m는 미확정 영역 앞 모델링 중단 위치(측정 아님), 벽 줄무늬는 리브로 보임(PROBABLE). 리브 복도(11878)와의 연결은 UNKNOWN — 만들지 않음",
          "Facility_Structure", parent=facility_root)
+if WING:                                        # 구조 수정 2차(A3d): 통로 깊이가 읽히도록 안쪽 면에 반복 A자 프레임(0.12 m 안으로, 0.9 m 간격)
+    bm = bmesh.new(); xk_ = XE + 0.7
+    while xk_ < XE + 1.0 + PD - 0.3:
+        for sgn, yin in ((-1, EY0), (1, EY1)):
+            y0_, y1_ = sorted((yin, yin - sgn * 0.12))
+            add_box(bm, (xk_, y0_, 0.0), (xk_ + 0.14, y1_, EZS))
+            poly = [(yin, EZS), (yin - sgn * 0.12, EZS), (EYC, EH - 0.12 * SL_), (EYC, EH)]
+            cy_, cz_ = sum(q[0] for q in poly) / 4, sum(q[1] for q in poly) / 4
+            add_prism_x(bm, sorted(poly, key=lambda q: math.atan2(q[1] - cz_, q[0] - cy_)), xk_, xk_ + 0.14)
+        xk_ += 0.9
+    make_obj("Entrance_Passage_Frames", bm, ("P", "U"),
+             f"구조 수정 2차({LAYOUT_NAME}) 78862·11748: 문 안쪽 통로의 반복 프레임(깊이를 보이게). 간격·두께는 형태용, 통로 너머 연결은 UNKNOWN — 새 실내 동선 없음",
+             "Facility_Structure", parent=facility_root)
 bm = bmesh.new(); add_box(bm, (XE + 1.0 + PD, EY0, 0.0), (XE + 1.0 + PD + 0.05, EY1, EH))
 make_obj("Entrance_Passage_Unknown_End", bm, ("P", "U"), "미확정 영역 앞 모델링 중단 위치(영화에서 보이는 끝이 아님). 그 너머는 미확인 — 연결하지 않음", "Facility_Structure",
          mat=material("WIRE_U"), wire=0.05, parent=facility_root)
@@ -545,7 +728,7 @@ if LAY["forecourt"]:
              mat=material("WIRE_U"), wire=0.05, parent=facility_root)
 
 if LAY.get("entrance_bridge"):                  # 구조 수정(A3c): 판 가장자리 → 문턱 → 통로 바닥까지 이어지는 진입 바닥(11748: 두 낮은 구조물 사이 바닥이 문턱까지 이어짐)
-    _hw = (EW / 2 + max(o1 for _, o1, _ in E["frame_layers"]["value"]) * EW + 0.45) if A_SHELL else EW / 2 + EPAD
+    _hw = (EW / 2 + max(o1 for _, o1, _ in E["frame_layers"]["value"]) * EW + 0.45) if A_SHELL else LAY["wing"]["base_half"] if WING else EW / 2 + EPAD
     _xf = max(xf for _, _, xf in E["frame_layers"]["value"])
     bm = bmesh.new(); add_box(bm, (X1, EYC - _hw, -0.62), (XE - _xf - 0.05, EYC + _hw, DECK_Z))    # 판 가장자리 → 문틀 앞(외피 폭)
     add_box(bm, (XE - _xf - 0.05, EY0, -0.62), (XE + 1.0, EY1, DECK_Z))                         # 문틀 안(개구부 폭만 — 외피 벽 속으로 들어가지 않음)
@@ -557,12 +740,35 @@ if RS:                                          # 구조 수정(A3c): 출입구 
     rx0, rx1 = RS["x"]; ry0, ry1 = EYC + RS["local_y"][0], EYC + RS["local_y"][1]; rh = RS["h"]; tl = RS["tier_len"]; sk = 0.25
     yT = ry1 - tl
     bm = bmesh.new()
-    pts = [(rx0 - sk, ry0, DECK_Z), (rx1, ry0, DECK_Z), (rx0 - sk, yT, DECK_Z), (rx1, yT, DECK_Z),
+    if RS.get("bands"):                         # 구조 수정 2차(A3d) 78862 오른쪽: 바닥 쪽으로 넓어지는 경사 벽(−X·−Y)·두꺼운 테두리·반복 접힌 띠·끝 두 단
+        sk = 0.3; rc = 0.12; zr = rh - rc
+        hull(bm, [(rx0 - sk, ry0 - sk, DECK_Z), (rx1, ry0 - sk, DECK_Z), (rx0 - sk, yT, DECK_Z), (rx1, yT, DECK_Z),
+                  (rx0, ry0, zr), (rx1, ry0, zr), (rx0, yT, zr), (rx1, yT, zr)])
+        add_box(bm, (rx0 - 0.1, ry0 - 0.1, zr), (rx1, yT, rh))                               # 두꺼운 테두리
+        fx = lambda z: rx0 - sk * (zr - z) / (zr - DECK_Z)                                    # −X 경사면 x(높이 z)
+        fy = lambda z: ry0 - sk * (zr - z) / (zr - DECK_Z)                                    # −Y 경사면 y
+        nb = RS["bands"]; bw = 0.34; bp = 0.14
+        for k_ in range(nb):                    # −X 면 띠(78862에서 카메라 쪽)
+            yc_ = ry0 + (yT - ry0) * (k_ + 0.5) / nb
+            y_s = (yc_ - bw / 2, yc_ + bw / 2)
+            add_box(bm, (rx0 - 0.1 - bp, y_s[0], zr - 0.2), (rx0 + 0.25, y_s[1], rh + 0.06))
+            hull(bm, [(fx(z_) + dx_, y_, z_) for z_ in (zr - 0.2, DECK_Z) for dx_ in (-bp, 0.02) for y_ in y_s])
+            add_box(bm, (fx(DECK_Z) - bp - 0.12, y_s[0], DECK_Z), (fx(DECK_Z), y_s[1], DECK_Z + 0.16))
+        nbx = nb + 1
+        for k_ in range(nbx):                   # −Y 면 띠(게임 카메라 쪽)
+            xc_ = rx0 + (rx1 - rx0) * (k_ + 0.5) / nbx
+            x_s = (xc_ - bw / 2, xc_ + bw / 2)
+            add_box(bm, (x_s[0], ry0 - 0.1 - bp, zr - 0.2), (x_s[1], ry0 + 0.25, rh + 0.06))
+            hull(bm, [(x_, fy(z_) + dy_, z_) for z_ in (zr - 0.2, DECK_Z) for dy_ in (-bp, 0.02) for x_ in x_s])
+            add_box(bm, (x_s[0], fy(DECK_Z) - bp - 0.12, DECK_Z), (x_s[1], fy(DECK_Z), DECK_Z + 0.16))
+        add_box(bm, (rx0 - sk * 0.4, yT, DECK_Z), (rx1, yT + tl * 0.5, rh * 0.7))              # 끝 두 단(+Y, 진입 바닥 쪽)
+        add_box(bm, (rx0 - sk * 0.2, yT + tl * 0.5, DECK_Z), (rx1, ry1, rh * 0.38))
+    pts = None if RS.get("bands") else [(rx0 - sk, ry0, DECK_Z), (rx1, ry0, DECK_Z), (rx0 - sk, yT, DECK_Z), (rx1, yT, DECK_Z),
            (rx0, ry0 + 0.2, rh), (rx1, ry0 + 0.2, rh), (rx0, yT, rh), (rx1, yT, rh)]
-    bmesh.ops.convex_hull(bm, input=[bm.verts.new(p_) for p_ in pts])
-    pts = [(rx0 - sk, yT, DECK_Z), (rx1, yT, DECK_Z), (rx0 - sk, ry1, DECK_Z), (rx1, ry1, DECK_Z),
+    if pts: bmesh.ops.convex_hull(bm, input=[bm.verts.new(p_) for p_ in pts])
+    pts = None if RS.get("bands") else [(rx0 - sk, yT, DECK_Z), (rx1, yT, DECK_Z), (rx0 - sk, ry1, DECK_Z), (rx1, ry1, DECK_Z),
            (rx0 - sk * 0.25, yT, rh * 0.75), (rx1, yT, rh * 0.75), (rx0 - sk * 0.25, yT + tl * 0.5, rh * 0.75), (rx1, yT + tl * 0.5, rh * 0.75)]
-    bmesh.ops.convex_hull(bm, input=[bm.verts.new(p_) for p_ in pts])
+    if pts: bmesh.ops.convex_hull(bm, input=[bm.verts.new(p_) for p_ in pts])
     make_obj("Entrance_Side_Structure_R", bm, ("C", "U"),
              f"배치 후보 {LAYOUT_NAME}: 11748 오른쪽(출입구 −Y 쪽) 낮은 구조물(존재 VERIFIED). 낮은 상자 끝과 마주 보며 그 사이 바닥이 문턱까지 이어짐. "
              f"위치는 R 가설(M9 역투영) 범위, −Y 길이는 CR-009 '용암 화소' 불일치만큼 줄임. 높이 {rh} m·경사 바깥면·+Y 끝 단은 낮은 상자에서 옮긴 작업용 후보(대칭·같은 치수 확정 아님). 보이지 않는 +X 쪽·윗면 세부는 만들지 않음",
@@ -668,7 +874,8 @@ B0, B1 = TZD["band"]["value"]; WT, WB = TZD["top_bottom_width"]["value"]
 pitch_ = (hy1 - YS0) / NT
 face_x = lambda z: (hx0 - 0.06) - (SKO - 0.06) * (zt - z) / (zt - DECK_Z)       # 경사 패널 바깥면의 x(높이 z에서)
 za, zb = DECK_Z + B0 * (zt - DECK_Z), DECK_Z + B1 * (zt - DECK_Z)
-for j in range(NT):
+BBD = LAY.get("box_bands")                                      # 구조 수정 2차(A3d): 얇은 사다리꼴 구획 대신 접힌 띠(형상)
+for j in range(0 if BBD else NT):
     yc_ = YS0 + pitch_ * (j + 0.5)
     pts = []
     for z_, w_ in ((za, WB), (zb, WT)):
@@ -679,6 +886,21 @@ for j in range(NT):
 make_obj("Low_Box_Outer_Skin", bm, ("C", "U"),
          "11246·11224·11736: 낮은 상자 바깥 경사 패널·단이 진 윗테두리·앞 끝의 계단식 바깥 단·긴 옆면의 반복 사다리꼴 구획(존재 VERIFIED, 형태만, 기능 UNKNOWN). 벌어짐·단 높이·단 수·구획 수·구획 판 두께(0.05 m, 오목/볼록 미구분의 중립 표현)는 후보. 높이 1.2 m·위치는 기준안 유지",
          "Facility_Structure", parent=facility_root)
+if BBD:                                                         # 78855·78837: 윗테두리에서 앞(−X)면으로 접혀 내려가는 반복 돌출 띠, 띠 사이 홈, 발치 단, 두꺼운 테두리
+    bm = bmesh.new(); NB_, BW_, BP_, RC_ = BBD["count"], BBD["width"], BBD["proj"], BBD["rim_cap"]
+    add_box(bm, (hx0 - 0.12, YB0, PH), (hx0 + T_ + 0.04, hy1 + 0.06, PH + RC_))                 # 두꺼운 테두리(−X 벽 위)
+    add_box(bm, (hx0 + T_, hy1 - T_ - 0.04, PH), (hx1, hy1 + 0.06, PH + RC_))                    # (+Y 끝 벽 위)
+    add_box(bm, (hx1 - T_ - 0.04, YB0, PH), (hx1, hy1 - T_, PH + RC_))                          # (+X 벽 위)
+    pb_ = (hy1 - YS0) / NB_
+    for j in range(NB_):
+        y0_ = YS0 + pb_ * j + (pb_ - BW_) / 2; y1_ = y0_ + BW_
+        add_box(bm, (face_x(zt) - BP_, y0_, zt - 0.25), (hx0 + T_ * 0.6, y1_, PH + RC_ + 0.06))     # 윗면에서 앞으로 접히는 머리
+        hull(bm, [(face_x(z_) + dx_, y_, z_) for z_ in (zt - 0.25, DECK_Z) for dx_ in (-BP_, 0.02) for y_ in (y0_, y1_)])
+        add_box(bm, (face_x(DECK_Z) - BP_ - 0.14, y0_ - 0.04, DECK_Z), (face_x(DECK_Z), y1_ + 0.04, DECK_Z + 0.18))   # 발치 단
+    make_obj("Low_Box_Bands", bm, ("C", "U"),
+             f"구조 수정 2차({LAYOUT_NAME}) 78855·78837: 낮은 상자 긴 바깥면의 반복 돌출 띠 {NB_}개(윗테두리에서 앞면으로 접혀 내려감, 돌출 {BP_} m)·띠 사이 홈·발치 단·두꺼운 테두리({RC_} m). "
+             "질감이 아닌 형상. 개수·폭·돌출은 후보, 기능 UNKNOWN",
+             "Facility_Structure", parent=facility_root)
 bm = bmesh.new()
 for k in range(5):   # 빛나는 틈 위치(형상만). 끝 형태(EF)에서는 짧아진 열린 구간 안에 5개를 고르게 배치(11615의 밝은 띠 수 유지)
     yy = hy1 - 0.9 - k * 1.15 if not EF else (hy1 - T_ - 0.45) - k * ((hy1 - T_ - 0.45) - (YB0 + T_ + 0.45)) / 4
