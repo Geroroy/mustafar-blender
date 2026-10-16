@@ -1,0 +1,252 @@
+[
+ {
+  "k": "ready",
+  "v": true
+ },
+ {
+  "k": "spawn",
+  "v": {
+   "x": 82,
+   "y": 101.5
+  }
+ },
+ {
+  "k": "after D",
+  "v": {
+   "x": 83.14,
+   "y": 100.36
+  }
+ },
+ {
+  "k": "after S",
+  "v": {
+   "x": 84.6,
+   "y": 101.83
+  }
+ },
+ {
+  "k": "exit",
+  "v": {
+   "x0": 115.04,
+   "y0": 80.9,
+   "x1": 115.76,
+   "y1": 81.6
+  }
+ },
+ {
+  "k": "combat",
+  "v": {
+   "area": [
+    [
+     119.5,
+     107.5
+    ],
+    [
+     119.5,
+     82.5
+    ],
+    [
+     90,
+     82.5
+    ],
+    [
+     90,
+     107.5
+    ]
+   ],
+   "anakinStart": [
+    105,
+    93.5
+   ],
+   "opponentStart": [
+    111,
+    88.5
+   ],
+   "trigger": {
+    "center": [
+     102,
+     93.5
+    ],
+    "radius": 4
+   }
+  }
+ },
+ {
+  "k": "box side",
+  "v": {
+   "x": 108,
+   "y": 86.5
+  }
+ },
+ {
+  "k": "box back end",
+  "v": {
+   "x": 106.6,
+   "y": 82.5
+  }
+ },
+ {
+  "k": "click into box (should stay outside)",
+  "v": {
+   "x": 112.48,
+   "y": 85.5
+  }
+ },
+ {
+  "k": "player inside box footprint",
+  "v": false
+ },
+ {
+  "k": "edge (should stop at deck edge)",
+  "v": {
+   "x": 100.5,
+   "y": 111.5
+  }
+ },
+ {
+  "k": "player on walkable cell",
+  "v": true
+ },
+ {
+  "k": "combat trigger point",
+  "v": {
+   "x": 102,
+   "y": 93.5
+  }
+ },
+ {
+  "k": "toward door approach",
+  "v": {
+   "x": 118,
+   "y": 86
+  }
+ },
+ {
+  "k": "exit attempt",
+  "v": {
+   "x": 115.5,
+   "y": 81.43
+  }
+ },
+ {
+  "k": "final pos",
+  "v": {
+   "x": 115.5,
+   "y": 81.43
+  }
+ },
+ {
+  "k": "events",
+  "v": [
+   [
+    "stage:combatArea",
+    true,
+    3.55
+   ],
+   [
+    "stage:combatTrigger",
+    {
+     "area": [
+      [
+       119.5,
+       107.5
+      ],
+      [
+       119.5,
+       82.5
+      ],
+      [
+       90,
+       82.5
+      ],
+      [
+       90,
+       107.5
+      ]
+     ],
+     "anakinStart": [
+      105,
+      93.5
+     ],
+     "opponentStart": [
+      111,
+      88.5
+     ],
+     "trigger": {
+      "center": [
+       102,
+       93.5
+      ],
+      "radius": 4
+     }
+    },
+    5.62
+   ],
+   [
+    "stage:combatArea",
+    false,
+    18.42
+   ],
+   [
+    "stage:combatArea",
+    true,
+    21.6
+   ],
+   [
+    "stage:combatArea",
+    false,
+    30.1
+   ],
+   [
+    "stage:exit",
+    {
+     "stage": "mustafar_landing",
+     "name": "무스타파 · 착륙장",
+     "combat": {
+      "area": [
+       [
+        119.5,
+        107.5
+       ],
+       [
+        119.5,
+        82.5
+       ],
+       [
+        90,
+        82.5
+       ],
+       [
+        90,
+        107.5
+       ]
+      ],
+      "anakinStart": [
+       105,
+       93.5
+      ],
+      "opponentStart": [
+       111,
+       88.5
+      ],
+      "trigger": {
+       "center": [
+        102,
+        93.5
+       ],
+       "radius": 4
+      }
+     },
+     "exit": {
+      "x0": 115.04,
+      "y0": 80.9,
+      "x1": 115.76,
+      "y1": 81.6
+     },
+     "time": 30.6491000000003
+    },
+    30.65
+   ]
+  ]
+ }
+]

@@ -1,0 +1,5 @@
+work_export/
+__pycache__/
+renders/final_iso_hd.png
+renders/final_iso_sd.png
+renders/collision_overlay.png
