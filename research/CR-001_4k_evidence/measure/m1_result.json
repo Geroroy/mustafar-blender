@@ -1,0 +1,1047 @@
+{
+ "assumptions": {
+  "principal_point": [
+   1920.0,
+   800.0
+  ],
+  "roll": 0,
+  "heights_m": {
+   "obiwan": 1.78,
+   "anakin": 1.85
+  },
+  "px_read_err": 4,
+  "observations": [
+   [
+    11615,
+    "obi",
+    1615,
+    1305,
+    950
+   ],
+   [
+    11615,
+    "ana",
+    2450,
+    1228,
+    868
+   ],
+   [
+    11609,
+    "obi",
+    1500,
+    1220,
+    888
+   ],
+   [
+    11609,
+    "ana",
+    2520,
+    1272,
+    903
+   ],
+   [
+    11612,
+    "obi",
+    1556,
+    1262,
+    930
+   ],
+   [
+    11612,
+    "ana",
+    2490,
+    1268,
+    888
+   ],
+   [
+    11618,
+    "obi",
+    1700,
+    1372,
+    990
+   ],
+   [
+    11618,
+    "ana",
+    2392,
+    1200,
+    868
+   ],
+   [
+    11621,
+    "obi",
+    1858,
+    1395,
+    1020
+   ],
+   [
+    11621,
+    "ana",
+    2370,
+    1168,
+    832
+   ]
+  ]
+ },
+ "by_f": {
+  "2500": {
+   "hfov_deg": 75.0,
+   "pitch_deg": 15.56,
+   "cam_h_m": 5.45,
+   "rms_px": 9.28,
+   "residual_px": [
+    -3.3,
+    8.7,
+    -3.3,
+    5.2,
+    -14.7,
+    17.4,
+    5.8,
+    -11.3,
+    -7.3,
+    1.8
+   ],
+   "cam_h_if_heights_pm3pct": [
+    5.28,
+    5.61
+   ],
+   "cam_h_if_head_read_pm4px": [
+    5.42,
+    5.48
+   ],
+   "leave_one_frame_out": [
+    [
+     11609,
+     15.78,
+     5.49
+    ],
+    [
+     11612,
+     15.6,
+     5.46
+    ],
+    [
+     11615,
+     14.79,
+     5.33
+    ],
+    [
+     11618,
+     18.76,
+     5.93
+    ],
+    [
+     11621,
+     12.29,
+     4.88
+    ]
+   ],
+   "derived": {
+    "edge_light_spacing_m": [
+     4.55,
+     4.62
+    ],
+    "perp_from_edge_light_line_m": {
+     "obiwan": 8.03,
+     "anakin": 3.98,
+     "padme_center": 2.45,
+     "ramp_foot_L": 8.78,
+     "ramp_foot_R": 8.17,
+     "box_floor_corner": 1.34
+    },
+    "along_edge_from_light_d_m": {
+     "obiwan": 10.29,
+     "anakin": 11.34,
+     "padme_center": 12.36,
+     "box_floor_corner": 13.82
+    },
+    "slab_lights_if_deck_level": {
+     "slab_light_a": {
+      "perp_m": 1.07,
+      "along_m": -6.3
+     },
+     "slab_light_b": {
+      "perp_m": -5.17,
+      "along_m": -5.54
+     },
+     "slab_light_c": {
+      "perp_m": -11.64,
+      "along_m": -4.73
+     }
+    },
+    "slab_light_spacing_m": [
+     6.29,
+     6.52
+    ],
+    "camera_to_obiwan_m": 10.8,
+    "box_rim_height_m": 0.77,
+    "eave_spot_height_m_by_wall_gap": {
+     "2": [
+      5.66,
+      5.6,
+      5.56
+     ],
+     "4": [
+      5.69,
+      5.62,
+      5.57
+     ],
+     "6": [
+      5.72,
+      5.65,
+      5.59
+     ],
+     "8": [
+      5.76,
+      5.67,
+      5.6
+     ],
+     "10": [
+      5.79,
+      5.69,
+      5.62
+     ]
+    },
+    "fin_lean_deg_by_wall_gap": {
+     "2": [
+      17.6
+     ],
+     "4": [
+      17.6
+     ],
+     "6": [
+      17.6
+     ],
+     "8": [
+      17.6
+     ],
+     "10": [
+      17.6
+     ]
+    }
+   }
+  },
+  "3000": {
+   "hfov_deg": 65.2,
+   "pitch_deg": 13.68,
+   "cam_h_m": 5.72,
+   "rms_px": 9.33,
+   "residual_px": [
+    -3.3,
+    8.8,
+    -3.4,
+    5.4,
+    -14.8,
+    17.5,
+    5.7,
+    -11.3,
+    -7.4,
+    1.8
+   ],
+   "cam_h_if_heights_pm3pct": [
+    5.55,
+    5.89
+   ],
+   "cam_h_if_head_read_pm4px": [
+    5.69,
+    5.75
+   ],
+   "leave_one_frame_out": [
+    [
+     11609,
+     13.89,
+     5.77
+    ],
+    [
+     11612,
+     13.73,
+     5.74
+    ],
+    [
+     11615,
+     12.95,
+     5.58
+    ],
+    [
+     11618,
+     16.73,
+     6.33
+    ],
+    [
+     11621,
+     10.62,
+     5.04
+    ]
+   ],
+   "derived": {
+    "edge_light_spacing_m": [
+     4.99,
+     5.15
+    ],
+    "perp_from_edge_light_line_m": {
+     "obiwan": 8.3,
+     "anakin": 4.1,
+     "padme_center": 2.53,
+     "ramp_foot_L": 9.0,
+     "ramp_foot_R": 8.36,
+     "box_floor_corner": 1.38
+    },
+    "along_edge_from_light_d_m": {
+     "obiwan": 12.26,
+     "anakin": 13.03,
+     "padme_center": 14.03,
+     "box_floor_corner": 15.59
+    },
+    "slab_lights_if_deck_level": {
+     "slab_light_a": {
+      "perp_m": 1.06,
+      "along_m": -6.67
+     },
+     "slab_light_b": {
+      "perp_m": -5.11,
+      "along_m": -6.39
+     },
+     "slab_light_c": {
+      "perp_m": -11.46,
+      "along_m": -6.09
+     }
+    },
+    "slab_light_spacing_m": [
+     6.19,
+     6.36
+    ],
+    "camera_to_obiwan_m": 13.4,
+    "box_rim_height_m": 0.76,
+    "eave_spot_height_m_by_wall_gap": {
+     "2": [
+      5.73,
+      5.7,
+      5.68
+     ],
+     "4": [
+      5.73,
+      5.69,
+      5.67
+     ],
+     "6": [
+      5.73,
+      5.69,
+      5.66
+     ],
+     "8": [
+      5.73,
+      5.68,
+      5.66
+     ],
+     "10": [
+      5.73,
+      5.68,
+      5.65
+     ]
+    },
+    "fin_lean_deg_by_wall_gap": {
+     "2": [
+      22.1
+     ],
+     "4": [
+      22.1
+     ],
+     "6": [
+      22.1
+     ],
+     "8": [
+      22.1
+     ],
+     "10": [
+      22.1
+     ]
+    }
+   }
+  },
+  "3640": {
+   "hfov_deg": 55.6,
+   "pitch_deg": 11.76,
+   "cam_h_m": 5.96,
+   "rms_px": 9.37,
+   "residual_px": [
+    -3.4,
+    8.8,
+    -3.4,
+    5.5,
+    -14.8,
+    17.6,
+    5.7,
+    -11.3,
+    -7.5,
+    1.8
+   ],
+   "cam_h_if_heights_pm3pct": [
+    5.78,
+    6.14
+   ],
+   "cam_h_if_head_read_pm4px": [
+    5.93,
+    5.99
+   ],
+   "leave_one_frame_out": [
+    [
+     11609,
+     11.96,
+     6.02
+    ],
+    [
+     11612,
+     11.82,
+     5.98
+    ],
+    [
+     11615,
+     11.1,
+     5.79
+    ],
+    [
+     11618,
+     14.58,
+     6.7
+    ],
+    [
+     11621,
+     9.0,
+     5.17
+    ]
+   ],
+   "derived": {
+    "edge_light_spacing_m": [
+     5.62,
+     5.88
+    ],
+    "perp_from_edge_light_line_m": {
+     "obiwan": 8.56,
+     "anakin": 4.23,
+     "padme_center": 2.61,
+     "ramp_foot_L": 9.22,
+     "ramp_foot_R": 8.55,
+     "box_floor_corner": 1.43
+    },
+    "along_edge_from_light_d_m": {
+     "obiwan": 14.9,
+     "anakin": 15.3,
+     "padme_center": 16.29,
+     "box_floor_corner": 17.97
+    },
+    "slab_lights_if_deck_level": {
+     "slab_light_a": {
+      "perp_m": 1.07,
+      "along_m": -7.29
+     },
+     "slab_light_b": {
+      "perp_m": -5.1,
+      "along_m": -7.6
+     },
+     "slab_light_c": {
+      "perp_m": -11.4,
+      "along_m": -7.89
+     }
+    },
+    "slab_light_spacing_m": [
+     6.18,
+     6.31
+    ],
+    "camera_to_obiwan_m": 16.8,
+    "box_rim_height_m": 0.76,
+    "eave_spot_height_m_by_wall_gap": {
+     "2": [
+      5.79,
+      5.78,
+      5.78
+     ],
+     "4": [
+      5.77,
+      5.75,
+      5.76
+     ],
+     "6": [
+      5.75,
+      5.73,
+      5.73
+     ],
+     "8": [
+      5.72,
+      5.71,
+      5.71
+     ],
+     "10": [
+      5.7,
+      5.68,
+      5.68
+     ]
+    },
+    "fin_lean_deg_by_wall_gap": {
+     "2": [
+      27.1
+     ],
+     "4": [
+      27.1
+     ],
+     "6": [
+      27.1
+     ],
+     "8": [
+      27.1
+     ],
+     "10": [
+      27.1
+     ]
+    }
+   }
+  },
+  "4550": {
+   "hfov_deg": 45.8,
+   "pitch_deg": 9.74,
+   "cam_h_m": 6.17,
+   "rms_px": 9.4,
+   "residual_px": [
+    -3.4,
+    8.9,
+    -3.5,
+    5.5,
+    -14.8,
+    17.7,
+    5.6,
+    -11.2,
+    -7.5,
+    1.8
+   ],
+   "cam_h_if_heights_pm3pct": [
+    5.99,
+    6.35
+   ],
+   "cam_h_if_head_read_pm4px": [
+    6.15,
+    6.2
+   ],
+   "leave_one_frame_out": [
+    [
+     11609,
+     9.93,
+     6.24
+    ],
+    [
+     11612,
+     9.8,
+     6.2
+    ],
+    [
+     11615,
+     9.16,
+     5.97
+    ],
+    [
+     11618,
+     12.22,
+     7.04
+    ],
+    [
+     11621,
+     7.41,
+     5.29
+    ]
+   ],
+   "derived": {
+    "edge_light_spacing_m": [
+     6.6,
+     6.98
+    ],
+    "perp_from_edge_light_line_m": {
+     "obiwan": 8.81,
+     "anakin": 4.34,
+     "padme_center": 2.68,
+     "ramp_foot_L": 9.43,
+     "ramp_foot_R": 8.75,
+     "box_floor_corner": 1.47
+    },
+    "along_edge_from_light_d_m": {
+     "obiwan": 18.75,
+     "anakin": 18.66,
+     "padme_center": 19.64,
+     "box_floor_corner": 21.51
+    },
+    "slab_lights_if_deck_level": {
+     "slab_light_a": {
+      "perp_m": 1.07,
+      "along_m": -8.32
+     },
+     "slab_light_b": {
+      "perp_m": -5.12,
+      "along_m": -9.4
+     },
+     "slab_light_c": {
+      "perp_m": -11.41,
+      "along_m": -10.48
+     }
+    },
+    "slab_light_spacing_m": [
+     6.28,
+     6.38
+    ],
+    "camera_to_obiwan_m": 21.5,
+    "box_rim_height_m": 0.75,
+    "eave_spot_height_m_by_wall_gap": {
+     "2": [
+      5.85,
+      5.85,
+      5.87
+     ],
+     "4": [
+      5.81,
+      5.81,
+      5.83
+     ],
+     "6": [
+      5.77,
+      5.77,
+      5.8
+     ],
+     "8": [
+      5.72,
+      5.73,
+      5.76
+     ],
+     "10": [
+      5.68,
+      5.69,
+      5.72
+     ]
+    },
+    "fin_lean_deg_by_wall_gap": {
+     "2": [
+      33.2
+     ],
+     "4": [
+      33.2
+     ],
+     "6": [
+      33.2
+     ],
+     "8": [
+      33.2
+     ],
+     "10": [
+      33.2
+     ]
+    }
+   }
+  },
+  "5850": {
+   "hfov_deg": 36.3,
+   "pitch_deg": 7.77,
+   "cam_h_m": 6.33,
+   "rms_px": 9.42,
+   "residual_px": [
+    -3.4,
+    8.9,
+    -3.5,
+    5.6,
+    -14.8,
+    17.7,
+    5.6,
+    -11.2,
+    -7.6,
+    1.8
+   ],
+   "cam_h_if_heights_pm3pct": [
+    6.14,
+    6.52
+   ],
+   "cam_h_if_head_read_pm4px": [
+    6.31,
+    6.36
+   ],
+   "leave_one_frame_out": [
+    [
+     11609,
+     7.93,
+     6.42
+    ],
+    [
+     11612,
+     7.83,
+     6.37
+    ],
+    [
+     11615,
+     7.3,
+     6.11
+    ],
+    [
+     11618,
+     9.85,
+     7.32
+    ],
+    [
+     11621,
+     5.82,
+     5.36
+    ]
+   ],
+   "derived": {
+    "edge_light_spacing_m": [
+     8.07,
+     8.61
+    ],
+    "perp_from_edge_light_line_m": {
+     "obiwan": 9.02,
+     "anakin": 4.45,
+     "padme_center": 2.74,
+     "ramp_foot_L": 9.62,
+     "ramp_foot_R": 8.92,
+     "box_floor_corner": 1.51
+    },
+    "along_edge_from_light_d_m": {
+     "obiwan": 24.3,
+     "anakin": 23.6,
+     "padme_center": 24.59,
+     "box_floor_corner": 26.76
+    },
+    "slab_lights_if_deck_level": {
+     "slab_light_a": {
+      "perp_m": 1.08,
+      "along_m": -9.97
+     },
+     "slab_light_b": {
+      "perp_m": -5.15,
+      "along_m": -12.06
+     },
+     "slab_light_c": {
+      "perp_m": -11.45,
+      "along_m": -14.14
+     }
+    },
+    "slab_light_spacing_m": [
+     6.57,
+     6.64
+    ],
+    "camera_to_obiwan_m": 28.1,
+    "box_rim_height_m": 0.75,
+    "eave_spot_height_m_by_wall_gap": {
+     "2": [
+      5.89,
+      5.91,
+      5.94
+     ],
+     "4": [
+      5.84,
+      5.86,
+      5.89
+     ],
+     "6": [
+      5.78,
+      5.81,
+      5.85
+     ],
+     "8": [
+      5.73,
+      5.76,
+      5.8
+     ],
+     "10": [
+      5.68,
+      5.7,
+      5.75
+     ]
+    },
+    "fin_lean_deg_by_wall_gap": {
+     "2": [
+      40.4
+     ],
+     "4": [
+      40.4
+     ],
+     "6": [
+      40.4
+     ],
+     "8": [
+      40.4
+     ],
+     "10": [
+      40.4
+     ]
+    }
+   }
+  },
+  "7000": {
+   "hfov_deg": 30.7,
+   "pitch_deg": 6.58,
+   "cam_h_m": 6.42,
+   "rms_px": 9.43,
+   "residual_px": [
+    -3.4,
+    8.9,
+    -3.5,
+    5.6,
+    -14.8,
+    17.7,
+    5.6,
+    -11.2,
+    -7.6,
+    1.8
+   ],
+   "cam_h_if_heights_pm3pct": [
+    6.22,
+    6.61
+   ],
+   "cam_h_if_head_read_pm4px": [
+    6.4,
+    6.44
+   ],
+   "leave_one_frame_out": [
+    [
+     11609,
+     6.72,
+     6.5
+    ],
+    [
+     11612,
+     6.63,
+     6.45
+    ],
+    [
+     11615,
+     6.17,
+     6.18
+    ],
+    [
+     11618,
+     8.37,
+     7.46
+    ],
+    [
+     11621,
+     4.9,
+     5.4
+    ]
+   ],
+   "derived": {
+    "edge_light_spacing_m": [
+     9.43,
+     10.09
+    ],
+    "perp_from_edge_light_line_m": {
+     "obiwan": 9.13,
+     "anakin": 4.5,
+     "padme_center": 2.77,
+     "ramp_foot_L": 9.72,
+     "ramp_foot_R": 9.01,
+     "box_floor_corner": 1.52
+    },
+    "along_edge_from_light_d_m": {
+     "obiwan": 29.23,
+     "anakin": 28.02,
+     "padme_center": 29.05,
+     "box_floor_corner": 31.52
+    },
+    "slab_lights_if_deck_level": {
+     "slab_light_a": {
+      "perp_m": 1.08,
+      "along_m": -11.52
+     },
+     "slab_light_b": {
+      "perp_m": -5.16,
+      "along_m": -14.43
+     },
+     "slab_light_c": {
+      "perp_m": -11.48,
+      "along_m": -17.34
+     }
+    },
+    "slab_light_spacing_m": [
+     6.89,
+     6.95
+    ],
+    "camera_to_obiwan_m": 34.0,
+    "box_rim_height_m": 0.75,
+    "eave_spot_height_m_by_wall_gap": {
+     "2": [
+      5.91,
+      5.94,
+      5.98
+     ],
+     "4": [
+      5.85,
+      5.88,
+      5.93
+     ],
+     "6": [
+      5.8,
+      5.82,
+      5.87
+     ],
+     "8": [
+      5.74,
+      5.77,
+      5.82
+     ],
+     "10": [
+      5.68,
+      5.71,
+      5.77
+     ]
+    },
+    "fin_lean_deg_by_wall_gap": {
+     "2": [
+      45.7
+     ],
+     "4": [
+      45.7
+     ],
+     "6": [
+      45.7
+     ],
+     "8": [
+      45.7
+     ],
+     "10": [
+      45.7
+     ]
+    }
+   }
+  },
+  "9000": {
+   "hfov_deg": 24.1,
+   "pitch_deg": 5.18,
+   "cam_h_m": 6.49,
+   "rms_px": 9.44,
+   "residual_px": [
+    -3.4,
+    9.0,
+    -3.6,
+    5.7,
+    -14.9,
+    17.8,
+    5.6,
+    -11.2,
+    -7.6,
+    1.8
+   ],
+   "cam_h_if_heights_pm3pct": [
+    6.3,
+    6.69
+   ],
+   "cam_h_if_head_read_pm4px": [
+    6.48,
+    6.52
+   ],
+   "leave_one_frame_out": [
+    [
+     11609,
+     5.29,
+     6.59
+    ],
+    [
+     11612,
+     5.22,
+     6.53
+    ],
+    [
+     11615,
+     4.85,
+     6.25
+    ],
+    [
+     11618,
+     6.62,
+     7.6
+    ],
+    [
+     11621,
+     3.84,
+     5.43
+    ]
+   ],
+   "derived": {
+    "edge_light_spacing_m": [
+     11.85,
+     12.73
+    ],
+    "perp_from_edge_light_line_m": {
+     "obiwan": 9.24,
+     "anakin": 4.55,
+     "padme_center": 2.81,
+     "ramp_foot_L": 9.82,
+     "ramp_foot_R": 9.1,
+     "box_floor_corner": 1.54
+    },
+    "along_edge_from_light_d_m": {
+     "obiwan": 37.78,
+     "anakin": 35.78,
+     "padme_center": 36.92,
+     "box_floor_corner": 39.91
+    },
+    "slab_lights_if_deck_level": {
+     "slab_light_a": {
+      "perp_m": 1.09,
+      "along_m": -14.31
+     },
+     "slab_light_b": {
+      "perp_m": -5.18,
+      "along_m": -18.57
+     },
+     "slab_light_c": {
+      "perp_m": -11.52,
+      "along_m": -22.82
+     }
+    },
+    "slab_light_spacing_m": [
+     7.58,
+     7.63
+    ],
+    "camera_to_obiwan_m": 44.1,
+    "box_rim_height_m": 0.75,
+    "eave_spot_height_m_by_wall_gap": {
+     "2": [
+      5.94,
+      5.97,
+      6.01
+     ],
+     "4": [
+      5.87,
+      5.9,
+      5.96
+     ],
+     "6": [
+      5.81,
+      5.84,
+      5.9
+     ],
+     "8": [
+      5.74,
+      5.78,
+      5.84
+     ],
+     "10": [
+      5.68,
+      5.72,
+      5.79
+     ]
+    },
+    "fin_lean_deg_by_wall_gap": {
+     "2": [
+      52.8
+     ],
+     "4": [
+      52.8
+     ],
+     "6": [
+      52.8
+     ],
+     "8": [
+      52.8
+     ],
+     "10": [
+      52.8
+     ]
+    }
+   }
+  }
+ }
+}

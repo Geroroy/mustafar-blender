@@ -1,0 +1,245 @@
+{
+ "3640": {
+  "slab_perp_by_slab_top_z": {
+   "-0.5": {
+    "slab_light_a": 0.06,
+    "slab_light_b": -6.63,
+    "slab_light_c": -13.46
+   },
+   "0.0": {
+    "slab_light_a": 1.07,
+    "slab_light_b": -5.1,
+    "slab_light_c": -11.4
+   },
+   "0.5": {
+    "slab_light_a": 2.08,
+    "slab_light_b": -3.58,
+    "slab_light_c": -9.35
+   }
+  },
+  "leave_one_frame_out": {
+   "11609": {
+    "cam_h": 6.02,
+    "spot_h_gap6": [
+     5.7,
+     5.7,
+     5.71
+    ],
+    "perp_obi": 8.54,
+    "perp_ana": 4.21,
+    "slab_c_perp": -11.18,
+    "box_rim_h": 0.76
+   },
+   "11612": {
+    "cam_h": 5.98,
+    "spot_h_gap6": [
+     5.74,
+     5.73,
+     5.73
+    ],
+    "perp_obi": 8.56,
+    "perp_ana": 4.23,
+    "slab_c_perp": -11.35,
+    "box_rim_h": 0.76
+   },
+   "11615": {
+    "cam_h": 5.79,
+    "spot_h_gap6": [
+     5.93,
+     5.87,
+     5.83
+    ],
+    "perp_obi": 8.67,
+    "perp_ana": 4.29,
+    "slab_c_perp": -12.24,
+    "box_rim_h": 0.76
+   },
+   "11618": {
+    "cam_h": 6.7,
+    "spot_h_gap6": [
+     5.1,
+     5.23,
+     5.39
+    ],
+    "perp_obi": 8.12,
+    "perp_ana": 3.97,
+    "slab_c_perp": -8.97,
+    "box_rim_h": 0.76
+   },
+   "11621": {
+    "cam_h": 5.17,
+    "spot_h_gap6": [
+     6.53,
+     6.29,
+     6.08
+    ],
+    "perp_obi": 8.87,
+    "perp_ana": 4.43,
+    "slab_c_perp": -16.08,
+    "box_rim_h": 0.75
+   }
+  }
+ },
+ "4550": {
+  "slab_perp_by_slab_top_z": {
+   "-0.5": {
+    "slab_light_a": 0.03,
+    "slab_light_b": -6.66,
+    "slab_light_c": -13.46
+   },
+   "0.0": {
+    "slab_light_a": 1.07,
+    "slab_light_b": -5.12,
+    "slab_light_c": -11.41
+   },
+   "0.5": {
+    "slab_light_a": 2.11,
+    "slab_light_b": -3.58,
+    "slab_light_c": -9.36
+   }
+  },
+  "leave_one_frame_out": {
+   "11609": {
+    "cam_h": 6.24,
+    "spot_h_gap6": [
+     5.72,
+     5.74,
+     5.78
+    ],
+    "perp_obi": 8.79,
+    "perp_ana": 4.33,
+    "slab_c_perp": -11.19,
+    "box_rim_h": 0.75
+   },
+   "11612": {
+    "cam_h": 6.2,
+    "spot_h_gap6": [
+     5.76,
+     5.77,
+     5.79
+    ],
+    "perp_obi": 8.81,
+    "perp_ana": 4.35,
+    "slab_c_perp": -11.35,
+    "box_rim_h": 0.75
+   },
+   "11615": {
+    "cam_h": 5.97,
+    "spot_h_gap6": [
+     5.95,
+     5.91,
+     5.88
+    ],
+    "perp_obi": 8.89,
+    "perp_ana": 4.4,
+    "slab_c_perp": -12.21,
+    "box_rim_h": 0.75
+   },
+   "11618": {
+    "cam_h": 7.04,
+    "spot_h_gap6": [
+     5.14,
+     5.29,
+     5.48
+    ],
+    "perp_obi": 8.46,
+    "perp_ana": 4.14,
+    "slab_c_perp": -9.08,
+    "box_rim_h": 0.76
+   },
+   "11621": {
+    "cam_h": 5.29,
+    "spot_h_gap6": [
+     6.52,
+     6.3,
+     6.11
+    ],
+    "perp_obi": 9.02,
+    "perp_ana": 4.5,
+    "slab_c_perp": -15.8,
+    "box_rim_h": 0.74
+   }
+  }
+ },
+ "5850": {
+  "slab_perp_by_slab_top_z": {
+   "-0.5": {
+    "slab_light_a": 0.02,
+    "slab_light_b": -6.7,
+    "slab_light_c": -13.5
+   },
+   "0.0": {
+    "slab_light_a": 1.08,
+    "slab_light_b": -5.15,
+    "slab_light_c": -11.45
+   },
+   "0.5": {
+    "slab_light_a": 2.14,
+    "slab_light_b": -3.59,
+    "slab_light_c": -9.4
+   }
+  },
+  "leave_one_frame_out": {
+   "11609": {
+    "cam_h": 6.42,
+    "spot_h_gap6": [
+     5.74,
+     5.77,
+     5.83
+    ],
+    "perp_obi": 9.01,
+    "perp_ana": 4.44,
+    "slab_c_perp": -11.23,
+    "box_rim_h": 0.75
+   },
+   "11612": {
+    "cam_h": 6.37,
+    "spot_h_gap6": [
+     5.77,
+     5.8,
+     5.85
+    ],
+    "perp_obi": 9.03,
+    "perp_ana": 4.45,
+    "slab_c_perp": -11.38,
+    "box_rim_h": 0.75
+   },
+   "11615": {
+    "cam_h": 6.11,
+    "spot_h_gap6": [
+     5.96,
+     5.94,
+     5.93
+    ],
+    "perp_obi": 9.08,
+    "perp_ana": 4.49,
+    "slab_c_perp": -12.23,
+    "box_rim_h": 0.75
+   },
+   "11618": {
+    "cam_h": 7.32,
+    "spot_h_gap6": [
+     5.18,
+     5.35,
+     5.55
+    ],
+    "perp_obi": 8.78,
+    "perp_ana": 4.29,
+    "slab_c_perp": -9.22,
+    "box_rim_h": 0.76
+   },
+   "11621": {
+    "cam_h": 5.36,
+    "spot_h_gap6": [
+     6.55,
+     6.34,
+     6.15
+    ],
+    "perp_obi": 9.14,
+    "perp_ana": 4.56,
+    "slab_c_perp": -15.85,
+    "box_rim_h": 0.74
+   }
+  }
+ }
+}
