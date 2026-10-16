@@ -31,3 +31,9 @@ v0.2/work/run.log
 
 # ---- ChatGPT 전달용 ZIP (build_package.py로 다시 만듦, 영화 스틸 포함 — 저장소에 중복 보관하지 않음)
 chatgpt_reviews/*/*.zip
+
+# ---- v0.3 작업 사본: 영화 스틸이 합성된 비교판과 중간 렌더는 올리지 않음
+/v0.3/compare_R2.png
+/v0.3/compare_R6.png
+/v0.3/work/*.png
+/v0.3/work/run.log

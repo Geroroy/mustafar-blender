@@ -1,0 +1,570 @@
+{
+  "_doc": "무스타파 착륙장 블록아웃 v0.2. 단위 m. 좌표: X = 착륙장 짧은 변 방향(+X = 시설 쪽), Y = 긴 변 방향(+Y = 절벽 쪽, 뒤), Z 위. 판 중심 원점, 바닥 판재 윗면 ≈ Z 0. 항목마다 exist(존재)와 form(형태·치수) 신뢰도를 따로 적는다: C = CONFIRMED, P = PROBABLE, U = UNKNOWN. 측정값 출처: work/r2_cammatch.json, r2_measure.json, r2_wall.json (R2 카메라 맞춤, 초점거리 f = 2800/3500/4500 px 범위, 기준 3500). | v0.3 작업 사본(2026-10-16): v0.2를 복사해 4K 조사에서 확인된 구조만 추가. 새 치수는 모두 후보값(candidate)이며 v03 항목에 근거 프레임을 적는다. v0.2 기준안(카메라·처마·트렌치 폭/깊이·외곽)은 바꾸지 않음.",
+  "version": "0.3-wip",
+  "platform": {
+    "width_x": {
+      "value": 31.5,
+      "exist": "C",
+      "form": "U",
+      "range": [
+        28,
+        40
+      ],
+      "basis": "하한: R2 우주선 경사로 발치(가장자리에서 10.5 m)+몸체가 판 위에 있어야 함 → 28 m 이상. R6 긴 변:짧은 변 ≈1.38로 43.5÷1.38 = 31.5"
+    },
+    "length_y": {
+      "value": 43.5,
+      "exist": "C",
+      "form": "P",
+      "basis": "back_end_y − front_end_y (앞 끝은 UNKNOWN)"
+    },
+    "corner_angle_deg": {
+      "value": 90.0,
+      "exist": "C",
+      "form": "P",
+      "range": [
+        84.7,
+        98.4
+      ],
+      "basis": "R6 앞 왼쪽 모서리: 카메라 고도 15~20°로 펴면 84.7~98.4°. 고도 ≈18°(멀리 있는 원반 구조물의 타원 비율과 맞음)에서 90°"
+    },
+    "edge_face_depth": {
+      "value": 4.0,
+      "exist": "C",
+      "form": "P",
+      "basis": "R6: 판 앞면의 붉게 비친 띠 ≈ 13 px → 약 4.3 m (판 너비 29 m 기준 축척)"
+    },
+    "deck_top_thickness": {
+      "value": 0.5,
+      "exist": "U",
+      "form": "U",
+      "basis": "윗판과 측면 띠 구분용 임시 값"
+    },
+    "facility_edge_x": {
+      "value": 14.5,
+      "exist": "C",
+      "form": "P",
+      "basis": "좌표 기준: 시설 쪽 가장자리 선(R2에서 청색 등이 늘어선 선)"
+    },
+    "back_end_y": {
+      "value": 22.5,
+      "exist": "C",
+      "form": "P",
+      "range": [
+        21.5,
+        23.0
+      ],
+      "basis": "R2 측정: 시설 쪽 첫 등이 y 21.3(f 범위 21.1~21.7) + 안쪽 거리 1.2. 뒤 변(먼 쪽 턱·점등 줄)이 바로 뒤"
+    },
+    "front_end_y": {
+      "value": -21.0,
+      "exist": "C",
+      "form": "U",
+      "range": [
+        -30,
+        -19
+      ],
+      "basis": "R2: 오비완(-10.1)·계단 상자(-18.5)보다 앞. 앞 변은 화면 밖이라 미측정"
+    }
+  },
+  "floor_plates": {
+    "mean_size": {
+      "value": 3.2,
+      "exist": "C",
+      "form": "P",
+      "basis": "R2·R3: 이음매 간격을 인물 키(1.78·1.85 m)로 잼 → 판 하나 약 2~5 m"
+    },
+    "seam_width": {
+      "value": 0.08,
+      "exist": "C",
+      "form": "U",
+      "basis": "이음매는 보이나 폭은 판독 불가"
+    },
+    "height_min": {
+      "value": 0.03,
+      "exist": "U",
+      "form": "U",
+      "basis": "얕은 3D 표현용 임시 높낮이"
+    },
+    "height_max": {
+      "value": 0.07,
+      "exist": "U",
+      "form": "U",
+      "basis": "위와 같음"
+    },
+    "seed": 7,
+    "_layout": "배치는 생성값(직선 분할). 판의 '종류'(크고 불규칙한 다각형, 긴 직선 이음매, 밝고 어두운 판)는 영화와 같게, 정확한 위치는 UNKNOWN"
+  },
+  "facility": {
+    "trench_gap": {
+      "value": 8.0,
+      "exist": "P",
+      "form": "U",
+      "range": [
+        6,
+        9
+      ],
+      "basis": "R2: 시설 벽의 뒤 끝(화면 x≈2146)이 먼 쪽 턱(뒤 변)과 만남 → 이 조건을 맞추는 틈 ≈ 8 m (f 2800~4500에서 벽 뒤 끝 y 18.8~19.5). 틈 4 m면 벽이 뒤 변보다 10 m 짧아야 함 — 둘 중 R2의 턱-벽 접합을 근거로 8 m 선택"
+    },
+    "trench_floor_z": {
+      "value": -3.0,
+      "exist": "P",
+      "form": "U",
+      "basis": "R2: 핀 밑동이 바닥보다 약 1~1.6 m 아래까지 보임(r2_wall). 바닥면 자체는 안 보임"
+    },
+    "beam_height": {
+      "value": 7.2,
+      "exist": "C",
+      "form": "P",
+      "range": [
+        6.3,
+        7.4
+      ],
+      "basis": "R2 측정: 처마 조명 높이(틈 2~8 m에서 6.4~7.3 m)"
+    },
+    "roof_top_z": {
+      "value": 8.5,
+      "exist": "P",
+      "form": "U",
+      "basis": "R6: 시설 쪽 높은 띠 높이 7~10 m(축척 추정)"
+    },
+    "roof_overhang": {
+      "value": 2.0,
+      "exist": "P",
+      "form": "U",
+      "basis": "R2: 조명이 벽면보다 앞으로 나온 보에 달림. 길이 미측정"
+    },
+    "depth_x": {
+      "value": 12.0,
+      "exist": "P",
+      "form": "U",
+      "basis": "R6: 시설 쪽 높은 띠의 윗면 폭 ≈ 판 너비의 0.4. 정확도 낮음"
+    },
+    "back_end_y": {
+      "value": 19.5,
+      "exist": "C",
+      "form": "P",
+      "basis": "R2: 벽 왼쪽 경계(x≈2146)를 틈 8 m에서 역산"
+    },
+    "front_end_y": {
+      "value": -21.0,
+      "exist": "P",
+      "form": "U",
+      "basis": "화면 밖. 판 앞 끝까지로 둠"
+    }
+  },
+  "fins": {
+    "spacing": {
+      "value": 5.5,
+      "exist": "C",
+      "form": "P",
+      "range": [
+        4,
+        7
+      ],
+      "basis": "R2: 핀이 일정 간격으로 반복. 벽면 투영으로 4~7 m"
+    },
+    "lean_deg": {
+      "value": 31.0,
+      "exist": "C",
+      "form": "P",
+      "range": [
+        28,
+        36
+      ],
+      "basis": "R2 측정: 벽면 안에서 위가 뒤(+Y, 절벽 쪽)로 28~36° 기울어짐 — 카메라 원근을 빼고도 남는 기울기"
+    },
+    "width": {
+      "value": 0.9,
+      "exist": "C",
+      "form": "U",
+      "basis": "임시"
+    },
+    "depth": {
+      "value": 1.2,
+      "exist": "C",
+      "form": "U",
+      "basis": "R2: 벽에서 튀어나와 그림자를 만듦. 깊이 미측정"
+    }
+  },
+  "spotlights": {
+    "y_positions": {
+      "value": [
+        13.4,
+        6.7,
+        0.0,
+        -6.7,
+        -13.4
+      ],
+      "exist": "C",
+      "form": "P",
+      "basis": "R2 측정: 두 조명이 틈 8 m에서 y ≈13.4·6.7(간격 6.7). 나머지는 같은 간격으로 이어 붙임(PROBABLE)"
+    }
+  },
+  "stairwell": {
+    "_note": "R2 오른쪽 아래의 빛나는 틈이 있는 상자. 난간 윗모서리(1.2 m)로 다시 측정 → 판 위, 가장자리에서 3.5 m 안쪽",
+    "corner_back_left": {
+      "value": [
+        11.05,
+        -12.0
+      ],
+      "exist": "C",
+      "form": "P",
+      "basis": "R2 측정: 상자 뒤-왼쪽 윗모서리(높이 1.2 m) — f 범위에서 y -6.1~-20.6"
+    },
+    "size_x": {
+      "value": 3.45,
+      "exist": "C",
+      "form": "P",
+      "basis": "모서리에서 시설 쪽 가장자리까지"
+    },
+    "size_y": {
+      "value": 6.5,
+      "exist": "C",
+      "form": "U",
+      "basis": "상자가 화면 밖으로 이어짐"
+    },
+    "parapet_height": {
+      "value": 1.2,
+      "exist": "C",
+      "form": "P",
+      "basis": "R2: 인물 허리~가슴"
+    },
+    "bottom_z": {
+      "value": -3.0,
+      "exist": "C",
+      "form": "U",
+      "basis": "계단이 내려가는 깊이·도착 지점 미확인"
+    }
+  },
+  "edge_lights": {
+    "inset": {
+      "value": 1.0,
+      "exist": "C",
+      "form": "P",
+      "basis": "R2: 가장자리 바로 안쪽"
+    },
+    "back_edge_spacing": {
+      "value": 6.0,
+      "exist": "C",
+      "form": "U",
+      "basis": "R2 먼 쪽 턱의 청색 등 + R6 뒤 변을 따라 점점이 빛나는 줄. 간격 미측정"
+    },
+    "_other_edges": "앞·왼쪽(용암 쪽) 변의 조명은 근거가 되는 프레임이 없어 만들지 않음",
+    "facility_edge_y": {
+      "value": [
+        21.3,
+        10.7,
+        -0.9
+      ],
+      "exist": "C",
+      "form": "C",
+      "basis": "R2 측정: 세 등의 바닥 위치(f 3500). 간격 10.6·11.6 m. 그 앞은 계단 상자라 없음"
+    }
+  },
+  "back_edge_posts": {
+    "height": {
+      "value": 0.8,
+      "exist": "P",
+      "form": "U",
+      "basis": "R3: 등이 달린 낮은 기둥 줄(위치는 판 밖일 수도), R6: 뒤 변 바로 바깥(분석상 b ≈ 1.1)에 점 줄"
+    }
+  },
+  "skiff_check": {
+    "_note": "검증 대상. 건축물 아님. 초록 철사틀",
+    "length": {
+      "value": 29.2,
+      "exist": "C",
+      "form": "P",
+      "basis": "공개 설정(SWAPI·팬 위키) 29.2 m. 공식 자료로 재확인 필요"
+    },
+    "wingspan": {
+      "value": 49.3,
+      "exist": "C",
+      "form": "P",
+      "basis": "공개 설정(팬 위키) 49.3 m"
+    },
+    "ramp_foot": {
+      "value": [
+        4.0,
+        2.5
+      ],
+      "exist": "C",
+      "form": "P",
+      "basis": "R2 측정: 시설 쪽 가장자리에서 9.6~11.3 m 안쪽, 뒤 끝에서 16~19 m"
+    },
+    "center": {
+      "value": [
+        -9.9,
+        6.0
+      ],
+      "exist": "C",
+      "form": "U",
+      "basis": "R2: 얇은 날개 끝(화면 x≈2008)을 높이 4.75 m로 역산 → 날개 끝 x 14.8, 날개폭 49.3이 맞다면 중심 x -9.9 (f 범위 -11.2~-8.8). y는 경사로 발치 뒤로 추정"
+    },
+    "heading_deg": {
+      "value": 0.0,
+      "exist": "C",
+      "form": "U",
+      "basis": "R2: 기수가 화면 가운데 쪽(뒤, +Y)을 향함"
+    },
+    "wing_height": {
+      "value": 4.75,
+      "exist": "C",
+      "form": "P",
+      "basis": "R2: 날개가 화면에서 보이는 높이와 맞춘 값"
+    }
+  },
+  "characters_r2": {
+    "obiwan": {
+      "value": [
+        5.2,
+        -10.1
+      ],
+      "basis": "R2 측정(f 3500): 가장자리에서 9.3 m, 뒤 끝에서 30.1 m"
+    },
+    "anakin": {
+      "value": [
+        9.3,
+        -5.6
+      ],
+      "basis": "R2 측정: 5.2 m / 25.6 m"
+    },
+    "padme": {
+      "value": [
+        10.6,
+        -9.1
+      ],
+      "basis": "R2 측정: 3.9 m / 29.1 m"
+    }
+  },
+  "placeholders": {
+    "_note": "철사틀(자홍)로만 표시 — 영화에서 형태를 확인 못 한 지지 구조",
+    "support_bottom_z": {
+      "value": -40.0,
+      "exist": "P",
+      "form": "U",
+      "basis": "R6: 판 아래 어두운 덩어리가 절벽 쪽으로 이어짐"
+    },
+    "cliff_gap": {
+      "value": 8.0,
+      "exist": "C",
+      "form": "U",
+      "basis": "R6: 판 뒤로 절벽. 사이 거리 미측정"
+    },
+    "cliff_height": {
+      "value": 60.0,
+      "exist": "C",
+      "form": "U",
+      "basis": "R6: 판보다 훨씬 높음"
+    }
+  },
+  "r2_camera": {
+    "_note": "R2 카메라 맞춤(f = 3500 px, 수평 화각 45.8°). 인물 두 명의 키로 높이·피치를 풂",
+    "location_from_back_corner": {
+      "value": [
+        -13.4,
+        -49.6,
+        5.05
+      ],
+      "basis": "기준점 A에서 (x: 가장자리에서 안쪽, y: 앞쪽)"
+    },
+    "pitch_deg": 6.9,
+    "yaw_deg": -13.0,
+    "lens_mm_36": 42.65,
+    "anchor_A": {
+      "value": [
+        14.5,
+        20.0
+      ],
+      "basis": "R2 측정 기준점 A(화면 1607,847)의 월드 위치. 인물·조명·계단·벽 측정값은 모두 이 기준"
+    }
+  },
+  "r6_camera": {
+    "elevation_deg": 18.0,
+    "yaw_deg": 30.0,
+    "basis": "R6 정사영 분석"
+  },
+  "render": {
+    "resolution": [
+      1280,
+      720
+    ],
+    "samples": 24
+  },
+  "v03": {
+    "_doc": "v0.3에서 추가한 구조. 미터 값은 후보이며 검증되지 않았다(research/CR-001_4k_evidence/MUSTAFAR_V03_MEASUREMENTS.md).",
+    "entrance": {
+      "center_y": {
+        "value": -16.0,
+        "exist": "C",
+        "form": "U",
+        "candidate": true,
+        "basis": "위치 UNKNOWN: 11726·11748에서 계단 상자 바로 뒤로 보일 뿐, 평면 좌표 대응 없음. 상자 가운데 근처 임시값 — 배치 가설 H1"
+      },
+      "width": {
+        "value": 1.45,
+        "exist": "C",
+        "form": "U",
+        "candidate": true,
+        "basis": "M3: 11748 어깨점 사이 1.3~1.6 m(단일 프레임). 11726 값(1.2~1.5, 비스듬)과는 단면 대응 불가"
+      },
+      "shoulder_frac": {
+        "value": 0.42,
+        "exist": "C",
+        "form": "U",
+        "candidate": true,
+        "basis": "11748: 어깨점(경사 테두리→세로 문설주)이 문 높이(바닥→조명)의 0.42 지점. 코드: 어깨점 높이 = 0.42 × light_center_height"
+      },
+      "passage_depth": {
+        "value": 4.0,
+        "exist": "C",
+        "form": "U",
+        "candidate": true,
+        "basis": "미확정 영역 앞 모델링 중단 위치(영화에서 보이는 통로의 끝이 아님). 11748에서는 통로가 이어지는 것만 보이고 길이는 측정되지 않았다"
+      },
+      "apron": {
+        "value": true,
+        "exist": "C",
+        "form": "P",
+        "candidate": true,
+        "basis": "11726·11748: 출입구 앞 바닥이 문턱까지 이어짐(PROBABLE). 출입구 폭+양옆 1 m만 트렌치 위에 덮음. 트렌치 폭·깊이는 v0.2 그대로 — 배치 가설 H1"
+      },
+      "light_center_height": {
+        "value": 2.4,
+        "exist": "C",
+        "form": "P",
+        "candidate": true,
+        "basis": "M3 측정 정의 = 바닥(문턱) → 꼭대기 조명 중심. 11726 2.2~2.8 m, 11748 2.1~2.6 m(카메라 높이 가정 1.0~2.5 m) → 후보 2.4 m. 코드에서는 이 값이 조명 상자 중심 높이다(v0.3 1차본은 문 꼭짓점을 2.4로 두어 조명 중심이 2.85 m였음 — 정의 불일치를 바로잡음)"
+      },
+      "light_below_apex": {
+        "value": 0.1,
+        "exist": "P",
+        "form": "U",
+        "candidate": true,
+        "basis": "11748: 조명이 안쪽 꼭짓점 바로 아래에 붙어 보임. 조명 상자 높이 0.2 m의 절반 — 문 꼭짓점 = 조명 중심 + 0.1 m(형태용 가정, 측정 아님)"
+      },
+      "frame_layers": {
+        "value": [
+          [
+            0.0,
+            0.25,
+            0.3
+          ],
+          [
+            0.25,
+            0.42,
+            0.15
+          ]
+        ],
+        "exist": "C",
+        "form": "U",
+        "candidate": true,
+        "basis": "11726·11748: 넓은 경사 바깥 테두리와 겹친 프레임(존재 VERIFIED). 각 층 [안쪽 오프셋, 바깥 오프셋, 벽 앞 돌출 m]; 오프셋은 출입구 폭에 대한 비율(11748 어깨 높이 화면 비: 안쪽 밝은 판 ≈0.25W, 바깥 어두운 띠 ≈0.17W). 근사 비율이며 절대 크기·돌출 깊이는 미측정"
+      }
+    },
+    "back_rail": {
+      "height": {
+        "value": 0.65,
+        "exist": "C",
+        "form": "U",
+        "candidate": true,
+        "basis": "11206·11575·11625: 뒤쪽 키 큰 등 기둥 사이 난간(존재 VERIFIED). 높이는 미측정 — 기둥 0.8 m 안쪽 임시값"
+      }
+    },
+    "curbs": {
+      "height": {
+        "value": 0.45,
+        "exist": "C",
+        "form": "U",
+        "candidate": true,
+        "basis": "11726·11736·11748: 상자 근처 가장자리의 낮은 직사각 연석(존재 VERIFIED). 크기 미측정"
+      },
+      "length": {
+        "value": 1.6,
+        "exist": "C",
+        "form": "U",
+        "candidate": true,
+        "basis": "위와 같음"
+      },
+      "gap": {
+        "value": 0.6,
+        "exist": "C",
+        "form": "U",
+        "candidate": true,
+        "basis": "위와 같음"
+      },
+      "x_range": {
+        "value": [
+          6.0,
+          14.2
+        ],
+        "exist": "C",
+        "form": "U",
+        "candidate": true,
+        "basis": "상자 근처 앞 가장자리 구간만(위치 PROBABLE). 다른 가장자리에는 두지 않음"
+      }
+    },
+    "floor_hex": {
+      "width": {
+        "value": 3.0,
+        "exist": "C",
+        "form": "U",
+        "candidate": true,
+        "basis": "11712·11233·11625: 길쭉한 육각(화살촉) 판의 엇갈린 띠(종류 VERIFIED). 폭·길이·방향 미측정 | 시도 1(폭 2.0·직선 3.0·끝 0.9)은 11615 겹침에서 영화 판보다 작아 보여 시도 2(3.0·5.0·1.3)로 키움 — 여전히 미측정 후보 | 4차: 1차 생성은 열 간격을 폭의 절반으로 두면서 열 안의 세로 간격을 한 칸(직선+끝)으로 잡아 판이 2배 겹쳤다(판 18.9㎡, 반복 단위 9.45㎡). 열 안 세로 간격을 2×(직선+끝)으로 고쳐 겹침 없는 육각 맞물림으로 수정"
+      },
+      "straight": {
+        "value": 5.0,
+        "exist": "C",
+        "form": "U",
+        "candidate": true,
+        "basis": "위와 같음"
+      },
+      "point": {
+        "value": 1.3,
+        "exist": "C",
+        "form": "U",
+        "candidate": true,
+        "basis": "위와 같음"
+      },
+      "axis": {
+        "value": "Y",
+        "exist": "C",
+        "form": "U",
+        "candidate": true,
+        "basis": "띠 방향 UNKNOWN — 판 긴 변(Y)과 나란하다고 임시 가정"
+      }
+    },
+    "layout_hypothesis_H1": {
+      "_doc": "배치 가설 H1 (하나로 묶어 관리, 영화 고증 승인 아님): ① 출입구 임시 위치 center_y −16.0 ② 출입구 앞 좁은 다리형 바닥(apron, 출입구 폭+양옆 1 m) ③ 출입구를 가리던 핀 2개(y −17.7, −12.2) 삭제. 세 항목은 서로 의존하므로 함께 채택·기각한다",
+      "status": "hypothesis"
+    },
+    "stairwell_skin": {
+      "skirt_out": {
+        "value": 0.45,
+        "exist": "C",
+        "form": "U",
+        "candidate": true,
+        "basis": "11246·11224: 상자 바깥면이 아래로 갈수록 벌어지는 경사 패널(존재 VERIFIED). 벌어짐 폭 미측정"
+      },
+      "rim_steps": {
+        "value": [
+          0.12,
+          0.12
+        ],
+        "exist": "C",
+        "form": "U",
+        "candidate": true,
+        "basis": "11246: 윗면 테두리가 계단식으로 꺾임(존재 VERIFIED). 단 높이 미측정"
+      },
+      "end_steps": {
+        "value": 3,
+        "exist": "C",
+        "form": "U",
+        "candidate": true,
+        "basis": "11224·11246·11736: 상자 앞 끝(−Y)의 계단식 블록(존재 VERIFIED). 단 수·길이 미측정"
+      },
+      "_doc": "상자 높이 1.2 m·위치는 v0.2 기준안 유지. 바깥 껍질만 추가(+X 시설 쪽은 판 가장자리라 경사 패널 없음)"
+    }
+  }
+}
