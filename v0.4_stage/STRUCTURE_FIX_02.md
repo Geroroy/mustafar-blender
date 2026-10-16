@@ -21,9 +21,9 @@
 | # | 파일 | 내용 |
 |---|---|---|
 | 1 | `iso/01_before_after_full.png` | 전 A3c ↔ 후 A3d 전체. 같은 게임 카메라·같은 확대(게임 화면 좌표로 같은 범위를 자름) |
-| 2 | `iso/02_bays_partitions_closeup.png`, `views/A3d_bays_front.png`, `views/A3d_film78853.png` | 베이 3개·칸막이 확대(게임 카메라 전/후 + 원근) |
+| 2 | `iso/02_bays_partitions_closeup.png`, `views/02b_bays_front_before_after.png`, `views/A3d_film78853.png` | 베이 3개·칸막이 확대(게임 카메라 전/후 + 원근) |
 | 3 | `views/A3d_bay_interior.png` | 베이 안쪽 깊이(틈 가장자리에서 가운데 베이를 봄): 바닥·장비·선반·틀·천장 2단·뒷벽 |
-| 4 | `iso/04_entrance_side_closeup.png`, `views/A3d_entrance_oblique.png` | 출입구·양옆 낮은 구조물 확대(전/후) |
+| 4 | `iso/04_entrance_side_closeup.png`, `views/04b_entrance_oblique_before_after.png` | 출입구·양옆 낮은 구조물 확대(전/후) |
 | 5 | `_private/CR-012/C1_78862_vs_entrance.png` | 78862 ↔ 출입구(영화 / A3c / A3d, 같은 근사 카메라). **영화 이미지 포함 — 비공개 폴더에만 둠** |
 | 5b | `_private/CR-012/C2_78853_vs_bays.png` | 78853 ↔ 베이·칸막이(비공개) |
 | 6 | `P_plan_A3d.png` | 평면: 열린 틈(빨강) / 베이 1~3(파랑) / 칸막이 밑동(회색) / 진입 바닥(초록, 문틀 안은 노랑 테두리) |
