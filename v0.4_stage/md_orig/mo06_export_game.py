@@ -111,7 +111,8 @@ for o in src_objs:
     for f in bmw.faces:
         c = f.calc_center_median()
         i = int(math.floor((c.x - X0w) / cell)); j = int(math.floor((c.y - Y0w) / cell))
-        if 0 <= i < nxw and 0 <= j < nyw and fp[i, j] and P["min_z"] < c.z < P["max_z"]:
+        if 0 <= i < nxw and 0 <= j < nyw and fp[i, j] and P["min_z"] < c.z < P["max_z"] \
+                and not any(b[0][0] <= c.x <= b[1][0] and b[0][1] <= c.y <= b[1][1] and b[0][2] <= c.z <= b[1][2] for b in P.get("exclude_boxes", [])):
             pr_faces.append(f)
     keep = set(f.index for f in pr_faces)
     bmp = bmw.copy()

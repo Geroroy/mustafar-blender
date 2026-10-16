@@ -5,6 +5,8 @@
 """
 import json, math, os, sys
 
+import bpy  # noqa: F401  (mathutils를 쓰려면 bpy를 먼저 불러야 한다)
+
 import numpy as np
 from PIL import Image
 
