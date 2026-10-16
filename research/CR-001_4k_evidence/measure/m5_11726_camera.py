@@ -83,19 +83,29 @@ def door_pts(yc):
     return {"door_light": (XW - 0.25, yc, ELC), "door_outer_base_right": (XW - 0.15, yc - EW / 2 - OUTER[1] * EW, 0.0)}
 
 
-def ratio_check():
-    """카메라와 무관한 검사: 같은 바닥에서 잰 화면 높이 비. 상자 근면은 문보다 카메라에 가까우므로
-    (문 조명 높이 / 상자 윗모서리 높이) ≥ (문 px / 상자 px)."""
+def screen_interval_ratio():
+    """선택한 두 화면 구간의 픽셀 비만 기록한다. 문 조명–바깥 테두리 발치, 상자 윗모서리–밑변은 같은 세계 수직선의
+    양끝이 아니므로 이 비로 실제 높이 비를 추론하지 않는다(CR-003 검수 정정)."""
     door_px = DOOR_OBS["door_outer_base_right"][1] - DOOR_OBS["door_light"][1]
     box_px = OBS["box_base_near_edge"][0][1] - OBS["box_top_near_edge"][2][1]
-    r = door_px / box_px
-    return {"door_px_floor_to_light": door_px, "box_px_floor_to_top": box_px, "min_ratio_door_light_over_box_top": round(r, 2),
-            "model_ratio": round(ELC / PH, 2), "if_box_kept_door_light_at_least_m": round(r * PH, 2), "if_door_kept_box_at_most_m": round(ELC / r, 2),
-            "note": "판독 오차(문 조명 ±3, 바닥 ±15, 상자 윗모서리 ±5 px)로 비 ±0.2. 바닥이 평평하다는 가정"}
+    return {"door_light_to_outer_frame_base_px": door_px, "box_top_edge_to_base_edge_px": box_px, "ratio_of_selected_intervals": round(door_px / box_px, 2),
+            "interpretation": "화면 구간 비일 뿐이다. 두 구간 모두 같은 세계 수직선 위의 두 점이 아니어서 높이 비·높이 권고로 쓰지 않는다(이전 판의 '≥3.0, 출입구 ≥3.6 m·상자 ≤0.8 m'는 철회)"}
+
+
+def raw_errors(cam, sA, sB):
+    """가중 없는 각 대응점의 픽셀 오차. 점 대응 = 유클리드 거리, 선 대응 = 직선까지 수직 거리."""
+    e = {}
+    for key, sy in (("eave_light_A", sA), ("eave_light_B", sB)):
+        e[key] = round(float(np.linalg.norm(proj((SPOT_X, sy, SPOT_Z), cam)[0] - OBS[key])), 1)
+    e["box_top_near_edge(line)"] = [round(abs(x), 1) for x in line_res(OBS["box_top_near_edge"], (HX0 - 0.06, HY1, PH), (HX0 - 0.06, HY0, PH), cam)]
+    e["box_top_right_end"] = round(float(np.linalg.norm(proj((HX0 - 0.06, HY0, PH), cam)[0] - OBS["box_top_right_end"])), 1)
+    e["box_base_near_edge(line)"] = [round(abs(x), 1) for x in line_res(OBS["box_base_near_edge"], (HX0 - SKO, HY1, 0), (HX0 - SKO, HY0, 0), cam)]
+    e["deck_edge_far(line)"] = [round(abs(x), 1) for x in line_res(OBS["deck_edge_far"], (X1, 10.0, 0), (X1, -5.0, 0), cam)]
+    return e
 
 
 def main():
-    out = {"ratio_check_11726": ratio_check(), "what_if_note": "what_if_box_*는 상자 높이만 다른 고정 형상으로 카메라를 다시 푼 민감도 분석이다. 모델은 바꾸지 않았고 채택하지 않는다.", "assumptions": {"principal_point": [CX, CY], "roll": 0, "geometry": "v0.3 dimensions.json 고정", "obs": OBS, "door_obs": DOOR_OBS},
+    out = {"screen_interval_ratio_11726": screen_interval_ratio(), "weights": "맞춤 잔차 가중: 조명·상자 윗모서리 직선·바닥선 1, 상자 −Y 끝 ¼(±40 px), 상자 밑변 ½. rms_px_weighted는 이 가중 잔차의 RMS, raw_err_px는 가중 없는 원시 오차", "conclusion_scope": "현재 고정 형상·대응점 가정에서 출입구 투영 불일치가 남는다. 출입구 높이 하나의 오류로 해석하지 않는다(처마 조명 대응·외삽 조명 위치·상자 위치·카메라 모호성·판독 오차가 함께 얽혀 있음)", "what_if_note": "what_if_box_*는 상자 높이만 다른 고정 형상으로 카메라를 다시 푼 민감도 분석이다. 모델은 바꾸지 않았고 채택하지 않는다.", "assumptions": {"principal_point": [CX, CY], "roll": 0, "geometry": "v0.3 dimensions.json 고정", "obs": OBS, "door_obs": DOOR_OBS},
            "unmatched": UNMATCHED, "fits": []}
     pairs = [(SPOTS_Y[i], SPOTS_Y[i + 1]) for i in range(len(SPOTS_Y) - 1)]          # (A=+Y 쪽, B)
     global PH
@@ -120,15 +130,16 @@ def main():
             zc = (BEAM + v("facility", "trench_floor_z")) / 2
             fins.append({"y": fy, "bottom": [round(float(c)) for c in proj((XW - 0.6, fy - dy, zc - h / 2), cam)[0]],
                          "top": [round(float(c)) for c in proj((XW - 0.6, fy + dy, zc + h / 2), cam)[0]]})
-        out["fits"].append({"geometry": tag, "spots_AB": [sA, sB], "f": f, "rms_px": round(s, 1), "resid": [round(float(x), 1) for x in r],
+        out["fits"].append({"geometry": tag, "spots_AB": [sA, sB], "f": f, "rms_px": round(s, 1), "rms_px_weighted": round(s, 1),
+                            "raw_err_px": raw_errors(cam, sA, sB), "resid_weighted": [round(float(x), 1) for x in r],
                             "cam": {"xyz": [round(float(c), 2) for c in cam[:3]], "yaw_deg": round(math.degrees(cam[3]), 1), "pitch_deg": round(math.degrees(cam[4]), 1)},
                             "door_proj_px_H1": dp, "door_err_px_H1": derr, "door_center_y_matching_light_x": round(y_best, 2),
                             "spots_proj_px": spots_px, "fins_proj_px": fins})
     out["fits"].sort(key=lambda r: (r["geometry"] != "model", r["rms_px"]))
-    print("ratio", out["ratio_check_11726"])
+    print("ratio", out["screen_interval_ratio_11726"])
     json.dump(out, open(os.path.join(HERE, "m5_result.json"), "w"), ensure_ascii=False, indent=1)
     for r in [x for x in out["fits"] if x["geometry"] == "model"][:4] + [x for x in out["fits"] if x["geometry"] != "model"][:4]:
-        print(r["geometry"], r["spots_AB"], r["f"], r["rms_px"], r["cam"], "door_err", r["door_err_px_H1"], "door_y*", r["door_center_y_matching_light_x"])
+        print(r["geometry"], r["spots_AB"], r["f"], "wRMS", r["rms_px_weighted"], "raw", r["raw_err_px"], "door_err", r["door_err_px_H1"], "door_y*", r["door_center_y_matching_light_x"])
 
 
 if __name__ == "__main__":

@@ -1,0 +1,245 @@
+{
+ "camera": "v0.2 기준안 R2 카메라(11615와 같은 고정 카메라)",
+ "angle_convention": "0°=+X(시설 쪽), 90°=+Y(절벽 쪽), 180° 주기",
+ "model_edge_angles_deg": [
+  90.0,
+  40.9,
+  139.1
+ ],
+ "seams": [
+  {
+   "seam": "S1",
+   "px": [
+    275,
+    1006,
+    253,
+    1097
+   ],
+   "ground_mid_xy": [
+    -2.74,
+    0.58
+   ],
+   "ground_len_m": 3.47,
+   "ground_angle_deg": 94.7,
+   "nearest_model_edge": {
+    "angle_deg": 90.0,
+    "angle_diff_deg": 4.7,
+    "mid_offset_m": 0.31
+   }
+  },
+  {
+   "seam": "S2",
+   "px": [
+    200,
+    1300,
+    159,
+    1475
+   ],
+   "ground_mid_xy": [
+    -2.02,
+    -8.36
+   ],
+   "ground_len_m": 3.33,
+   "ground_angle_deg": 94.8,
+   "nearest_model_edge": {
+    "angle_deg": 90.0,
+    "angle_diff_deg": 4.8,
+    "mid_offset_m": 1.03
+   }
+  },
+  {
+   "seam": "S3",
+   "px": [
+    100,
+    1275,
+    306,
+    1175
+   ],
+   "ground_mid_xy": [
+    -2.37,
+    -4.84
+   ],
+   "ground_len_m": 2.46,
+   "ground_angle_deg": 73.3,
+   "nearest_model_edge": {
+    "angle_deg": 90.0,
+    "angle_diff_deg": 16.7,
+    "mid_offset_m": 2.18
+   }
+  },
+  {
+   "seam": "S4",
+   "px": [
+    156,
+    1475,
+    1000,
+    1250
+   ],
+   "ground_mid_xy": [
+    -0.12,
+    -8.23
+   ],
+   "ground_len_m": 5.03,
+   "ground_angle_deg": 45.3,
+   "nearest_model_edge": {
+    "angle_deg": 40.9,
+    "angle_diff_deg": 4.4,
+    "mid_offset_m": 2.13
+   }
+  },
+  {
+   "seam": "S7",
+   "px": [
+    1059,
+    1203,
+    1131,
+    1347
+   ],
+   "ground_mid_xy": [
+    2.08,
+    -7.01
+   ],
+   "ground_len_m": 3.34,
+   "ground_angle_deg": 93.3,
+   "nearest_model_edge": {
+    "angle_deg": 90.0,
+    "angle_diff_deg": 3.3,
+    "mid_offset_m": 0.63
+   }
+  },
+  {
+   "seam": "S9",
+   "px": [
+    1131,
+    1347,
+    1400,
+    1413
+   ],
+   "ground_mid_xy": [
+    2.72,
+    -9.42
+   ],
+   "ground_len_m": 1.83,
+   "ground_angle_deg": 125.9,
+   "nearest_model_edge": {
+    "angle_deg": 139.1,
+    "angle_diff_deg": 13.1,
+    "mid_offset_m": 1.26
+   }
+  },
+  {
+   "seam": "S10",
+   "px": [
+    900,
+    1481,
+    1400,
+    1416
+   ],
+   "ground_mid_xy": [
+    2.18,
+    -10.51
+   ],
+   "ground_len_m": 2.21,
+   "ground_angle_deg": 15.5,
+   "nearest_model_edge": {
+    "angle_deg": 90.0,
+    "angle_diff_deg": 74.5,
+    "mid_offset_m": 2.23
+   }
+  },
+  {
+   "seam": "S11",
+   "px": [
+    2624,
+    1146,
+    2749,
+    1008
+   ],
+   "ground_mid_xy": [
+    12.0,
+    -3.63
+   ],
+   "ground_len_m": 4.98,
+   "ground_angle_deg": 58.7,
+   "nearest_model_edge": {
+    "angle_deg": 40.9,
+    "angle_diff_deg": 17.8,
+    "mid_offset_m": 2.51
+   }
+  },
+  {
+   "seam": "S12",
+   "px": [
+    2601,
+    1254,
+    2447,
+    1471
+   ],
+   "ground_mid_xy": [
+    8.47,
+    -10.23
+   ],
+   "ground_len_m": 4.31,
+   "ground_angle_deg": 60.1,
+   "nearest_model_edge": {
+    "angle_deg": 90.0,
+    "angle_diff_deg": 29.9,
+    "mid_offset_m": 2.52
+   }
+  },
+  {
+   "seam": "S13",
+   "px": [
+    2158,
+    1425,
+    2349,
+    1599
+   ],
+   "ground_mid_xy": [
+    6.43,
+    -12.42
+   ],
+   "ground_len_m": 2.62,
+   "ground_angle_deg": 89.9,
+   "nearest_model_edge": {
+    "angle_deg": 90.0,
+    "angle_diff_deg": 0.1,
+    "mid_offset_m": 0.48
+   }
+  },
+  {
+   "seam": "S15",
+   "px": [
+    2158,
+    1424,
+    2601,
+    1254
+   ],
+   "ground_mid_xy": [
+    7.99,
+    -9.72
+   ],
+   "ground_len_m": 4.14,
+   "ground_angle_deg": 41.3,
+   "nearest_model_edge": {
+    "angle_deg": 40.9,
+    "angle_diff_deg": 0.3,
+    "mid_offset_m": 2.68
+   }
+  }
+ ],
+ "film_angles_sorted": [
+  15.5,
+  41.3,
+  45.3,
+  58.7,
+  60.1,
+  73.3,
+  89.9,
+  93.3,
+  94.7,
+  94.8,
+  125.9
+ ],
+ "note": "모델 판 배치는 생성값 — 위치(mid_offset)는 일치 기대 대상이 아님. 수동 표시 11개, 판독 ±10 px는 먼 쪽에서 방향 오차 수 도에 해당"
+}

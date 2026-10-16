@@ -505,8 +505,8 @@ for j in range(NEND):
     z1_ = PH * (NEND - j) / (NEND + 1); y1_ = hy0 - 0.3 * j
     add_box(bm, (hx0 - 0.06, y1_ - 0.3, DECK_Z), (hx0 + T_, y1_, z1_))
     add_box(bm, (hx1 - T_, y1_ - 0.3, DECK_Z), (hx1, y1_, z1_))
-TZD = SK["side_trapezoids"]                                     # 긴 옆면(−X)의 반복 사다리꼴 구획(11246)
-NT, GD = TZD["count"]["value"], TZD["groove_depth"]["value"]
+TZD = SK["side_trapezoids"]                                     # 긴 옆면(−X)의 반복 사다리꼴 구획(11246, 오목/볼록 미구분)
+NT, GD = TZD["count"]["value"], TZD["panel_relief"]["value"]    # GD: 구획 판을 바깥으로 덧붙이는 두께(중립 표현, 홈 깊이 아님)
 B0, B1 = TZD["band"]["value"]; WT, WB = TZD["top_bottom_width"]["value"]
 pitch_ = (hy1 - hy0) / NT
 face_x = lambda z: (hx0 - 0.06) - (SKO - 0.06) * (zt - z) / (zt - DECK_Z)       # 경사 패널 바깥면의 x(높이 z에서)
@@ -520,7 +520,7 @@ for j in range(NT):
             pts += [(face_x(z_) + 0.005, y_, z_), (face_x(z_) - GD, y_, z_)]
     bmesh.ops.convex_hull(bm, input=[bm.verts.new(p_) for p_ in pts])
 make_obj("Stairwell_Outer_Skin", bm, ("C", "U"),
-         "11246·11224·11736: 계단 상자 바깥 경사 패널·계단식 윗테두리·앞 끝 계단식 블록·긴 옆면의 반복 사다리꼴 구획(존재 VERIFIED). 벌어짐·단 높이·단 수·구획 수·홈 깊이(0.05 m)는 후보. 상자 높이 1.2 m·위치는 기준안 유지",
+         "11246·11224·11736: 계단 상자 바깥 경사 패널·계단식 윗테두리·앞 끝 계단식 블록·긴 옆면의 반복 사다리꼴 구획(존재 VERIFIED). 벌어짐·단 높이·단 수·구획 수·구획 판 두께(0.05 m, 오목/볼록 미구분의 중립 표현)는 후보. 상자 높이 1.2 m·위치는 기준안 유지",
          "Facility_Structure", parent=facility_root)
 bm = bmesh.new()
 for k in range(5):   # 빛나는 틈 위치(형상만)
