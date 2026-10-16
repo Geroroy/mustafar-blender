@@ -63,7 +63,7 @@ sheet("② 낮은 상자 — 영화 78855 ↔ POC01 → POC02",
        row([(f"{L1} 근접(−Y 쪽 장치)", view(P1, "crate_close")), (f"{L2} 근접(같은 카메라)", view(P2, "crate_close"))], 720),
        row([(f"{L1} 게임 카메라", view(P1, "crates_game")), (f"{L2} 게임 카메라", view(P2, "crates_game"))], 540)],
       "S2_crates_POC01_vs_POC02.png")
-sheet("③ 바닥 + 1.8 m 인체 — 영화 11246·11748 ↔ POC01 → POC02",
+sheet("③ 바닥 + 1.8 m 인체 — 영화 11246 ↔ POC01 → POC02",
       "바닥 재질만 바꿈(MD_Pad_Deck 형상·외곽·충돌 그대로). 인체 대용 형상은 렌더 전용.",
       [row([("영화 11246 (바닥 이음선)", film("11246.jpg")), (f"{L1} 낮은 시점+인체", view(P1, "floor_human")), (f"{L2} 같은 시점", view(P2, "floor_human"))], 660),
        row([(f"{L1} 게임 카메라", view(P1, "floor_game")), (f"{L2} 게임 카메라", view(P2, "floor_game"))], 760)],
