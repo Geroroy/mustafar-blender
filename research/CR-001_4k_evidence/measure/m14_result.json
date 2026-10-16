@@ -1,0 +1,239 @@
+{
+ "doc": "M14 — 11725: 인물·처마 조명·출입구 꼭대기 조명·판 가장자리가 한 화면에 있는 컷(11726 직전 와이드, 다른 카메라 위치).",
+ "obs_11725_4k": {
+  "anakin_head": [
+   1185,
+   480
+  ],
+  "anakin_feet_ground": 1345,
+  "obiwan_head": [
+   1880,
+   525
+  ],
+  "obiwan_feet_ground": 1345,
+  "eave_light": [
+   515,
+   255
+  ],
+  "door_light": [
+   2850,
+   350
+  ],
+  "deck_edge_line_v": 1196,
+  "deck_edge_lamp": [
+   420,
+   1170
+  ]
+ },
+ "persons": {
+  "anakin": {
+   "head": 480,
+   "H": [
+    1.7,
+    1.85
+   ],
+   "note": "달리는 보폭 — 머리가 조금 낮아짐"
+  },
+  "obiwan": {
+   "head": 525,
+   "H": [
+    1.6,
+    1.78
+   ],
+   "note": "다리를 벌린 자세 — 머리가 낮아짐"
+  }
+ },
+ "door_light": [
+  {
+   "horizon_v": 700,
+   "person": "anakin",
+   "H_assumed": 1.7,
+   "camera_height": 1.27,
+   "door_light_height": 2.16
+  },
+  {
+   "horizon_v": 700,
+   "person": "anakin",
+   "H_assumed": 1.85,
+   "camera_height": 1.38,
+   "door_light_height": 2.35
+  },
+  {
+   "horizon_v": 700,
+   "person": "obiwan",
+   "H_assumed": 1.6,
+   "camera_height": 1.26,
+   "door_light_height": 2.15
+  },
+  {
+   "horizon_v": 700,
+   "person": "obiwan",
+   "H_assumed": 1.78,
+   "camera_height": 1.4,
+   "door_light_height": 2.39
+  },
+  {
+   "horizon_v": 800,
+   "person": "anakin",
+   "H_assumed": 1.7,
+   "camera_height": 1.07,
+   "door_light_height": 2.29
+  },
+  {
+   "horizon_v": 800,
+   "person": "anakin",
+   "H_assumed": 1.85,
+   "camera_height": 1.17,
+   "door_light_height": 2.49
+  },
+  {
+   "horizon_v": 800,
+   "person": "obiwan",
+   "H_assumed": 1.6,
+   "camera_height": 1.06,
+   "door_light_height": 2.27
+  },
+  {
+   "horizon_v": 800,
+   "person": "obiwan",
+   "H_assumed": 1.78,
+   "camera_height": 1.18,
+   "door_light_height": 2.53
+  },
+  {
+   "horizon_v": 900,
+   "person": "anakin",
+   "H_assumed": 1.7,
+   "camera_height": 0.87,
+   "door_light_height": 2.5
+  },
+  {
+   "horizon_v": 900,
+   "person": "anakin",
+   "H_assumed": 1.85,
+   "camera_height": 0.95,
+   "door_light_height": 2.72
+  },
+  {
+   "horizon_v": 900,
+   "person": "obiwan",
+   "H_assumed": 1.6,
+   "camera_height": 0.87,
+   "door_light_height": 2.48
+  },
+  {
+   "horizon_v": 900,
+   "person": "obiwan",
+   "H_assumed": 1.78,
+   "camera_height": 0.97,
+   "door_light_height": 2.76
+  }
+ ],
+ "door_light_range_m": [
+  2.15,
+  2.76
+ ],
+ "eave_check": [
+  {
+   "horizon_v": 700,
+   "f": 2039,
+   "camera_height_mean": 1.33,
+   "deck_edge_distance": 5.5,
+   "eave_height_if_at_model_depth": 3.97,
+   "eave_depth_behind_edge_if_height_7.03": 20.6
+  },
+  {
+   "horizon_v": 700,
+   "f": 2800,
+   "camera_height_mean": 1.33,
+   "deck_edge_distance": 7.5,
+   "eave_height_if_at_model_depth": 3.58,
+   "eave_depth_behind_edge_if_height_7.03": 28.4
+  },
+  {
+   "horizon_v": 700,
+   "f": 3500,
+   "camera_height_mean": 1.33,
+   "deck_edge_distance": 9.4,
+   "eave_height_if_at_model_depth": 3.36,
+   "eave_depth_behind_edge_if_height_7.03": 35.4
+  },
+  {
+   "horizon_v": 700,
+   "f": 5000,
+   "camera_height_mean": 1.33,
+   "deck_edge_distance": 13.4,
+   "eave_height_if_at_model_depth": 3.11,
+   "eave_depth_behind_edge_if_height_7.03": 50.6
+  },
+  {
+   "horizon_v": 800,
+   "f": 2039,
+   "camera_height_mean": 1.12,
+   "deck_edge_distance": 5.8,
+   "eave_height_if_at_model_depth": 4.44,
+   "eave_depth_behind_edge_if_height_7.03": 16.3
+  },
+  {
+   "horizon_v": 800,
+   "f": 2800,
+   "camera_height_mean": 1.12,
+   "deck_edge_distance": 7.9,
+   "eave_height_if_at_model_depth": 3.96,
+   "eave_depth_behind_edge_if_height_7.03": 22.4
+  },
+  {
+   "horizon_v": 800,
+   "f": 3500,
+   "camera_height_mean": 1.12,
+   "deck_edge_distance": 9.9,
+   "eave_height_if_at_model_depth": 3.7,
+   "eave_depth_behind_edge_if_height_7.03": 28.0
+  },
+  {
+   "horizon_v": 800,
+   "f": 5000,
+   "camera_height_mean": 1.12,
+   "deck_edge_distance": 14.1,
+   "eave_height_if_at_model_depth": 3.39,
+   "eave_depth_behind_edge_if_height_7.03": 40.0
+  },
+  {
+   "horizon_v": 900,
+   "f": 2039,
+   "camera_height_mean": 0.92,
+   "deck_edge_distance": 6.3,
+   "eave_height_if_at_model_depth": 5.01,
+   "eave_depth_behind_edge_if_height_7.03": 13.0
+  },
+  {
+   "horizon_v": 900,
+   "f": 2800,
+   "camera_height_mean": 0.92,
+   "deck_edge_distance": 8.7,
+   "eave_height_if_at_model_depth": 4.44,
+   "eave_depth_behind_edge_if_height_7.03": 17.9
+  },
+  {
+   "horizon_v": 900,
+   "f": 3500,
+   "camera_height_mean": 0.92,
+   "deck_edge_distance": 10.8,
+   "eave_height_if_at_model_depth": 4.13,
+   "eave_depth_behind_edge_if_height_7.03": 22.3
+  },
+  {
+   "horizon_v": 900,
+   "f": 5000,
+   "camera_height_mean": 0.92,
+   "deck_edge_distance": 15.5,
+   "eave_height_if_at_model_depth": 3.77,
+   "eave_depth_behind_edge_if_height_7.03": 31.9
+  }
+ ],
+ "model_eave": {
+  "x": 21.15,
+  "z": 7.025,
+  "behind_edge": 6.65
+ }
+}
