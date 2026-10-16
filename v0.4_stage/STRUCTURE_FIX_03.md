@@ -24,7 +24,7 @@
 4. 출력을 게임 `public/stages/mustafar_landing/`에 복사한다.
 5. 게임에서 `#stage-landing`을 연다.
 
-게임 저장소 브랜치 `stage/mustafar-landing`에 A3e 데이터를 로컬 커밋(5ae839c, 충돌 광선 1.2 m 보정 0a7cb50)했다. 이 세션은 게임 저장소에 푸시할 권한이 없어서 패치 3개와 번들을 `game_patch/`에 갱신해 두었다.
+게임 저장소 브랜치 `stage/mustafar-landing`에 A3e 데이터를 로컬 커밋(5ae839c, 충돌 광선 1.2 m 보정 0a7cb50)했다. 이 세션은 게임 저장소에 푸시할 권한이 없어서 패치 4개와 번들을 `game_patch/`에 갱신해 두었다.
 
 ## 바뀐 것
 | 작업 | 적용 |
