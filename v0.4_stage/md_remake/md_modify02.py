@@ -103,8 +103,8 @@ def mat_deck(P):
     b1 = brick(P["plate_w"], P["plate_h"], P["rot_deg"], P["seam_width"], P["offset"], hi, lo)
     b2 = brick(P["diag_w"], P["diag_h"], P["diag_rot_deg"], P["diag_seam"], 0.5, 1.0, 1.0)
     bw = N("ShaderNodeRGBToBW"); L(b1.outputs["Color"], bw.inputs["Color"])                     # 판재별 밝기(이음선은 0)
-    sm1 = N("ShaderNodeMath"); sm1.operation = 'MULTIPLY'; L(b1.outputs["Fac"], sm1.inputs[0]); L(b2.outputs["Fac"], sm1.inputs[1])       # 두 이음선 중 하나라도 걸리면 0
-    seam = N("ShaderNodeMapRange"); seam.inputs[3].default_value, seam.inputs[4].default_value = P["seam_mul"], 1.0; seam.clamp = True; L(sm1.outputs[0], seam.inputs["Value"])
+    sm1 = N("ShaderNodeMath"); sm1.operation = 'MAXIMUM'; L(b1.outputs["Fac"], sm1.inputs[0]); L(b2.outputs["Fac"], sm1.inputs[1])       # Brick Fac = 이음선 마스크(이음선 1, 판재 0). 둘 중 하나라도 걸리면 이음선
+    seam = N("ShaderNodeMapRange"); seam.inputs[3].default_value, seam.inputs[4].default_value = 1.0, P["seam_mul"]; seam.clamp = True; L(sm1.outputs[0], seam.inputs["Value"])      # 판재 1.0 → 이음선 seam_mul
     tone = N("ShaderNodeMath"); tone.operation = 'MAXIMUM'; tone.inputs[1].default_value = lo; L(bw.outputs[0], tone.inputs[0])
     mot = N("ShaderNodeTexNoise"); mot.inputs["Scale"].default_value = 0.22; mot.inputs["Detail"].default_value = 4; L(tc.outputs["Object"], mot.inputs["Vector"])
     mot_r = N("ShaderNodeMapRange"); mot_r.inputs[3].default_value, mot_r.inputs[4].default_value = 0.86, 1.08; L(mot.outputs["Fac"], mot_r.inputs["Value"])
@@ -118,7 +118,7 @@ def mat_deck(P):
     bs.inputs["Metallic"].default_value = 0.2
     rr = N("ShaderNodeMapRange"); rr.inputs[3].default_value, rr.inputs[4].default_value = 0.88, 0.58; L(fine.outputs["Fac"], rr.inputs["Value"]); L(rr.outputs[0], bs.inputs["Roughness"])
     bp = N("ShaderNodeBump"); bp.inputs["Strength"].default_value = 0.18; bp.inputs["Distance"].default_value = 0.02
-    hf = N("ShaderNodeMath"); hf.operation = 'MULTIPLY'; hf.inputs[1].default_value = 0.6; L(seam.outputs[0], hf.inputs[0]); L(hf.outputs[0], bp.inputs["Height"])
+    hf = N("ShaderNodeMath"); hf.operation = 'MULTIPLY'; hf.inputs[1].default_value = 0.6; L(seam.outputs[0], hf.inputs[0]); L(hf.outputs[0], bp.inputs["Height"])           # 이음선은 살짝 파임
     L(bp.outputs[0], bs.inputs["Normal"]); L(bs.outputs[0], out.inputs[0])
     return m
 
