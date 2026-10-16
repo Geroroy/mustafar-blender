@@ -45,11 +45,11 @@ const note = (k, v) => { log.push({ k, v }); console.log(k, JSON.stringify(v)); 
     return { x: (sx - r.cam.x) * r.scale, y: (sy - r.cam.y) * r.scale };
   }, [x, y]);
   // 화면 안에 보이는 거리(최대 6 타일)씩 클릭해 다가감 — 게임의 클릭 이동(길찾기)을 그대로 씀
-  const clickTo = async (x, y, wait = 4000) => {
+  const clickTo = async (x, y, wait = 4000, tol = 0.6) => {
     for (let hop = 0; hop < 12; hop++) {
       const p = await pos();
       const dx = x - p.x, dy = y - p.y, d = Math.hypot(dx, dy);
-      if (d < 0.6) break;
+      if (d < tol) break;
       const k = Math.min(1, 6 / d);
       const s = await toScreen(p.x + dx * k, p.y + dy * k);
       await page.mouse.click(s.x, s.y);
@@ -92,6 +92,26 @@ const note = (k, v) => { log.push({ k, v }); console.log(k, JSON.stringify(v)); 
   await clickTo(118, 86, 7000); note('toward door approach', await pos());
   await page.screenshot({ path: path.join(OUT, '06_door_approach.png') });
   const ex = (S.exit.x0 + S.exit.x1) / 2, ey = (S.exit.y0 + S.exit.y1) / 2;
+  if (process.env.DOOR_INOUT) {
+    // 구조 수정 확인: 출구를 잠근 채 문틀 안쪽까지 들어갔다 나오기(양방향), 틈 위·벽 통과 시도
+    await page.evaluate(() => window.__game.stage.lockExit(true));
+    const inside = async () => page.evaluate(([x0, y0, x1, y1]) => { const p = window.__game.player; return p.x >= x0 && p.x <= x1 && p.y >= y0 && p.y <= y1; }, [S.exit.x0, S.exit.y0, S.exit.x1, S.exit.y1]);
+    await clickTo(ex, ey + 1.2, 4000); note('bridge (front of door)', await pos());
+    await clickTo(ex, ey, 4000, 0.2); note('door inside (locked)', await pos()); note('inside door frame', await inside());
+    await page.screenshot({ path: path.join(OUT, '06b_inside_door.png') });
+    await clickTo(ex + 0.9, ey + 3.4, 5000); note('back out to deck', await pos()); note('inside after back out', await inside());
+    await clickTo(ex, ey, 4000, 0.2); note('door inside again', await pos()); note('inside door frame 2', await inside());
+    await clickTo(ex + 0.9, ey + 3.4, 5000); note('out again', await pos());
+    // 틈 위: 시설 쪽(게임 y 감소)으로 열린 틈을 향해 클릭 → 판 가장자리에서 멈춰야 함
+    await clickTo(103, 79.5, 5000); const g = await pos(); note('gap attempt', g);
+    note('stopped before gap (gy >= 81)', g.y >= 80.95);
+    await page.screenshot({ path: path.join(OUT, '06c_gap_edge.png') });
+    // 외피 벽 통과: 문 옆 외피 쪽으로
+    await clickTo(117.5, 78.0, 5000); const w = await pos(); note('housing wall attempt', w);
+    note('not inside housing wall', await page.evaluate(() => !window.__game.world.isBlocked(window.__game.player.x, window.__game.player.y)));
+    await clickTo(ex + 0.9, ey + 3.4, 5000);
+    await page.evaluate(() => window.__game.stage.lockExit(false));
+  }
   await clickTo(ex, ey, 6000); note('exit attempt', await pos());
   let ev = await page.evaluate(() => window.__events.map((e) => e[0]));
   if (!ev.includes('stage:exit')) {

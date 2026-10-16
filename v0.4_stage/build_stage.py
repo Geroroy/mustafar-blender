@@ -14,9 +14,9 @@ from mathutils import Vector
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
-SRC = os.path.join(ROOT, "v0.3", "work", "layouts", "layout_A3b.blend")
-OUT_BLEND = os.path.join(HERE, "mustafar_landing_stage.blend")
-CFG = json.load(open(os.path.join(HERE, "stage_config.json"), encoding="utf-8"))
+CFG = json.load(open(os.path.join(HERE, os.environ.get("STAGE_CONFIG", "stage_config.json")), encoding="utf-8"))
+SRC = os.path.join(ROOT, "v0.3", "work", "layouts", f"layout_{CFG['layout']}.blend")   # A3b(보존) / A3c(구조 수정 작업 사본)
+OUT_BLEND = os.path.join(HERE, CFG.get("stage_blend", "mustafar_landing_stage.blend"))
 
 bpy.ops.wm.open_mainfile(filepath=SRC)
 scene = bpy.context.scene
@@ -36,11 +36,12 @@ for n in HIDE_OBJS:
     if o:
         o.hide_render = True; hidden_log.append(n)
 # 출입구 돌출부 옆면: 형태 미확인(U)이지만 출입구 면(x 14.8)과 시설 벽 사이를 비워 두면 화면이 성립하지 않아 단색 볼륨으로 둠(시각용)
-bay = D.objects["Entrance_Bay_Unknown"]
-for m in list(bay.modifiers):
-    if m.type == 'WIREFRAME':
-        bay.modifiers.remove(m)
-bay.visible_shadow = True
+bay = D.objects.get("Entrance_Bay_Unknown")          # A3b만 있음(A3c는 A자 외피로 대체)
+if bay:
+    for m in list(bay.modifiers):
+        if m.type == 'WIREFRAME':
+            bay.modifiers.remove(m)
+    bay.visible_shadow = True
 
 # ---------------------------------------------------------------- 2. 재질
 def node_mat(name):
@@ -168,12 +169,14 @@ MAT = {
     "slot": emit("STAGE_LightSlot", (1.0, 0.82, 0.6), 5.0),
     "lava": lava(),
     "rock": rock(),
+    "baydark": metal("STAGE_BayDark", (0.035, 0.03, 0.03), (0.015, 0.012, 0.012), streak=False, metallic=0.2),
 }
 ASSIGN = {
     "Landing_Platform": "deckbase", "Platform_Sidewalls": "sidewall",
     "Hangar_Walls": "facility", "Structural_Pillars": "facade", "Hangar_Roof": "roof", "Corridor_Lower_Walkway": "facility",
     "Entrance_Bay_Front": "facade", "Entrance_Bay_Unknown": "facility", "Facility_A_Entrance": "facade", "Entrance_Passage_Visible": "facility",
     "Entrance_Forecourt_Floor": "plateB",
+    "Entrance_Housing": "facade", "Hangar_Open_Bay": "baydark", "Entrance_Bridge_Floor": "plateB", "Entrance_Side_Structure_R": "box",
     "Low_Box": "box", "Low_Box_End_Block": "box", "Low_Box_Outer_Skin": "box", "Low_Box_Inner_Members": "boxinner",
     "Edge_Curbs_Near_Stairwell": "trim", "Back_Edge_Posts": "trim", "Back_Edge_Rail": "trim",
     "Hangar_Spotlights": "warm", "Facility_A_Entrance_Light": "cool", "Edge_Lights_Facility_Side": "blue", "Back_Edge_Post_Lights": "blue",
@@ -190,8 +193,11 @@ fp.data.materials[0] = MAT["plateA"]; fp.data.materials[1] = MAT["plateB"]
 # 시각용 모서리 베벨(형상 치수는 그대로)
 for n, w in (("Hangar_Walls", 0.06), ("Structural_Pillars", 0.05), ("Hangar_Roof", 0.08), ("Entrance_Bay_Front", 0.05), ("Entrance_Bay_Unknown", 0.05),
              ("Facility_A_Entrance", 0.03), ("Low_Box", 0.025), ("Low_Box_End_Block", 0.025), ("Low_Box_Outer_Skin", 0.02), ("Low_Box_Inner_Members", 0.015),
-             ("Edge_Curbs_Near_Stairwell", 0.03), ("Back_Edge_Posts", 0.03), ("Platform_Sidewalls", 0.05), ("Floor_Plates", 0.012)):
-    o = D.objects[n]
+             ("Edge_Curbs_Near_Stairwell", 0.03), ("Back_Edge_Posts", 0.03), ("Platform_Sidewalls", 0.05), ("Floor_Plates", 0.012),
+             ("Entrance_Housing", 0.04), ("Entrance_Side_Structure_R", 0.025), ("Entrance_Bridge_Floor", 0.02)):
+    o = D.objects.get(n)
+    if o is None:
+        continue
     b = o.modifiers.new("vis_bevel", 'BEVEL'); b.width = w; b.segments = 2; b.limit_method = 'ANGLE'; b.angle_limit = math.radians(40)
 
 # ---------------------------------------------------------------- 3. 주변: 용암 바다, 뒤 절벽(존재 R6 확인·형태 미확인 → 어두운 덩어리)

@@ -1,0 +1,155 @@
+{
+ "_doc": "착륙장 스테이지 설정(v0.4_stage). 기준 배치 A3b(임시 작업 기준). Blender 좌표(m): +X 시설, +Y 뒤(절벽). 게임 좌표: gx = OX − Y, gy = OY − X (1 타일 = 1 m).",
+ "layout": "A3b",
+ "game": {
+  "OX": 96.0,
+  "OY": 95.5
+ },
+ "lava_z": -40.0,
+ "cliff_top_z": 22.0,
+ "eave_spot_x": 21.15,
+ "eave_spot_z": 6.8,
+ "eave_spot_y": [
+  13.4,
+  6.7,
+  0.0,
+  -6.7,
+  -13.4
+ ],
+ "entrance_light": [
+  14.55,
+  -19.06,
+  2.3
+ ],
+ "edge_light_xy": [
+  [
+   13.5,
+   21.3
+  ],
+  [
+   13.5,
+   10.7
+  ],
+  [
+   13.5,
+   -0.9
+  ]
+ ],
+ "frame_boxes": [
+  [
+   [
+    -17.0,
+    -25.0,
+    -4.0
+   ],
+   [
+    14.5,
+    22.5,
+    0.0
+   ]
+  ],
+  [
+   [
+    14.5,
+    -21.0,
+    -3.0
+   ],
+   [
+    23.5,
+    19.5,
+    8.5
+   ]
+  ]
+ ],
+ "frame_margin_px": [
+  400,
+  250
+ ],
+ "occluders": {
+  "_doc": "플레이어 앞을 가릴 수 있는 물체만 스프라이트로 따로 굽는다. 나머지(시설 정면·지붕·지지부, 출입구, 뒤 가장자리 기둥·난간, 바닥 조명)는 플레이어가 그 뒤로 갈 수 없어 배경에 굽는다.",
+  "low_box": {
+   "objects": [
+    "Low_Box",
+    "Low_Box_End_Block",
+    "Low_Box_Outer_Skin",
+    "Low_Box_Inner_Members",
+    "Low_Box_Lit_Slots"
+   ],
+   "slice_axis": "Y",
+   "slice_m": 1.0
+  },
+  "curbs": {
+   "objects": [
+    "Edge_Curbs_Near_Stairwell"
+   ],
+   "split_islands": true
+  }
+ },
+ "collision": {
+  "cell_m": 0.125,
+  "floor_objects": [
+   "Landing_Platform",
+   "Floor_Plates",
+   "Entrance_Forecourt_Floor",
+   "Entrance_Passage_Visible"
+  ],
+  "floor_z_tol": 0.15,
+  "_doc": "위에서 아래로 광선을 쏴 처음 맞는 면이 바닥 객체이고 높이가 0 ± 0.15 m이면 걸을 수 있는 칸. 그 밖(상자·연석·문틀·판 밖 허공)은 막힘."
+ },
+ "stage": {
+  "name": "무스타파 · 착륙장",
+  "spawn_world": [
+   -6.0,
+   14.0
+  ],
+  "exit": {
+   "_doc": "A3b 출입구 문턱 앞(문 −Y 절반 앞, 몸이 닿는 범위). 문틀 안쪽(X 14.8 너머)은 바닥이 없고 끝 단·문틀 돌출로 몸이 못 들어감 — 영화 동선 문제로 기록",
+   "center_world": [
+    14.25,
+    -19.4
+   ],
+   "half": [
+    0.35,
+    0.36
+   ]
+  },
+  "combat": {
+   "_doc": "새 광선검 전투 시스템이 쓰는 자리. 위치는 게임 판단값(영화 고증 아님): 영화 결투는 상자·출입구 앞 바닥에서 벌어짐(11726·11748)",
+   "area_world": [
+    [
+     -12.0,
+     -23.5
+    ],
+    [
+     13.0,
+     -23.5
+    ],
+    [
+     13.0,
+     6.0
+    ],
+    [
+     -12.0,
+     6.0
+    ]
+   ],
+   "anakin_start_world": [
+    2.0,
+    -9.0
+   ],
+   "opponent_start_world": [
+    7.0,
+    -15.0
+   ],
+   "trigger_world": {
+    "center": [
+     2.0,
+     -6.0
+    ],
+    "radius": 4.0
+   }
+  }
+ },
+ "stage_blend": "mustafar_landing_stage.blend",
+ "out_dir": "mustafar_landing_A3b"
+}

@@ -1,6 +1,6 @@
 {
- "_doc": "착륙장 스테이지 설정(v0.4_stage). 기준 배치 A3b(임시 작업 기준). Blender 좌표(m): +X 시설, +Y 뒤(절벽). 게임 좌표: gx = OX − Y, gy = OY − X (1 타일 = 1 m).",
- "layout": "A3b",
+ "_doc": "착륙장 스테이지 설정(v0.4_stage). 기준 배치 A3c = A3b + 구조 수정 5건(작업 사본, 영화 고증 확정 아님). A3b 설정은 stage_config_A3b.json에 보존. Blender 좌표(m): +X 시설, +Y 뒤(절벽). 게임 좌표: gx = OX − Y, gy = OY − X (1 타일 = 1 m).",
+ "layout": "A3c",
  "game": {
   "OX": 96.0,
   "OY": 95.5
@@ -17,7 +17,7 @@
   -13.4
  ],
  "entrance_light": [
-  14.55,
+  16.05,
   -19.06,
   2.3
  ],
@@ -55,7 +55,7 @@
     -3.0
    ],
    [
-    23.5,
+    28.6,
     19.5,
     8.5
    ]
@@ -83,6 +83,27 @@
     "Edge_Curbs_Near_Stairwell"
    ],
    "split_islands": true
+  },
+  "entrance_side_r": {
+   "objects": [
+    "Entrance_Side_Structure_R"
+   ],
+   "slice_axis": "Y",
+   "slice_m": 1.0
+  },
+  "entrance_front": {
+   "_doc": "문틀·외피의 앞 1.4 m만 조각(플레이어가 문틀 안으로 들어갈 때 −Y 문설주가 앞을 가림). 나머지는 배경",
+   "objects": [
+    "Facility_A_Entrance",
+    "Entrance_Housing"
+   ],
+   "clip_x": [
+    15.9,
+    17.3
+   ],
+   "split_y": [
+    -19.06
+   ]
   }
  },
  "collision": {
@@ -91,10 +112,12 @@
    "Landing_Platform",
    "Floor_Plates",
    "Entrance_Forecourt_Floor",
-   "Entrance_Passage_Visible"
+   "Entrance_Passage_Visible",
+   "Entrance_Bridge_Floor"
   ],
   "floor_z_tol": 0.15,
-  "_doc": "위에서 아래로 광선을 쏴 처음 맞는 면이 바닥 객체이고 높이가 0 ± 0.15 m이면 걸을 수 있는 칸. 그 밖(상자·연석·문틀·판 밖 허공)은 막힘."
+  "_doc": "높이 1.2 m에서 아래로 광선을 쏴 처음 맞는 면이 바닥 객체이고 높이가 0 ± 0.15 m이면 걸을 수 있는 칸(1.2 m: R·연석보다 높고 A자 문틀 안쪽 경사가 이 높이에서 폭 약 1.26 m — 바닥 폭 1.45 m 개구부). 낮은 상자는 바닥 투영 전체를 막음. 그 밖(문틀·외피·틈·판 밖 허공)은 막힘",
+  "ray_z": 1.2
  },
  "stage": {
   "name": "무스타파 · 착륙장",
@@ -103,14 +126,14 @@
    14.0
   ],
   "exit": {
-   "_doc": "A3b 출입구 문턱 앞(문 −Y 절반 앞, 몸이 닿는 범위). 문틀 안쪽(X 14.8 너머)은 바닥이 없고 끝 단·문틀 돌출로 몸이 못 들어감 — 영화 동선 문제로 기록",
+   "_doc": "A3c: 문틀 안쪽(진입 바닥 위, 문틀 면 x 16.3 뒤 0.2~0.8 m). 이 안에 들어오면 스테이지 종료",
    "center_world": [
-    14.25,
-    -19.4
+    16.8,
+    -19.06
    ],
    "half": [
-    0.35,
-    0.36
+    0.3,
+    0.4
    ]
   },
   "combat": {
@@ -149,5 +172,7 @@
     "radius": 4.0
    }
   }
- }
+ },
+ "stage_blend": "mustafar_landing_stage_A3c.blend",
+ "out_dir": "mustafar_landing"
 }

@@ -20,11 +20,11 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import stage_cam as SC  # noqa: E402
 
-CFG = json.load(open(os.path.join(HERE, "stage_config.json"), encoding="utf-8"))
-OUT = os.path.join(HERE, "out", "mustafar_landing"); os.makedirs(OUT, exist_ok=True)
-TMP = os.path.join(HERE, "work_export"); os.makedirs(TMP, exist_ok=True)
+CFG = json.load(open(os.path.join(HERE, os.environ.get("STAGE_CONFIG", "stage_config.json")), encoding="utf-8"))
+OUT = os.path.join(HERE, "out", CFG.get("out_dir", "mustafar_landing")); os.makedirs(OUT, exist_ok=True)
+TMP = os.path.join(HERE, "work_export", CFG["layout"]); os.makedirs(TMP, exist_ok=True)
 SAMPLES = int(sys.argv[sys.argv.index("--samples") + 1]) if "--samples" in sys.argv else 32
-bpy.ops.wm.open_mainfile(filepath=os.path.join(HERE, "mustafar_landing_stage.blend"))
+bpy.ops.wm.open_mainfile(filepath=os.path.join(HERE, CFG.get("stage_blend", "mustafar_landing_stage.blend")))
 scene = bpy.context.scene; D = bpy.data; cam = D.objects["Game_Output_Iso"]; scene.camera = cam
 scene.cycles.samples = SAMPLES
 from PIL import Image  # noqa: E402
@@ -66,7 +66,40 @@ for key, spec in CFG["occluders"].items():
     objs = [D.objects[n] for n in spec["objects"]]
     occl_src += objs
     me = evaluated_copy(objs, f"OCC_{key}")
-    if spec.get("slice_axis") == "Y":
+    if spec.get("clip_x"):
+        # 앞부분만 조각으로: x0~x1 안쪽은 조각(+ split_y로 나눔), 바깥 나머지는 배경용 REM_ 객체로 남김
+        x0c, x1c = spec["clip_x"]
+        def cut(src, keep):          # keep: 'in' | 'lo' | 'hi'
+            bm_ = bmesh.new(); bm_.from_mesh(src); g_ = bm_.verts[:] + bm_.edges[:] + bm_.faces[:]
+            if keep == 'in':
+                bmesh.ops.bisect_plane(bm_, geom=g_, plane_co=(x0c, 0, 0), plane_no=(1, 0, 0), clear_inner=True)
+                g_ = bm_.verts[:] + bm_.edges[:] + bm_.faces[:]
+                bmesh.ops.bisect_plane(bm_, geom=g_, plane_co=(x1c, 0, 0), plane_no=(1, 0, 0), clear_outer=True)
+            elif keep == 'lo':
+                bmesh.ops.bisect_plane(bm_, geom=g_, plane_co=(x0c, 0, 0), plane_no=(1, 0, 0), clear_outer=True)
+            else:
+                bmesh.ops.bisect_plane(bm_, geom=g_, plane_co=(x1c, 0, 0), plane_no=(1, 0, 0), clear_inner=True)
+            m_ = D.meshes.new(f"{key}_{keep}"); bm_.to_mesh(m_); bm_.free()
+            for mt in src.materials:
+                m_.materials.append(mt)
+            return m_
+        for keep in ('lo', 'hi'):
+            mr = cut(me, keep)
+            if len(mr.polygons):
+                make_obj(f"REM_{key}_{keep}", mr)
+        mi = cut(me, 'in'); ys_ = [-1e9] + list(spec.get("split_y", [])) + [1e9]
+        for k in range(len(ys_) - 1):
+            bm_ = bmesh.new(); bm_.from_mesh(mi); g_ = bm_.verts[:] + bm_.edges[:] + bm_.faces[:]
+            if ys_[k] > -1e8:
+                bmesh.ops.bisect_plane(bm_, geom=g_, plane_co=(0, ys_[k], 0), plane_no=(0, 1, 0), clear_inner=True); g_ = bm_.verts[:] + bm_.edges[:] + bm_.faces[:]
+            if ys_[k + 1] < 1e8:
+                bmesh.ops.bisect_plane(bm_, geom=g_, plane_co=(0, ys_[k + 1], 0), plane_no=(0, 1, 0), clear_outer=True)
+            m2 = D.meshes.new(f"{key}_{k}"); bm_.to_mesh(m2); bm_.free()
+            for mt in mi.materials:
+                m2.materials.append(mt)
+            if len(m2.polygons):
+                sprites.append({"id": f"{key}_{k}", "obj": make_obj(f"SPR_{key}_{k}", m2), "hull": False})   # 문틀은 가운데가 뚫려 있어 껍질로 막지 않음(광선 판정만)
+    elif spec.get("slice_axis") == "Y":
         bb = [Vector(v.co) for v in me.vertices]; y0 = min(p.y for p in bb); y1 = max(p.y for p in bb)
         n = max(1, math.ceil((y1 - y0) / spec["slice_m"] - 1e-6)); step = (y1 - y0) / n
         for k in range(n):
@@ -152,7 +185,7 @@ for o in [o for o in D.objects if (rendered(o) or o.name.startswith("SPR_")) and
     ev.to_mesh_clear()
 bvh = BVHTree.FromPolygons(verts, tris_all)
 floor_names = set(col["floor_objects"])
-X0, X1, Y0, Y1 = -18.0, 15.5, -26.0, 23.5                       # 판 주변(월드)
+X0, X1, Y0, Y1 = -18.0, 18.5, -26.0, 23.5                       # 판 주변 + 진입 바닥·문틀 안(월드)
 gx_a, gy_a = SC.to_game(CFG, X1, Y1); gx_b, gy_b = SC.to_game(CFG, X0, Y0)
 gx0, gy0 = math.floor(gx_a), math.floor(gy_a)
 cols = int(math.ceil((gx_b - gx0) / cell)); rows = int(math.ceil((gy_b - gy0) / cell))
@@ -161,7 +194,7 @@ for j in range(rows):
     for i in range(cols):
         gx, gy = gx0 + (i + 0.5) * cell, gy0 + (j + 0.5) * cell
         X, Y = SC.to_world(CFG, gx, gy)
-        hit = bvh.ray_cast(Vector((X, Y, 2.2)), Vector((0, 0, -1)), 50.0)
+        hit = bvh.ray_cast(Vector((X, Y, col.get("ray_z", 2.2))), Vector((0, 0, -1)), 50.0)
         if hit[0] is None:
             continue
         if owner[hit[2]] in floor_names and abs(hit[0].z) <= col["floor_z_tol"]:
@@ -185,6 +218,8 @@ def hull(pts):
 
 
 for s in sprites:
+    if s.get("hull") is False:
+        continue
     hp = hull([(round(v.co.x, 3), round(v.co.y, 3)) for v in s["obj"].data.vertices if v.co.z > 0.02])
     gpoly = [SC.to_game(CFG, x, y) for x, y in hp]
     xs_ = [q[0] for q in gpoly]; ys_ = [q[1] for q in gpoly]
