@@ -258,8 +258,7 @@ def light(name, kind, loc, energy, color, rot=None, size=None, spot=None):
 light("Stage_Sun_Smoke", 'SUN', (0, 0, 50), 3.4, (1.0, 0.74, 0.55), rot=(math.radians(42), 0, math.radians(-120)), size=None)
 D.lights["Stage_Sun_Smoke"].angle = math.radians(12)
 light("Stage_Lava_Bounce", 'AREA', (0, 0, -12), 14000, (1.0, 0.38, 0.12), rot=(0, 0, 0), size=160)          # 아래에서 비추는 용암 반사광
-sp = D.objects["Hangar_Spotlights"]
-spy = sorted({round((sp.matrix_world @ Vector(c)).y, 1) for c in sp.bound_box})
+sp = D.objects.get("Hangar_Spotlights")          # MD_REMAKE_POC01(모드 시설)에는 없음 — 처마 조명 위치는 설정값(eave_spot_*)만 씀
 for k, y in enumerate(CFG["eave_spot_y"]):
     light(f"Stage_Eave_Spot_{k}", 'SPOT', (CFG["eave_spot_x"], y, CFG["eave_spot_z"]), 2600, (1.0, 0.88, 0.7), rot=(math.radians(22), 0, math.radians(90)), size=0.4, spot=70)
 ex, ey, ez = CFG["entrance_light"]

@@ -1,63 +1,67 @@
 {
- "_doc": "MD_REMAKE_POC01 시험본 설정(v0.4_stage). Movie Duels duel_mustafar 착륙장 판 형상을 캐릭터 축척으로 옮기고 A3e 시설·출입구·낮은 상자·R·외부 통로를 재사용. 기존 A3e 설정(stage_config.json)·출력은 그대로. 모드 형상이 들어간 .blend·출력은 비공개 폴더(research/CR-001_4k_evidence/_private/md_remake)에만 둠. Blender 좌표(m): +X 시설, +Y 뒤. 게임 좌표: gx = OX − Y, gy = OY − X",
+ "_doc": "MD_REMAKE_POC01 스테이지 설정(v0.4_stage 파이프라인 재사용). 출발 형상 = Movie Duels duel_mus_both 착륙장 영역(md03_build_poc.py). 게임 카메라·좌표 변환(OX/OY)·축척 28.284 px/m는 A3e와 같음. 모드 형상이 들어간 .blend·출력은 비공개 폴더(research/CR-001_4k_evidence/_private/md_remake_v2)에만 둠. Blender 좌표(m): +X 시설, +Y 뒤. 게임 좌표: gx = OX − Y, gy = OY − X",
  "layout": "MD_REMAKE_POC01",
+ "layout_blend": "research/CR-001_4k_evidence/_private/md_remake_v2/layout_MD_REMAKE_POC01.blend",
+ "stage_blend": "../research/CR-001_4k_evidence/_private/md_remake_v2/mustafar_landing_stage_MD_REMAKE_POC01.blend",
+ "out_dir": "../../research/CR-001_4k_evidence/_private/md_remake_v2/out_md_poc01",
  "game": {
   "OX": 96.0,
   "OY": 95.5
  },
- "lava_z": -40.0,
- "cliff_top_z": 22.0,
- "eave_spot_x": 21.15,
- "eave_spot_z": 6.8,
+ "lava_z": -39.8,
+ "_lava_doc": "모드 용암 면 z −1248 u → (−1248 − 168)·0.028125 = −39.8 m",
+ "eave_spot_x": 18.6,
+ "eave_spot_z": 6.6,
  "eave_spot_y": [
-  13.4,
-  6.7,
-  0.0,
-  -6.7,
+  4.75,
+  1.0,
+  -3.1,
+  -8.1,
   -13.4
  ],
+ "_eave_doc": "모드 처마 등 상자 5개의 위치(정면 렌더에서 읽음). 영화 처마 조명(11615·11726)",
  "entrance_light": [
-  15.9,
-  -19.06,
+  19.0,
+  -8.215,
   2.95
  ],
  "edge_light_xy": [
   [
-   13.5,
-   21.3
+   13.6,
+   12.2
   ],
   [
-   13.5,
-   10.7
+   13.6,
+   6.0
   ],
   [
-   13.5,
-   -0.9
+   13.6,
+   -0.2
   ]
  ],
  "frame_boxes": [
   [
    [
-    -27.0,
-    -34.5,
-    -8.0
+    -23.5,
+    -14.5,
+    -6.0
    ],
    [
     14.5,
-    23.5,
-    0.0
+    15.0,
+    1.0
    ]
   ],
   [
    [
     14.5,
-    -23.0,
+    -21.0,
     -3.0
    ],
    [
-    30.0,
-    23.5,
-    8.5
+    38.5,
+    15.0,
+    9.0
    ]
   ]
  ],
@@ -66,62 +70,37 @@
   250
  ],
  "occluders": {
-  "_doc": "플레이어 앞을 가릴 수 있는 물체만 스프라이트로 따로 굽는다. 나머지(시설 정면·지붕·지지부, 출입구, 뒤 가장자리 기둥·난간, 바닥 조명)는 플레이어가 그 뒤로 갈 수 없어 배경에 굽는다.",
-  "low_box": {
+  "_doc": "플레이어 앞을 가릴 수 있는 물체만 조각으로 따로 굽는다. 나머지는 배경",
+  "low_crates": {
+   "_doc": "출입구 양옆 모드 격자 상자 2개. 1 m 조각, 바닥 투영 전체 막음",
    "objects": [
-    "Low_Box",
-    "Low_Box_End_Block",
-    "Low_Box_Outer_Skin",
-    "Low_Box_Inner_Members",
-    "Low_Box_Lit_Slots",
-    "Low_Box_Bands"
-   ],
-   "slice_axis": "Y",
-   "slice_m": 1.0
-  },
-  "curbs": {
-   "objects": [
-    "Edge_Curbs_Near_Stairwell"
-   ],
-   "split_islands": true
-  },
-  "entrance_side_r": {
-   "objects": [
-    "Entrance_Side_Structure_R",
-    "R_Box_Inner_Members",
-    "R_Box_Lit_Slots"
+    "MD_LowCrates"
    ],
    "slice_axis": "Y",
    "slice_m": 1.0
   },
   "entrance_front": {
-   "_doc": "출입구 테두리·날개·가로 처마의 앞 2.1 m만 조각(가로 처마가 0.7 m 앞으로 나옴; 플레이어가 문 안으로 들어갈 때 −Y 문설주·테두리가 앞을 가림). 나머지는 배경",
+   "_doc": "출입구 앞 정면·영화 윤곽 판·테두리·조명·통로 반복 프레임(x 17~24.5)을 출입구 가운데(y −8.215)에서 둘로 나눠 조각으로(플레이어가 통로 안에 들어가면 −Y 쪽이 앞을 가림). 나머지는 배경",
    "objects": [
-    "Facility_A_Entrance",
-    "Entrance_Housing",
-    "Entrance_Outer_Frame",
-    "Entrance_Passage_Frames"
+    "MD_Facility",
+    "Entrance_Film_Infill",
+    "Entrance_Frame",
+    "Entrance_Lamp",
+    "MD_Roof_Slab"
    ],
    "clip_x": [
-    15.2,
-    17.3
+    17.0,
+    24.5
    ],
    "split_y": [
-    -19.06
+    -8.215
    ]
   },
-  "side_walkway_rails": {
-   "_doc": "외부 통로 바깥 기둥·난간(플레이어가 통로 안쪽에 있을 때 앞을 가릴 수 있음). 충돌은 광선으로만(껍질로 막지 않음)",
-   "objects": [
-    "Side_Walkway_Rails",
-    "Side_Walkway_Lights"
-   ],
-   "hull": false
-  },
   "facility_end": {
-   "_doc": "시설 +Y 끝 막힌 면·끝벽: 외부 통로가 그 뒤로 지나갈 때 플레이어를 가림(반투명 처리는 게임). 충돌은 광선으로만",
+   "_doc": "시설 +Y 끝(베이·경사 기둥·지붕 끝): 옆 통로가 그 뒤로 지날 때 플레이어를 가림. 충돌은 광선으로만",
    "objects": [
-    "Facility_End_Block"
+    "MD_Facility_EndBlock",
+    "MD_Roof_Slab_End"
    ],
    "hull": false
   }
@@ -130,138 +109,117 @@
   "cell_m": 0.125,
   "floor_objects": [
    "MD_Pad_Deck",
-   "MD_Pad_DeckFill",
-   "MD_Pad_FacilityEdge",
-   "Entrance_Forecourt_Floor",
-   "Entrance_Passage_Visible",
-   "Entrance_Bridge_Floor",
-   "Side_Walkway_Floor"
+   "MD_Entrance_Floor"
   ],
   "floor_z_tol": 0.15,
-  "_doc": "높이 1.2 m에서 아래로 광선을 쏴 처음 맞는 면이 바닥 객체이고 높이가 0 ± 0.15 m이면 걸을 수 있는 칸. A3e 문 구멍은 단차(1.3 m)까지 폭 2.0 m의 세로 문설주라 광선을 그 아래(통로 반복 프레임의 단차 띠 1.22~1.30 m보다도 아래)에서 쏴 바닥 높이의 통행 폭을 잡음(1.25 m에서는 프레임마다 1.375 m로 좁아지는 걸림 발견 → 1.2 m). 낮은 상자·R은 바닥 투영 전체를 막음(껍질). 난간·기둥·끝 막음은 광선이 윗면에 맞아 막힘. 그 밖(문틀·날개·틈·판 밖 허공)은 막힘",
   "ray_z": 1.2,
+  "_doc": "높이 1.2 m에서 아래로 광선: 처음 맞는 면이 바닥 객체이고 높이 0 ± 0.15 m면 걸을 수 있음. 상자는 바닥 투영 전체 막음. 난간·기둥·영화 윤곽 판(아래면)은 광선이 맞아 막힘. 틈·판 밖은 바닥이 없어 막힘",
   "bounds_world": [
-   -27.5,
-   31.0,
-   -34.5,
-   24.0
+   -24.0,
+   37.0,
+   -15.0,
+   15.5
   ]
  },
  "stage": {
   "name": "무스타파 · 착륙장",
   "spawn_world": [
-   -6.0,
-   14.0
+   -4.0,
+   9.0
   ],
   "exit": {
-   "_doc": "A3e: 문틀 안쪽(진입 바닥 위, 문틀 면 x 16.3 뒤 0.2~0.8 m). 이 안에 들어오면 스테이지 종료",
+   "_doc": "영화 윤곽 판 뒤 통로 안(판 뒷면 x 19.8 뒤 1.65~2.35 m). 들어오면 스테이지 종료",
    "center_world": [
-    16.8,
-    -19.06
+    21.8,
+    -8.215
    ],
    "half": [
-    0.3,
-    0.55
+    0.35,
+    0.6
    ]
   },
   "combat": {
-   "_doc": "새 광선검 전투 시스템이 쓰는 자리. 위치는 게임 판단값(영화 고증 아님): 영화 결투는 상자·출입구 앞 바닥에서 벌어짐(11726·11748) | A3e: 앞 바깥 모서리 절삭에 맞춰 영역의 −X·−Y 모서리를 잘라 판 안에 둠",
+   "_doc": "전투 시스템이 쓰는 자리(값만 새 판에 맞춤, 전투 코드는 바꾸지 않음). 영화 결투는 상자·출입구 앞 바닥(11726·11748)",
    "area_world": [
     [
-     -12.0,
-     -19.5
-    ],
-    [
-     -6.5,
-     -25.0
+     -12.5,
+     -12.5
     ],
     [
      13.0,
-     -25.0
+     -12.5
     ],
     [
      13.0,
-     6.0
+     12.5
     ],
     [
-     -12.0,
-     6.0
+     -12.5,
+     12.5
     ]
    ],
    "anakin_start_world": [
-    2.0,
-    -9.0
+    3.0,
+    -4.0
    ],
    "opponent_start_world": [
-    7.0,
-    -15.0
+    8.5,
+    -8.2
    ],
    "trigger_world": {
     "center": [
      2.0,
-     -6.0
+     -2.0
     ],
     "radius": 4.0
    }
   }
  },
- "stage_blend": "../research/CR-001_4k_evidence/_private/md_remake/mustafar_landing_stage_MD_REMAKE_POC01.blend",
- "out_dir": "../../research/CR-001_4k_evidence/_private/md_remake/out_md_poc01",
  "bay_fill": {
-  "_doc": "베이 안이 검정 한 덩어리로 뭉개지지 않게 둔 약한 채움 빛(베이마다 하나, 시각용)",
-  "energy": 260,
+  "_doc": "열린 베이 안 약한 채움 빛(시각용)",
+  "energy": 220,
   "points": [
    [
-    25.0,
-    -6.5,
-    -0.8
+    24.0,
+    3.0,
+    1.6
    ],
    [
-    25.0,
-    1.7,
-    -0.8
-   ],
-   [
-    25.0,
-    9.9,
-    -0.8
+    29.0,
+    3.0,
+    1.6
    ]
   ]
  },
  "lava_glow_xy": [
   [
-   -26.5,
-   -25.0
-  ],
-  [
-   -18.0,
-   -34.0
-  ],
-  [
-   -26.5,
+   -23.0,
    0.0
   ],
   [
-   -26.5,
-   5.0
-  ],
-  [
-   -9.0,
-   23.0
+   -13.0,
+   -14.5
   ],
   [
    0.0,
-   -34.0
+   -14.5
   ],
   [
    14.5,
-   -34.0
+   -14.5
+  ],
+  [
+   -13.0,
+   14.8
   ],
   [
    0.0,
-   23.0
+   15.0
+  ],
+  [
+   17.0,
+   2.0
   ]
  ],
- "materials_v2": true,
- "layout_blend": "research/CR-001_4k_evidence/_private/md_remake/layout_MD_REMAKE_POC01.blend"
+ "materials_v2": true
 }
