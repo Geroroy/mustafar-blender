@@ -14,7 +14,7 @@ import md_render as R  # noqa: E402
 BLEND, OUT = sys.argv[1], sys.argv[2]
 MODE = sys.argv[sys.argv.index("--mode") + 1] if "--mode" in sys.argv else "layout"
 SAMPLES = int(sys.argv[sys.argv.index("--samples") + 1]) if "--samples" in sys.argv else 24
-C = json.load(open(os.path.join(HERE, "md_poc01.json"), encoding="utf-8")); T = C["transform"]; S = T["scale_m_per_u"]
+C = json.load(open(os.path.join(HERE, os.environ.get("MD_CONFIG", "md_poc01.json")), encoding="utf-8")); T = C["transform"]; S = T["scale_m_per_u"]
 REG = json.load(open(os.path.join(HERE, "md_regions.json"), encoding="utf-8"))["maps"][C["source_map"]]
 
 
@@ -23,10 +23,11 @@ def u2m(p):
 
 
 bpy.ops.wm.open_mainfile(filepath=BLEND)
-sc = bpy.data.scenes.get("MD_REMAKE_POC01") or bpy.context.scene
+SCN = C.get("scene_name", "MD_REMAKE_POC01")
+sc = bpy.data.scenes.get(SCN) or bpy.context.scene
 if MODE == "layout":
     R.ensure_light(sc, sun_rot=tuple(math.radians(a) for a in (REG.get("sun_rot_deg", (45, 0, 35))[0], 0, REG.get("sun_rot_deg", (45, 0, 35))[2] + 180)))
-lab = "MD_REMAKE_POC01 — 출발 형상: duel_mus_both.obj 착륙장 영역(md03_build_poc.py 복사·축척·수정). 기존 A3e 형상 없음"
+lab = f"{SCN} — 출발 형상: duel_mus_both.obj 착륙장 영역(md03_build_poc.py 복사·축척·수정). 기존 A3e 형상 없음"
 made = []
 for k, v in enumerate(REG["views"]):
     c = u2m(v.get("center", REG["region_center"])); ext = v["extent"] * S

@@ -18,7 +18,8 @@ from mathutils import Matrix, Vector
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC, OUT = sys.argv[1], sys.argv[2]
 STAGE = sys.argv[sys.argv.index("--stage") + 1] if "--stage" in sys.argv else "modify"
-C = json.load(open(os.path.join(HERE, "md_poc01.json"), encoding="utf-8"))
+CFG_NAME = sys.argv[sys.argv.index("--config") + 1] if "--config" in sys.argv else "md_poc01.json"     # POC02: --config md_poc02.json
+C = json.load(open(os.path.join(HERE, CFG_NAME), encoding="utf-8"))
 T = C["transform"]; S = T["scale_m_per_u"]
 M = Matrix.Translation(Vector(T["offset_m"])) @ Matrix.Scale(S, 4) @ Matrix.Rotation(math.radians(T["rot_z_deg"]), 4, 'Z') @ Matrix.Translation(Vector(T["pre_translate_u"]))
 
@@ -31,7 +32,7 @@ for sc in list(D.scenes):                       # 다른 맵 장면은 이 파�
             D.objects.remove(o)
         D.scenes.remove(sc)
 src_objs = list(src_scene.collection.all_objects)
-scene = D.scenes.new("MD_REMAKE_POC01"); bpy.context.window.scene = scene if bpy.context.window else None
+scene = D.scenes.new(C.get("scene_name", "MD_REMAKE_POC01")); bpy.context.window.scene = scene if bpy.context.window else None
 COLS = {}
 
 
@@ -108,7 +109,7 @@ def join(meshes, name, col, role, basis):
     for m in mats:
         out.materials.append(m)
     ob = D.objects.new(name, out); coll(col).objects.link(ob)
-    ob["md_role"] = role; ob["md_basis"] = basis; ob["md_source"] = f"Movie Duels {C['source_map']}.obj (원본 좌표 → md_poc01.json transform)"
+    ob["md_role"] = role; ob["md_basis"] = basis; ob["md_source"] = f"Movie Duels {C['source_map']}.obj (원본 좌표 → {CFG_NAME} transform)"
     return ob
 
 
@@ -142,7 +143,8 @@ if STAGE == "copy":
     scene["md_stage"] = "copy"
 else:
     sys.path.insert(0, HERE)
-    import md_modify
+    import importlib
+    md_modify = importlib.import_module(C.get("modify_module", "md_modify"))      # POC02: md_modify02(POC01 단계 + 입구·상자·바닥·지붕 수정)
     rep["modify"] = md_modify.apply(scene, objs, C, coll)
 D.scenes.remove(src_scene)
 for o in [o for o in D.objects if not o.users_scene]:
