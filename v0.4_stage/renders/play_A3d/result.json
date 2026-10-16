@@ -1,0 +1,383 @@
+[
+ {
+  "k": "ready",
+  "v": true
+ },
+ {
+  "k": "spawn",
+  "v": {
+   "x": 82,
+   "y": 101.5
+  }
+ },
+ {
+  "k": "after D",
+  "v": {
+   "x": 82.98,
+   "y": 100.52
+  }
+ },
+ {
+  "k": "after S",
+  "v": {
+   "x": 84.44,
+   "y": 101.99
+  }
+ },
+ {
+  "k": "exit",
+  "v": {
+   "x0": 114.51,
+   "y0": 78.4,
+   "x1": 115.61,
+   "y1": 79
+  }
+ },
+ {
+  "k": "combat",
+  "v": {
+   "area": [
+    [
+     119.5,
+     107.5
+    ],
+    [
+     119.5,
+     82.5
+    ],
+    [
+     90,
+     82.5
+    ],
+    [
+     90,
+     107.5
+    ]
+   ],
+   "anakinStart": [
+    105,
+    93.5
+   ],
+   "opponentStart": [
+    111,
+    88.5
+   ],
+   "trigger": {
+    "center": [
+     102,
+     93.5
+    ],
+    "radius": 4
+   }
+  }
+ },
+ {
+  "k": "box side",
+  "v": {
+   "x": 107.89,
+   "y": 86.57
+  }
+ },
+ {
+  "k": "box back end",
+  "v": {
+   "x": 106.59,
+   "y": 82.58
+  }
+ },
+ {
+  "k": "click into box (should stay outside)",
+  "v": {
+   "x": 108.19,
+   "y": 85.5
+  }
+ },
+ {
+  "k": "player inside box footprint",
+  "v": false
+ },
+ {
+  "k": "edge (should stop at deck edge)",
+  "v": {
+   "x": 100.5,
+   "y": 111.5
+  }
+ },
+ {
+  "k": "player on walkable cell",
+  "v": true
+ },
+ {
+  "k": "combat trigger point",
+  "v": {
+   "x": 102,
+   "y": 93.5
+  }
+ },
+ {
+  "k": "toward door approach",
+  "v": {
+   "x": 117.55,
+   "y": 86.21
+  }
+ },
+ {
+  "k": "bridge (front of door)",
+  "v": {
+   "x": 115.05,
+   "y": 79.9
+  }
+ },
+ {
+  "k": "door inside (locked)",
+  "v": {
+   "x": 115.05,
+   "y": 78.75
+  }
+ },
+ {
+  "k": "inside door frame",
+  "v": true
+ },
+ {
+  "k": "back out to deck",
+  "v": {
+   "x": 115.95,
+   "y": 82.08
+  }
+ },
+ {
+  "k": "inside after back out",
+  "v": false
+ },
+ {
+  "k": "door inside again",
+  "v": {
+   "x": 115.08,
+   "y": 78.82
+  }
+ },
+ {
+  "k": "inside door frame 2",
+  "v": true
+ },
+ {
+  "k": "out again",
+  "v": {
+   "x": 115.95,
+   "y": 82.1
+  }
+ },
+ {
+  "k": "gap attempt",
+  "v": {
+   "x": 113.68,
+   "y": 85.5
+  }
+ },
+ {
+  "k": "stopped before gap (gy >= 81)",
+  "v": true
+ },
+ {
+  "k": "housing wall attempt",
+  "v": {
+   "x": 115.5,
+   "y": 78.5
+  }
+ },
+ {
+  "k": "not inside housing wall",
+  "v": true
+ },
+ {
+  "k": "keys start (bridge)",
+  "v": {
+   "x": 115.09,
+   "y": 80.39
+  }
+ },
+ {
+  "k": "keys in",
+  "v": {
+   "x": 114.51,
+   "y": 78.64,
+   "ms": 1226
+  }
+ },
+ {
+  "k": "keys in: inside door frame",
+  "v": true
+ },
+ {
+  "k": "keys out",
+  "v": {
+   "x": 115.09,
+   "y": 80.39,
+   "ms": 1212
+  }
+ },
+ {
+  "k": "keys out: back on bridge (gy > exit y1)",
+  "v": true
+ },
+ {
+  "k": "front of door (unlocked)",
+  "v": {
+   "x": 115.1,
+   "y": 80.13
+  }
+ },
+ {
+  "k": "no premature exit at door front",
+  "v": true
+ },
+ {
+  "k": "exit attempt",
+  "v": {
+   "x": 115.06,
+   "y": 78.98
+  }
+ },
+ {
+  "k": "final pos",
+  "v": {
+   "x": 115.06,
+   "y": 78.98
+  }
+ },
+ {
+  "k": "events",
+  "v": [
+   [
+    "stage:combatArea",
+    true,
+    3.5
+   ],
+   [
+    "stage:combatTrigger",
+    {
+     "area": [
+      [
+       119.5,
+       107.5
+      ],
+      [
+       119.5,
+       82.5
+      ],
+      [
+       90,
+       82.5
+      ],
+      [
+       90,
+       107.5
+      ]
+     ],
+     "anakinStart": [
+      105,
+      93.5
+     ],
+     "opponentStart": [
+      111,
+      88.5
+     ],
+     "trigger": {
+      "center": [
+       102,
+       93.5
+      ],
+      "radius": 4
+     }
+    },
+    5.58
+   ],
+   [
+    "stage:combatArea",
+    false,
+    17.37
+   ],
+   [
+    "stage:combatArea",
+    true,
+    20.47
+   ],
+   [
+    "stage:combatArea",
+    false,
+    28.75
+   ],
+   [
+    "stage:exitLocked",
+    null,
+    29.78
+   ],
+   [
+    "stage:combatArea",
+    true,
+    34.8
+   ],
+   [
+    "stage:combatArea",
+    false,
+    39.2
+   ],
+   [
+    "stage:exitLocked",
+    null,
+    39.93
+   ],
+   [
+    "stage:exit",
+    {
+     "stage": "mustafar_landing",
+     "name": "무스타파 · 착륙장",
+     "combat": {
+      "area": [
+       [
+        119.5,
+        107.5
+       ],
+       [
+        119.5,
+        82.5
+       ],
+       [
+        90,
+        82.5
+       ],
+       [
+        90,
+        107.5
+       ]
+      ],
+      "anakinStart": [
+       105,
+       93.5
+      ],
+      "opponentStart": [
+       111,
+       88.5
+      ],
+      "trigger": {
+       "center": [
+        102,
+        93.5
+       ],
+       "radius": 4
+      }
+     },
+     "exit": {
+      "x0": 114.51,
+      "y0": 78.4,
+      "x1": 115.61,
+      "y1": 79
+     },
+     "time": 44.98259999999947
+    },
+    44.98
+   ]
+  ]
+ }
+]

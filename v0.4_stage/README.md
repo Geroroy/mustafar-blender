@@ -2,7 +2,8 @@
 
 **목표**: 착륙장 하나를 실제로 플레이할 수 있는 스테이지로 만든다.
 
-- **기준 배치**: A3b. 임시 작업 기준이며 영화 고증 확정이 아니다.
+- **기준 배치**: A3d(구조 수정 2차, `STRUCTURE_FIX_02.md`). 임시 작업 기준이며 영화 고증 확정이 아니다.
+- **수정 전 보존**: A3c(`stage_config_A3c.json`, `out/mustafar_landing_A3c/`), A3b(`stage_config_A3b.json`, `out/mustafar_landing_A3b/`).
 - **비교용 보존**: A3, H1(`v0.3/work/layouts/`).
 - **치수 탐색**: 중단했고 현재 후보값으로 제작한다.
 - **실내**: 확장을 중단했다. 블록아웃 파일(`v0.3/interior/`)은 그대로 보존한다.

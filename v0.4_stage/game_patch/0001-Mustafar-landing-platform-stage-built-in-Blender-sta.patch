@@ -1,7 +1,7 @@
 From 243f921aa8950673c37ca3756610671b57f99759 Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Fri, 16 Oct 2026 08:53:55 +0000
-Subject: [PATCH] Mustafar landing platform stage built in Blender
+Subject: [PATCH 1/2] Mustafar landing platform stage built in Blender
  (#stage-landing)
 
 - src/stage: StageWorld loads a pre-rendered backdrop in the game's own
