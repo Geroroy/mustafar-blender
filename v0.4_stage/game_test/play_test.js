@@ -97,14 +97,16 @@ const note = (k, v) => { log.push({ k, v }); console.log(k, JSON.stringify(v)); 
       if (shot) await page.screenshot({ path: path.join(OUT, shot) });
       return q;
     };
-    await edgeTry('R front (-X side)', 120.5, 86.0, '08a_R_front.png');
-    await edgeTry('R -Y end corridor', 125.2, 83.0, '08b_R_end.png');
+    // 배치별 좌표(EXTRA_JSON으로 바꿀 수 있음): R 앞·끝, 경계 시도 목록
+    const X = Object.assign({ rFront: [120.5, 86.0], rEnd: [125.2, 83.0],
+      edges: [['ext front edge (beyond -> stop)', 127.5, 84.5], ['ext diagonal edge (beyond -> stop)', 125.0, 91.0, '08c_ext_edge.png'],
+              ['front-left cut (beyond -> stop)', 120.5, 111.5, '08d_cut_front.png'], ['back-left cut (beyond -> stop)', 74.5, 112.0, '08e_cut_back.png']] },
+      process.env.EXTRA_JSON ? JSON.parse(process.env.EXTRA_JSON) : {});
+    await edgeTry('R front (-X side)', X.rFront[0], X.rFront[1], '08a_R_front.png');
+    await edgeTry('R -Y end corridor', X.rEnd[0], X.rEnd[1], '08b_R_end.png');
     await clickTo(120.0, 82.7, 3000); note('click into R (should stay outside)', await pos());
     note('player inside R footprint', await page.evaluate(() => { const p = window.__game.player; return p.x > 117.2 && p.x < 123.5 && p.y > 81.1 && p.y < 84.4; }));
-    await edgeTry('ext front edge (beyond -> stop)', 127.5, 84.5);
-    await edgeTry('ext diagonal edge (beyond -> stop)', 125.0, 91.0, '08c_ext_edge.png');
-    await edgeTry('front-left cut (beyond -> stop)', 120.5, 111.5, '08d_cut_front.png');
-    await edgeTry('back-left cut (beyond -> stop)', 74.5, 112.0, '08e_cut_back.png');
+    for (const [lab, gx, gy, shot] of X.edges) await edgeTry(lab, gx, gy, shot);
     await edgeTry('walkway start', 74.6, 81.5);
     const wEnd = await edgeTry('walkway end (gate)', 74.6, 70.0, '08f_walkway_end.png');
     note('walkway end reached (gy <= 71)', wEnd.y <= 71.0);

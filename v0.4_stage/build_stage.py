@@ -15,7 +15,7 @@ from mathutils import Vector
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 CFG = json.load(open(os.path.join(HERE, os.environ.get("STAGE_CONFIG", "stage_config.json")), encoding="utf-8"))
-SRC = os.path.join(ROOT, "v0.3", "work", "layouts", f"layout_{CFG['layout']}.blend")   # A3b(보존) / A3c(구조 수정 작업 사본)
+SRC = os.path.join(ROOT, CFG["layout_blend"]) if CFG.get("layout_blend") else os.path.join(ROOT, "v0.3", "work", "layouts", f"layout_{CFG['layout']}.blend")   # A3b(보존) / A3c… / MD_REMAKE_POC01(비공개 경로)
 OUT_BLEND = os.path.join(HERE, CFG.get("stage_blend", "mustafar_landing_stage.blend"))
 
 bpy.ops.wm.open_mainfile(filepath=SRC)
@@ -205,8 +205,9 @@ for n, k in ASSIGN.items():
     if o is None:
         continue
     o.data.materials.clear(); o.data.materials.append(MAT[k])
-fp = D.objects["Floor_Plates"]
-fp.data.materials[0] = MAT["plateA"]; fp.data.materials[1] = MAT["plateB"]
+fp = D.objects.get("Floor_Plates")             # MD_REMAKE_POC01은 모드 판재(자체 질감)라 없음
+if fp:
+    fp.data.materials[0] = MAT["plateA"]; fp.data.materials[1] = MAT["plateB"]
 
 # 시각용 모서리 베벨(형상 치수는 그대로)
 for n, w in (("Hangar_Walls", 0.06), ("Structural_Pillars", 0.05), ("Hangar_Roof", 0.08), ("Entrance_Bay_Front", 0.05), ("Entrance_Bay_Unknown", 0.05),
