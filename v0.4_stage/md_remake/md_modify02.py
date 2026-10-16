@@ -5,6 +5,8 @@
   4) 지붕: 처마 아래 후퇴부 + 윗면 비스듬한 가장자리 + 지붕 위 마스트(윤곽·돌출 2.25 m·두께 1.8 m는 그대로)
 근거 구분: [영화] 첨부 프레임에서 형태 확인 / [제작] 제작 판단(영화 실측 아님). 판 확장·시설 폭·베이·틈 폭·축척·받침 다리 길이는 건드리지 않는다.
 """
+import math
+
 import bpy, bmesh
 from mathutils import Vector, geometry
 
@@ -79,7 +81,8 @@ def prism(bm, prof, axis, a0, a1):
 
 # ---------------------------------------------------------------- 재질
 def mat_deck(P):
-    """큰 불규칙 판재(보로노이) + 가는 이음선. 월드(객체=원점) 좌표 기준이라 판·다리·통로 바닥의 이음선이 이어진다. 낮은 대비."""
+    """큰 불규칙 판재 + 가는 이음선. 직선 이음선 판재(벽돌 배치, 살짝 돌림, 열마다 어긋남) 위에 더 큰 비스듬한 판재를 한 겹 더 겹쳐 비스듬한 이음선이 섞이게 한다.
+    월드(객체=원점) 좌표 기준이라 판·다리·통로 바닥의 이음선이 이어진다. 낮은 대비."""
     name = "MDX_DeckPlates"
     m = D.materials.get(name)
     if m:
@@ -88,20 +91,26 @@ def mat_deck(P):
     N = nt.nodes.new; L = nt.links.new
     out = N("ShaderNodeOutputMaterial"); bs = N("ShaderNodeBsdfPrincipled")
     tc = N("ShaderNodeTexCoord")
-    v1 = N("ShaderNodeTexVoronoi"); v1.voronoi_dimensions = '2D'; v1.feature = 'F1'
-    v2 = N("ShaderNodeTexVoronoi"); v2.voronoi_dimensions = '2D'; v2.feature = 'DISTANCE_TO_EDGE'
-    for v in (v1, v2):
-        v.inputs["Scale"].default_value = P["plate_scale"]; v.inputs["Randomness"].default_value = P["randomness"]
-        L(tc.outputs["Object"], v.inputs["Vector"])
-    bw = N("ShaderNodeRGBToBW"); L(v1.outputs["Color"], bw.inputs["Color"])
-    cell = N("ShaderNodeMapRange"); cell.inputs[3].default_value, cell.inputs[4].default_value = P["cell_var"]; L(bw.outputs[0], cell.inputs["Value"])
-    seam = N("ShaderNodeMapRange"); seam.inputs[1].default_value, seam.inputs[2].default_value = 0.0, P["seam_width"]
-    seam.inputs[3].default_value, seam.inputs[4].default_value = P["seam_mul"], 1.0; seam.clamp = True; L(v2.outputs["Distance"], seam.inputs["Value"])
+
+    def brick(w, h, rot, seam, off, c1, c2):
+        mp = N("ShaderNodeMapping"); mp.inputs["Rotation"].default_value = (0, 0, math.radians(rot)); L(tc.outputs["Object"], mp.inputs["Vector"])
+        b_ = N("ShaderNodeTexBrick"); b_.offset = off; b_.offset_frequency = 2; b_.squash = 1.0
+        for k, v in (("Scale", 1.0), ("Mortar Size", seam), ("Mortar Smooth", 0.0), ("Bias", 0.0), ("Brick Width", w), ("Row Height", h)):
+            b_.inputs[k].default_value = v
+        b_.inputs["Color1"].default_value = (c1, c1, c1, 1); b_.inputs["Color2"].default_value = (c2, c2, c2, 1); b_.inputs["Mortar"].default_value = (0, 0, 0, 1)
+        L(mp.outputs[0], b_.inputs["Vector"]); return b_
+    lo, hi = P["cell_var"]
+    b1 = brick(P["plate_w"], P["plate_h"], P["rot_deg"], P["seam_width"], P["offset"], hi, lo)
+    b2 = brick(P["diag_w"], P["diag_h"], P["diag_rot_deg"], P["diag_seam"], 0.5, 1.0, 1.0)
+    bw = N("ShaderNodeRGBToBW"); L(b1.outputs["Color"], bw.inputs["Color"])                     # 판재별 밝기(이음선은 0)
+    sm1 = N("ShaderNodeMath"); sm1.operation = 'MULTIPLY'; L(b1.outputs["Fac"], sm1.inputs[0]); L(b2.outputs["Fac"], sm1.inputs[1])       # 두 이음선 중 하나라도 걸리면 0
+    seam = N("ShaderNodeMapRange"); seam.inputs[3].default_value, seam.inputs[4].default_value = P["seam_mul"], 1.0; seam.clamp = True; L(sm1.outputs[0], seam.inputs["Value"])
+    tone = N("ShaderNodeMath"); tone.operation = 'MAXIMUM'; tone.inputs[1].default_value = lo; L(bw.outputs[0], tone.inputs[0])
     mot = N("ShaderNodeTexNoise"); mot.inputs["Scale"].default_value = 0.22; mot.inputs["Detail"].default_value = 4; L(tc.outputs["Object"], mot.inputs["Vector"])
     mot_r = N("ShaderNodeMapRange"); mot_r.inputs[3].default_value, mot_r.inputs[4].default_value = 0.86, 1.08; L(mot.outputs["Fac"], mot_r.inputs["Value"])
     fine = N("ShaderNodeTexNoise"); fine.inputs["Scale"].default_value = 24; fine.inputs["Detail"].default_value = 6; L(tc.outputs["Object"], fine.inputs["Vector"])
     fine_r = N("ShaderNodeMapRange"); fine_r.inputs[3].default_value, fine_r.inputs[4].default_value = 0.92, 1.06; L(fine.outputs["Fac"], fine_r.inputs["Value"])
-    s1 = N("ShaderNodeMath"); s1.operation = 'MULTIPLY'; L(cell.outputs[0], s1.inputs[0]); L(seam.outputs[0], s1.inputs[1])
+    s1 = N("ShaderNodeMath"); s1.operation = 'MULTIPLY'; L(tone.outputs[0], s1.inputs[0]); L(seam.outputs[0], s1.inputs[1])
     s2 = N("ShaderNodeMath"); s2.operation = 'MULTIPLY'; L(s1.outputs[0], s2.inputs[0]); L(mot_r.outputs[0], s2.inputs[1])
     s3 = N("ShaderNodeMath"); s3.operation = 'MULTIPLY'; L(s2.outputs[0], s3.inputs[0]); L(fine_r.outputs[0], s3.inputs[1])
     col = N("ShaderNodeVectorMath"); col.operation = 'SCALE'; col.inputs[0].default_value = tuple(P["base"]); L(s3.outputs[0], col.inputs["Scale"])
@@ -221,7 +230,7 @@ def apply(scene, objs, C, coll):
             prism(trim_b, [(yb_, pl), (yb_ - rb["stand"], pl), (yr - rb["stand"], zr), (yr, zr)], 'x', xc - rb["width"] / 2, xc + rb["width"] / 2)
     dev_mat = M0.mat_metal("MDX_DeviceMetal", (0.2, 0.172, 0.15), (0.095, 0.082, 0.072))
     trim_m = M0.mat_metal("MDX_TrimMetal", (0.26, 0.22, 0.19), (0.12, 0.1, 0.09))
-    glow_m = M0.mat_emit("MDX_PocketGlow", (1.0, 0.78, 0.5), 2.4)
+    glow_m = M0.mat_emit("MDX_PocketGlow", (1.0, 0.78, 0.5), pk.get("glow_strength", 2.4))
     me = D.meshes.new("MD_LowCrates")
     allbm = bmesh.new()
     # 재질 슬롯 3개를 한 메시에: 각 bmesh를 같은 메시로 합치며 재질 번호를 붙임

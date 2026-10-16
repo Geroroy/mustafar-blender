@@ -1,5 +1,5 @@
-// MD_REMAKE_POC01 실제 게임 확인(Playwright, 헤드리스 Chromium). 기존 game_test/play_test.js와 같은 방식(게임 클릭 이동·키 이동, 이벤트 기록).
-// 준비: 게임 public/stages/mustafar_landing/에 out_md_poc01을 잠시 복사 → npx vite --port 5173
+// MD_REMAKE_POC01·POC02 실제 게임 확인(Playwright, 헤드리스 Chromium). 기존 game_test/play_test.js와 같은 방식(게임 클릭 이동·키 이동, 이벤트 기록).
+// 준비: 게임 public/stages/mustafar_landing/에 out_md_poc01(또는 out_md_poc02)을 잠시 복사 → npx vite --port 5173
 // 실행: NODE_PATH=$(npm root -g) node md_play_test.js <출력 폴더>
 // 좌표: 게임 타일(1 m). Blender(X, Y) → 게임 gx = 96 − Y, gy = 95.5 − X
 const { chromium } = require('playwright');
@@ -100,6 +100,12 @@ const W = (gx, gy) => [95.5 - gy, 96 - gx];        // 게임 → Blender (X, Y)
   await go('back out to bridge (direct click from beside door)', 16.5, -8.2, null, (x) => x < 19.5);
   await go('back out via door center (click door, then bridge)', 21.0, -8.2, null, (x) => x > 19.8);
   await go('back out to bridge', 16.5, -8.2, null, (x) => x < 19.5);
+  // POC02: 경사 하우징(앞으로 1.05 m) 앞에서 좌·우 가장자리에서도 문으로 들어가고 나오는지
+  await go('enter door from -Y side of bridge', 21.6, -8.2, null, (x) => x > 19.8, [16.0, -10.4]);
+  await go('exit door back to bridge', 16.5, -8.2, null, (x) => x < 19.5);
+  await go('enter door from +Y side of bridge', 21.6, -8.2, null, (x) => x > 19.8, [16.0, -6.0]);
+  await go('exit door back to bridge (2)', 16.5, -8.2, null, (x) => x < 19.5);
+  await go('surround wall beside door at floor (stay outside)', 18.9, -10.3, null, (x, y) => !(x > 18.35 && y < -9.3), [16.0, -10.4]);
   await go('panel wall beside door from outside (stay outside)', 21.0, -10.6, '09_panel_wall.png', (x) => x < 19.5, [16.5, -10.0]);
   // 5) 옆 통로(+Y, 시설 뒤): 시작 → 끝 → 끝 너머 → 틈 쪽
   await go('walkway start', 16.0, 11.5, null, (x, y) => y > 9.0, [8, 11]);
