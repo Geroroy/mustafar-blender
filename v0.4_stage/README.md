@@ -15,6 +15,7 @@
 | `stage_config.json` | 좌표 원점, 가림 물체, 충돌 규칙, 시작·출구·전투 자리 |
 | `export_stage.py` | 배경·가림 조각·충돌 마스크·`stage.json` 내보내기 → `out/mustafar_landing/` |
 | `compose_check.py` | 내보낸 데이터를 게임 규칙대로 합성(최종 아이소)하고 충돌을 겹쳐 확인 |
+| `review_view.py` | ChatGPT 검수용 밝은 아이소 화면 `renders/review_iso.png`(1536 px). 게임 출력과 같은 배치이되 게임용 색 보정·가장자리 어둡게를 뺀 Blender 원본 밝기. 게임 데이터는 바꾸지 않음 |
 | `game_test/play_test.js` | 실제 게임에서 이동·충돌·가림·출구를 자동 확인하고 영상을 녹화(Playwright) |
 | `game_patch/` | 게임 저장소(Isometric-RPG)에 적용할 패치(이 세션은 게임 저장소에 푸시 권한이 없음) |
 | `GAME_INTEGRATION.md` | 게임 구조 확인, 적용 방식, 맵/전투 변경 범위, 전투 연동 정보, 영화 동선 문제 |
