@@ -89,6 +89,31 @@ const note = (k, v) => { log.push({ k, v }); console.log(k, JSON.stringify(v)); 
 
   // 4) 전투 자리 확인 → 출입구로
   const t = S.combat.trigger.center; await clickTo(t[0], t[1], 5000); note('combat trigger point', await pos());
+  if (process.env.A3E_EXTRA) {
+    // 구조 수정 3차(A3e): R 앞·뒤·옆 접근, 절삭 모서리·확장부 경계, 외부 통로(SIDE) 왕복. 게임 좌표 gx = 96 − Y, gy = 95.5 − X
+    const walk = async () => page.evaluate(() => !window.__game.world.isBlocked(window.__game.player.x, window.__game.player.y));
+    const edgeTry = async (label, x, y, shot) => {
+      await clickTo(x, y, 6000); const q = await pos(); note(label, q); note(label + ': on walkable cell', await walk());
+      if (shot) await page.screenshot({ path: path.join(OUT, shot) });
+      return q;
+    };
+    await edgeTry('R front (-X side)', 120.5, 86.0, '08a_R_front.png');
+    await edgeTry('R -Y end corridor', 125.2, 83.0, '08b_R_end.png');
+    await clickTo(120.0, 82.7, 3000); note('click into R (should stay outside)', await pos());
+    note('player inside R footprint', await page.evaluate(() => { const p = window.__game.player; return p.x > 117.2 && p.x < 123.5 && p.y > 81.1 && p.y < 84.4; }));
+    await edgeTry('ext front edge (beyond -> stop)', 127.5, 84.5);
+    await edgeTry('ext diagonal edge (beyond -> stop)', 125.0, 91.0, '08c_ext_edge.png');
+    await edgeTry('front-left cut (beyond -> stop)', 120.5, 111.5, '08d_cut_front.png');
+    await edgeTry('back-left cut (beyond -> stop)', 74.5, 112.0, '08e_cut_back.png');
+    await edgeTry('walkway start', 74.6, 81.5);
+    const wEnd = await edgeTry('walkway end (gate)', 74.6, 70.0, '08f_walkway_end.png');
+    note('walkway end reached (gy <= 71)', wEnd.y <= 71.0);
+    const wBeyond = await edgeTry('beyond walkway gate (should stop)', 74.6, 66.5);
+    note('stopped at gate (gy >= 69.6)', wBeyond.y >= 69.6);
+    const wGap = await edgeTry('walkway -> gap side (should stop)', 77.8, 77.5);
+    note('stayed on walkway side (gx <= 76.2)', wGap.x <= 76.2);
+    await edgeTry('walkway back to platform', 76.0, 84.0, '08g_walkway_back.png');
+  }
   await clickTo(118, 86, 7000); note('toward door approach', await pos());
   await page.screenshot({ path: path.join(OUT, '06_door_approach.png') });
   const ex = (S.exit.x0 + S.exit.x1) / 2, ey = (S.exit.y0 + S.exit.y1) / 2;

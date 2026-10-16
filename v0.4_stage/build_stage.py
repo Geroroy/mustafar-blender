@@ -24,7 +24,7 @@ D = bpy.data
 
 # ---------------------------------------------------------------- 1. 숨김(최종 화면) — 객체는 지우지 않고 렌더에서만 뺀다
 HIDE_COLLS = ["Hypothesis_R", "Hypothesis_Stairwell_Descent", "Scale_Check", "Platform_Corner_Markers", "Platform_Outline_Range", "Placeholders"]
-HIDE_OBJS = ["Lava_Level_Ref", "Trench_End_Unknown", "Entrance_Passage_Unknown_End", "Facility_Body_Unknown"]
+HIDE_OBJS = ["Lava_Level_Ref", "Trench_End_Unknown", "Entrance_Passage_Unknown_End", "Facility_Body_Unknown", "Side_Walkway_Unknown_End"]
 hidden_log = []
 for cn in HIDE_COLLS:
     c = D.collections.get(cn)
@@ -176,6 +176,14 @@ MAT = {
     "racks": metal("STAGE_BayRacks", (0.24, 0.21, 0.18), (0.12, 0.10, 0.09), streak=False, metallic=0.5, scale=2.0),
     "baylight": emit("STAGE_BayLight", (1.0, 0.72, 0.45), 4.0),
 }
+if CFG.get("materials_v2"):   # 구조 수정 3차(A3e) 표면 정리: 세로 얼룩(나뭇결처럼 보임) 제거, 어두운 중성 회갈색 금속, 틈 속 밑동은 어둡고 거친 면
+    MAT["facility"] = metal("STAGE_FacilityMetal2", (0.115, 0.108, 0.102), (0.055, 0.052, 0.05), streak=False)
+    MAT["facade"] = metal("STAGE_FacadeMetal2", (0.16, 0.15, 0.142), (0.08, 0.075, 0.07), streak=False)
+    MAT["box"] = metal("STAGE_BoxMetal2", (0.22, 0.20, 0.185), (0.11, 0.10, 0.093), streak=False)
+    MAT["sidewall"] = metal("STAGE_PlatformSide2", (0.13, 0.12, 0.112), (0.06, 0.056, 0.052), streak=False)
+    MAT["racks"] = metal("STAGE_BayRacks2", (0.13, 0.12, 0.11), (0.07, 0.065, 0.06), streak=False, metallic=0.5, scale=2.0)
+    MAT["bayinner"] = metal("STAGE_BayInner2", (0.075, 0.07, 0.066), (0.04, 0.037, 0.035), streak=False, metallic=0.4)
+MAT["gapface"] = metal("STAGE_GapFace", (0.028, 0.025, 0.023), (0.012, 0.011, 0.01), streak=False, metallic=0.15, rough=(0.85, 0.98))
 ASSIGN = {
     "Landing_Platform": "deckbase", "Platform_Sidewalls": "sidewall",
     "Hangar_Walls": "facility", "Structural_Pillars": "facade", "Hangar_Roof": "roof", "Corridor_Lower_Walkway": "facility",
@@ -189,6 +197,8 @@ ASSIGN = {
     "Hangar_Bay_Partitions": "facade", "Hangar_Wall_Panels": "facade", "Hangar_Bay_Shell": "bayinner", "Hangar_Bay_Equipment": "equip",
     "Hangar_Bay_Racks": "racks", "Hangar_Bay_Lights": "baylight", "Entrance_Outer_Frame": "facade", "Entrance_Passage_Frames": "facility",
     "Low_Box_Bands": "box",
+    "R_Box_Inner_Members": "boxinner", "R_Box_Lit_Slots": "slot", "Side_Walkway_Floor": "plateB", "Side_Walkway_Rails": "trim", "Side_Walkway_Lights": "blue",
+    "Facility_Base_Wall": "gapface", "Facility_End_Block": "facility",
 }
 for n, k in ASSIGN.items():
     o = D.objects.get(n)
@@ -204,7 +214,8 @@ for n, w in (("Hangar_Walls", 0.06), ("Structural_Pillars", 0.05), ("Hangar_Roof
              ("Edge_Curbs_Near_Stairwell", 0.03), ("Back_Edge_Posts", 0.03), ("Platform_Sidewalls", 0.05), ("Floor_Plates", 0.012),
              ("Entrance_Housing", 0.04), ("Entrance_Side_Structure_R", 0.025), ("Entrance_Bridge_Floor", 0.02),
              ("Hangar_Bay_Partitions", 0.05), ("Hangar_Wall_Panels", 0.04), ("Hangar_Bay_Equipment", 0.04), ("Hangar_Bay_Racks", 0.015),
-             ("Entrance_Outer_Frame", 0.035), ("Entrance_Passage_Frames", 0.015), ("Low_Box_Bands", 0.02)):
+             ("Entrance_Outer_Frame", 0.035), ("Entrance_Passage_Frames", 0.015), ("Low_Box_Bands", 0.02),
+             ("R_Box_Inner_Members", 0.015), ("Side_Walkway_Floor", 0.02), ("Side_Walkway_Rails", 0.02), ("Facility_End_Block", 0.05)):
     o = D.objects.get(n)
     if o is None:
         continue

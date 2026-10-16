@@ -113,7 +113,7 @@ for key, spec in CFG["occluders"].items():
             for mt in me.materials:
                 m2.materials.append(mt)
             if len(m2.polygons):
-                sprites.append({"id": f"{key}_{k}", "obj": make_obj(f"SPR_{key}_{k}", m2)})
+                sprites.append({"id": f"{key}_{k}", "obj": make_obj(f"SPR_{key}_{k}", m2), "hull": spec.get("hull", True)})
     elif spec.get("split_islands"):
         bm = bmesh.new(); bm.from_mesh(me); bm.verts.ensure_lookup_table()
         seen = set(); comps = []
@@ -133,8 +133,10 @@ for key, spec in CFG["occluders"].items():
             m2 = D.meshes.new(f"{key}_{k}"); b2.to_mesh(m2); b2.free()
             for mt in me.materials:
                 m2.materials.append(mt)
-            sprites.append({"id": f"{key}_{k}", "obj": make_obj(f"SPR_{key}_{k}", m2)})
+            sprites.append({"id": f"{key}_{k}", "obj": make_obj(f"SPR_{key}_{k}", m2), "hull": spec.get("hull", True)})
         bm.free()
+    else:                             # 나누지 않고 한 조각(A3e: 시설 끝·외부 통로 난간). hull: false면 충돌은 광선 판정만
+        sprites.append({"id": f"{key}_0", "obj": make_obj(f"SPR_{key}_0", me), "hull": spec.get("hull", True)})
 for o in occl_src:
     o.hide_render = True              # 원본은 빼고 조각이 대신함(그림자·빛은 조각이 그대로 만듦)
 print("sprites", [s["id"] for s in sprites], flush=True)
@@ -185,7 +187,7 @@ for o in [o for o in D.objects if (rendered(o) or o.name.startswith("SPR_")) and
     ev.to_mesh_clear()
 bvh = BVHTree.FromPolygons(verts, tris_all)
 floor_names = set(col["floor_objects"])
-X0, X1, Y0, Y1 = -18.0, 18.5, -26.0, 23.5                       # 판 주변 + 진입 바닥·문틀 안(월드)
+X0, X1, Y0, Y1 = col.get("bounds_world", [-18.0, 18.5, -26.0, 23.5])   # 판 주변 + 진입 바닥·문틀 안(월드). A3e는 확장부·외부 통로까지
 gx_a, gy_a = SC.to_game(CFG, X1, Y1); gx_b, gy_b = SC.to_game(CFG, X0, Y0)
 gx0, gy0 = math.floor(gx_a), math.floor(gy_a)
 cols = int(math.ceil((gx_b - gx0) / cell)); rows = int(math.ceil((gy_b - gy0) / cell))
@@ -322,10 +324,10 @@ for k, (x, y) in enumerate(CFG["edge_light_xy"]):
 for y in CFG["eave_spot_y"]:
     gx, gy = SC.to_game(CFG, CFG["eave_spot_x"] - 3.0, y); lights.append({"x": gx, "y": gy, "z": 0.5, "r": 255, "g": 220, "b": 170, "rad": 120, "flicker": 0.0})
 egx, egy = SC.to_game(CFG, 14.0, ec[1]); lights.append({"x": egx, "y": egy, "z": 1.0, "r": 200, "g": 220, "b": 255, "rad": 90, "flicker": 0.02})
-for X, Y in ((-17.5, -25.5), (-17.5, 0), (-17.5, 23), (0, -25.5), (14.5, -25.5), (0, 23)):
+for X, Y in CFG.get("lava_glow_xy", ((-17.5, -25.5), (-17.5, 0), (-17.5, 23), (0, -25.5), (14.5, -25.5), (0, 23))):
     gx, gy = SC.to_game(CFG, X, Y); lights.append({"x": gx, "y": gy, "z": 0.0, "r": 255, "g": 110, "b": 40, "rad": 200, "flicker": 0.12})
 data = {
-    "version": 1, "name": st["name"], "layout": CFG["layout"], "note": "A3b 임시 작업 기준(영화 고증 확정 아님). 좌표는 게임 타일(1 m). gx = OX − Y, gy = OY − X (Blender m)",
+    "version": 1, "name": st["name"], "layout": CFG["layout"], "note": f"{CFG['layout']} 임시 작업 기준(영화 고증 확정 아님). 좌표는 게임 타일(1 m). gx = OX − Y, gy = OY − X (Blender m)",
     "offset": CFG["game"],
     "backdrop": {"sd": "ground_sd.png", "hd": "ground_hd.webp", "x": SX0, "y": SY0, "w": W1, "h": H1, "fill": list(FILL)},
     "sprites": {"sd": "sprites_sd.png", "hd": "sprites_hd.png"},
