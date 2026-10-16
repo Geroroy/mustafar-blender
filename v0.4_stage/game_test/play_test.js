@@ -129,7 +129,10 @@ const note = (k, v) => { log.push({ k, v }); console.log(k, JSON.stringify(v)); 
     await clickTo(ex + 0.9, ey + 3.4, 5000); note('out again', await pos());
     // 틈 위: 시설 쪽(게임 y 감소)으로 열린 틈을 향해 클릭 → 판 가장자리에서 멈춰야 함
     await clickTo(103, 79.5, 5000); const g = await pos(); note('gap attempt', g);
-    note('stopped before gap (gy >= 81)', g.y >= 80.95);
+    // 틈 위가 아님: 서 있는 칸이 걸을 수 있는 칸(틈 칸은 막힘)이고, 판 위(gy ≥ 80.95) 또는 진입 바닥 폭 안(BRIDGE_GX)
+    const BG = (process.env.BRIDGE_GX || '').split(',').map(Number);
+    const onWalk = await page.evaluate(() => !window.__game.world.isBlocked(window.__game.player.x, window.__game.player.y));
+    note('stopped before gap (deck or bridge, walkable)', onWalk && (g.y >= 80.95 || (BG.length === 2 && g.x >= BG[0] && g.x <= BG[1])));
     await page.screenshot({ path: path.join(OUT, '06c_gap_edge.png') });
     // 외피 벽 통과: 문 옆 외피 쪽으로
     await clickTo(117.5, 78.0, 5000); const w = await pos(); note('housing wall attempt', w);
@@ -145,6 +148,8 @@ const note = (k, v) => { log.push({ k, v }); console.log(k, JSON.stringify(v)); 
     const r1 = await holdUntil(['w', 'd'], (p) => p.y <= ey, 3000);
     await page.waitForTimeout(150);
     const k1 = await pos(); note('keys in', { ...k1, ms: r1.ms }); note('keys in: inside door frame', await inside());
+    const DG = (process.env.DOOR_GX || '').split(',').map(Number);
+    if (DG.length === 2) note('keys in: through threshold within door opening', k1.y <= ey && k1.x >= DG[0] && k1.x <= DG[1]);
     await page.screenshot({ path: path.join(OUT, '06d_keys_inside.png') });
     const r2 = await holdUntil(['s', 'a'], (p) => p.y >= ey + 1.6, 3000);
     const k2 = await pos(); note('keys out', { ...k2, ms: r2.ms }); note('keys out: back on bridge (gy > exit y1)', k2.y > S.exit.y1);

@@ -1,0 +1,563 @@
+[
+ {
+  "k": "ready",
+  "v": true
+ },
+ {
+  "k": "spawn",
+  "v": {
+   "x": 82,
+   "y": 101.5
+  }
+ },
+ {
+  "k": "after D",
+  "v": {
+   "x": 82.92,
+   "y": 100.58
+  }
+ },
+ {
+  "k": "after S",
+  "v": {
+   "x": 83.73,
+   "y": 101.39
+  }
+ },
+ {
+  "k": "exit",
+  "v": {
+   "x0": 114.51,
+   "y0": 78.4,
+   "x1": 115.61,
+   "y1": 79
+  }
+ },
+ {
+  "k": "combat",
+  "v": {
+   "area": [
+    [
+     115.5,
+     107.5
+    ],
+    [
+     121,
+     102
+    ],
+    [
+     121,
+     82.5
+    ],
+    [
+     90,
+     82.5
+    ],
+    [
+     90,
+     107.5
+    ]
+   ],
+   "anakinStart": [
+    105,
+    93.5
+   ],
+   "opponentStart": [
+    111,
+    88.5
+   ],
+   "trigger": {
+    "center": [
+     102,
+     93.5
+    ],
+    "radius": 4
+   }
+  }
+ },
+ {
+  "k": "box side",
+  "v": {
+   "x": 106.08,
+   "y": 87.67
+  }
+ },
+ {
+  "k": "box back end",
+  "v": {
+   "x": 106.55,
+   "y": 83.04
+  }
+ },
+ {
+  "k": "click into box (should stay outside)",
+  "v": {
+   "x": 112.48,
+   "y": 85.5
+  }
+ },
+ {
+  "k": "player inside box footprint",
+  "v": false
+ },
+ {
+  "k": "edge (should stop at deck edge)",
+  "v": {
+   "x": 102.37,
+   "y": 108.52
+  }
+ },
+ {
+  "k": "player on walkable cell",
+  "v": true
+ },
+ {
+  "k": "combat trigger point",
+  "v": {
+   "x": 101.98,
+   "y": 93.94
+  }
+ },
+ {
+  "k": "R front (-X side)",
+  "v": {
+   "x": 119.74,
+   "y": 86.32
+  }
+ },
+ {
+  "k": "R front (-X side): on walkable cell",
+  "v": true
+ },
+ {
+  "k": "R -Y end corridor",
+  "v": {
+   "x": 124.5,
+   "y": 84.04
+  }
+ },
+ {
+  "k": "R -Y end corridor: on walkable cell",
+  "v": true
+ },
+ {
+  "k": "click into R (should stay outside)",
+  "v": {
+   "x": 120.5,
+   "y": 85.5
+  }
+ },
+ {
+  "k": "player inside R footprint",
+  "v": false
+ },
+ {
+  "k": "ext front edge (beyond -> stop)",
+  "v": {
+   "x": 124.73,
+   "y": 85.5
+  }
+ },
+ {
+  "k": "ext front edge (beyond -> stop): on walkable cell",
+  "v": true
+ },
+ {
+  "k": "ext diagonal edge (beyond -> stop)",
+  "v": {
+   "x": 123.51,
+   "y": 89.46
+  }
+ },
+ {
+  "k": "ext diagonal edge (beyond -> stop): on walkable cell",
+  "v": true
+ },
+ {
+  "k": "front-left cut (beyond -> stop)",
+  "v": {
+   "x": 117.5,
+   "y": 107.5
+  }
+ },
+ {
+  "k": "front-left cut (beyond -> stop): on walkable cell",
+  "v": true
+ },
+ {
+  "k": "back-left cut (beyond -> stop)",
+  "v": {
+   "x": 91.42,
+   "y": 110.2
+  }
+ },
+ {
+  "k": "back-left cut (beyond -> stop): on walkable cell",
+  "v": true
+ },
+ {
+  "k": "walkway start",
+  "v": {
+   "x": 77.6,
+   "y": 87.47
+  }
+ },
+ {
+  "k": "walkway start: on walkable cell",
+  "v": true
+ },
+ {
+  "k": "walkway end (gate)",
+  "v": {
+   "x": 74.61,
+   "y": 70.19
+  }
+ },
+ {
+  "k": "walkway end (gate): on walkable cell",
+  "v": true
+ },
+ {
+  "k": "walkway end reached (gy <= 71)",
+  "v": true
+ },
+ {
+  "k": "beyond walkway gate (should stop)",
+  "v": {
+   "x": 74.51,
+   "y": 70.45
+  }
+ },
+ {
+  "k": "beyond walkway gate (should stop): on walkable cell",
+  "v": true
+ },
+ {
+  "k": "stopped at gate (gy >= 69.6)",
+  "v": true
+ },
+ {
+  "k": "walkway -> gap side (should stop)",
+  "v": {
+   "x": 75.5,
+   "y": 77.5
+  }
+ },
+ {
+  "k": "walkway -> gap side (should stop): on walkable cell",
+  "v": true
+ },
+ {
+  "k": "stayed on walkway side (gx <= 76.2)",
+  "v": true
+ },
+ {
+  "k": "walkway back to platform",
+  "v": {
+   "x": 75.98,
+   "y": 83.9
+  }
+ },
+ {
+  "k": "walkway back to platform: on walkable cell",
+  "v": true
+ },
+ {
+  "k": "toward door approach",
+  "v": {
+   "x": 98.96,
+   "y": 85.05
+  }
+ },
+ {
+  "k": "bridge (front of door)",
+  "v": {
+   "x": 115.12,
+   "y": 80.2
+  }
+ },
+ {
+  "k": "door inside (locked)",
+  "v": {
+   "x": 115.05,
+   "y": 78.75
+  }
+ },
+ {
+  "k": "inside door frame",
+  "v": true
+ },
+ {
+  "k": "back out to deck",
+  "v": {
+   "x": 115.89,
+   "y": 81.86
+  }
+ },
+ {
+  "k": "inside after back out",
+  "v": false
+ },
+ {
+  "k": "door inside again",
+  "v": {
+   "x": 115.06,
+   "y": 78.75
+  }
+ },
+ {
+  "k": "inside door frame 2",
+  "v": true
+ },
+ {
+  "k": "out again",
+  "v": {
+   "x": 115.95,
+   "y": 82.08
+  }
+ },
+ {
+  "k": "gap attempt",
+  "v": {
+   "x": 114.12,
+   "y": 80.62
+  }
+ },
+ {
+  "k": "stopped before gap (deck or bridge, walkable)",
+  "v": true
+ },
+ {
+  "k": "housing wall attempt",
+  "v": {
+   "x": 115.5,
+   "y": 78.5
+  }
+ },
+ {
+  "k": "not inside housing wall",
+  "v": true
+ },
+ {
+  "k": "keys start (bridge)",
+  "v": {
+   "x": 115.05,
+   "y": 80.3
+  }
+ },
+ {
+  "k": "keys in",
+  "v": {
+   "x": 114.47,
+   "y": 78.56,
+   "ms": 2802
+  }
+ },
+ {
+  "k": "keys in: inside door frame",
+  "v": false
+ },
+ {
+  "k": "keys in: through threshold within door opening",
+  "v": true
+ },
+ {
+  "k": "keys out",
+  "v": {
+   "x": 115.05,
+   "y": 80.3,
+   "ms": 2495
+  }
+ },
+ {
+  "k": "keys out: back on bridge (gy > exit y1)",
+  "v": true
+ },
+ {
+  "k": "front of door (unlocked)",
+  "v": {
+   "x": 115.07,
+   "y": 80.04
+  }
+ },
+ {
+  "k": "no premature exit at door front",
+  "v": true
+ },
+ {
+  "k": "exit attempt",
+  "v": {
+   "x": 115.05,
+   "y": 78.9
+  }
+ },
+ {
+  "k": "final pos",
+  "v": {
+   "x": 115.05,
+   "y": 78.9
+  }
+ },
+ {
+  "k": "events",
+  "v": [
+   [
+    "stage:combatArea",
+    true,
+    3.35
+   ],
+   [
+    "stage:combatTrigger",
+    {
+     "area": [
+      [
+       115.5,
+       107.5
+      ],
+      [
+       121,
+       102
+      ],
+      [
+       121,
+       82.5
+      ],
+      [
+       90,
+       82.5
+      ],
+      [
+       90,
+       107.5
+      ]
+     ],
+     "anakinStart": [
+      105,
+      93.5
+     ],
+     "opponentStart": [
+      111,
+      88.5
+     ],
+     "trigger": {
+      "center": [
+       102,
+       93.5
+      ],
+      "radius": 4
+     }
+    },
+    5.4
+   ],
+   [
+    "stage:combatArea",
+    false,
+    16.83
+   ],
+   [
+    "stage:combatArea",
+    true,
+    18.2
+   ],
+   [
+    "stage:combatArea",
+    false,
+    25.92
+   ],
+   [
+    "stage:combatArea",
+    true,
+    28.97
+   ],
+   [
+    "stage:combatArea",
+    false,
+    29.52
+   ],
+   [
+    "stage:combatArea",
+    true,
+    33.32
+   ],
+   [
+    "stage:combatArea",
+    false,
+    35.77
+   ],
+   [
+    "stage:combatArea",
+    true,
+    61.7
+   ],
+   [
+    "stage:combatArea",
+    false,
+    68.07
+   ],
+   [
+    "stage:exitLocked",
+    null,
+    68.87
+   ],
+   [
+    "stage:exitLocked",
+    null,
+    77.8
+   ],
+   [
+    "stage:exit",
+    {
+     "stage": "mustafar_landing",
+     "name": "무스타파 · 착륙장",
+     "combat": {
+      "area": [
+       [
+        115.5,
+        107.5
+       ],
+       [
+        121,
+        102
+       ],
+       [
+        121,
+        82.5
+       ],
+       [
+        90,
+        82.5
+       ],
+       [
+        90,
+        107.5
+       ]
+      ],
+      "anakinStart": [
+       105,
+       93.5
+      ],
+      "opponentStart": [
+       111,
+       88.5
+      ],
+      "trigger": {
+       "center": [
+        102,
+        93.5
+       ],
+       "radius": 4
+      }
+     },
+     "exit": {
+      "x0": 114.51,
+      "y0": 78.4,
+      "x1": 115.61,
+      "y1": 79
+     },
+     "time": 81.89889999999735
+    },
+    81.9
+   ]
+  ]
+ }
+]
