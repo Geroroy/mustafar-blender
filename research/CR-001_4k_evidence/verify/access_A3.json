@@ -29,6 +29,7 @@
   "Hangar_Walls",
   "Landing_Platform",
   "Low_Box",
+  "Low_Box_End_Block",
   "Low_Box_Inner_Members",
   "Low_Box_Lit_Slots",
   "Low_Box_Outer_Skin",
@@ -39,12 +40,12 @@
  "note": "바닥 연결 검사값(모델). 영화 치수도, 캐릭터 충돌 검증도 아님. 폭은 막힌 칸 사이 거리라 격자 때문에 ±0.1 m. 0.9 m 위 돌출(A자 경사 테두리)은 보지 않음",
  "approach": {
   "connected": true,
-  "min_clear_width_m": 2.72,
+  "min_clear_width_m": 2.48,
   "bottleneck_xy": [
-   11.95,
+   11.05,
    -20.65
   ],
-  "path_len_m": 28.2,
+  "path_len_m": 27.7,
   "passes_box_minusY_side": true,
   "passes_box_plusY_side": false,
   "goal_cells": 98

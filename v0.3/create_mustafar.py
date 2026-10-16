@@ -521,23 +521,42 @@ if RH and LAYOUT_NAME in RH["layouts"]:          # 11748 오른쪽 낮은 구조
 PH, SBZ = v("stairwell", "parapet_height"), v("stairwell", "bottom_z")
 T_ = 0.35
 LB = DIM["v03"]["low_box"]
+EFD = LB.get("end_form")
+EF = bool(EFD) and LAYOUT_NAME in EFD["layouts"]     # CR-008: −Y 끝 형태(솟은 끝 블록 + 끝 단) — 지정한 배치 후보에서만
+if EF:
+    NEND_ = DIM["v03"]["stairwell_skin"]["end_tiers"]["value"]
+    EY5 = hy0 - 0.3 * NEND_                          # 맨 −Y 바닥 접점: 기존 끝 단 끝(y −19.4) 그대로 — A3 관계를 정한 값
+    EY3 = EY5 + EFD["tier_len"]["value"]; EY2 = EY3 + EFD["raised_len"]["value"]; EY1 = EY2 + EFD["chamfer"]["value"]
+    EDH, EZT = EFD["raised_dh"]["value"], EFD["tier_top_frac"]["value"] * PH
+YB0 = EY1 if EF else hy0                             # 주 몸체(열린 윗면) −Y 끝
+YS0 = EY3 if EF else hy0                             # 바깥 경사 패널·구획의 −Y 끝
 bm = bmesh.new()
-add_box(bm, (hx0, hy0, DECK_Z), (hx0 + T_, hy1, PH))          # −X 벽
-add_box(bm, (hx1 - T_, hy0, DECK_Z), (hx1, hy1, PH))          # +X 벽 — 안쪽 면에 밝은 틈
+add_box(bm, (hx0, YB0, DECK_Z), (hx0 + T_, hy1, PH))          # −X 벽
+add_box(bm, (hx1 - T_, YB0, DECK_Z), (hx1, hy1, PH))          # +X 벽 — 안쪽 면에 밝은 틈
 add_box(bm, (hx0, hy1 - T_, DECK_Z), (hx1, hy1, PH))          # +Y 끝 벽
-add_box(bm, (hx0, hy0, DECK_Z), (hx1, hy0 + T_, PH))          # −Y 끝 벽(11246: 테두리가 사방으로 닫혀 보임)
+if not EF:
+    add_box(bm, (hx0, hy0, DECK_Z), (hx1, hy0 + T_, PH))      # −Y 끝 벽(11246: 테두리가 사방으로 닫혀 보임)
 make_obj("Low_Box", bm, ("C", "P"),
          "R2·11615·11246: 낮은 상자(존재 VERIFIED, 위치는 R2 측정). 기능 UNKNOWN — 하강 계단 판정은 철회(가설은 숨긴 컬렉션 Hypothesis_Stairwell_Descent). 높이 1.2 m는 v0.2 기준안 유지(후보 0.5~1.0 m는 미반영)",
          "Facility_Structure", parent=facility_root)
 NIM, TG = LB["inner_members"]["count"]["value"], LB["inner_members"]["top_gap"]["value"]
 bm = bmesh.new()
-pitch_i = (hy1 - hy0 - 2 * T_) / NIM
+pitch_i = (hy1 - YB0 - 2 * T_) / NIM
 for k in range(NIM):                                            # 안쪽 반복 경사 부재(11246, 톱니 모양) — 판 윗면 위에서만
-    y0_ = hy0 + T_ + k * pitch_i
+    y0_ = YB0 + T_ + k * pitch_i
     add_prism_x(bm, [(y0_, DECK_Z), (y0_ + pitch_i, DECK_Z), (y0_ + pitch_i, PH - TG), (y0_ + pitch_i * 0.85, PH - TG)], hx0 + T_, hx1 - T_)
 make_obj("Low_Box_Inner_Members", bm, ("C", "U"),
          "11246: 상자 안쪽에 반복되는 밝은 경사 부재(존재 VERIFIED, 개수 약 5 후보). 계단·환기·조명 등 기능 UNKNOWN. 판 윗면 아래 구조는 만들지 않음",
          "Facility_Structure", mat=material((0.75, 0.72, 0.66)), parent=facility_root)
+
+if EF:                                                          # 솟은 끝 블록 + 끝 단(윤곽은 11246·11726·11748, 길이·높이는 후보)
+    bm = bmesh.new()
+    add_prism_x(bm, [(EY3, DECK_Z), (EY1, DECK_Z), (EY1, PH), (EY2, PH + EDH), (EY3, PH + EDH)], hx0 - 0.06, hx1)     # 모따기로 솟아 평평한 윗면
+    add_prism_x(bm, [(EY5, DECK_Z), (EY3, DECK_Z), (EY3, EZT), (EY3 - 0.5 * (EY3 - EY5), EZT)], hx0 - 0.06, hx1)       # 끝 단 한 단 + 경사 앞면
+    make_obj("Low_Box_End_Block", bm, ("C", "U"),
+             f"11246·11726·11748: 낮은 상자 −Y 끝의 솟은 끝 블록(주 테두리 끝 y {EY1:.2f}에서 모따기로 {EDH} m 솟음, 윗면 y {EY2:.2f}~{EY3:.2f})과 끝 단(윗면 {EZT:.2f} m, 바닥 접점 y {EY5:.2f}). "
+             "윤곽(순서·형태)은 세 프레임에서 직접 보임, 절대 길이·높이는 M12 후보값. 기능 UNKNOWN. 판 아래 구조 없음",
+             "Facility_Structure", parent=facility_root)
 
 # 숨긴 가설 컬렉션: 이전 하강 계단 해석(판 관통 구멍 표시 + 하강 발판). 기본 렌더·라벨에 나오지 않음
 bm = bmesh.new()
@@ -558,9 +577,9 @@ SKO, RST, NEND = SK["skirt_out"]["value"], SK["rim_steps"]["value"], SK["end_tie
 bm = bmesh.new()
 # 바깥 경사 패널: 위(난간 높이 − 단 높이)에서 아래(판)로 갈수록 SKO만큼 벌어짐. −X 면과 뒤(+Y) 끝만(+X는 판 가장자리)
 zt = PH - sum(RST)
-add_prism_x(bm, [(hy0, DECK_Z), (hy1, DECK_Z), (hy1, zt), (hy0, zt)], hx0 - 0.02, hx0)          # 이음 면
+add_prism_x(bm, [(YS0, DECK_Z), (hy1, DECK_Z), (hy1, zt), (YS0, zt)], hx0 - 0.02, hx0)          # 이음 면
 for poly_xz in ([(hx0 - SKO, DECK_Z), (hx0, DECK_Z), (hx0, zt), (hx0 - 0.06, zt)],):
-    a = [bm.verts.new((x_, hy0, z_)) for x_, z_ in poly_xz]; b = [bm.verts.new((x_, hy1 + SKO, z_)) for x_, z_ in poly_xz]
+    a = [bm.verts.new((x_, YS0, z_)) for x_, z_ in poly_xz]; b = [bm.verts.new((x_, hy1 + SKO, z_)) for x_, z_ in poly_xz]
     bm.faces.new(a[::-1]); bm.faces.new(b)
     for i_ in range(4):
         bm.faces.new((a[i_], a[(i_ + 1) % 4], b[(i_ + 1) % 4], b[i_]))
@@ -568,21 +587,21 @@ add_prism_x(bm, [(hy1, DECK_Z), (hy1 + SKO, DECK_Z), (hy1 + 0.06, zt), (hy1, zt)
 # 단이 진 윗테두리: 벽 위에 바깥쪽부터 낮아지는 단(형태)
 for j, dz_ in enumerate(RST):
     z0_ = zt + sum(RST[:j]); inset = 0.12 * j
-    add_box(bm, (hx0 - 0.06 + inset, hy0, z0_), (hx0 + T_, hy1 + 0.06 - inset, z0_ + dz_))
+    add_box(bm, (hx0 - 0.06 + inset, YB0, z0_), (hx0 + T_, hy1 + 0.06 - inset, z0_ + dz_))
     add_box(bm, (hx0 + T_, hy1 - T_, z0_), (hx1, hy1 + 0.06 - inset, z0_ + dz_))
 # 앞 끝(−Y) 계단식으로 낮아지는 바깥 단(형태만, 기능 UNKNOWN): 테두리 높이에서 판까지 NEND단, 상자 밖 0.9 m 안에서
-for j in range(NEND):
+for j in range(0 if EF else NEND):                              # 끝 형태(EF)를 쓰는 후보에서는 Low_Box_End_Block이 대신함
     z1_ = PH * (NEND - j) / (NEND + 1); y1_ = hy0 - 0.3 * j
     add_box(bm, (hx0 - 0.06, y1_ - 0.3, DECK_Z), (hx0 + T_, y1_, z1_))
     add_box(bm, (hx1 - T_, y1_ - 0.3, DECK_Z), (hx1, y1_, z1_))
 TZD = SK["side_trapezoids"]                                     # 긴 옆면(−X)의 반복 사다리꼴 구획(11246, 오목/볼록 미구분)
 NT, GD = TZD["count"]["value"], TZD["panel_relief"]["value"]    # GD: 구획 판을 바깥으로 덧붙이는 두께(중립 표현, 홈 깊이 아님)
 B0, B1 = TZD["band"]["value"]; WT, WB = TZD["top_bottom_width"]["value"]
-pitch_ = (hy1 - hy0) / NT
+pitch_ = (hy1 - YS0) / NT
 face_x = lambda z: (hx0 - 0.06) - (SKO - 0.06) * (zt - z) / (zt - DECK_Z)       # 경사 패널 바깥면의 x(높이 z에서)
 za, zb = DECK_Z + B0 * (zt - DECK_Z), DECK_Z + B1 * (zt - DECK_Z)
 for j in range(NT):
-    yc_ = hy0 + pitch_ * (j + 0.5)
+    yc_ = YS0 + pitch_ * (j + 0.5)
     pts = []
     for z_, w_ in ((za, WB), (zb, WT)):
         for s_ in (-1, 1):
@@ -593,8 +612,8 @@ make_obj("Low_Box_Outer_Skin", bm, ("C", "U"),
          "11246·11224·11736: 낮은 상자 바깥 경사 패널·단이 진 윗테두리·앞 끝의 계단식 바깥 단·긴 옆면의 반복 사다리꼴 구획(존재 VERIFIED, 형태만, 기능 UNKNOWN). 벌어짐·단 높이·단 수·구획 수·구획 판 두께(0.05 m, 오목/볼록 미구분의 중립 표현)는 후보. 높이 1.2 m·위치는 기준안 유지",
          "Facility_Structure", parent=facility_root)
 bm = bmesh.new()
-for k in range(5):   # 빛나는 틈 위치(형상만)
-    yy = hy1 - 0.9 - k * 1.15
+for k in range(5):   # 빛나는 틈 위치(형상만). 끝 형태(EF)에서는 짧아진 열린 구간 안에 5개를 고르게 배치(11615의 밝은 띠 수 유지)
+    yy = hy1 - 0.9 - k * 1.15 if not EF else (hy1 - T_ - 0.45) - k * ((hy1 - T_ - 0.45) - (YB0 + T_ + 0.45)) / 4
     add_box(bm, (hx1 - T_ - 0.06, yy - 0.3, 0.2), (hx1 - T_, yy + 0.3, 1.0))
 make_obj("Low_Box_Lit_Slots", bm, ("C", "P"), "R2·11615: 상자 안쪽 면에서 밝게 보이는 세로 틈(존재 VERIFIED). 조명·반사 등 기능 UNKNOWN", "Facility_Structure",
          mat=material((1.0, 0.9, 0.75), 6.0), parent=facility_root)
@@ -757,8 +776,8 @@ ANCH = {
     "Landing_Platform": (X0 + 6, Y0 + 5, 0), "Floor_Plates": (X0 + 12, Y0 + 14, 0), "Platform_Sidewalls": (X0 + 10, Y0, -2),
     "Hangar_Walls": (XW, FY0 + 3, BEAM * 0.5), "Hangar_Roof": (XW + FDEP / 2, FY1 - 6, ROOF),
     "Structural_Pillars": (XW - FD, 3, 2.0), "Hangar_Spotlights": (XW - OVER, FY0 + 9, BEAM - 0.3),
-    "Corridor_Lower_Walkway": (X1 + GAP / 2, 17, TZ), "Low_Box": (hx0, hy0 + 1, PH),
-    "Edge_Lights_Facility_Side": (X1 - INS, Y1 - 1.5, 0), "Back_Edge_Posts": (*OUT[3], 1.0), "Low_Box_Lit_Slots": (hx1 - T_, hy1 - 2, 1.0), "Low_Box_Inner_Members": (hx0 + 1.2, hy0 + 2.5, PH - TG),
+    "Corridor_Lower_Walkway": (X1 + GAP / 2, 17, TZ), "Low_Box": (hx0, YB0 + 1, PH),
+    "Edge_Lights_Facility_Side": (X1 - INS, Y1 - 1.5, 0), "Back_Edge_Posts": (*OUT[3], 1.0), "Low_Box_Lit_Slots": (hx1 - T_, hy1 - 2, 1.0), "Low_Box_Inner_Members": (hx0 + 1.2, YB0 + 2.5, PH - TG),
     "Corner_FrontLeft": (*OUT[0], 3.0), "Corner_FrontRight": (*OUT[1], 3.0), "Corner_BackLeft": (*OUT[3], 3.0),
     "Support_Placeholder": (X0 + 10, Y0 + 12, -14), "Cliff_Placeholder": (X0 - 10, Y1 + CG, 20),
     "Skiff_Check_29m_x_49m": (scx - SWS / 2 + 4, scy, 5), "Facility_Body_Unknown": (XW + FDEP, 0, 3),
@@ -767,6 +786,8 @@ ANCH = {
     "Back_Edge_Rail": ((OUT[2][0] + OUT[3][0]) / 2, OUT[3][1] + 0.6, RH_), "Edge_Curbs_Near_Stairwell": (cx0 + 1, Y0 + 0.4, ch),
     "Entrance_Apron": (X1 + 3, EY1 + 0.8, 0), "Low_Box_Outer_Skin": (hx0 - 0.3, hy1 + 0.3, 0.5),
 }
+if EF:
+    ANCH["Low_Box_End_Block"] = (hx0 - 0.06, (EY2 + EY3) / 2, PH + EDH)
 if RH and LAYOUT_NAME in RH["layouts"]:
     ANCH["R_Structure_Hypothesis"] = (XE + RH["local_x"]["value"][0], EYC + sum(RH["local_y"]["value"]) / 2, RH["height"]["value"])
 if LAY["forecourt"]:

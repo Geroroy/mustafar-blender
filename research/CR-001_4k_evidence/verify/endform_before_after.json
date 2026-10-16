@@ -1,0 +1,96 @@
+{
+ "end_form": {
+  "Lt": 1.2,
+  "Lr": 1.2,
+  "dh": 0.15
+ },
+ "camera_note": "pre = 수정 전 형상으로 맞춘 카메라(M9·M10), post = 수정 후 형상으로 맞춘 카메라(M12). 각 카메라로 전후를 같은 조건에서 비교. 11748은 두 세트 모두 f 상한, 11726 post는 f 하한",
+ "before_mapping": "P1·P2·P3 → 끝 벽 모서리(x 10.99, y −18.5, 1.2 m), P4 → 끝 단 첫 단, P5 → 끝 단 끝 바닥",
+ "after_mapping": "부위별(P1 테두리 끝, P2 솟은 블록 시작, P3 솟은 블록 끝, P4 끝 단 윗면, P5 바닥 접점)",
+ "errors_px": {
+  "pre_11748": {
+   "before": {
+    "P1(direct)": 249.8,
+    "P2(direct)": 198.1,
+    "P3(direct)": 433.2,
+    "P4(direct)": 355.2,
+    "P5(direct)": 160.6
+   },
+   "after": {
+    "P1(direct)": 785.4,
+    "P2(direct)": 782.9,
+    "P3(direct)": 586.8,
+    "P4(direct)": 481.6,
+    "P5(direct)": 160.6
+   }
+  },
+  "pre_11726": {
+   "before": {
+    "P1(direct)": 248.4,
+    "P2(direct)": 282.7,
+    "P3(estimated)": 524.8,
+    "P5(estimated)": 381.7
+   },
+   "after": {
+    "P1(direct)": 956.1,
+    "P2(direct)": 918.9,
+    "P3(estimated)": 664.6,
+    "P5(estimated)": 381.7
+   }
+  },
+  "pre_11246": {
+   "before": {
+    "P1(direct)": 135.4,
+    "P2(direct)": 61.8,
+    "P3(direct)": 318.1
+   },
+   "after": {
+    "P1(direct)": 154.5,
+    "P2(direct)": 207.2,
+    "P3(direct)": 377.5
+   }
+  },
+  "post_11748": {
+   "before": {
+    "P1(direct)": 578.5,
+    "P2(direct)": 486.9,
+    "P3(direct)": 185.8,
+    "P4(direct)": 178.6,
+    "P5(direct)": 68.4
+   },
+   "after": {
+    "P1(direct)": 67.4,
+    "P2(direct)": 80.8,
+    "P3(direct)": 152.0,
+    "P4(direct)": 84.6,
+    "P5(direct)": 68.4
+   }
+  },
+  "post_11726": {
+   "before": {
+    "P1(direct)": 441.8,
+    "P2(direct)": 400.7,
+    "P3(estimated)": 163.3,
+    "P5(estimated)": 2.5
+   },
+   "after": {
+    "P1(direct)": 57.4,
+    "P2(direct)": 46.9,
+    "P3(estimated)": 105.9,
+    "P5(estimated)": 2.5
+   }
+  },
+  "post_11246": {
+   "before": {
+    "P1(direct)": 438.7,
+    "P2(direct)": 356.9,
+    "P3(direct)": 28.6
+   },
+   "after": {
+    "P1(direct)": 32.2,
+    "P2(direct)": 16.9,
+    "P3(direct)": 115.0
+   }
+  }
+ }
+}
