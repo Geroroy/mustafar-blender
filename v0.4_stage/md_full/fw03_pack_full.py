@@ -6,7 +6,7 @@
   heights.png·collision.png는 fw02 결과 그대로. stage.json: 높이 지도, 출구 없음, 목표 문구.
 실행: .venv-bpy/bin/python v0.4_stage/md_full/fw03_pack_full.py [--hd-backdrop 1.25]
 """
-import json, math, os, sys
+import json, math, os, shutil, sys
 
 import bpy  # noqa: F401  (mathutils)
 
@@ -21,6 +21,9 @@ CFG = json.load(open(os.path.join(HERE, os.environ.get("FW_CONFIG", "full_stage_
 OUT = os.path.normpath(os.path.join(HERE, "..", "out", CFG["out_dir"])); TMP = os.path.join(OUT, "_tmp")
 if "--preview" in sys.argv:                                  # fw02 --preview 결과로 시험(모양 확인용)
     TMP = os.path.join(TMP, "preview"); OUT = os.path.join(OUT, "preview"); os.makedirs(OUT, exist_ok=True)
+    for f in ("collision.png", "heights.png"):             # (fw02 writes the grids to the main out folder in preview mode too)
+        if not os.path.exists(os.path.join(OUT, f)) and os.path.exists(os.path.join(OUT, "..", f)):
+            shutil.copy(os.path.join(OUT, "..", f), os.path.join(OUT, f))
 HD_BG = float(sys.argv[sys.argv.index("--hd-backdrop") + 1]) if "--hd-backdrop" in sys.argv else 1.25
 meta = json.load(open(os.path.join(TMP, "layers_meta.json")))
 BAYER = (np.array([0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5]).reshape(4, 4) / 16.0 - 0.5)
