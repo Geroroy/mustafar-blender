@@ -23,7 +23,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, os.path.di
 import stage_cam as SC  # noqa: E402
 from PIL import Image  # noqa: E402
 
-CFG = json.load(open(os.path.join(HERE, "full_stage_config.json"), encoding="utf-8"))
+CFG = json.load(open(os.path.join(HERE, os.environ.get("FW_CONFIG", "full_stage_config.json")), encoding="utf-8"))
 WALK = np.load(sys.argv[1], allow_pickle=True)
 MO_MASK = np.load(sys.argv[2])
 BSP = sys.argv[3]

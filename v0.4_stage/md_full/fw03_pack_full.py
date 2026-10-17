@@ -17,7 +17,7 @@ Image.MAX_IMAGE_PIXELS = None
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, os.path.dirname(HERE))
 import stage_cam as SC  # noqa: E402
 
-CFG = json.load(open(os.path.join(HERE, "full_stage_config.json"), encoding="utf-8"))
+CFG = json.load(open(os.path.join(HERE, os.environ.get("FW_CONFIG", "full_stage_config.json")), encoding="utf-8"))
 OUT = os.path.normpath(os.path.join(HERE, "..", "out", CFG["out_dir"])); TMP = os.path.join(OUT, "_tmp")
 if "--preview" in sys.argv:                                  # fw02 --preview 결과로 시험(모양 확인용)
     TMP = os.path.join(TMP, "preview"); OUT = os.path.join(OUT, "preview"); os.makedirs(OUT, exist_ok=True)
