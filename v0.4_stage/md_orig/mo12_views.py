@@ -39,7 +39,7 @@ VIEWS = {
     "persp_facade_roof": dict(kind="persp", loc=(6.0, -14.0, 1.7), tgt=(4.0, 10.0, 6.0), lens=24, res=(1600, 900)),
     "persp_eave_lights": dict(kind="persp", loc=(3.0, 2.0, 1.7), tgt=(5.0, 14.0, 4.5), lens=24, res=(1600, 900)),
     "persp_pillars": dict(kind="persp", loc=(24.0, -6.0, -10.0), tgt=(2.0, 12.0, -15.0), lens=24, res=(1600, 900)),
-    "persp_rocks": dict(kind="persp", loc=(8.0, -30.0, 3.0), tgt=(-28.0, -10.0, -14.0), lens=24, res=(1600, 900)),
+    "persp_rocks": dict(kind="persp", loc=(-14.0, -16.0, 1.5), tgt=(-30.0, -8.0, -14.0), lens=24, res=(1600, 900)),
     "persp_glass": dict(kind="persp", loc=(2.0, 49.0, 0.5), tgt=(2.0, 60.0, 0.0), lens=24, res=(1600, 900)),
 }
 bpy.ops.wm.open_mainfile(filepath=BLEND)
