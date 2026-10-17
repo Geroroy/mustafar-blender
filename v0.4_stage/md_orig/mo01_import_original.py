@@ -10,7 +10,7 @@ import hashlib, json, os, sys
 import bpy
 
 MODELS, OUT, REPORT = (os.path.abspath(p) for p in sys.argv[-3:])
-M = "duel_mus_both"
+M = os.environ.get("MO_MAP", "duel_mus_both")   # (the other Mustafar map, duel_mustafar: MO_MAP=duel_mustafar)
 bpy.ops.wm.read_factory_settings(use_empty=True)
 D = bpy.data
 

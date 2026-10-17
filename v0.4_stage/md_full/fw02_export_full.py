@@ -25,14 +25,14 @@ from PIL import Image  # noqa: E402
 
 CFG = json.load(open(os.path.join(HERE, os.environ.get("FW_CONFIG", "full_stage_config.json")), encoding="utf-8"))
 WALK = np.load(sys.argv[1], allow_pickle=True)
-MO_MASK = np.load(sys.argv[2])
+MO_MASK = np.load(sys.argv[2]) if sys.argv[2] != "-" else None   # ("-": no MO mask — the interior comes from the ceiling, CFG interior.mode)
 BSP = sys.argv[3]
 SAMPLES = int(sys.argv[sys.argv.index("--samples") + 1]) if "--samples" in sys.argv else 16
 STAGE_BLEND = os.path.normpath(os.path.join(HERE, "..", CFG["stage_blend"]))
 OUT = os.path.normpath(os.path.join(HERE, "..", "out", CFG["out_dir"])); os.makedirs(OUT, exist_ok=True)
 PREVIEW = "--preview" in sys.argv                       # 분류 확인용 저밀도 미리보기(_tmp/preview, 밀도 0.35, 4샘플)
 TMP = os.path.join(OUT, "_tmp", "preview" if PREVIEW else ""); os.makedirs(TMP, exist_ok=True)
-DEN = 0.35 if PREVIEW else 2
+DEN = 0.35 if PREVIEW else (float(sys.argv[sys.argv.index("--density") + 1]) if "--density" in sys.argv else 2)   # (--density 1.25: the shipped density straight away)
 bpy.ops.wm.open_mainfile(filepath=STAGE_BLEND)
 D = bpy.data; scene = D.scenes["MO_STAGE"]; cam = D.objects["Game_Output_Iso"]; scene.camera = cam
 scene.cycles.samples = 4 if PREVIEW else SAMPLES
@@ -91,12 +91,20 @@ for i, j in zip(ii, jj):
 walk_w &= ~blocked_thin
 floorz = np.where(walk_w, floorz, np.nan)
 print("가는 구조로 막힌 칸", int(blocked_thin.sum()), "→ 걷는 칸", int(walk_w.sum()), flush=True)
-# 실내 = MO 걷는 칸(판 층, bounds [-24,24,-52,26])에 없던 걷는 칸
-mo = np.zeros_like(walk_w)
-oi_, oj_ = int(round((-24.0 - X0w) / cell)), int(round((-52.0 - Y0w) / cell))
-mo[oi_:oi_ + MO_MASK.shape[0], oj_:oj_ + MO_MASK.shape[1]] = MO_MASK
-interior = walk_w & ~mo
-print("실내 칸", int(interior.sum()), "판 층 칸", int((walk_w & mo).sum()), flush=True)
+IC = CFG["interior"]
+if IC.get("mode", "mo_mask") == "ceiling":
+    # 실내 = 걷는 칸 중 머리 위 천장이 ceiling_m 안에 있는 칸 (duel_mustafar: 방·복도 전체. 걷는 층의 머리 위 여유 HR)
+    lvl = np.argmax(np.where(band, Z, -np.inf), axis=2)
+    hr = np.take_along_axis(WALK["HR"], lvl[..., None], 2)[..., 0]
+    interior = walk_w & (hr < IC["ceiling_m"])
+    print("실내 칸(천장 기준)", int(interior.sum()), "바깥 칸", int((walk_w & ~interior).sum()), flush=True)
+else:
+    # 실내 = MO 걷는 칸(판 층, bounds [-24,24,-52,26])에 없던 걷는 칸
+    mo = np.zeros_like(walk_w)
+    oi_, oj_ = int(round((-24.0 - X0w) / cell)), int(round((-52.0 - Y0w) / cell))
+    mo[oi_:oi_ + MO_MASK.shape[0], oj_:oj_ + MO_MASK.shape[1]] = MO_MASK
+    interior = walk_w & ~mo
+    print("실내 칸", int(interior.sum()), "판 층 칸", int((walk_w & mo).sum()), flush=True)
 
 
 def spread(val, ok, steps):
@@ -143,7 +151,16 @@ print("collision", cols, rows, int((mask > 0).sum()), "gx0 gy0", gx0, gy0, flush
 np.savez_compressed(os.path.join(TMP, "walk_full.npz"), walk=walk_w, floorz=floorz, interior=interior)
 
 # ---------------------------------------------------------------- 렌더용 사본: 실내 높이에서 수평 자르기 + 분류
-P = CFG["props"]; IC = CFG["interior"]; cut = IC["cut_m"]
+P = CFG["props"]; cut = IC["cut_m"]
+if not IC.get("cut_levels"):
+    # 실내 바닥 높이들을 자료에서: 0.1 m로 반올림해 200칸 넘게 나오는 높이, 0.3 m 안은 하나로
+    vals, cnt = np.unique(np.round(floorz[interior], 1), return_counts=True)
+    lv = []
+    for v, c_ in zip(vals, cnt):
+        if c_ > 200 and not (lv and abs(v - lv[-1]) < 0.3):
+            lv.append(float(v))
+    IC["cut_levels"] = lv
+    print("실내 층(자료에서)", lv, flush=True)
 cells = lambda c: (int(math.floor((c.x - X0w) / cell)), int(math.floor((c.y - Y0w) / cell)))
 def over_interior(f):
     """면 안을 0.5 m 이하 간격으로 표본 → 어느 표본이 실내 칸(0.5 m 안) 위, 그 바닥 + cut 위에 있으면 지붕.
@@ -218,39 +235,43 @@ Gk = G["OX"] + G["OY"]; bandw = P["band_m"]
 
 
 def make_bands(objs, prefix):
+    """깊이 띠별 조각 메시. 띠마다 bm.copy()를 만들지 않고(duel_mustafar: 띠 440개 × 10만 면 → 13 GB에서 OOM)
+    자른 면을 한 번 훑어 띠별 꼭짓점·면·UV 목록으로 모은 뒤 from_pydata로 만든다."""
     gmin, gmax = 1e9, -1e9
     for ob in objs:
         for v in ob.data.vertices:
             g = Gk - v.co.x - v.co.y; gmin = min(gmin, g); gmax = max(gmax, g)
-    G0b = math.floor(gmin); nb = int(math.ceil((gmax - G0b) / bandw)); bands = {}
+    G0b = math.floor(gmin); nb = int(math.ceil((gmax - G0b) / bandw)); per = {}; mats = []
     for ob in objs:
+        off = len(mats); mats += list(ob.data.materials)
         bm = bmesh.new(); bm.from_mesh(ob.data)
         for k in range(1, nb):
             geom = bm.verts[:] + bm.edges[:] + bm.faces[:]
             bmesh.ops.bisect_plane(bm, geom=geom, plane_co=(Gk - (G0b + k * bandw), 0, 0), plane_no=(1, 1, 0))
-        bm.faces.ensure_lookup_table(); per = {}
+        bm.verts.index_update(); uv = bm.loops.layers.uv.active
         for f in bm.faces:
-            c = f.calc_center_median(); b = int(math.floor((Gk - c.x - c.y - G0b) / bandw))
-            per.setdefault(max(0, min(nb - 1, b)), []).append(f.index)
-        for b, idxs in per.items():
-            keep = set(idxs); b2 = bm.copy(); b2.faces.ensure_lookup_table()
-            bmesh.ops.delete(b2, geom=[f for f in b2.faces if f.index not in keep], context='FACES')
-            bands.setdefault(b, []).append((ob, b2))
+            c = f.calc_center_median(); b = max(0, min(nb - 1, int(math.floor((Gk - c.x - c.y - G0b) / bandw))))
+            d = per.setdefault(b, {"v": [], "vi": {}, "f": [], "uv": [], "m": [], "s": []})
+            idx = []
+            for l in f.loops:
+                key = (id(ob), l.vert.index)
+                if key not in d["vi"]:
+                    d["vi"][key] = len(d["v"]); d["v"].append(tuple(l.vert.co))
+                idx.append(d["vi"][key]); d["uv"].extend(tuple(l[uv].uv) if uv else (0.0, 0.0))
+            d["f"].append(tuple(idx)); d["m"].append(f.material_index + off); d["s"].append(f.smooth)
         bm.free()
     out = []
-    for b in sorted(bands):
-        bm = bmesh.new(); mats = []
-        for ob, b2 in bands[b]:
-            off = len(mats); mats += list(ob.data.materials)
-            for f in b2.faces:
-                f.material_index += off
-            m2 = D.meshes.new("t"); b2.to_mesh(m2); b2.free(); bm.from_mesh(m2); D.meshes.remove(m2)
-        me = D.meshes.new(f"SPR_{prefix}{b}"); bm.to_mesh(me); bm.free()
+    for b in sorted(per):
+        d = per[b]
+        me = D.meshes.new(f"SPR_{prefix}{b}"); me.from_pydata(d["v"], [], d["f"])
         for mt in mats:
             me.materials.append(mt)
+        me.polygons.foreach_set("material_index", d["m"]); me.polygons.foreach_set("use_smooth", d["s"])
+        me.uv_layers.new(name="UVMap").data.foreach_set("uv", d["uv"]); me.validate(); me.update()
         if len(me.polygons):
             o = D.objects.new(f"SPR_{prefix}{b}", me); scene.collection.objects.link(o)
             out.append({"id": f"{prefix}_{b:03d}", "obj": o, "G": G0b + (b + 0.5) * bandw, "roof": prefix == "roof", "band": b})
+        per[b] = None
     for ob in objs:
         D.objects.remove(ob)
     return out

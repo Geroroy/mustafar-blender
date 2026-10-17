@@ -11,7 +11,7 @@ import bpy
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC, OUT = os.path.abspath(sys.argv[1]), os.path.abspath(sys.argv[2])
-CFG = json.load(open(os.path.join(HERE, "mo_stage_config.json"), encoding="utf-8"))
+CFG = json.load(open(os.path.join(HERE, os.environ.get("MO_CONFIG", "mo_stage_config.json")), encoding="utf-8"))
 bpy.ops.wm.open_mainfile(filepath=SRC)
 D = bpy.data
 sc = D.scenes["MO_GAMEFIT"]; sc.name = "MO_STAGE"

@@ -13,10 +13,12 @@ SRC, OUT = sys.argv[1], sys.argv[2]
 bpy.ops.wm.open_mainfile(filepath=SRC)
 D = bpy.data; sc = D.scenes["MO_GAMEFIT"]
 CFG = {"game": {"OX": 96.0, "OY": 95.5}, "frame_boxes": [[[-40, -26, -6], [40, 26, 12]]], "frame_margin_px": [60, 60]}
+if os.environ.get("MO_FRAME"):      # (another map: its own screen range, JSON [[x0,y0,z0],[x1,y1,z1]] m — duel_mustafar)
+    CFG["frame_boxes"] = [json.loads(os.environ["MO_FRAME"])]
 R.ensure_light(sc, sun_rot=(math.radians(50), 0, math.radians(60)), sun=2.5, amb=0.9)
 cd = D.cameras.new("Game_Output_Iso"); cd.clip_start = 1; cd.clip_end = 2000
 cam = D.objects.new("Game_Output_Iso", cd); sc.collection.objects.link(cam); sc.camera = cam
-W, H, ox, oy = SC.setup(sc, cam, CFG, density=0.9)
+W, H, ox, oy = SC.setup(sc, cam, CFG, density=float(os.environ.get("MO_DENSITY", "0.9")))   # (a big map: MO_DENSITY=0.3)
 sc.render.engine = 'CYCLES'; sc.cycles.device = 'CPU'; sc.cycles.samples = 12; sc.cycles.use_denoising = True
 sc.view_settings.view_transform = 'Standard'; sc.render.filepath = OUT
 bpy.ops.render.render(write_still=True, scene=sc.name)

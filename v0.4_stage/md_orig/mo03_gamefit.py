@@ -15,10 +15,12 @@ SRC, OUT, REPORT = (os.path.abspath(p) for p in sys.argv[1:4])
 ROT = float(sys.argv[sys.argv.index("--rot") + 1]) if "--rot" in sys.argv else 180.0
 S = 0.028125
 C = (3888.0, -952.0, 168.0)      # 판 윗면(z 168) 위, 시설 쪽 판 가장자리(x 3888) 가운데(y −952). 원본 마크 PAD 에서 읽음
+if "--center" in sys.argv:          # (다른 맵: 원점을 u로 지정 — duel_mustafar)
+    k = sys.argv.index("--center"); C = tuple(float(v) for v in sys.argv[k + 1:k + 4])
 
 bpy.ops.wm.open_mainfile(filepath=SRC)
 D = bpy.data
-sc = D.scenes["SRC_duel_mus_both"]
+sc = next(s for s in D.scenes if s.name.startswith("SRC_"))
 objs = [o for o in sc.collection.all_objects if o.type == 'MESH']
 before = {o.name: (len(o.data.vertices), len(o.data.polygons), tuple(round(c, 4) for c in o.data.vertices[0].co)) for o in objs}
 M = Matrix.Rotation(math.radians(ROT), 4, 'Z') @ Matrix.Scale(S, 4) @ Matrix.Translation(-Vector(C))

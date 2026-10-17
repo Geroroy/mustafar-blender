@@ -64,7 +64,7 @@ yy, xx = np.mgrid[0:arr.shape[0], 0:arr.shape[1]]
 f = np.clip(np.minimum.reduce([xx, yy, arr.shape[1] - 1 - xx, arr.shape[0] - 1 - yy]) / 140.0, 0, 1)[..., None]; del yy, xx
 arr[..., :3] = arr[..., :3] * f + np.array(FILL) * (1 - f); del f
 gim = Image.fromarray(arr.astype(np.uint8), "RGBA"); del arr
-gim.convert("RGB").resize((int(round(W1 * HD_BG)), int(round(H1 * HD_BG))), Image.LANCZOS).save(os.path.join(OUT, "ground_hd.webp"), quality=86, method=4)
+gim.convert("RGB").resize((int(round(W1 * HD_BG)), int(round(H1 * HD_BG))), Image.LANCZOS).save(os.path.join(OUT, "ground_hd.webp"), quality=86, method=4)   # (a render at HD_BG already: a no-op resize)
 to_sd(gim).convert("RGB").save(os.path.join(OUT, "ground_sd.png"), optimize=True); del gim
 print("배경", W1, H1, flush=True)
 
@@ -150,7 +150,7 @@ for (pid, layer, Gc, im2, (c0x, c0y)), ih, is_, ph, ps in zip(pieces, hd_imgs, s
     sx, sy = (cx - cy) * SC.HALF_W, (cx + cy) * SC.HALF_H
     e = {"id": pid, "x": round(cx, 3), "y": round(cy, 3), "rect": [0.01, 0.01],
          "sd": {"p": ps[0], "sx": ps[1], "sy": ps[2], "w": is_.width, "h": is_.height, "ox": round(sx - c0x, 2), "oy": round(sy - c0y, 2)},
-         "hd": {"p": ph[0], "sx": ph[1], "sy": ph[2], "w": ih.width, "h": ih.height, "ox": round((sx - c0x) * 2, 2), "oy": round((sy - c0y) * 2, 2)}}
+         "hd": {"p": ph[0], "sx": ph[1], "sy": ph[2], "w": ih.width, "h": ih.height, "ox": round((sx - c0x) * DEN, 2), "oy": round((sy - c0y) * DEN, 2)}}
     if layer:
         e["layer"] = layer
     props.append(e)
@@ -165,7 +165,7 @@ data = {
     "note": "Movie Duels duel_mus_both 원본 형상·질감 그대로(MO_STAGE). 걸어서 닿는 곳 전체(문·방어막 열림). 좌표는 게임 타일(1 m). gx = OX − Y, gy = OY − X (Blender m)",
     "offset": CFG["game"],
     "backdrop": {"sd": "ground_sd.png", "hd": "ground_hd.webp", "x": SX0, "y": SY0, "w": W1, "h": H1, "fill": list(FILL)},
-    "sprites": {"sd": sd_files, "hd": hd_files},
+    "sprites": {"sd": sd_files, "hd": hd_files, "hd_density": DEN},
     "props": props,
     "collision": {"file": "collision.png", "cell": cell, "gx0": gx0, "gy0": gy0, "cols": col.width, "rows": col.height},
     "heights": {"file": "heights.png", "scale": 1000, "offset": 10, "note": "R·G = (바닥 높이 m + offset) × scale, B = 실내(255)"},
