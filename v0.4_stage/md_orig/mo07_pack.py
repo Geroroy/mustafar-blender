@@ -13,7 +13,7 @@ from PIL import Image
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, os.path.dirname(HERE))
 import stage_cam as SC  # noqa: E402
 
-CFG = json.load(open(os.path.join(HERE, "mo_stage_config.json"), encoding="utf-8"))
+CFG = json.load(open(os.path.join(HERE, os.environ.get("MO_CONFIG", "mo_stage_config.json")), encoding="utf-8"))   # MO_CONFIG: 생성 질감판 등 다른 설정(기본은 원본 그대로)
 OUT = os.path.normpath(os.path.join(HERE, "..", "out", CFG["out_dir"])); TMP = os.path.join(OUT, "_tmp")
 meta = json.load(open(os.path.join(TMP, "sprites_meta.json")))
 ids = sorted(meta)

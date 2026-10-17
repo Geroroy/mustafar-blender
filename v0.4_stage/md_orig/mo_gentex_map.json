@@ -1,0 +1,226 @@
+{
+ "_doc": "생성 대체 질감(MUSTAFAR_TEXTURES_GEN.zip, AI 생성 — 원본 Jedi Academy 질감 아님) 30개를 duel_mus_both 재질에 붙이는 연결표. 원본 MTL은 고치지 않는다. mo11_apply_gentex.py가 읽는다. 이미지 파일은 비공개 폴더 research/CR-001_4k_evidence/_private/md_orig_gentex/textures/(git 제외)",
+ "source_zip": "MUSTAFAR_TEXTURES_GEN.zip (README_APPLY.md · TEXTURES_GEN_NOTES.md · FILE_MANIFEST.json)",
+ "shading": "기존 연결 재질과 같은 방식: 이미지 → Base Color, 거칠기 1.0, 반사 0, 금속 0. UV·형상·타일 배율은 원본 그대로",
+ "emission": {
+  "_doc": "조명 5종: 이미지 밝기로 만든 마스크(밝은 광원부만)로 발광. 틀은 일반 재질",
+  "bw_lo": 0.55,
+  "bw_hi": 0.8,
+  "strength": 4.0
+ },
+ "glass": {
+  "_doc": "PNG 알파(90/255 = 35%)를 그대로 Alpha에 연결. 추가로 곱하지 않음"
+ },
+ "materials": [
+  {
+   "obj_material": "material_57",
+   "shader": "textures/musend2/terrain_0",
+   "file": "textures__musend2__terrain_0.jpg",
+   "priority": "A",
+   "kind": "albedo"
+  },
+  {
+   "obj_material": "material_40",
+   "shader": "textures/vjun/vader_floor2_mask",
+   "file": "textures__vjun__vader_floor2_mask.jpg",
+   "priority": "A",
+   "kind": "albedo"
+  },
+  {
+   "obj_material": "material_56",
+   "shader": "textures/musend2/terrain_1",
+   "file": "textures__musend2__terrain_1.jpg",
+   "priority": "A",
+   "kind": "albedo"
+  },
+  {
+   "obj_material": "material_34",
+   "shader": "textures/vjun/ceilingsupport",
+   "file": "textures__vjun__ceilingsupport.jpg",
+   "priority": "A",
+   "kind": "albedo"
+  },
+  {
+   "obj_material": "material_9",
+   "shader": "textures/vjun/basemetal4",
+   "file": "textures__vjun__basemetal4.jpg",
+   "priority": "A",
+   "kind": "albedo"
+  },
+  {
+   "obj_material": "material_5",
+   "shader": "textures/imperial/wall_6",
+   "file": "textures__imperial__wall_6.jpg",
+   "priority": "A",
+   "kind": "albedo"
+  },
+  {
+   "obj_material": "material_55",
+   "shader": "textures/musend2/terrain_0to1",
+   "file": "textures__musend2__terrain_0to1.jpg",
+   "priority": "A",
+   "kind": "albedo"
+  },
+  {
+   "obj_material": "material_3",
+   "shader": "textures/imp_mine/blastshield",
+   "file": "textures__imp_mine__blastshield.jpg",
+   "priority": "A",
+   "kind": "albedo"
+  },
+  {
+   "obj_material": "material_1",
+   "shader": "textures/vjun/basemetal1",
+   "file": "textures__vjun__basemetal1.jpg",
+   "priority": "B",
+   "kind": "albedo"
+  },
+  {
+   "obj_material": "material_24",
+   "shader": "textures/vjun/vader_trim2_mask",
+   "file": "textures__vjun__vader_trim2_mask.jpg",
+   "priority": "B",
+   "kind": "albedo"
+  },
+  {
+   "obj_material": "material_35",
+   "shader": "textures/vjun/basemetal5",
+   "file": "textures__vjun__basemetal5.jpg",
+   "priority": "B",
+   "kind": "albedo"
+  },
+  {
+   "obj_material": "material_68",
+   "shader": "textures/impdetention/light_white",
+   "file": "textures__impdetention__light_white.jpg",
+   "priority": "B",
+   "kind": "emissive"
+  },
+  {
+   "obj_material": "material_18",
+   "shader": "textures/cairn/newwall",
+   "file": "textures__cairn__newwall.jpg",
+   "priority": "B",
+   "kind": "albedo"
+  },
+  {
+   "obj_material": "material_70",
+   "shader": "textures/hoth/light_ceiling",
+   "file": "textures__hoth__light_ceiling.jpg",
+   "priority": "B",
+   "kind": "emissive"
+  },
+  {
+   "obj_material": "material_23",
+   "shader": "textures/vjun/floor3_mask",
+   "file": "textures__vjun__floor3_mask.jpg",
+   "priority": "B",
+   "kind": "albedo"
+  },
+  {
+   "obj_material": "material_25",
+   "shader": "textures/vjun/floor2",
+   "file": "textures__vjun__floor2.jpg",
+   "priority": "B",
+   "kind": "albedo"
+  },
+  {
+   "obj_material": "material_67",
+   "shader": "textures/impdetention/light_blue",
+   "file": "textures__impdetention__light_blue.jpg",
+   "priority": "B",
+   "kind": "emissive"
+  },
+  {
+   "obj_material": "material_8",
+   "shader": "textures/vjun/basemetal6",
+   "file": "textures__vjun__basemetal6.jpg",
+   "priority": "B",
+   "kind": "albedo"
+  },
+  {
+   "obj_material": "material_72",
+   "shader": "textures/common/glass",
+   "file": "textures__common__glass.png",
+   "priority": "B",
+   "kind": "glass"
+  },
+  {
+   "obj_material": "material_2",
+   "shader": "textures/imperial/crate_panels",
+   "file": "textures__imperial__crate_panels.jpg",
+   "priority": "C",
+   "kind": "albedo"
+  },
+  {
+   "obj_material": "material_14",
+   "shader": "textures/vjun/vader_floor3",
+   "file": "textures__vjun__vader_floor3.jpg",
+   "priority": "C",
+   "kind": "albedo"
+  },
+  {
+   "obj_material": "material_15",
+   "shader": "textures/vjun/walk_ceiling_mask",
+   "file": "textures__vjun__walk_ceiling_mask.jpg",
+   "priority": "C",
+   "kind": "albedo"
+  },
+  {
+   "obj_material": "material_19",
+   "shader": "textures/factory/pillerc",
+   "file": "textures__factory__pillerc.jpg",
+   "priority": "C",
+   "kind": "albedo"
+  },
+  {
+   "obj_material": "material_20",
+   "shader": "textures/imperial/beam_plain",
+   "file": "textures__imperial__beam_plain.jpg",
+   "priority": "C",
+   "kind": "albedo"
+  },
+  {
+   "obj_material": "material_48",
+   "shader": "textures/impdetention/vslot2a",
+   "file": "textures__impdetention__vslot2a.jpg",
+   "priority": "C",
+   "kind": "albedo"
+  },
+  {
+   "obj_material": "material_66",
+   "shader": "textures/vjun/vader_floor",
+   "file": "textures__vjun__vader_floor.jpg",
+   "priority": "C",
+   "kind": "albedo"
+  },
+  {
+   "obj_material": "material_69",
+   "shader": "textures/impdetention/mp_r_trimlight",
+   "file": "textures__impdetention__mp_r_trimlight.jpg",
+   "priority": "C",
+   "kind": "emissive"
+  },
+  {
+   "obj_material": "material_71",
+   "shader": "textures/factory/basefloor1",
+   "file": "textures__factory__basefloor1.jpg",
+   "priority": "C",
+   "kind": "albedo"
+  },
+  {
+   "obj_material": "material_74",
+   "shader": "textures/mp/s_ylight_blue",
+   "file": "textures__mp__s_ylight_blue.jpg",
+   "priority": "C",
+   "kind": "emissive"
+  },
+  {
+   "obj_material": "material_75",
+   "shader": "textures/vjun/door1",
+   "file": "textures__vjun__door1.jpg",
+   "priority": "C",
+   "kind": "albedo"
+  }
+ ]
+}

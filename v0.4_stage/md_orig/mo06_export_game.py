@@ -20,7 +20,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, os.path.di
 import stage_cam as SC  # noqa: E402
 from PIL import Image  # noqa: E402
 
-CFG = json.load(open(os.path.join(HERE, "mo_stage_config.json"), encoding="utf-8"))
+CFG = json.load(open(os.path.join(HERE, os.environ.get("MO_CONFIG", "mo_stage_config.json")), encoding="utf-8"))   # MO_CONFIG: 생성 질감판 등 다른 설정(기본은 원본 그대로)
 WALK = np.load(sys.argv[1], allow_pickle=True)
 SAMPLES = int(sys.argv[sys.argv.index("--samples") + 1]) if "--samples" in sys.argv else 32
 STAGE_BLEND = os.path.normpath(os.path.join(HERE, "..", CFG["stage_blend"]))
