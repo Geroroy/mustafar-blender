@@ -1,0 +1,749 @@
+{
+ "_doc": "ART01 재질·조명 기준(하나의 그래픽 기준). 색은 선형(linear) RGB 반사율. classes = 표면 분류별 값, materials = 원본 재질(material_N)마다 분류·근거. 근거 표기: [모드] = 추출 모델에서 직접 확인(셰이더 이름·위치·형상·UV), [영화] = 4K 프레임에서 직접 본 표면 성격, [판단] = 제작상 판단.",
+ "lighting": {
+  "_doc": "주광 방향은 게임 캐릭터 굽기 주광(baker.js DirectionalLight (-1.5,5,4.5))을 같은 화면 방향으로 옮긴 것: 화면 좌상단·카메라 쪽, 고도 약 46°. Blender 월드(MO_FIT 뒤)에서 빛을 향하는 단위벡터. 반구 앰비언트도 캐릭터(HemisphereLight 하늘 0xdfe4ef / 땅 0x3a2e24)와 같은 성격(위 차가운 회색·아래 따뜻한 갈색). key_color는 캐릭터 주광 0xffe6c8을 선형으로 바꾼 값.",
+  "key_dir_to_light": [
+   -0.653,
+   0.218,
+   0.725
+  ],
+  "key_color": [
+   1.0,
+   0.8,
+   0.6
+  ],
+  "key_strength": 3.8,
+  "key_angle_deg": 11.0,
+  "sky_color": [
+   0.3,
+   0.31,
+   0.34
+  ],
+  "ground_color": [
+   0.1,
+   0.045,
+   0.028
+  ],
+  "ambient_strength": 1.15,
+  "exposure": 0.0
+ },
+ "haze": {
+  "_doc": "카메라 광선에만 적용하는 깊이 연무(판 아래로 내려갈수록·판 중심에서 멀수록). 영화의 연기 낀 공기와 같은 효과로 용암·암벽·판 아래 구조가 뒤로 물러나 판 위가 먼저 읽힌다. 조명 계산에는 영향 없음.",
+  "color": [
+   0.06,
+   0.026,
+   0.016
+  ],
+  "z_top": -1.5,
+  "z_bottom": -34.0,
+  "max_depth": 0.55,
+  "center": [
+   0.0,
+   -12.0
+  ],
+  "r_near": 30.0,
+  "r_far": 70.0,
+  "max_far": 0.4,
+  "lava_min": 0.3
+ },
+ "classes": {
+  "floor_pad": {
+   "kind": "metal",
+   "base": [
+    0.08,
+    0.075,
+    0.069
+   ],
+   "var": 0.16,
+   "var_scale": 0.3,
+   "soot_patch": 0.3,
+   "patch_scale": 0.55,
+   "seam": 0.55,
+   "plate": 0.05,
+   "soot": 0.55,
+   "ao_dist": 0.8,
+   "wear": 0.0,
+   "ash": 0.3,
+   "ash_scale": 0.45,
+   "ash_col": [
+    0.16,
+    0.15,
+    0.14
+   ],
+   "metal": 0.25,
+   "rough": 0.62,
+   "_doc": "착륙장 판 윗면. 원본 floor_1_o의 판 배치를 가는 이음선으로만(판 톤 차이 ±5%). 어두운 다각형 무늬의 높은 대비는 버림."
+  },
+  "floor_bay": {
+   "kind": "metal",
+   "base": [
+    0.068,
+    0.064,
+    0.06
+   ],
+   "var": 0.1,
+   "var_scale": 0.22,
+   "soot_patch": 0.2,
+   "patch_scale": 0.55,
+   "seam": 0.5,
+   "plate": 0.04,
+   "soot": 0.6,
+   "wear": 0.0,
+   "ash": 0.25,
+   "metal": 0.25,
+   "rough": 0.62
+  },
+  "floor_plain": {
+   "kind": "metal",
+   "base": [
+    0.068,
+    0.064,
+    0.06
+   ],
+   "var": 0.1,
+   "var_scale": 0.22,
+   "soot_patch": 0.2,
+   "uv_panel": 0.25,
+   "soot": 0.6,
+   "wear": 0.0,
+   "ash": 0.25,
+   "metal": 0.25,
+   "rough": 0.62
+  },
+  "fac_wall": {
+   "kind": "metal",
+   "base": [
+    0.058,
+    0.058,
+    0.06
+   ],
+   "var": 0.12,
+   "var_scale": 0.18,
+   "soot_patch": 0.18,
+   "patch_scale": 0.7,
+   "uv_panel": 0.22,
+   "uv_panel_div": 2.0,
+   "soot": 0.7,
+   "streak": 0.35,
+   "wear": 0.7,
+   "wear_col": [
+    0.15,
+    0.145,
+    0.14
+   ],
+   "metal": 0.45,
+   "rough": 0.55,
+   "_doc": "시설 외벽·판 측면·받침·경사 지지부. 어두운 중성 회색 금속, 틈 그을음, 세로 그을음 자국은 약하게, 볼록 모서리 마모."
+  },
+  "fac_roof": {
+   "kind": "metal",
+   "base": [
+    0.066,
+    0.065,
+    0.064
+   ],
+   "var": 0.1,
+   "var_scale": 0.16,
+   "soot_patch": 0.15,
+   "uv_panel": 0.2,
+   "soot": 0.6,
+   "streak": 0.2,
+   "wear": 0.45,
+   "ash": 0.45,
+   "ash_scale": 0.35,
+   "ash_col": [
+    0.13,
+    0.125,
+    0.12
+   ],
+   "metal": 0.35,
+   "rough": 0.65
+  },
+  "curb": {
+   "kind": "metal",
+   "base": [
+    0.064,
+    0.063,
+    0.062
+   ],
+   "var": 0.1,
+   "var_scale": 0.25,
+   "uv_panel": 0.15,
+   "soot": 0.6,
+   "wear": 0.7,
+   "wear_col": [
+    0.17,
+    0.165,
+    0.16
+   ],
+   "metal": 0.45,
+   "rough": 0.5
+  },
+  "bay_detail": {
+   "kind": "metal",
+   "base": [
+    0.058,
+    0.057,
+    0.056
+   ],
+   "var": 0.1,
+   "var_scale": 0.3,
+   "seam": 0.4,
+   "soot": 0.7,
+   "streak": 0.2,
+   "wear": 0.5,
+   "metal": 0.45,
+   "rough": 0.55
+  },
+  "bay_detail_plain": {
+   "kind": "metal",
+   "base": [
+    0.058,
+    0.057,
+    0.056
+   ],
+   "var": 0.1,
+   "var_scale": 0.3,
+   "uv_panel": 0.18,
+   "soot": 0.7,
+   "streak": 0.2,
+   "wear": 0.5,
+   "metal": 0.45,
+   "rough": 0.55
+  },
+  "prop_metal": {
+   "kind": "metal",
+   "base": [
+    0.074,
+    0.067,
+    0.056
+   ],
+   "var": 0.1,
+   "var_scale": 0.5,
+   "soot": 0.6,
+   "ao_dist": 0.35,
+   "wear": 1.0,
+   "bevel_r": 0.04,
+   "wear_col": [
+    0.19,
+    0.175,
+    0.15
+   ],
+   "ash": 0.25,
+   "metal": 0.5,
+   "rough": 0.5,
+   "_doc": "상자·통·바닥 위 작은 판. 시설보다 약간 따뜻한 어두운 금속(영화 낮은 상자의 황동빛 기운은 아주 약하게)."
+  },
+  "ship_silver": {
+   "kind": "metal",
+   "base": [
+    0.29,
+    0.295,
+    0.31
+   ],
+   "var": 0.05,
+   "var_scale": 0.12,
+   "seam": 0.45,
+   "soot": 0.45,
+   "ao_dist": 0.8,
+   "wear": 0.0,
+   "low_soot": 0.35,
+   "low_soot_z": [
+    3.0,
+    5.5
+   ],
+   "metal": 0.3,
+   "rough": 0.58,
+   "_doc": "우주선 은색 선체. 원본 hull·wing·underside 그림의 패널선만 씀. [판단] 영화의 거울 같은 크롬 대신 무광에 가까운 은색: 평평한 면에 해가 비쳐 하얗게 타는 것을 막고 작은 화면에서 형태가 읽히게.",
+   "specular": 0.35
+  },
+  "ship_dark": {
+   "kind": "metal",
+   "base": [
+    0.06,
+    0.06,
+    0.065
+   ],
+   "var": 0.08,
+   "var_scale": 0.3,
+   "uv_panel": 0.15,
+   "soot": 0.6,
+   "wear": 0.4,
+   "metal": 0.6,
+   "rough": 0.45
+  },
+  "rock": {
+   "kind": "rock",
+   "base": [
+    0.028,
+    0.024,
+    0.022
+   ],
+   "var": 0.35,
+   "var_scale": 0.09,
+   "soot_patch": 0.0,
+   "soot": 0.6,
+   "ao_dist": 2.0,
+   "wear": 0.0,
+   "ash": 0.7,
+   "ash_scale": 0.18,
+   "ash_col": [
+    0.11,
+    0.1,
+    0.092
+   ],
+   "metal": 0.0,
+   "rough": 0.92,
+   "_doc": "현무암 암벽. 질감 없는 원본 재질(musend2/terrain_*): 위치·형상(판 둘레 용암 위로 솟은 큰 삼각 면)으로 용도 확인. 발광 균열은 넣지 않음."
+  },
+  "cloth": {
+   "kind": "cloth",
+   "base": [
+    0.04,
+    0.032,
+    0.028
+   ],
+   "var": 0.05,
+   "var_scale": 0.5,
+   "soot": 0.3,
+   "wear": 0.0,
+   "metal": 0.0,
+   "rough": 0.9
+  },
+  "glass": {
+   "kind": "metal",
+   "base": [
+    0.02,
+    0.022,
+    0.025
+   ],
+   "var": 0.0,
+   "var_scale": 0.5,
+   "soot": 0.3,
+   "wear": 0.0,
+   "metal": 0.2,
+   "rough": 0.15
+  },
+  "lamp_white": {
+   "kind": "lamp",
+   "color": [
+    1.0,
+    0.92,
+    0.82
+   ],
+   "strength": 0.38,
+   "use_texture": false
+  },
+  "lamp_blue": {
+   "kind": "lamp",
+   "color": [
+    0.75,
+    0.86,
+    1.0
+   ],
+   "strength": 0.5,
+   "use_texture": false
+  },
+  "lamp_tex": {
+   "kind": "lamp",
+   "strength": 1.2,
+   "use_texture": true
+  },
+  "lava": {
+   "kind": "lava",
+   "crust": [
+    0.025,
+    0.012,
+    0.008
+   ],
+   "noise_scale": 0.08,
+   "hot_lo": 0.45,
+   "hot_hi": 0.92,
+   "emit_cool": [
+    0.45,
+    0.045,
+    0.01
+   ],
+   "emit_hot": [
+    1.0,
+    0.28,
+    0.045
+   ],
+   "strength_lo": 0.2,
+   "strength_hi": 2.2,
+   "_doc": "원본 lava 그림의 흐름(밝기 분포, 원본 UV)과 큰 잡음으로 발광 분포를 정하고, 굳은 껍질 판 사이 가는 균열(보로노이 경계, 칸 약 5~6 m, 잡음으로 비틀어 불규칙하게)을 원본 밝기에 비례해 더한다. 노란 고휘도·검은 반점의 큰 대비를 줄이고 연무를 겹친다.",
+   "crack_scale": 0.18,
+   "crack_w": 0.06,
+   "crack_min": 0.0,
+   "crack_amt": 0.6,
+   "crack_from": 0.3,
+   "crack_warp": 6.0
+  }
+ },
+ "materials": {
+  "material_0": {
+   "class": "ship_silver",
+   "mask": "hull",
+   "note": "[모드] asjc_starship/hull, 우주선 윗면"
+  },
+  "material_1": {
+   "class": "fac_wall",
+   "note": "[모드] vjun/basemetal1 질감 없음. 베이 경사 지지부 2개·주변 → 시설 금속"
+  },
+  "material_2": {
+   "class": "prop_metal",
+   "note": "[모드] imperial/crate_panels 질감 없음. 게임 화면 밖(먼 아래층) → 상자 금속(화면 영향 없음)"
+  },
+  "material_3": {
+   "class": "curb",
+   "note": "[모드] imp_mine/blastshield 질감 없음. 옆 통로 쪽 낮은 연석 띠와 측면 → 연석"
+  },
+  "material_4": {
+   "class": "lamp_tex",
+   "note": "[모드] screen_readout3, 화면 밖 실내"
+  },
+  "material_5": {
+   "class": "fac_roof",
+   "note": "[모드] imperial/wall_6 질감 없음. 시설 지붕 경사면 → 지붕 금속"
+  },
+  "material_6": {
+   "class": "ship_silver",
+   "mask": "silver_wing",
+   "note": "[모드] asjc_starship/silver_wing, 날개·꼬리"
+  },
+  "material_7": {
+   "class": "ship_silver",
+   "mask": "silver_hull_underside",
+   "note": "[모드] silver_hull_underside, 선체 아래"
+  },
+  "material_8": {
+   "class": "ship_dark",
+   "note": "[모드] vjun/basemetal6 질감 없음. 우주선 안쪽(카메라에 안 보임) → 어두운 우주선 금속"
+  },
+  "material_9": {
+   "class": "fac_wall",
+   "note": "[모드] vjun/basemetal4 질감 없음. 시설 정면 벽·판 가장자리 톱니·받침 → 시설 금속"
+  },
+  "material_10": {
+   "class": "prop_metal",
+   "note": "[모드] plasma_mustafar/chair, 화면 밖 실내"
+  },
+  "material_11": {
+   "class": "prop_metal",
+   "note": "[모드] frame_4, 육각 상자 옆 작은 장치"
+  },
+  "material_12": {
+   "class": "prop_metal",
+   "note": "[모드] frame_2, 상자 안쪽(안 보임)"
+  },
+  "material_13": {
+   "class": "fac_wall",
+   "note": "[모드] basic_silver, 화면 밖 아래층"
+  },
+  "material_14": {
+   "class": "floor_plain",
+   "note": "[모드] vjun/vader_floor3 질감 없음, 실내(안 보임)"
+  },
+  "material_15": {
+   "class": "fac_wall",
+   "note": "[모드] vjun/walk_ceiling_mask 질감 없음, 실내(안 보임)"
+  },
+  "material_16": {
+   "class": "fac_wall",
+   "note": "[모드] door_frame, 화면 밖"
+  },
+  "material_17": {
+   "class": "fac_wall",
+   "note": "[모드] base_interior, 실내(안 보임)"
+  },
+  "material_18": {
+   "class": "fac_wall",
+   "note": "[모드] cairn/newwall 질감 없음, 시설 뒤·아래(거의 안 보임)"
+  },
+  "material_19": {
+   "class": "fac_wall",
+   "note": "[모드] factory/pillerc 질감 없음, 화면 밖 기둥"
+  },
+  "material_20": {
+   "class": "fac_wall",
+   "note": "[모드] imperial/beam_plain 질감 없음, 화면 밖 보"
+  },
+  "material_21": {
+   "class": "floor_plain",
+   "note": "[모드] asjc_mustafar/walkway, 화면 밖 보행로"
+  },
+  "material_22": {
+   "class": "lamp_tex",
+   "note": "[모드] mus/s_light_vjuny, 실내 조명(안 보임)"
+  },
+  "material_23": {
+   "class": "floor_plain",
+   "note": "[모드] vjun/floor3_mask 질감 없음, 실내"
+  },
+  "material_24": {
+   "class": "fac_wall",
+   "note": "[모드] vjun/vader_trim2_mask 질감 없음. 시설 옆 박공벽 → 시설 금속"
+  },
+  "material_25": {
+   "class": "floor_plain",
+   "note": "[모드] vjun/floor2 질감 없음, 통로 안쪽 일부"
+  },
+  "material_26": {
+   "class": "ship_dark",
+   "note": "[모드] starship/hold_door1, 우주선 안"
+  },
+  "material_27": {
+   "class": "ship_dark",
+   "note": "[모드] starship/wire_blue, 우주선 안"
+  },
+  "material_28": {
+   "class": "lamp_tex",
+   "note": "[모드] starship/light_panel, 우주선 안"
+  },
+  "material_29": {
+   "class": "ship_dark",
+   "note": "[모드] starship/wall2, 우주선 안"
+  },
+  "material_30": {
+   "class": "ship_dark",
+   "note": "[모드] starship/wire_red, 우주선 안"
+  },
+  "material_31": {
+   "class": "ship_dark",
+   "note": "[모드] starship/wall_panel, 우주선 안"
+  },
+  "material_32": {
+   "class": "lamp_tex",
+   "note": "[모드] starship/wall_light, 우주선 안"
+  },
+  "material_33": {
+   "class": "bay_detail",
+   "mask": "mustafar_door",
+   "note": "[모드] asjc_mustafar/mustafar_door, 시설 옆문"
+  },
+  "material_34": {
+   "class": "fac_wall",
+   "note": "[모드] vjun/ceilingsupport 질감 없음. 판 앞·옆 측면 띠, 베이 앞 턱 → 시설 금속"
+  },
+  "material_35": {
+   "class": "ship_dark",
+   "note": "[모드] vjun/basemetal5 질감 없음. 우주선 아래 기계부(착륙 다리 근처) → 어두운 우주선 금속"
+  },
+  "material_36": {
+   "class": "ship_silver",
+   "mask": "ramp2",
+   "note": "[모드] starship/ramp2, 승강 경사"
+  },
+  "material_37": {
+   "class": "ship_dark",
+   "note": "[모드] plasma_mustafar/trim_4, 승강 경사 테두리"
+  },
+  "material_38": {
+   "class": "prop_metal",
+   "note": "[모드] plasma_mustafar/pipe_1, 상자 몸체. 원본 그림(솔질·나뭇결 모양)은 쓰지 않음"
+  },
+  "material_39": {
+   "class": "prop_metal",
+   "note": "[모드] plasma_mustafar/trim_2, 통·상자 테두리. 원본 그림 안 씀"
+  },
+  "material_40": {
+   "class": "fac_wall",
+   "note": "[모드] vjun/vader_floor2_mask 질감 없음. 판 아래 받침 탑 벽 → 시설 금속(연무로 뒤로)"
+  },
+  "material_41": {
+   "class": "floor_bay",
+   "mask": "floor_3_o",
+   "note": "[모드] plasma_mustafar/floor_3_o, 베이 바닥·옆 통로 아래층 바닥"
+  },
+  "material_42": {
+   "class": "floor_plain",
+   "note": "[모드] control_floor_1, 화면 밖"
+  },
+  "material_43": {
+   "class": "prop_metal",
+   "note": "[모드] plasma_mustafar/basic, 통 뚜껑·바닥 위 낮은 삼각 판"
+  },
+  "material_44": {
+   "class": "prop_metal",
+   "note": "[모드] trim_5, 실내"
+  },
+  "material_45": {
+   "class": "bay_detail_plain",
+   "note": "[모드] asjc_mustafar/basic_metal, 베이 안 세로 판·구조. 원본 그림은 거의 무늬 없음 → 패널 격자만"
+  },
+  "material_46": {
+   "class": "floor_pad",
+   "mask": "floor_1_o",
+   "note": "[모드] plasma_mustafar/floor_1_o, 착륙장 판 윗면·옆 통로 바닥"
+  },
+  "material_47": {
+   "class": "bay_detail",
+   "mask": "control_floor_2",
+   "note": "[모드] asjc_mustafar/control_floor_2, 베이 안 바닥·장비 면"
+  },
+  "material_48": {
+   "class": "fac_wall",
+   "note": "[모드] impdetention/vslot2a 질감 없음, 실내"
+  },
+  "material_49": {
+   "class": "floor_plain",
+   "note": "[모드] floor_4, 실내"
+  },
+  "material_50": {
+   "class": "prop_metal",
+   "note": "[모드] basic_black, 실내"
+  },
+  "material_51": {
+   "class": "prop_metal",
+   "note": "[모드] trim_2_black, 실내"
+  },
+  "material_52": {
+   "class": "lamp_tex",
+   "note": "[모드] holo_table, 실내"
+  },
+  "material_53": {
+   "class": "lamp_tex",
+   "note": "[모드] screen_readout4, 실내"
+  },
+  "material_54": {
+   "class": "lamp_tex",
+   "note": "[모드] screen_readout2, 실내"
+  },
+  "material_55": {
+   "class": "rock",
+   "note": "[모드] musend2/terrain_0to1 질감 없음. 암벽 전이부"
+  },
+  "material_56": {
+   "class": "rock",
+   "note": "[모드] musend2/terrain_1 질감 없음. 아래쪽 암벽"
+  },
+  "material_57": {
+   "class": "rock",
+   "note": "[모드] musend2/terrain_0 질감 없음. 판 둘레 큰 암벽"
+  },
+  "material_58": {
+   "class": "prop_metal",
+   "note": "[모드] table_black, 실내"
+  },
+  "material_59": {
+   "class": "prop_metal",
+   "note": "[모드] basic_2, 실내"
+  },
+  "material_60": {
+   "class": "lamp_tex",
+   "note": "[모드] plasma_mustafar/light_6(밝은 판 등 그림), 옆 통로 아래층 벽 조명"
+  },
+  "material_61": {
+   "class": "lamp_tex",
+   "note": "[모드] light_4, 화면 밖"
+  },
+  "material_62": {
+   "class": "lamp_tex",
+   "note": "[모드] light_2(청색 타원 등 그림), 판 가장자리 작은 장치"
+  },
+  "material_63": {
+   "class": "lamp_tex",
+   "note": "[모드] light_1, 실내"
+  },
+  "material_64": {
+   "class": "lava",
+   "note": "[모드] plasma_mustafar/lava2, 용암 면(z −39.8)"
+  },
+  "material_65": {
+   "class": "prop_metal",
+   "note": "[모드] plasma_Mustafar/floorgrate, 열린 상자 안 격자(덮개 밑)"
+  },
+  "material_66": {
+   "class": "floor_plain",
+   "note": "[모드] vjun/vader_floor 질감 없음, 실내"
+  },
+  "material_67": {
+   "class": "lamp_blue",
+   "note": "[모드] impdetention/light_blue 질감 없음. 지붕 처마의 작은 기구 면 → 원본 조명 기구(셰이더 이름이 조명). [영화] 처마 조명 있음(11235·11615·11726). 색은 [판단]"
+  },
+  "material_68": {
+   "class": "lamp_white",
+   "note": "[모드] impdetention/light_white 질감 없음. 연석 띠 사이 작은 면 → 원본 조명. [영화] 판 가장자리 낮은 등(11615). 세기는 [판단]"
+  },
+  "material_69": {
+   "class": "lamp_white",
+   "note": "[모드] mp_r_trimlight 질감 없음, 실내"
+  },
+  "material_70": {
+   "class": "lamp_white",
+   "note": "[모드] hoth/light_ceiling 질감 없음, 실내 천장(안 보임)"
+  },
+  "material_71": {
+   "class": "floor_plain",
+   "note": "[모드] factory/basefloor1 질감 없음, 실내"
+  },
+  "material_72": {
+   "class": "glass",
+   "note": "[모드] common/glass 질감 없음, 화면 밖 창"
+  },
+  "material_73": {
+   "class": "fac_wall",
+   "note": "[모드] heat_shield, 먼 배경 탑(연무로 뒤로)"
+  },
+  "material_74": {
+   "class": "lamp_blue",
+   "note": "[모드] mp/s_ylight_blue 질감 없음, 화면 밖"
+  },
+  "material_75": {
+   "class": "fac_wall",
+   "note": "[모드] vjun/door1 질감 없음, 실내 문"
+  },
+  "material_76": {
+   "class": "fac_wall",
+   "note": "[모드] md_mus/arm_back1_grunge, 먼 배경 팔 구조"
+  },
+  "material_77": {
+   "class": "fac_wall",
+   "note": "[모드] md_mus/base2, 먼 배경 탑"
+  },
+  "material_78": {
+   "class": "fac_wall",
+   "note": "[모드] base2_subilte, 먼 배경"
+  },
+  "material_79": {
+   "class": "fac_wall",
+   "note": "[모드] base2_l_kanter, 먼 배경"
+  },
+  "material_80": {
+   "class": "fac_wall",
+   "note": "[모드] base2_kanter, 먼 배경 탑"
+  },
+  "material_81": {
+   "class": "fac_wall",
+   "note": "[모드] base5, 먼 배경"
+  },
+  "material_82": {
+   "class": "fac_wall",
+   "note": "[모드] base4, 먼 배경 탑"
+  },
+  "material_83": {
+   "class": "lamp_tex",
+   "note": "[모드] arm_lamp1, 먼 배경(안 보임)"
+  },
+  "material_84": {
+   "class": "fac_wall",
+   "note": "[모드] door_small2, 실내"
+  },
+  "material_85": {
+   "class": "cloth",
+   "note": "[모드] mussp/robe2, 바닥에 붙은 납작한 면(z 0.05) — 옷감 그림. 용도(쓰러진 인물 자리 등)는 UNKNOWN, 원본 그림 반 섞음"
+  },
+  "material_86": {
+   "class": "cloth",
+   "note": "[모드] mussp/robe1, 위와 같음"
+  },
+  "material_87": {
+   "class": "lamp_tex",
+   "note": "[모드] screen_6, 실내"
+  },
+  "material_88": {
+   "class": "lamp_tex",
+   "note": "[모드] screen_6_b, 실내"
+  }
+ }
+}
