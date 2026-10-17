@@ -73,10 +73,13 @@ def pack(images, maxw):
 hd_imgs, sd_imgs, keep = [], [], []
 for i in ids:
     im2 = Image.open(os.path.join(TMP, f"spr_{i}_2x.png")).convert("RGBA")
-    if im2.getbbox() is None or np.asarray(im2)[..., 3].max() == 0:
+    bb = im2.split()[3].getbbox()
+    if bb is None:
         print("빈 조각 건너뜀", i); continue
+    x0, y0, x1, y1 = bb[0] // 2 * 2, bb[1] // 2 * 2, -(-bb[2] // 2) * 2, -(-bb[3] // 2) * 2      # 투명 여백을 잘라 낸다(짝수 픽셀 경계 — 1배 축소와 맞춤)
+    im2 = im2.crop((x0, y0, x1, y1)); c0x, c0y, cw, chh = meta[i]["crop"]; meta[i]["crop"] = (c0x + x0 / 2, c0y + y0 / 2, (x1 - x0) // 2, (y1 - y0) // 2)
     keep.append(i); hd_imgs.append(to_hd(im2)); sd_imgs.append(to_sd(im2))
-atl_hd, pos_hd = pack(hd_imgs, 4096); atl_sd, pos_sd = pack(sd_imgs, 2048)
+atl_hd, pos_hd = pack(hd_imgs, 8192); atl_sd, pos_sd = pack(sd_imgs, 4096)
 atl_hd.save(os.path.join(OUT, "sprites_hd.png"), optimize=True); atl_sd.save(os.path.join(OUT, "sprites_sd.png"), optimize=True)
 
 props = []
