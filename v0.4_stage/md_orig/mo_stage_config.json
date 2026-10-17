@@ -31,6 +31,6 @@
   "opponent_start_world": [-3.0, -12.0],
   "trigger_world": {"center": [2.0, -9.0], "radius": 4.0}
  },
- "ambient": [236, 206, 188],
+ "ambient": [240, 236, 232],
  "lava_z": -39.8
 }

@@ -82,7 +82,7 @@ const W = (gx, gy) => [95.5 - gy, 96 - gx];        // 게임 → Blender (X, Y)
   note('spawn walkable', await walk());
   await page.screenshot({ path: path.join(OUT, '01_start.png') });
   await page.evaluate(() => window.__game.stage.lockExit(true));
-  const outside = (b) => (x, y) => !(x > b[0] && x < b[1] && y > b[2] && y < b[3]);
+  const outside = (b) => (x, y) => Math.hypot(x - (b[0] + b[1]) / 2, y - (b[2] + b[3]) / 2) >= 0.4 * Math.min(b[1] - b[0], b[3] - b[2]);      // 둥근 소품은 상자 모서리가 비어 있음 → 중심에서 짧은 변의 0.4배 밖
   // 1) 판 위 소품(상자·통·우주선 승강 경사) 안으로 클릭 → 밖에 머물러야 함 (원본 형상 막힘)
   const OB = { barrels: [-7.75, -4.0, -3.12, -0.25], crateW: [-9.0, -6.62, -16.75, -14.0], crateE: [10.62, 13.25, -9.62, -6.88], crateS: [5.62, 8.88, -19.62, -15.38], shipRamp: [-2.0, 0.88, -17.75, -14.75] };
   await go('click into barrels', -5.9, -1.7, '02_barrels.png', outside(OB.barrels), [-9.5, 0.5]);
