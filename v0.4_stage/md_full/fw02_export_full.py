@@ -92,6 +92,7 @@ walk_w &= ~blocked_thin
 floorz = np.where(walk_w, floorz, np.nan)
 print("가는 구조로 막힌 칸", int(blocked_thin.sum()), "→ 걷는 칸", int(walk_w.sum()), flush=True)
 IC = CFG["interior"]
+mo = None
 if IC.get("mode", "mo_mask") == "ceiling":
     # 실내 = 걷는 칸 중 머리 위 천장이 ceiling_m 안에 있는 칸 (duel_mustafar: 방·복도 전체. 걷는 층의 머리 위 여유 HR)
     lvl = np.argmax(np.where(band, Z, -np.inf), axis=2)
@@ -120,9 +121,44 @@ def spread(val, ok, steps):
     return v, have
 
 
+if not IC.get("cut_levels"):
+    # 실내 바닥 높이들을 자료에서: 0.1 m로 반올림해 200칸 넘게 나오는 높이, 0.3 m 안은 하나로
+    vals, cnt = np.unique(np.round(floorz[interior], 1), return_counts=True)
+    lv = []
+    for v, c_ in zip(vals, cnt):
+        if c_ > 200 and not (lv and abs(v - lv[-1]) < 0.3):
+            lv.append(float(v))
+    IC["cut_levels"] = lv
+    print("실내 층(자료에서)", lv, flush=True)
+
+# 실내 공간 = 실내 층 높이(cut_levels − 1 m ~ + 0.6 m)의 바닥 면이 있고 머리 위 space_ceiling_m 안에 천장이 있는 칸 — 걸어 닿지
+# 않아도(콘솔·난간 안쪽·구덩이·벽 밑동·가는 구조로 막힌 칸) 포함, 판 층(MO 마스크) 칸은 뺀다. 지붕 판정은 실내 칸과 이 공간을 함께 본다:
+# 걷는 실내 칸만 보면 그 둘레의 천장·윗벽이 지붕이 아닌 가림 띠로 나와, 실내에 들어가도 숨지 않고 화면에서 걷는 이를 덮었다
+# (duel_mus_both 중앙 홀 (52,92)·(42,92), 회의실 입구 (35.5,100)·(35.5,105) — 2026-10-22 사용자 보고).
+CL = IC["cut_levels"]
+sp_lo, sp_hi = min(CL) - 1.0, max(CL) + 0.6
+Zb = np.where((Z >= lo) & (Z < hi) & (Z >= sp_lo) & (Z <= sp_hi) & (WALK["HR"] < IC.get("space_ceiling_m", 12.0)), Z, -np.inf)
+space_f = Zb.max(2)
+space = np.isfinite(space_f)
+if mo is not None:
+    space &= ~mo
+space |= interior
+# 걷는 실내에 이어진 부분만(4방향 채우기): 중앙 홀 벽과 바깥 껍데기 사이(껍데기 지붕 아래)는 남고, 판 위 상자 밑처럼 떨어진 조각은 빠진다
+conn = interior.copy()
+while True:
+    grow = conn.copy()
+    grow[1:] |= conn[:-1]; grow[:-1] |= conn[1:]; grow[:, 1:] |= conn[:, :-1]; grow[:, :-1] |= conn[:, 1:]
+    grow &= space
+    if grow.sum() == conn.sum():
+        break
+    conn = grow
+space = conn
+space_f = np.where(interior, floorz, np.where(space, space_f, np.nan))
+print("실내 공간 칸(걷는 실내 + 닿지 않는 실내 바닥)", int(space.sum()), "그중 걷는 실내", int(interior.sum()), flush=True)
+
 near_f, near_ok = spread(floorz, walk_w, int(round(CFG["props"]["dilate_m"] / cell)))
-int_f, int_ok = spread(floorz, interior, int(round(CFG["interior"]["near_m"] / cell)))
-int_ok_wide = spread(floorz, interior, int(round(1.0 / cell)))[1]
+int_f, int_ok = spread(space_f, space, int(round(CFG["interior"]["near_m"] / cell)))
+int_ok_wide = spread(space_f, space, int(round(1.0 / cell)))[1]
 fill_f, fill_ok = spread(floorz, walk_w, int(round(4.0 / cell)))
 
 # ---------------------------------------------------------------- 게임 격자(충돌·높이)
@@ -152,15 +188,6 @@ np.savez_compressed(os.path.join(TMP, "walk_full.npz"), walk=walk_w, floorz=floo
 
 # ---------------------------------------------------------------- 렌더용 사본: 실내 높이에서 수평 자르기 + 분류
 P = CFG["props"]; cut = IC["cut_m"]
-if not IC.get("cut_levels"):
-    # 실내 바닥 높이들을 자료에서: 0.1 m로 반올림해 200칸 넘게 나오는 높이, 0.3 m 안은 하나로
-    vals, cnt = np.unique(np.round(floorz[interior], 1), return_counts=True)
-    lv = []
-    for v, c_ in zip(vals, cnt):
-        if c_ > 200 and not (lv and abs(v - lv[-1]) < 0.3):
-            lv.append(float(v))
-    IC["cut_levels"] = lv
-    print("실내 층(자료에서)", lv, flush=True)
 cells = lambda c: (int(math.floor((c.x - X0w) / cell)), int(math.floor((c.y - Y0w) / cell)))
 def over_interior(f):
     """면 안을 0.5 m 이하 간격으로 표본 → 어느 표본이 실내 칸(0.5 m 안) 위, 그 바닥 + cut 위에 있으면 지붕.
